@@ -1,0 +1,21 @@
+div#navigation ul.sf-menu li a:hover { color: #6f6559 !important; }
+div#featuredimage { display: inline; }
+#homesidebar ul li#homesidebarcalendar ul li ul li { float: left; }
+#featuredimage div.featim { display: inline; }
+#featuredimage img#arrow { display: none; }
+#dontmiss ul li ul li a { width: 195px; }
+#homesidebar ul li#citemagazinepanel a#ocorgtag { margin-top: -9px; }
+.pepadding, .module { display: inline; }
+#navigation .sf-menu li ul li { background: none; margin-top: -1px !important; }
+#navigation .sf-menu li ul { margin: -1px 0 0 0;  }
+#navigation .sf-menu li ul li.firstitem a, #navigation .sf-menu li ul li.page-item-47 a, #navigation .sf-menu li ul li.page-item-11 a, #navigation .sf-menu li ul li.page-item-106 a, #navigation .sf-menu li ul li.page-item-112 a, #navigation .sf-menu li ul li.page-item-116 a { border-top: 7px solid #dfdcb9 !important; }
+
+#sidebarlp ul li h2 { width: 203px; text-align: left; }
+
+#homesidebar ul li#homesidebarcalendar ul { margin-top: -7px;  }
+#sidebarrp ul li#sidebarcalendar ul li ul li { margin-top: -15px;}
+#sidebarlp ul li ul li { margin-top: -13px; }
+#contentc ul.ec3_events li { margin-top: -15px; }
+#content h1#bloglogo a { position: relative; }
+#content div.entry { display: block; position: relative;  }
+.ngg-gallery-thumbnail img { margin-right: -6px !important;}

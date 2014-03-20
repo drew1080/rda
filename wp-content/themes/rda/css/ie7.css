@@ -1,0 +1,6 @@
+#navigation .sf-menu li ul li { background: none; margin-top: -1px !important; }
+#navigation .sf-menu li ul { margin: -1px 0 0 0;  }
+#navigation .sf-menu li ul li.firstitem a, #navigation .sf-menu li ul li.page-item-47 a, #navigation .sf-menu li ul li.page-item-11 a, #navigation .sf-menu li ul li.page-item-106 a, #navigation .sf-menu li ul li.page-item-112 a, #navigation .sf-menu li ul li.page-item-116 a { border-top: 7px solid #dfdcb9 !important; }
+
+#sidebarlp ul li ul { background: none; margin: 0; padding: 20px 0 0 0; }
+#homesidebar ul li#homesidebarcalendar ul { margin-top: -15px;  }

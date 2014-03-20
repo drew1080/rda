@@ -1,0 +1,1274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>henryranch.net</title>
+	<atom:link href="http://henryranch.net/feed/" rel="self" type="application/rss+xml" />
+	<link>http://henryranch.net</link>
+	<description>The Rural Software Engineers place for tutorials, reviews and software</description>
+	<lastBuildDate>Fri, 05 Oct 2012 15:03:11 +0000</lastBuildDate>
+	<language>en</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+			<item>
+		<title>New tutorial to enable Wireless on HPDV5000 with Ubuntu 12.04</title>
+		<link>http://henryranch.net/2012/new-tutorial-to-enable-wireless-on-hpdv5000-with-ubuntu-12-04/</link>
+		<comments>http://henryranch.net/2012/new-tutorial-to-enable-wireless-on-hpdv5000-with-ubuntu-12-04/#comments</comments>
+		<pubDate>Fri, 05 Oct 2012 15:03:11 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=2051</guid>
+		<description><![CDATA[I recently installed Ubuntu Linux 12.04 on my HPDV5000 laptop and ran into a snag when the OS would not recognize the wireless card.  But, thanks to some research and a bit of patience, I got it running.  Check out &#8230; <a class="more-link" href="http://henryranch.net/2012/new-tutorial-to-enable-wireless-on-hpdv5000-with-ubuntu-12-04/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>I recently installed Ubuntu Linux 12.04 on my HPDV5000 laptop and ran into a snag when the OS would not recognize the wireless card.  But, thanks to some research and a bit of patience, I got it running.  Check out the simple tutorial here: <a title="HPDV5000 Ubuntu 12.04 Wireless problem soved!" href="http://henryranch.net/tutorials/hp-dv5000-and-ubuntu-12-04-wireless-card-issues-solved/">http://henryranch.net/tutorials/hp-dv5000-and-ubuntu-12-04-wireless-card-issues-solved/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2012/new-tutorial-to-enable-wireless-on-hpdv5000-with-ubuntu-12-04/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>New review of 3 instant Yerba Mate brands!</title>
+		<link>http://henryranch.net/2012/new-review-of-3-instant-yerba-mate-brands/</link>
+		<comments>http://henryranch.net/2012/new-review-of-3-instant-yerba-mate-brands/#comments</comments>
+		<pubDate>Fri, 07 Sep 2012 13:56:45 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=2045</guid>
+		<description><![CDATA[We have just posted a new review of 3 brands of Instant Yerba Mate!  If you have only done the brewed Mate and never tried the instant mixes, then you are in for a treat.  Instant Mate is great for &#8230; <a class="more-link" href="http://henryranch.net/2012/new-review-of-3-instant-yerba-mate-brands/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>We have just posted a new review of 3 brands of Instant Yerba Mate!  If you have only done the brewed Mate and never tried the instant mixes, then you are in for a treat.  Instant Mate is great for backpacking trips, sporting events or an emergency kit!  Take a look at the new reviews here: <a href="http://henryranch.net/reviews/yerba-mate-reviews/">http://henryranch.net/reviews/yerba-mate-reviews/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2012/new-review-of-3-instant-yerba-mate-brands/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>New review of Elegante Organic Yerba Mate</title>
+		<link>http://henryranch.net/2012/new-review-of-elegante-organic-yerba-mate/</link>
+		<comments>http://henryranch.net/2012/new-review-of-elegante-organic-yerba-mate/#comments</comments>
+		<pubDate>Mon, 23 Jul 2012 04:27:20 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=2032</guid>
+		<description><![CDATA[We have added the brand new Elegante Organic Yerba Mate blend to our famous review page.  Our popular Yerba Mate review page gives the info you need to enjoy the Yerba Mate you love and find new blends to get &#8230; <a class="more-link" href="http://henryranch.net/2012/new-review-of-elegante-organic-yerba-mate/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>We have added the brand new Elegante Organic Yerba Mate blend to our famous review page.  Our popular Yerba Mate review page gives the info you need to enjoy the Yerba Mate you love and find new blends to get acquainted with!  Visit our review here: <a title="The most popular Yerba Mate review page on the web!" href="http://henryranch.net/reviews/yerba-mate-reviews/">http://henryranch.net/reviews/yerba-mate-reviews/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2012/new-review-of-elegante-organic-yerba-mate/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Syndicate Press version 1.0.17 now available!</title>
+		<link>http://henryranch.net/2012/syndicate-press-version-1-0-17-now-available/</link>
+		<comments>http://henryranch.net/2012/syndicate-press-version-1-0-17-now-available/#comments</comments>
+		<pubDate>Mon, 23 Jul 2012 03:40:32 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=2026</guid>
+		<description><![CDATA[Syndicate Press version 1.0.17 is now available for download or update in your WordPress blog!  This version contains a new SEO related feature that allows you to set the news feed article links to nofollow and will help protect the &#8230; <a class="more-link" href="http://henryranch.net/2012/syndicate-press-version-1-0-17-now-available/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>Syndicate Press version 1.0.17 is now available for download or update in your WordPress blog!  This version contains a new SEO related feature that allows you to set the news feed article links to nofollow and will help protect the page-rank of your site.  Syndicate Press, the best feed aggregation <a id="KonaLink0" href="http://henryranch.net/#"><span style="color: #0000ff;">plugin</span></a> for WordPress.  Join  more than 13,000 Syndicate Press users around the  world by installing  Syndicate Press today.  See the Syndicate Press  home page here: <a title="Syndicate Press, the best feed aggregation plugin for WordPress. " rel="nofollow" href="http://henryranch.net/software/syndicate-press/">http://henryranch.net/software/syndicate-press/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2012/syndicate-press-version-1-0-17-now-available/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Updated review of the Dynam DC-6 LiPo/NiMH Balance Charger</title>
+		<link>http://henryranch.net/2012/updated-review-of-the-dynam-dc-6-liponimh-balance-charger/</link>
+		<comments>http://henryranch.net/2012/updated-review-of-the-dynam-dc-6-liponimh-balance-charger/#comments</comments>
+		<pubDate>Mon, 02 Jul 2012 04:25:03 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=2014</guid>
+		<description><![CDATA[Check out the updated review of the Dynam DC-6 balance charger.  I recently started using the charger for my R/C helicopter.  See the full review here: http://henryranch.net/reviews/lipo-battery-charger-review/.]]></description>
+			<content:encoded><![CDATA[<p>Check out the updated review of the Dynam DC-6 balance charger.  I recently started using the charger for my R/C helicopter.  See the full review here: <a href="http://henryranch.net/reviews/lipo-battery-charger-review/">http://henryranch.net/reviews/lipo-battery-charger-review/</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2012/updated-review-of-the-dynam-dc-6-liponimh-balance-charger/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Syndicate Press 1.0.16 released</title>
+		<link>http://henryranch.net/2012/syndicate-press-1-0-16-released/</link>
+		<comments>http://henryranch.net/2012/syndicate-press-1-0-16-released/#comments</comments>
+		<pubDate>Mon, 02 Jul 2012 04:13:03 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=2009</guid>
+		<description><![CDATA[HenryRanchLLC is proud to announce the release of Syndicate Press version 1.0.16.  This release fixes a couple of small bugs and contains a new feature which allows you to customize the format of the time-stamp.  Syndicate Press, the best feed &#8230; <a class="more-link" href="http://henryranch.net/2012/syndicate-press-1-0-16-released/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>HenryRanchLLC is proud to announce the release of Syndicate Press version 1.0.16.  This release fixes a couple of small bugs and contains a new feature which allows you to customize the format of the time-stamp.  Syndicate Press, the best feed aggregation plugin for WordPress.  Join  more than 10,000 Syndicate Press users around the world by installing  Syndicate Press today.  See the Syndicate Press home page here: <a title="Syndicate Press, the best feed aggregation plugin for WordPress. " rel="nofollow" href="http://henryranch.net/software/syndicate-press/">http://henryranch.net/software/syndicate-press/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2012/syndicate-press-1-0-16-released/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Syndicate Press WordPress plugin update (Version 1.0.15)</title>
+		<link>http://henryranch.net/2012/syndicate-press-wordpress-plugin-update-version-1-0-15/</link>
+		<comments>http://henryranch.net/2012/syndicate-press-wordpress-plugin-update-version-1-0-15/#comments</comments>
+		<pubDate>Thu, 24 May 2012 15:09:44 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=2004</guid>
+		<description><![CDATA[Henryranch.net is pleased to announce the release of Syndicate Press version 1.0.15.  This version contains a performance enhancement that makes the plugin admin page a little faster.  Syndicate Press, the best feed aggregation plugin for WordPress.  Join more than 10,000 &#8230; <a class="more-link" href="http://henryranch.net/2012/syndicate-press-wordpress-plugin-update-version-1-0-15/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>Henryranch.net is pleased to announce the release of Syndicate Press version 1.0.15.  This version contains a performance enhancement that makes the plugin admin page a little faster.  Syndicate Press, the best feed aggregation plugin for WordPress.  Join more than 10,000 Syndicate Press users around the world by installing Syndicate Press today.  See the Syndicate Press home page here: <a title="Syndicate Press, the best feed aggregation plugin for WordPress. " rel="nofollow" href="http://henryranch.net/software/syndicate-press/">http://henryranch.net/software/syndicate-press/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2012/syndicate-press-wordpress-plugin-update-version-1-0-15/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Ken-Mcconnell.com has a great review of Scrivener!</title>
+		<link>http://henryranch.net/2012/ken-mcconnell-com-has-a-great-review-of-scrivener/</link>
+		<comments>http://henryranch.net/2012/ken-mcconnell-com-has-a-great-review-of-scrivener/#comments</comments>
+		<pubDate>Thu, 24 May 2012 14:33:41 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=2001</guid>
+		<description><![CDATA[Ken McConnell, of Tyrmia fame, and one of the best up and coming science fiction authors has just completed a two part review of Scrivener, the quintessential book authoring program for Mac and Windows.  In his review, Ken leads the reader through &#8230; <a class="more-link" href="http://henryranch.net/2012/ken-mcconnell-com-has-a-great-review-of-scrivener/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>Ken McConnell, of Tyrmia fame, and one of the best up and coming science fiction authors has just completed a two part review of Scrivener, the quintessential book authoring program for Mac and Windows.  In his review, Ken leads the reader through a detailed overview of the Scrivener application from the authors perspective.   With plenty of screen-shots and examples using his latest science fiction work-in-progress, Ken digs in and reveals how the Scrivener tool-set makes authoring more efficient and more enjoyable.  Check out Kens review here: <a href="http://ken-mcconnell.com/2012/05/16/how-i-use-scrivener-to-write-a-novel-part-one/">http://ken-mcconnell.com/2012/05/16/how-i-use-scrivener-to-write-a-novel-part-one/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2012/ken-mcconnell-com-has-a-great-review-of-scrivener/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Airsoftranch.com has airsoft upgrade parts!</title>
+		<link>http://henryranch.net/2012/airsoftranch-com-has-airsoft-upgrade-parts/</link>
+		<comments>http://henryranch.net/2012/airsoftranch-com-has-airsoft-upgrade-parts/#comments</comments>
+		<pubDate>Sat, 31 Mar 2012 15:08:14 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1990</guid>
+		<description><![CDATA[AirsoftRanch.com, the internets fastest growing airsoft storefront, now has upgrade parts for your airsoft gun including pistons, piston and cylinder heads, springs and full tune-up kits. AirsoftRanch.com: great gear at great prices! &#160;]]></description>
+			<content:encoded><![CDATA[<p><a title="AirsoftRanch.com: great gear at great prices!" href="http://airsoftranch.com">AirsoftRanch.com</a>, the internets fastest growing airsoft storefront, now has upgrade parts for your airsoft gun including pistons, piston and cylinder heads, springs and full tune-up kits. <a title="AirsoftRanch.com: great gear at great prices!" href="http://airsoftranch.com/">AirsoftRanch.com</a>: great gear at great prices!</p>
+<p>&nbsp;</p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2012/airsoftranch-com-has-airsoft-upgrade-parts/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Syndicate Press 1.0.10 released</title>
+		<link>http://henryranch.net/2012/syndicate-press-1-0-10-released/</link>
+		<comments>http://henryranch.net/2012/syndicate-press-1-0-10-released/#comments</comments>
+		<pubDate>Thu, 29 Mar 2012 06:01:39 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1986</guid>
+		<description><![CDATA[Syndicate Press version 1.0.10 was released this evening with several bug-fixes that resolve a formatting issue and a filtering issue.  Be sure to update your installation soon in order to take advantage of these fixes!  If you haven&#8217;t already installed &#8230; <a class="more-link" href="http://henryranch.net/2012/syndicate-press-1-0-10-released/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>Syndicate Press version 1.0.10 was released this evening with several bug-fixes that resolve a formatting issue and a filtering issue.  Be sure to update your installation soon in order to take advantage of  these fixes!  If you haven&#8217;t already installed 1.0.9, you can jump to 1.0.10 without a problem and get access to the new showImages custom override feature found in 1.0.9.</p>
+<p>Syndicate Press, the best feed aggregation  plugin for WordPress.    Join more than 6900 Syndicate Press users around the world by installing    Syndicate Press today.  See the Syndicate Press home page here: <a title="Syndicate Press, the best feed aggregation plugin for WordPress. " rel="nofollow" href="../software/syndicate-press/">http://henryranch.net/software/syndicate-press/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2012/syndicate-press-1-0-10-released/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Secure your internet with AceVPN!</title>
+		<link>http://henryranch.net/2012/secure-your-internet-with-acevpn/</link>
+		<comments>http://henryranch.net/2012/secure-your-internet-with-acevpn/#comments</comments>
+		<pubDate>Tue, 20 Mar 2012 13:40:59 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1976</guid>
+		<description><![CDATA[With internet crime rampant and advertisers creating huge databases of our online behavior, it&#8217;s time that every online subscriber adds a little more protection to their internet use.  AceVPN.com provides trusted VPN services at affordable rates.  Take a look at &#8230; <a class="more-link" href="http://henryranch.net/2012/secure-your-internet-with-acevpn/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>With internet crime rampant and advertisers creating huge databases of our online behavior, it&#8217;s time that every online subscriber adds a little more protection to their internet use.  <a href="http://acevpn.com">AceVPN.com</a> provides trusted VPN services at affordable rates.  Take a look at our review of AceVPN.com here: <a title="Henryranch.net review of AceVPN.com" href="http://henryranch.net/reviews/ace-vpn-provides-secure-internet-use/">http://henryranch.net/reviews/ace-vpn-provides-secure-internet-use/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2012/secure-your-internet-with-acevpn/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Syndicate Press version 1.0.8 released with targeted filtering!</title>
+		<link>http://henryranch.net/2012/syndicate-press-version-1-0-8-released-with-targeted-filtering/</link>
+		<comments>http://henryranch.net/2012/syndicate-press-version-1-0-8-released-with-targeted-filtering/#comments</comments>
+		<pubDate>Fri, 02 Mar 2012 05:28:56 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1966</guid>
+		<description><![CDATA[Syndicate Press version 1.0.8 has been released this evening with a highly requested new feature!  Many of you have asked for the ability to define filters within the page or post.  This version provides the WordPress author with the ability &#8230; <a class="more-link" href="http://henryranch.net/2012/syndicate-press-version-1-0-8-released-with-targeted-filtering/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>Syndicate Press version 1.0.8 has been released this evening with a highly requested new feature!  Many of you have asked for the ability to define filters within the page or post.  This version provides the WordPress author with the ability to define inclusive and exclusive filters targeted directly at a given feed on a given page!  Be sure to update your installation soon in order to take advantage of  this great new feature!  <img src="../wp-includes/images/smilies/icon_wink.gif" alt=";-)" /> Syndicate Press, the best feed aggregation  plugin for WordPress.   Join more than 5700 Syndicate Press users around the world by installing   Syndicate Press today.  See the Syndicate Press home page here: <a title="Syndicate Press, the best feed aggregation plugin for WordPress. " rel="nofollow" href="../software/syndicate-press/">http://henryranch.net/software/syndicate-press/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2012/syndicate-press-version-1-0-8-released-with-targeted-filtering/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Syndicate Press 1.0.7 released!</title>
+		<link>http://henryranch.net/2012/syndicate-press-1-0-7-released/</link>
+		<comments>http://henryranch.net/2012/syndicate-press-1-0-7-released/#comments</comments>
+		<pubDate>Wed, 29 Feb 2012 03:24:38 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1872</guid>
+		<description><![CDATA[We have just released version 1.0.7 as a rapid follow-on to the 1.0.6 version.  Syndicate Press 1.0.7 fixes an image display bug and moves the cache control buttons in the admin page in-line with the update button.  This simple change &#8230; <a class="more-link" href="http://henryranch.net/2012/syndicate-press-1-0-7-released/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>We have just released version 1.0.7 as a rapid follow-on to the 1.0.6 version.  Syndicate Press 1.0.7 fixes an image display bug and moves the cache control buttons in the admin page in-line with the update button.  This simple change significantly eases use of the admin page.  Be sure to update your installation soon in order to take advantage of these changes!  <img src='http://henryranch.net/wp-includes/images/smilies/icon_wink.gif' alt=';-)' class='wp-smiley' />   Syndicate Press, the best feed aggregation  plugin for WordPress.  Join more than 5500 Syndicate Press users around the world by installing  Syndicate Press today.  See the Syndicate Press home page here: <a title="Syndicate Press, the best feed aggregation plugin for WordPress. " rel="nofollow" href="../software/syndicate-press/">http://henryranch.net/software/syndicate-press/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2012/syndicate-press-1-0-7-released/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Syndicate Press 1.0.6 released!</title>
+		<link>http://henryranch.net/2012/syndicate-press-1-0-6-released/</link>
+		<comments>http://henryranch.net/2012/syndicate-press-1-0-6-released/#comments</comments>
+		<pubDate>Tue, 28 Feb 2012 21:16:01 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1865</guid>
+		<description><![CDATA[After a lot of UI work, we are pleased to announce the release of Syndicate Press 1.0.6.  This version features a completely redesigned admin UI using embedded tabs.  The new tabbed admin page is much easier to use and far &#8230; <a class="more-link" href="http://henryranch.net/2012/syndicate-press-1-0-6-released/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>After a lot of UI work, we are pleased to announce the release of Syndicate Press 1.0.6.  This version features a completely redesigned admin UI using embedded tabs.  The new tabbed admin page is much easier to use and far more user friendly.  Join more than 5500 Syndicate Press users around the world by installing Syndicate Press today.  Syndicate Press, the best feed aggregation plugin for WordPress.  See the Syndicate Press home page here: <a title="Syndicate Press, the best feed aggregation plugin for WordPress. " rel="nofollow" href="http://henryranch.net/software/syndicate-press/">http://henryranch.net/software/syndicate-press/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2012/syndicate-press-1-0-6-released/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Updated Yerba Mate Review!</title>
+		<link>http://henryranch.net/2012/updated-yerba-mate-review/</link>
+		<comments>http://henryranch.net/2012/updated-yerba-mate-review/#comments</comments>
+		<pubDate>Tue, 28 Feb 2012 15:56:05 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1859</guid>
+		<description><![CDATA[With a new year comes new reviews at one of the most viewed Yerba Mate review pages on the net!  We have added reviews of Itapua La Potente, Cachamate and Campesino with more information on the special blend of herbs &#8230; <a class="more-link" href="http://henryranch.net/2012/updated-yerba-mate-review/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>With a new year comes new reviews at one of the most viewed Yerba Mate review pages on the net!  We have added reviews of Itapua La Potente, Cachamate and Campesino with more information on the special blend of herbs that make these Mate products unique and wonderful.  Additionally, we have updated all of our links to take you directly to the best deals on the net for each product!  Lastly, we have added a section about the recent Dr. Oz show where he discusses the amazing Yerba Mate &#8220;miracle drink&#8221;.  To read the latest updates and reviews please see our article here: <a title="The most popular Yerba Mate review page on the net!" href="http://henryranch.net/reviews/yerba-mate-reviews/">http://henryranch.net/reviews/yerba-mate-reviews/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2012/updated-yerba-mate-review/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>New products at AirsoftRanch.com</title>
+		<link>http://henryranch.net/2012/new-products-at-airsoftranch-com/</link>
+		<comments>http://henryranch.net/2012/new-products-at-airsoftranch-com/#comments</comments>
+		<pubDate>Sat, 25 Feb 2012 23:11:14 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1840</guid>
+		<description><![CDATA[Take a look at the new products at AirsoftRanch.com! We have added a new radio section including FRS, MURS, HAM and CB radios. We have also created a new Picatinny and Weaver rail accessory section featuring UTG and Magpul.]]></description>
+			<content:encoded><![CDATA[<p>Take a look at the new products at <a title="AirssoftRanch.com: Great deals on awesome airsoft, military, tactical and emergency preparedness gear!" href="http://airsoftranch.com">AirsoftRanch.com</a>!  We have added a new radio section including <a title="FRS radios" href="http://www.airsoftranch.com/shop.php?c=Radios&amp;n=none&amp;k=RADFRS&amp;t=Sub&amp;s=none&amp;p=1">FRS</a>, <a title="MURS Radios" href="http://www.airsoftranch.com/shop.php?c=Radios&amp;n=none&amp;k=RADMURS&amp;t=Sub&amp;s=none&amp;p=1">MURS</a>, <a title="HAM Radios" href="http://www.airsoftranch.com/shop.php?c=Radios&amp;n=none&amp;k=RADHAM&amp;t=Sub&amp;s=none&amp;p=1">HAM</a> and <a title="CB Radios" href="http://www.airsoftranch.com/shop.php?c=Radios&amp;n=none&amp;k=RADCB&amp;t=Sub&amp;s=none&amp;p=1">CB</a> radios. We have also created a <a title="Picatinny and weaver rails" href="http://www.airsoftranch.com/shop.php?c=RailAcc&amp;x=Rail_Accessories">new Picatinny and Weaver rail accessory section</a> featuring UTG and Magpul.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2012/new-products-at-airsoftranch-com/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Light-box tutorial for embedded web-servers</title>
+		<link>http://henryranch.net/2012/light-box-tutorial-for-embedded-web-servers/</link>
+		<comments>http://henryranch.net/2012/light-box-tutorial-for-embedded-web-servers/#comments</comments>
+		<pubDate>Wed, 18 Jan 2012 16:36:27 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1804</guid>
+		<description><![CDATA[Light-boxing is a technique for cleanly popping up  information in a web-page while simultaneously darkening the main page to provide focus to the popup content.  All of the major javascript libraries provide very nice light-box implementations, but they come at &#8230; <a class="more-link" href="http://henryranch.net/2012/light-box-tutorial-for-embedded-web-servers/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>Light-boxing is a technique for cleanly popping up  information in a web-page while simultaneously darkening the main page to provide focus to the popup content.  All of the major javascript libraries provide very nice light-box implementations, but they come at the cost of large memory footprints that may not work in an embedded application where memory resources are constrained.  In this tutorial, we present a simple, yet elegant  light-box implementation using CSS and minimal JavaScript: <a title="Simple, small, fast, CSS lightbox with minimal JavaScript for Embedded Devices" href="http://henryranch.net/tutorials/simple-small-fast-css-lightboxing-for-embedded-web-servers/">http://henryranch.net/tutorials/simple-small-fast-css-lightboxing-for-embedded-web-servers/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2012/light-box-tutorial-for-embedded-web-servers/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Syndicate Press version 1.0.5 released</title>
+		<link>http://henryranch.net/2011/syndicate-press-version-1-0-5-released/</link>
+		<comments>http://henryranch.net/2011/syndicate-press-version-1-0-5-released/#comments</comments>
+		<pubDate>Thu, 15 Dec 2011 02:32:48 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1784</guid>
+		<description><![CDATA[Syndicate Press lets you include RSS feeds directly in your WordPress Posts or Pages at a location YOU choose. This plugin provides a very easy to use administration page and includes great features such as feed caching, filters and several &#8230; <a class="more-link" href="http://henryranch.net/2011/syndicate-press-version-1-0-5-released/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p><a title="A great WordPress plugin for RSS, Atom and RDF news feeds!" href="http://henryranch.net/software/syndicate-press/">Syndicate Press</a> lets you include RSS feeds directly in your WordPress  Posts or Pages at a location YOU choose.  This plugin provides a very  easy to use administration page and includes great features such as feed  caching, filters and several display options.  The 1.0.5 version removed some hard coded formatting enabling the user to further customize the look of the article titles!</p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2011/syndicate-press-version-1-0-5-released/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Syndicate Press version 1.0.4 released</title>
+		<link>http://henryranch.net/2011/syndicate-press-version-1-0-4-released/</link>
+		<comments>http://henryranch.net/2011/syndicate-press-version-1-0-4-released/#comments</comments>
+		<pubDate>Fri, 09 Dec 2011 00:01:37 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1778</guid>
+		<description><![CDATA[Syndicate Press version 1.0.4 has been released.  This version contains a minor enhancement to help reduce errors in the configuration page.]]></description>
+			<content:encoded><![CDATA[<p>Syndicate Press version 1.0.4 has been released.  This version contains a minor enhancement to help reduce errors in the configuration page.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2011/syndicate-press-version-1-0-4-released/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>New selection of Radio&#8217;s at AirsoftRanch.com</title>
+		<link>http://henryranch.net/2011/new-selection-of-radios-at-airsoftranch-com/</link>
+		<comments>http://henryranch.net/2011/new-selection-of-radios-at-airsoftranch-com/#comments</comments>
+		<pubDate>Thu, 08 Dec 2011 23:38:07 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1773</guid>
+		<description><![CDATA[AirsoftRanch.com is now offering a newly expanded range of radios including FRS, MURS, CB, GMRS and HAM models.  For great deals on airsoft, tactical training and emergency preparedness, visit AirsoftRanch.com today!]]></description>
+			<content:encoded><![CDATA[<p><a title="Awesome deals on airsoft gear, tactical training equipment and emergency preparedness items!" href="http://airsoftranch.com/shop.php?c=Radios&amp;x=Radios">AirsoftRanch.com</a> is now offering a newly expanded range of radios including FRS, MURS, CB, GMRS and HAM models.  For great deals on airsoft, tactical training and emergency preparedness, visit <a title="Awesome deals on airsoft gear, tactical training equipment and emergency preparedness items!" href="http://airsoftranch.com/shop.php?c=Radios&amp;x=Radios">AirsoftRanch.com</a> today!</p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2011/new-selection-of-radios-at-airsoftranch-com/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>New Version of Syndicate Press Available</title>
+		<link>http://henryranch.net/2011/new-version-of-syndicate-press-available/</link>
+		<comments>http://henryranch.net/2011/new-version-of-syndicate-press-available/#comments</comments>
+		<pubDate>Sat, 12 Nov 2011 15:03:22 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1762</guid>
+		<description><![CDATA[Syndicate Press version 1.0.3 has been released!  This version contains a small fix which enables you to insert advertisements between news feeds.  If you are running a WordPress site and you would like to incorporate news feeds from around the &#8230; <a class="more-link" href="http://henryranch.net/2011/new-version-of-syndicate-press-available/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>Syndicate Press version 1.0.3 has been released!  This version contains a small fix which enables you to insert advertisements between news feeds.  If you are running a WordPress site and you would like to incorporate news feeds from around the world, give Syndicate Press a try.  Syndicate Press supports RSS, Atom and RDF feeds and even works with Twitter feeds!  For more information, see the Syndicate Press homepage at: <a title="Syndicate Press: A WordPress news aggregation plugin that works." href="http://henryranch.net/software/syndicate-press/">http://henryranch.net/software/syndicate-press/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2011/new-version-of-syndicate-press-available/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>New article about the MURS License Free Radio Band</title>
+		<link>http://henryranch.net/2011/new-article-about-the-murs-license-free-radio-band/</link>
+		<comments>http://henryranch.net/2011/new-article-about-the-murs-license-free-radio-band/#comments</comments>
+		<pubDate>Thu, 20 Oct 2011 15:57:34 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1754</guid>
+		<description><![CDATA[The traditional CB (Citizens Band) channels have been clogged for many years.  The FRS (Family Radio Service) bands are becoming increasingly noisy and clogged as more people buy FRS radios.  The MURS (Multiple Use Radio Service) band is still relatively &#8230; <a class="more-link" href="http://henryranch.net/2011/new-article-about-the-murs-license-free-radio-band/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>The traditional CB (Citizens Band) channels have been clogged for many years.  The FRS (Family Radio Service) bands are becoming increasingly noisy and clogged as more people buy FRS radios.  The MURS (Multiple Use Radio Service) band is still relatively clear and can be used by any US Citizen without a license.  For more information on the MURS band and some great radio recommendations, see the new article: <a title="New MURS Radio Article and Information" href="http://henryranch.net/radio-communication/murs-citizens-band-radio-service/">http://henryranch.net/radio-communication/murs-citizens-band-radio-service/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2011/new-article-about-the-murs-license-free-radio-band/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Thank you Syndicate Press donors!</title>
+		<link>http://henryranch.net/2011/thank-you-to-our-latest-syndicate-press-donors/</link>
+		<comments>http://henryranch.net/2011/thank-you-to-our-latest-syndicate-press-donors/#comments</comments>
+		<pubDate>Wed, 19 Oct 2011 16:17:29 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1728</guid>
+		<description><![CDATA[The Syndicate Press development team would like to extend a sincere thank you to our latest donors! One donor chose to remain anonymous.  The other donor hosts her website at http://saillwhite.com/.  Please take a moment to visit her site.  If &#8230; <a class="more-link" href="http://henryranch.net/2011/thank-you-to-our-latest-syndicate-press-donors/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>The <a title="Syndicate Press: An awesome news aggregation plugin for WordPress!" href="http://henryranch.net/software/syndicate-press/">Syndicate Press</a> development team would like to extend a sincere thank you to our latest donors! One donor chose to remain anonymous.  The other donor hosts her website at <a title="Generously donated to Syndicate Press!" href="http://saillwhite.com/">http://saillwhite.com/</a>.  Please take a moment to visit her site.  If you are using syndicate Press and have not yet donated, please consider doing so.  Donations encourage ongoing development and help cover hosting costs.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2011/thank-you-to-our-latest-syndicate-press-donors/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Syndicate Press 1.0.2 bug-fix release</title>
+		<link>http://henryranch.net/2011/syndicate-press-1-0-2-bug-fix-release/</link>
+		<comments>http://henryranch.net/2011/syndicate-press-1-0-2-bug-fix-release/#comments</comments>
+		<pubDate>Fri, 07 Oct 2011 04:06:48 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1715</guid>
+		<description><![CDATA[Syndicate Press 1.0.2 was released this evening with 1 bug-fix and 1 enhancement.  Join the more than 700 WordPress users who have installed Syndicate Press during the first week of publication!  See the Syndicate Press homepage here: http://henryranch.net/software/syndicate-press/]]></description>
+			<content:encoded><![CDATA[<p>Syndicate Press 1.0.2 was released this evening with 1 bug-fix and 1 enhancement.  Join the more than 700 WordPress users who have installed Syndicate Press during the first week of publication!  See the Syndicate Press homepage here: <a title="Syndicate Press: A great wordpress plugin for news feeds" href="http://henryranch.net/software/syndicate-press/">http://henryranch.net/software/syndicate-press/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2011/syndicate-press-1-0-2-bug-fix-release/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>New Ballistic Pop Bottle Rocket Tutorial</title>
+		<link>http://henryranch.net/2011/new-ballistic-pop-bottle-rocket-tutorial/</link>
+		<comments>http://henryranch.net/2011/new-ballistic-pop-bottle-rocket-tutorial/#comments</comments>
+		<pubDate>Wed, 05 Oct 2011 03:20:26 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1710</guid>
+		<description><![CDATA[If you have seen the wimpy pop bottle rocket videos on YouTube, you might want to take a look at this tutorial where we have ramped up the good &#8216;ol pop bottle rocket into a honcho pop bottle missile with &#8230; <a class="more-link" href="http://henryranch.net/2011/new-ballistic-pop-bottle-rocket-tutorial/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>If you have seen the wimpy pop bottle rocket videos on YouTube, you might want to take a look at this tutorial where we have ramped up the good &#8216;ol pop bottle rocket into a honcho pop bottle missile with ballistic flight characteristics.  It&#8217;s seriously awesome and perfect for airsoft games or some mad scientist experiments.  Check out the tutorial here: <a title="Soda pop bottle ballistic rocket tutorial" href="http://henryranch.net/airsoft/airsoft-pop-bottle-rocket-tactical-mortor-or-battlefield-missile/">http://henryranch.net/airsoft/airsoft-pop-bottle-rocket-tactical-mortor-or-battlefield-missile/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2011/new-ballistic-pop-bottle-rocket-tutorial/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Syndicate Press 1.0.1 release</title>
+		<link>http://henryranch.net/2011/syndicate-press-1-0-1-release/</link>
+		<comments>http://henryranch.net/2011/syndicate-press-1-0-1-release/#comments</comments>
+		<pubDate>Tue, 04 Oct 2011 04:40:34 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1691</guid>
+		<description><![CDATA[Syndicate Press 1.0.1 was released this week with 1 bug fix and 1 feature enhancement.  For details, see the Syndicate Press homepage at http://henryranch.net/software/syndicate-press/]]></description>
+			<content:encoded><![CDATA[<p>Syndicate Press 1.0.1 was released this week with 1 bug fix and 1 feature enhancement.  For details, see the Syndicate Press homepage at <a title="Syndicate Press: A great news plugin for wordpress" href="http://henryranch.net/software/syndicate-press/">http://henryranch.net/software/syndicate-press/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2011/syndicate-press-1-0-1-release/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Syndicate Press 1.0 released!</title>
+		<link>http://henryranch.net/2011/syndicate-press-1-0-released/</link>
+		<comments>http://henryranch.net/2011/syndicate-press-1-0-released/#comments</comments>
+		<pubDate>Tue, 27 Sep 2011 04:50:28 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1669</guid>
+		<description><![CDATA[After nearly a year in release candidate status, Syndicate Press has been released into the WordPress Plugin repository.  Users may now download the latest Syndicate Press version directly through their WordPress admin page.  For details see: http://wordpress.org/extend/plugins/syndicate-press/.  The Syndicate Press &#8230; <a class="more-link" href="http://henryranch.net/2011/syndicate-press-1-0-released/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>After nearly a year in <em>release candidate</em> status, Syndicate Press has been released into the WordPress Plugin repository.  Users may now download the latest Syndicate Press version directly through their WordPress admin page.  For details see: <a title="Syndicate Press plugin page" href="http://wordpress.org/extend/plugins/syndicate-press/">http://wordpress.org/extend/plugins/syndicate-press/</a>.  The Syndicate Press homepage with documentation and FAQs can be found here: <a title="Syndicate Press homepage" href="http://henryranch.net/software/syndicate-press/">http://henryranch.net/software/syndicate-press/</a>.  If you are not already using Syndicate Press to add RSS feeds to your blog, you should!  Syndicate Press is already powering more than 600 feed aggregation sites across the world!</p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2011/syndicate-press-1-0-released/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>A new series exploring automated web testing with Selenium</title>
+		<link>http://henryranch.net/2011/a-new-series-exploring-automated-web-testing-with-selenium/</link>
+		<comments>http://henryranch.net/2011/a-new-series-exploring-automated-web-testing-with-selenium/#comments</comments>
+		<pubDate>Mon, 26 Sep 2011 03:41:39 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1663</guid>
+		<description><![CDATA[Join us for a multi-part series in which we explore the powerful Selenium tool-chain.  If you have been looking for an alternative to the expensive automation tools from the big vendors or you are just starting to research automated web &#8230; <a class="more-link" href="http://henryranch.net/2011/a-new-series-exploring-automated-web-testing-with-selenium/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>Join us for a multi-part series in which we explore the powerful Selenium tool-chain.  If you have been looking for an alternative to the expensive automation tools from the big vendors or you are just starting to research automated web application testing, this serialized tutorial is for you! <a title="An Excellent Selenium tutorial and review" href="http://henryranch.net/software/automated-web-testing-with-selenium-part-1/">http://henryranch.net/software/automated-web-testing-with-selenium-part-1/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2011/a-new-series-exploring-automated-web-testing-with-selenium/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Various quotes about war and the military</title>
+		<link>http://henryranch.net/2011/various-quotes-about-war-and-the-military/</link>
+		<comments>http://henryranch.net/2011/various-quotes-about-war-and-the-military/#comments</comments>
+		<pubDate>Thu, 22 Sep 2011 03:12:41 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1655</guid>
+		<description><![CDATA[Wow, this is some good stuff, enjoy: http://www.kernairsoft.org/forum/random-quotes/view-random-quotes.asp]]></description>
+			<content:encoded><![CDATA[<p>Wow, this is some good stuff, enjoy:  <a href="http://www.kernairsoft.org/forum/random-quotes/view-random-quotes.asp" target="_blank">http://www.kernairsoft.org/forum/random-quotes/view-random-quotes.asp</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2011/various-quotes-about-war-and-the-military/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Major RC Airplane sale going on</title>
+		<link>http://henryranch.net/2011/major-rc-airplane-sale-going-on/</link>
+		<comments>http://henryranch.net/2011/major-rc-airplane-sale-going-on/#comments</comments>
+		<pubDate>Fri, 16 Sep 2011 23:04:33 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1645</guid>
+		<description><![CDATA[I recently bought my first RC airplane and I am learning how to fly it.  What an adventure! Back in the day, an RC airplane cost hundreds of dollars, but NitroPlanes.com is changing all of that.  With an excellent mix &#8230; <a class="more-link" href="http://henryranch.net/2011/major-rc-airplane-sale-going-on/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>I recently bought my first RC airplane and I am learning how to fly it.  What an adventure!  Back in the day, an RC airplane cost hundreds of dollars, but <a href="http://www.kqzyfj.com/click-3657828-10594306" target="_blank" onmouseover="window.status='http://www.nitroplanes.com';return true;" onmouseout="window.status=' ';return true;">NitroPlanes.com</a><img src="http://www.ftjcfx.com/image-3657828-10594306" width="1" height="1" border="0"/> is changing all of that.  With an excellent mix of high-quality and low-prices, <a href="http://www.kqzyfj.com/click-3657828-10594306" target="_blank" onmouseover="window.status='http://www.nitroplanes.com';return true;" onmouseout="window.status=' ';return true;">NitroPlanes.com</a><img src="http://www.ftjcfx.com/image-3657828-10594306" width="1" height="1" border="0"/> is making it very easy to get into RC flying.</p>
+<p>There is a major sale going on right now, so get your new plane or servos before the sale ends!  Here is the link: <a href="http://www.kqzyfj.com/click-3657828-10594306" target="_blank" onmouseover="window.status='http://www.nitroplanes.com';return true;" onmouseout="window.status=' ';return true;">HUGE SALE on R/C Planes! Electric and Gas! 50- 70% OFF!</a><img src="http://www.ftjcfx.com/image-3657828-10594306" width="1" height="1" border="0"/></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2011/major-rc-airplane-sale-going-on/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>New Real-time earthquake news feed!</title>
+		<link>http://henryranch.net/2011/new-real-time-earthquake-news-feed/</link>
+		<comments>http://henryranch.net/2011/new-real-time-earthquake-news-feed/#comments</comments>
+		<pubDate>Tue, 23 Aug 2011 18:27:16 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1600</guid>
+		<description><![CDATA[If you are interested in following real-time earthquake related news and receiving immediate notification of when an earthquake occurs, take a look at the new feed provided by the USGS and made available to you by henryranch.net: http://henryranch.net/news/real-time-earthquake-news/]]></description>
+			<content:encoded><![CDATA[<p>If you are interested in following real-time earthquake related news and receiving immediate notification of when an earthquake occurs, take a look at the new feed provided by the USGS and made available to you by henryranch.net: <a title="Real-time earthquake news feed" href="http://henryranch.net/news/real-time-earthquake-news/">http://henryranch.net/news/real-time-earthquake-news/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2011/new-real-time-earthquake-news-feed/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Review of StarStrikers, Tyrmia and Tales From Ocherva</title>
+		<link>http://henryranch.net/2011/review-of-starstrikers-tyrmia-and-tales-from-ocherva/</link>
+		<comments>http://henryranch.net/2011/review-of-starstrikers-tyrmia-and-tales-from-ocherva/#comments</comments>
+		<pubDate>Sat, 06 Aug 2011 13:58:58 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1579</guid>
+		<description><![CDATA[Great science fiction with a fresh, action packed storyline doesn&#8217;t come along that often.  If you are looking for a new author with some fantastic new plots and technology, take a look at this review of Ken McConnells latest three &#8230; <a class="more-link" href="http://henryranch.net/2011/review-of-starstrikers-tyrmia-and-tales-from-ocherva/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>Great science fiction with a fresh, action packed storyline doesn&#8217;t come along that often.  If you are looking for a new author with some fantastic new plots and technology, take a look at this review of Ken McConnells latest three books: <a title="Review of StarStrikers, Tyrmia and Tales From Ocherva" href="http://henryranch.net/reviews/starstrikers-tyrmia-and-the-tales-from-ocherva/">http://henryranch.net/reviews/starstrikers-tyrmia-and-the-tales-from-ocherva/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2011/review-of-starstrikers-tyrmia-and-tales-from-ocherva/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>New review of the Wouxun KG-UVD1P (KG-UVD2 &amp; KG-UVD3)</title>
+		<link>http://henryranch.net/2011/new-review-of-the-wouxun-kg-uvd1p-kg-uvd2-kg-uvd3/</link>
+		<comments>http://henryranch.net/2011/new-review-of-the-wouxun-kg-uvd1p-kg-uvd2-kg-uvd3/#comments</comments>
+		<pubDate>Fri, 29 Jul 2011 14:56:45 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1570</guid>
+		<description><![CDATA[Henryranch.net reviews one of the best low-cost ham radio&#8217;s to hit the market. From it&#8217;s sleek, feature rich design, to the lovable Shanghai Shelly voice, this radio is sure to make every ham happy! Check out the review here: http://henryranch.net/reviews/wouxun-kg-uvd1p-kg-uvd2-kg-uvd3-review/]]></description>
+			<content:encoded><![CDATA[<p>Henryranch.net reviews one of the best low-cost ham radio&#8217;s to hit the market.  From it&#8217;s sleek, feature rich design, to the lovable Shanghai Shelly voice, this radio is sure to make every ham happy!  Check out the review here: <a title="Wouxun KG-UVD1P (KG-UVD2 &amp; KG-UVD3) Review" href="http://henryranch.net/reviews/wouxun-kg-uvd1p-kg-uvd2-kg-uvd3-review/">http://henryranch.net/reviews/wouxun-kg-uvd1p-kg-uvd2-kg-uvd3-review/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2011/new-review-of-the-wouxun-kg-uvd1p-kg-uvd2-kg-uvd3/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>WordPress 3.2 out of memory</title>
+		<link>http://henryranch.net/2011/wordpress-3-2-out-of-memory/</link>
+		<comments>http://henryranch.net/2011/wordpress-3-2-out-of-memory/#comments</comments>
+		<pubDate>Wed, 06 Jul 2011 01:20:03 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1523</guid>
+		<description><![CDATA[Planning to upgrade to WordPress 3.2 on a shared host such as 1and1?  If so, you might want to give yourself a little more time to do the upgrade.  On many shared hosts, the default PHP memory is limited.  Take &#8230; <a class="more-link" href="http://henryranch.net/2011/wordpress-3-2-out-of-memory/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>Planning to upgrade to WordPress 3.2 on a shared host such as 1and1?  If so, you might want to give yourself a little more time to do the upgrade.  On many shared hosts, the default PHP memory is limited.  Take a look at this tutorial for instructions on how to increase your available PHP memory: <a title="How to increase PHP memory for WordPress 3.1 and WordPress 3.2" href="http://henryranch.net/tutorials/fixing-wordpress-upgrade-out-of-memory-error/">http://henryranch.net/tutorials/fixing-wordpress-upgrade-out-of-memory-error/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2011/wordpress-3-2-out-of-memory/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Review of the BEST Yerba Mate Bombilla</title>
+		<link>http://henryranch.net/2011/review-of-the-best-yerba-mate-bombilla/</link>
+		<comments>http://henryranch.net/2011/review-of-the-best-yerba-mate-bombilla/#comments</comments>
+		<pubDate>Fri, 15 Apr 2011 23:22:31 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1492</guid>
+		<description><![CDATA[Looking for a great bombilla style filter straw for Yerba Mate, loose coffee or loose leaf tea?  Take a look at this review for the best bombilla ever: http://henryranch.net/reviews/the-best-yerba-mate-bombilla-filtered-drinking-straw/]]></description>
+			<content:encoded><![CDATA[<p>Looking for a great bombilla style filter straw for Yerba Mate, loose coffee or loose leaf tea?  Take a look at this review for the best bombilla ever: <a title="The best bombilla ever made!" href="http://henryranch.net/reviews/the-best-yerba-mate-bombilla-filtered-drinking-straw/">http://henryranch.net/reviews/the-best-yerba-mate-bombilla-filtered-drinking-straw/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2011/review-of-the-best-yerba-mate-bombilla/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>AirsoftRanch.com: A new storefront showcasing the best in airsoft and tactical gear</title>
+		<link>http://henryranch.net/2011/airsoftranch-com-a-new-storefront-showcasing-the-best-in-airsoft-and-tactical-gear/</link>
+		<comments>http://henryranch.net/2011/airsoftranch-com-a-new-storefront-showcasing-the-best-in-airsoft-and-tactical-gear/#comments</comments>
+		<pubDate>Wed, 16 Mar 2011 05:04:11 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1502</guid>
+		<description><![CDATA[Airsoftranch.com is a new site which showcases the best in airsoft and tactical training equipment.  With a simple to navigate storefront and the ordering, payment and shipping power of Amazon, Airsoftranch.com enables you to find the best in airsoft and &#8230; <a class="more-link" href="http://henryranch.net/2011/airsoftranch-com-a-new-storefront-showcasing-the-best-in-airsoft-and-tactical-gear/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>Airsoftranch.com is a new site which showcases the best in airsoft and tactical training equipment.  With a simple to navigate storefront and the ordering, payment and shipping power of Amazon, Airsoftranch.com enables you to find the best in airsoft and tactical training equipment.  <a title="Airsoftranch.com: Gear up.  Get out.  Get it done." href="http://www.airsoftranch.com" target="_self">Airsoftranch.com: Gear up.  Get out.  Get it done.</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2011/airsoftranch-com-a-new-storefront-showcasing-the-best-in-airsoft-and-tactical-gear/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Huge sale on Yerba Mate and free mate with every order!</title>
+		<link>http://henryranch.net/2011/huge-sale-on-yerba-mate-and-free-mate-with-every-order/</link>
+		<comments>http://henryranch.net/2011/huge-sale-on-yerba-mate-and-free-mate-with-every-order/#comments</comments>
+		<pubDate>Sun, 20 Feb 2011 01:57:10 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1463</guid>
+		<description><![CDATA[This is the season for huge sales on Yerba Mate!  Order now to take advantage of these great deals! Get great deals on the following products: Organic Salante Strawberry Taragui Traditional Yerba Mate La Merced Yerba Mate Tea Bags And &#8230; <a class="more-link" href="http://henryranch.net/2011/huge-sale-on-yerba-mate-and-free-mate-with-every-order/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>This is the season for huge sales on Yerba Mate!  <a title="Sale on Yerba Mate" href="http://www.yerbamate.us/?Click=11456" target="_self">Order now to take advantage of these great deals!</a></p>
+<p><a title="Great deals, low prices" href="http://www.yerbamate.us/?Click=11456" target="_blank">Get great deals</a> on the following products:</p>
+<ul>
+<li>Organic Salante Strawberry</li>
+<li>Taragui Traditional Yerba Mate</li>
+<li>La Merced Yerba Mate Tea Bags</li>
+</ul>
+<p>And don&#8217;t forget that <a title="Discounts on Yerba Mate" href="http://www.yerbamate.us/?Click=11456" target="_self">all Yerba Mate and health products are </a><em><a title="Discounts on Yerba Mate" href="http://www.yerbamate.us/?Click=11456" target="_self">discounted</a> </em>when you buy a certain amount of product.</p>
+<p>Quantity Discounts:</p>
+<ul>
+<li>$25 or more: 10% off</li>
+<li>$50 or more: 15% off</li>
+<li>$100 or more: 20% off</li>
+</ul>
+<p><a title="Free Yerba Mate with purchase" href="http://www.yerbamate.us/?Click=11456" target="_self"><strong>2-13-2011: Free mate </strong>with <em><strong>every purchase</strong></em> this week</a>!   If you order this week, you will receive a free 1/4 lb bag of Premio Erva Mate!  Premio Erva Mate is one of Brazil&#8217;s premium large leaf mates.  With little dust and wonderful flavor, Premio Erva Mate is a mate lovers paradise.  Use promo code <em>premio</em>.  Even if you miss out of the free deal, the sale on Salante&#8217;s Strawberry flavored mate is sure to make you smile.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2011/huge-sale-on-yerba-mate-and-free-mate-with-every-order/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Fixing the WordPress unexpected { fatal error</title>
+		<link>http://henryranch.net/2011/fixing-the-wordpress-unexpected-fatal-error/</link>
+		<comments>http://henryranch.net/2011/fixing-the-wordpress-unexpected-fatal-error/#comments</comments>
+		<pubDate>Fri, 18 Feb 2011 04:38:27 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1459</guid>
+		<description><![CDATA[If you have just tried to activate a new plugin in your WordPress installation and received a strange &#8220;Fatal Error: unexpected {&#8221; message, don&#8217;t worry!  There is an easy fix. For details, see this tutorial: http://henryranch.net/fixing-wordpress-3-x-y-plugin-fatal-error/]]></description>
+			<content:encoded><![CDATA[<p>If you have just tried to activate a new plugin in your WordPress installation and received a strange &#8220;<strong>Fatal Error: unexpected {</strong>&#8221; message, don&#8217;t worry!  There is an easy fix. For details, see this tutorial: <a href="http://henryranch.net/fixing-wordpress-3-x-y-plugin-fatal-error/" target="_self">http://henryranch.net/fixing-wordpress-3-x-y-plugin-fatal-error/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2011/fixing-the-wordpress-unexpected-fatal-error/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>How to fix the WordPress update Out of Memory error</title>
+		<link>http://henryranch.net/2011/how-to-fix-the-wordpress-update-out-of-memory-error/</link>
+		<comments>http://henryranch.net/2011/how-to-fix-the-wordpress-update-out-of-memory-error/#comments</comments>
+		<pubDate>Wed, 16 Feb 2011 12:55:23 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1432</guid>
+		<description><![CDATA[I recently attempted to update my wordpress installation from 3.0.4 to 3.0.5 via the automatic update feature when I encountered an ugly error: &#8220;Fatal error: Out of Memory&#8221;.  This error will prevent the update from completing.  Fortunately, the fix is &#8230; <a class="more-link" href="http://henryranch.net/2011/how-to-fix-the-wordpress-update-out-of-memory-error/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>I recently attempted to update my wordpress installation from 3.0.4 to 3.0.5 via the automatic update feature when I encountered an ugly error: &#8220;Fatal error: Out of Memory&#8221;.  This error will prevent the update from completing.  Fortunately, the fix is pretty simple.  For details see this tutorial: <a title="Easy fix for the WordPress update Out of Memory error" href="http://henryranch.net/tutorials/fixing-wordpress-upgrade-out-of-memory-error/" target="_self">http://henryranch.net/tutorials/fixing-wordpress-upgrade-out-of-memory-error/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2011/how-to-fix-the-wordpress-update-out-of-memory-error/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>How to recover from a failed WordPress update</title>
+		<link>http://henryranch.net/2011/how-to-recover-from-a-failed-wordpress-update/</link>
+		<comments>http://henryranch.net/2011/how-to-recover-from-a-failed-wordpress-update/#comments</comments>
+		<pubDate>Sun, 13 Feb 2011 06:15:06 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1414</guid>
+		<description><![CDATA[Occasionally, a WordPress update will fail for one reason or another.  If your WordPress site is stuck in &#8220;maintenance&#8221; mode, or will not upgrade automatically, this tutorial will show you how to clean up your WordPress installation and get your &#8230; <a class="more-link" href="http://henryranch.net/2011/how-to-recover-from-a-failed-wordpress-update/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>Occasionally, a WordPress update will fail for one reason or another.  If your WordPress site is stuck in &#8220;<em>maintenance</em>&#8221; mode, or will not upgrade automatically, this tutorial will show you how to clean up your WordPress installation and get your site running again.  So let&#8217;s get your site fixed!  Follow this link for the tutorial: <a href="http://henryranch.net/tutorials/how-to-recover-from-a-failed-wordpress-update/" target="_blank">http://henryranch.net/tutorials/how-to-recover-from-a-failed-wordpress-update/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2011/how-to-recover-from-a-failed-wordpress-update/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>The best tools for open source development on Windows</title>
+		<link>http://henryranch.net/2011/the-best-tools-for-open-source-development-on-windows/</link>
+		<comments>http://henryranch.net/2011/the-best-tools-for-open-source-development-on-windows/#comments</comments>
+		<pubDate>Sat, 29 Jan 2011 06:36:13 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1402</guid>
+		<description><![CDATA[If you are starting to develop open source software on the Windows platform, you may not be aware of all of the great tools available to you.  Henryranch.net has put together a list of the best free and open-source tools &#8230; <a class="more-link" href="http://henryranch.net/2011/the-best-tools-for-open-source-development-on-windows/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>If you are starting to develop open source software on the Windows platform, you may not be aware of all of the great tools available to you.  Henryranch.net has put together a list of the best free and open-source tools available for office productivity, source control, debugging, decompiling, editing, merging, diff&#8217;ing, and even graphic design.  Get your project off to a great start by reviewing the <em>best open source development tool list for Windows</em>: <a href="http://henryranch.net/reviews/open-source-development-tools/">http://henryranch.net/reviews/open-source-development-tools/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2011/the-best-tools-for-open-source-development-on-windows/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>New review of an airsoft shooting chronograph &#8211; XCorTech X3200</title>
+		<link>http://henryranch.net/2011/new-review-of-an-airsoft-shooting-chronograph-xcortech-x3200/</link>
+		<comments>http://henryranch.net/2011/new-review-of-an-airsoft-shooting-chronograph-xcortech-x3200/#comments</comments>
+		<pubDate>Wed, 19 Jan 2011 04:55:04 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1394</guid>
+		<description><![CDATA[If you work on airsoft guns or host airsoft games, then you need a shooting chronograph to measure the muzzle velocity of the bb&#8217;s.  In this article, I review the newly updated XCorTech X3200 shooting chronograph: http://henryranch.net/airsoft/airsoft-shooting-chronograph-review-xcortech-x3200]]></description>
+			<content:encoded><![CDATA[<p>If you work on airsoft guns or host airsoft games, then you need a shooting chronograph to measure the muzzle velocity of the bb&#8217;s.  In this article, I review the newly updated XCorTech X3200 shooting chronograph: <a href="http://henryranch.net/airsoft/airsoft-shooting-chronograph-review-xcortech-x3200/">http://henryranch.net/airsoft/airsoft-shooting-chronograph-review-xcortech-x3200</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2011/new-review-of-an-airsoft-shooting-chronograph-xcortech-x3200/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Access WMI directly from java</title>
+		<link>http://henryranch.net/2011/access-wmi-directly-from-java/</link>
+		<comments>http://henryranch.net/2011/access-wmi-directly-from-java/#comments</comments>
+		<pubDate>Sat, 08 Jan 2011 01:35:03 +0000</pubDate>
+		<dc:creator>shaun</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1331</guid>
+		<description><![CDATA[Did you know that you can make WMI (Windows Management Interface) queries directly from Java? In this tutorial, I present the jWMI library which provides access to the WMI in pure java. With jWMI, you no longer need JNI, COM, &#8230; <a class="more-link" href="http://henryranch.net/2011/access-wmi-directly-from-java/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>Did you know that you can make WMI (Windows Management Interface) queries directly from Java?  In this tutorial, I present the jWMI library which provides access to the WMI in pure java.  With jWMI, you no longer need JNI, COM, or other libraries to query the Windows registry, system services or other Windows information.  Take a look at the article here: <a href="http://henryranch.net/software/jwmi-query-windows-wmi-from-java/">http://henryranch.net/software/jwmi-query-windows-wmi-from-java/</a>.  Join nearly 1000 other developers who are already using jWMI!</p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2011/access-wmi-directly-from-java/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Updated airsoft ballistic goggle review</title>
+		<link>http://henryranch.net/2010/updated-airsoft-ballistic-goggle-review/</link>
+		<comments>http://henryranch.net/2010/updated-airsoft-ballistic-goggle-review/#comments</comments>
+		<pubDate>Fri, 03 Dec 2010 04:45:01 +0000</pubDate>
+		<dc:creator>shaun</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1316</guid>
+		<description><![CDATA[If you are looking for a an inexpensive pair of ballistic, mil-spec rated goggles for airsoft or other sports, you need to take a look at this review of the Pyramex XSG Ballistic goggle: http://henryranch.net/reviews/airsoft-goggle-review-pyramex-xsg-ballistic-goggles/.]]></description>
+			<content:encoded><![CDATA[<p>If you are looking for a an inexpensive pair of ballistic, mil-spec rated goggles for airsoft or other sports, you need to take a look at this review of the <strong><em>Pyramex XSG Ballistic</em></strong> goggle: <a href="http://henryranch.net/reviews/airsoft-goggle-review-pyramex-xsg-ballistic-goggles/">http://henryranch.net/reviews/airsoft-goggle-review-pyramex-xsg-ballistic-goggles/</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2010/updated-airsoft-ballistic-goggle-review/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>New review of a tactical flashlight video camera</title>
+		<link>http://henryranch.net/2010/new-review-of-a-tactical-flashlight-video-camera/</link>
+		<comments>http://henryranch.net/2010/new-review-of-a-tactical-flashlight-video-camera/#comments</comments>
+		<pubDate>Fri, 26 Nov 2010 08:19:16 +0000</pubDate>
+		<dc:creator>shaun</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1299</guid>
+		<description><![CDATA[If you are looking for a small profile video camera to attach to your airsoft rifle, hunting rifle or shotgun, you need to take a look at this review: http://henryranch.net/reviews/flashlight-camera-review/]]></description>
+			<content:encoded><![CDATA[<p>If you are looking for a small profile video camera to attach to your airsoft rifle, hunting rifle or shotgun, you need to take a look at this review: <a href="http://henryranch.net/reviews/flashlight-camera-review/">http://henryranch.net/reviews/flashlight-camera-review/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2010/new-review-of-a-tactical-flashlight-video-camera/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Ooma review: 1 year update</title>
+		<link>http://henryranch.net/2010/ooma-review-1-year-update/</link>
+		<comments>http://henryranch.net/2010/ooma-review-1-year-update/#comments</comments>
+		<pubDate>Mon, 22 Nov 2010 06:18:50 +0000</pubDate>
+		<dc:creator>shaun</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1276</guid>
+		<description><![CDATA[It has been almost a year since we purchased and installed the Ooma Telo and we have recently added a couple of &#8220;vintage&#8221; cord-style phones to our home phone system.  So far, they are working great with the Ooma Telo.  &#8230; <a class="more-link" href="http://henryranch.net/2010/ooma-review-1-year-update/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>It has been almost a year since we purchased and installed the Ooma Telo and we have recently added a couple of &#8220;vintage&#8221; cord-style phones to our home phone system.  So far, they are working great with the Ooma Telo.  Take a look at this review for an unvarnished perspective on the Ooma Telo VOIP phone system: <a href="http://henryranch.net/reviews/ooma-review-a-real-look-at-the-ooma-voip-phone-system/">http://henryranch.net/reviews/ooma-review-a-real-look-at-the-ooma-voip-phone-system/</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2010/ooma-review-1-year-update/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Syndicate Press 0.9.9.7 released</title>
+		<link>http://henryranch.net/2010/syndicate-press-0-9-9-7-released/</link>
+		<comments>http://henryranch.net/2010/syndicate-press-0-9-9-7-released/#comments</comments>
+		<pubDate>Sun, 17 Oct 2010 05:48:49 +0000</pubDate>
+		<dc:creator>shaun</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1237</guid>
+		<description><![CDATA[With a new season, comes new features in Syndicate Press.  This version allows the admin to preserve or remove the formatting in a feed article.  Additionally, a customized message can now be displayed when a feed is not available.  If &#8230; <a class="more-link" href="http://henryranch.net/2010/syndicate-press-0-9-9-7-released/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>With a new season, comes new features in Syndicate Press.  This version allows the admin to preserve or remove the formatting in a feed article.  Additionally, a customized message can now be displayed when a feed is not available.  If you are looking for a great news aggregation plugin for WordPress, look no further than Syndicate Press:  <a title="Syndicate Press" href="http://henryranch.net/software/syndicate-press/" target="_self">http://henryranch.net/software/syndicate-press/</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2010/syndicate-press-0-9-9-7-released/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>WordPress requested URL &#8216;/$&#8217; error</title>
+		<link>http://henryranch.net/2010/wordpress-requested-url-error/</link>
+		<comments>http://henryranch.net/2010/wordpress-requested-url-error/#comments</comments>
+		<pubDate>Thu, 14 Oct 2010 01:44:36 +0000</pubDate>
+		<dc:creator>shaun</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1226</guid>
+		<description><![CDATA[If you recently updated your WordPress installation, you may see the following error when trying to post a comment: &#8220;The requested URL &#8216;/$&#8217; was not found on this server. &#8220; If  you see this error, relax&#8230; it is likely just &#8230; <a class="more-link" href="http://henryranch.net/2010/wordpress-requested-url-error/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>If you recently updated your WordPress installation, you may see the following error when trying to post a comment: <em><strong>&#8220;The requested URL &#8216;/$&#8217; was not found on this server. &#8220;</strong></em></p>
+<p>If  you see this error, relax&#8230; it is likely just a plugin that is not compatible with your new version of WordPress.  To fix the problem, simply update all of your plugins to their latest versions, then try posting a comment again.  The problem should be resolved.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2010/wordpress-requested-url-error/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>How to backup your website</title>
+		<link>http://henryranch.net/2010/how-to-backup-your-website/</link>
+		<comments>http://henryranch.net/2010/how-to-backup-your-website/#comments</comments>
+		<pubDate>Thu, 07 Oct 2010 01:56:57 +0000</pubDate>
+		<dc:creator>shaun</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1220</guid>
+		<description><![CDATA[Backing up your website does not have to be a difficult thing to do.  If you have a static website, the easiest way to make a backup is by using the open-source tool &#8216;wget&#8217;. To recursively back up your site, &#8230; <a class="more-link" href="http://henryranch.net/2010/how-to-backup-your-website/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>Backing up your website does not have to be a difficult thing to do.  If you have a static website, the easiest way to make a backup is by using the open-source tool &#8216;wget&#8217;.</p>
+<p>To recursively back up your site, including all of the images, execute the following at a command line:</p>
+<p>wget -r -k -p <em>yourWebsiteURL</em></p>
+<p>After the application completes, your website will be replicated locally on your system, with all relative links converted to work from your filesystem.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2010/how-to-backup-your-website/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Filter coffee with a bombilla</title>
+		<link>http://henryranch.net/2010/filter-coffee-witha-bombilla/</link>
+		<comments>http://henryranch.net/2010/filter-coffee-witha-bombilla/#comments</comments>
+		<pubDate>Tue, 14 Sep 2010 23:36:14 +0000</pubDate>
+		<dc:creator>shaun</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1216</guid>
+		<description><![CDATA[Did you know that a bombilla makes a great coffee filter?   The bombilla is a traditional South American drinking straw with a filter on the bottom and is typically used to filter yerba mate.   While the bombilla has a long &#8230; <a class="more-link" href="http://henryranch.net/2010/filter-coffee-witha-bombilla/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>Did you know that a bombilla makes a great coffee filter?   The bombilla is a traditional South American drinking straw with a filter on the bottom and is typically used to filter yerba mate.   While the bombilla has a long history as a yerba mate filter, it also works great as a coffee filter.</p>
+<p>To use a bombilla with coffee, simply fill your cup with hot water and pour in a few teaspoons of coffee grounds.  Let the coffee steep for a few minutes and give it a stir with your bombilla.  Then drop your bombilla in the brew and enjoy your fresh, hot cup of coffee.  One of the best bombillas available right now is the <a title="Coffee, tea and yerba mate bombilla filter" href="http://www.yerbamate.us/?Click=11456" target="_blank"><em>Ultimate Bombilla</em></a>.  It only costs a couple of dollars and is perfect for yerba mate, coffee and loose-leaf tea!  Get yours today!  For a deeper discussion of the bombilla and some of the great yerba mate brands, check out this review: <a title="Yerba Mate reviews, brands, bombilla's, tutorials" href="http://henryranch.net/reviews/yerba-mate-reviews/" target="_self">http://henryranch.net/reviews/yerba-mate-reviews/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2010/filter-coffee-witha-bombilla/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Hot yerba mate for cool fall evenings!</title>
+		<link>http://henryranch.net/2010/hot-yerba-mate-for-cool-fall-evenings/</link>
+		<comments>http://henryranch.net/2010/hot-yerba-mate-for-cool-fall-evenings/#comments</comments>
+		<pubDate>Mon, 13 Sep 2010 01:57:22 +0000</pubDate>
+		<dc:creator>shaun</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1209</guid>
+		<description><![CDATA[What is better on a brisk fall evening than a hot cup of yerba mate?  Not much compares to a cup full of strawberry or vanilla yerba mate on a chilly fall evening.  If you are looking for some good &#8230; <a class="more-link" href="http://henryranch.net/2010/hot-yerba-mate-for-cool-fall-evenings/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>What is better on a brisk fall evening than a hot cup of yerba mate?  Not much compares to a cup full of strawberry or vanilla yerba mate on a chilly fall evening.  If you are looking for some good flavors of yerba mate and an honest review of some of the brands, then checkout my reviews here: <a title="Yerbe mate reviews" href="http://henryranch.net/reviews/yerba-mate-reviews/" target="_blank">http://henryranch.net/reviews/yerba-mate-reviews/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2010/hot-yerba-mate-for-cool-fall-evenings/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>New review of the Blue LiPo brand battery</title>
+		<link>http://henryranch.net/2010/new-review-of-the-blue-lipo-brand-battery/</link>
+		<comments>http://henryranch.net/2010/new-review-of-the-blue-lipo-brand-battery/#comments</comments>
+		<pubDate>Sat, 11 Sep 2010 06:16:52 +0000</pubDate>
+		<dc:creator>shaun</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1202</guid>
+		<description><![CDATA[In the market for a LiPo battery that works in your airsoft AEG gun, model airplane, helicopter or RC car and won&#8217;t cost an arm and a leg?  Hopefully you are looking for just the right balance of price and &#8230; <a class="more-link" href="http://henryranch.net/2010/new-review-of-the-blue-lipo-brand-battery/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>In the market for a LiPo battery that works in your airsoft AEG gun, model airplane, helicopter or RC car and won&#8217;t cost an arm and a leg?  Hopefully you are looking for just the right balance of price and performance.  If so, then I think I have found the perfect candidate for you.  Take a look at my new review of the Blue LiPo branded Lithium Polymer battery here: <a title="LiPo battery review" href="http://henryranch.net/reviews/blue-lipo-battery-review/" target="_self">http://henryranch.net/reviews/blue-lipo-battery-review/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2010/new-review-of-the-blue-lipo-brand-battery/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Syndicate Press 0.9.9.5 released</title>
+		<link>http://henryranch.net/2010/syndicate-press-0-9-9-5-released/</link>
+		<comments>http://henryranch.net/2010/syndicate-press-0-9-9-5-released/#comments</comments>
+		<pubDate>Tue, 17 Aug 2010 03:13:46 +0000</pubDate>
+		<dc:creator>shaun</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1174</guid>
+		<description><![CDATA[Syndicate Press has been receiving a lot of new users lately.  In this release, we have added a new feature that displays the feed item publication time-stamp.  See the Syndicate Press homepage here: http://henryranch.net/software/syndicate-press/.   If you have not yet donated, &#8230; <a class="more-link" href="http://henryranch.net/2010/syndicate-press-0-9-9-5-released/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>Syndicate Press has been receiving a lot of new users lately.  In this release, we have added a new feature that displays the feed item publication time-stamp.  See the Syndicate Press homepage here: <a href="http://henryranch.net/software/syndicate-press/">http://henryranch.net/software/syndicate-press/</a>.   If you have not yet donated, please show your support for Syndicate Press by donating via the Paypal link.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2010/syndicate-press-0-9-9-5-released/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Mint, strawberry and vanilla flavored Yerba Mate for the summer!</title>
+		<link>http://henryranch.net/2010/mint-strawberry-and-vanilla-flavored-yerba-mate-for-the-summer/</link>
+		<comments>http://henryranch.net/2010/mint-strawberry-and-vanilla-flavored-yerba-mate-for-the-summer/#comments</comments>
+		<pubDate>Mon, 21 Jun 2010 03:53:27 +0000</pubDate>
+		<dc:creator>shaun</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1137</guid>
+		<description><![CDATA[Cool summer mornings, hot summer days and beautiful summer evenings&#8230; What better way to enjoy the summer than with a cup of iced yerba mate! Take a look at this review for some great summer mate recommendations: http://henryranch.net/reviews/yerba-mate-reviews/.   If &#8230; <a class="more-link" href="http://henryranch.net/2010/mint-strawberry-and-vanilla-flavored-yerba-mate-for-the-summer/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>Cool summer mornings, hot summer days and beautiful summer evenings&#8230;  What better way to enjoy the summer than with a cup of <em>iced</em> yerba mate! Take a look at this review for some great summer mate recommendations: <a title="Flavored Yerba Mate reviews" href="../reviews/yerba-mate-reviews/" target="_self">http://henryranch.net/reviews/yerba-mate-reviews/</a>.   If you are a fan of iced tea and you have not yet tried iced yerba mate, then you are missing out on a great experience.  Yerba mate is a South American drink similar to tea, but much smoother and less acidic.  There are numerous flavored mate&#8217;s and my three favorites are mint, strawberry and vanilla.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2010/mint-strawberry-and-vanilla-flavored-yerba-mate-for-the-summer/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>New tutorial on how to find out where a java class was loaded from</title>
+		<link>http://henryranch.net/2010/new-tutorial-on-how-to-find-out-where-a-java-class-was-loaded-from/</link>
+		<comments>http://henryranch.net/2010/new-tutorial-on-how-to-find-out-where-a-java-class-was-loaded-from/#comments</comments>
+		<pubDate>Sun, 30 May 2010 02:37:33 +0000</pubDate>
+		<dc:creator>shaun</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1103</guid>
+		<description><![CDATA[Have you ever been working on some java code, when all of the sudden it appears that the app is NOT doing what you expect and the code clearly does something different than the compiled app?  You probably have an &#8230; <a class="more-link" href="http://henryranch.net/2010/new-tutorial-on-how-to-find-out-where-a-java-class-was-loaded-from/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>Have you ever been working on some java code, when all of the sudden it  appears that the app is NOT doing what you expect and the code clearly does something different than the compiled app?  You probably have an old version of the compiled class lurking somewhere in your classpath!  Check out this new tutorial that puts the power back in your hands when it comes to sniffing out that sneaky class: <a href="http://henryranch.net/tutorials/how-to-determine-where-a-java-class-is-being-loaded-from/">http://henryranch.net/tutorials/how-to-determine-where-a-java-class-is-being-loaded-from/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2010/new-tutorial-on-how-to-find-out-where-a-java-class-was-loaded-from/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>New review and repair article for the KIT150 PIC programmer</title>
+		<link>http://henryranch.net/2010/new-review-and-repair-article-for-the-kit150-pic-programmer/</link>
+		<comments>http://henryranch.net/2010/new-review-and-repair-article-for-the-kit150-pic-programmer/#comments</comments>
+		<pubDate>Tue, 18 May 2010 18:57:23 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1088</guid>
+		<description><![CDATA[Looking for a great programmer for PIC Microcontrollers including the 16F and 18F series of chips?  The KIT150 is a versatile programmer that supports a wide variety of chips and can program standalone chips via a ZIF socket or in-circuit &#8230; <a class="more-link" href="http://henryranch.net/2010/new-review-and-repair-article-for-the-kit150-pic-programmer/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>Looking for a great programmer for PIC Microcontrollers including the 16F and 18F series of chips?  The KIT150 is a versatile programmer that supports a wide variety of chips and can program standalone chips via a ZIF socket or in-circuit chips via the ICSP port.  While the programmer sports a compact and robust design, it can be damaged if you insert a chip backward!  Read the article for a general review of the programmer and how to fix the it if you blow out the TR2 or TR3 transistor. <a href="http://henryranch.net/hardware/kit150-usb-pic-programmer/" target="_self">http://henryranch.net/hardware/kit150-usb-pic-programmer/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2010/new-review-and-repair-article-for-the-kit150-pic-programmer/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Syndicate Press 0.9.9.4 beta released</title>
+		<link>http://henryranch.net/2010/syndicate-press-0-9-9-4-beta-released/</link>
+		<comments>http://henryranch.net/2010/syndicate-press-0-9-9-4-beta-released/#comments</comments>
+		<pubDate>Sat, 01 May 2010 04:12:17 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1041</guid>
+		<description><![CDATA[There is a new version of Syndicate Press available.  This release adds a Syndicate Press news feed to the Admin page so that the site admin can stay up to date on the latest Syndicate Press releases.  If you are &#8230; <a class="more-link" href="http://henryranch.net/2010/syndicate-press-0-9-9-4-beta-released/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>There is a new version of Syndicate Press available.  This release adds a Syndicate Press news feed to the Admin page so that the site admin can stay up to date on the latest Syndicate Press releases.  If you are looking for a very clean and easy to use RSS, Atom or RDF feed plugin, give Syndicate Press a try!  <a href="http://henryranch.net/software/syndicate-press/">http://henryranch.net/software/syndicate-press/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2010/syndicate-press-0-9-9-4-beta-released/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Behringer UCA202 stereo analog to digital converter review</title>
+		<link>http://henryranch.net/2010/behringer-uca202-stereo-analog-to-digital-converter-review/</link>
+		<comments>http://henryranch.net/2010/behringer-uca202-stereo-analog-to-digital-converter-review/#comments</comments>
+		<pubDate>Mon, 19 Apr 2010 13:31:49 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1034</guid>
+		<description><![CDATA[Just posted a review of the Behringer UCA202 stereo audio I/O device. If you need a quality converter that does both analog-to-digital and digital-to-analog audio conversion and need to stay within a small budget, then this device is for you! &#8230; <a class="more-link" href="http://henryranch.net/2010/behringer-uca202-stereo-analog-to-digital-converter-review/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>Just posted a review of the Behringer UCA202 stereo audio I/O device.  If you need a quality converter that does both analog-to-digital and digital-to-analog audio conversion and need to stay within a small budget, then this device is for you!  Take a look at my review here: <a href="http://henryranch.net/reviews/behringer-uca202-stereo-usb-analog-to-digital-audio-converter/">http://henryranch.net/reviews/behringer-uca202-stereo-usb-analog-to-digital-audio-converter/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2010/behringer-uca202-stereo-analog-to-digital-converter-review/feed/</wfw:commentRss>
+		<slash:comments>2</slash:comments>
+		</item>
+		<item>
+		<title>Satellite dish airsoft prop article</title>
+		<link>http://henryranch.net/2010/satellite-dish-airsoft-prop-article/</link>
+		<comments>http://henryranch.net/2010/satellite-dish-airsoft-prop-article/#comments</comments>
+		<pubDate>Fri, 16 Apr 2010 06:00:43 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=1023</guid>
+		<description><![CDATA[Including props in an airsoft game can add a bit more enjoyment and challenge to the scenario.  Check out this new article about a man portable satellite dish with an embedded electronics package that I have been working on: http://henryranch.net/airsoft/airsoft-prop-satellite-communication-dish/]]></description>
+			<content:encoded><![CDATA[<p>Including props in an airsoft game can add a bit more enjoyment and challenge to the scenario.  Check out this new article about a man portable satellite dish with an embedded electronics package that I have been working on: <a href="http://henryranch.net/airsoft/airsoft-prop-satellite-communication-dish/" target="_self">http://henryranch.net/airsoft/airsoft-prop-satellite-communication-dish/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2010/satellite-dish-airsoft-prop-article/feed/</wfw:commentRss>
+		<slash:comments>2</slash:comments>
+		</item>
+		<item>
+		<title>Airsoft goggle review &#8211; Pyramex XSG ballistic goggles</title>
+		<link>http://henryranch.net/2010/airsoft-goggle-review-pyramex-xsg-ballistic-goggles/</link>
+		<comments>http://henryranch.net/2010/airsoft-goggle-review-pyramex-xsg-ballistic-goggles/#comments</comments>
+		<pubDate>Sat, 03 Apr 2010 07:02:16 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=967</guid>
+		<description><![CDATA[Just posted a review of my recently purchased Pyramex XSG ballistic goggles.  If you are in the market for a great Airsoft or general safety goggle at an excellent price, you have to read this review: http://henryranch.net/reviews/airsoft-goggle-review-pyramex-xsg-ballistic-goggles/]]></description>
+			<content:encoded><![CDATA[<p>Just posted a review of my recently purchased Pyramex XSG ballistic goggles.  If you are in the market for a great Airsoft or general safety goggle at an excellent price, you have to read this review: <a href="http://henryranch.net/reviews/airsoft-goggle-review-pyramex-xsg-ballistic-goggles/">http://henryranch.net/reviews/airsoft-goggle-review-pyramex-xsg-ballistic-goggles/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2010/airsoft-goggle-review-pyramex-xsg-ballistic-goggles/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Lipo battery charger review</title>
+		<link>http://henryranch.net/2010/lipo-battery-charger-review/</link>
+		<comments>http://henryranch.net/2010/lipo-battery-charger-review/#comments</comments>
+		<pubDate>Mon, 29 Mar 2010 13:57:33 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=952</guid>
+		<description><![CDATA[Need a charger for your high performance Airsoft or RC battery?  Looking for a great Lipo battery charger with integrated cell balancing?  In this article I review my recently purchased Lipo/NiCd/NiMH/Pb battery charger.  If you are in the market for &#8230; <a class="more-link" href="http://henryranch.net/2010/lipo-battery-charger-review/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>Need a charger for your high performance Airsoft or RC battery?  Looking for a great Lipo battery charger with integrated cell balancing?  In this article I review my recently purchased Lipo/NiCd/NiMH/Pb battery charger.  If you are in the market for a battery charger, read this article first: <a href="http://henryranch.net/reviews/lipo-battery-charger-review/" target="_self">http://henryranch.net/reviews/lipo-battery-charger-review/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2010/lipo-battery-charger-review/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Syndicate Press version 0.9.9.2 available</title>
+		<link>http://henryranch.net/2010/syndicate-press-version-0-9-9-2-available/</link>
+		<comments>http://henryranch.net/2010/syndicate-press-version-0-9-9-2-available/#comments</comments>
+		<pubDate>Sun, 14 Mar 2010 02:04:59 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=907</guid>
+		<description><![CDATA[Syndicate Press is moving along.  This latest release includes a number of error handling, security and administration page updates.  If you are looking for a great news feed aggregator for your WordPress site, give Syndicate Press a try: http://henryranch.net/software/syndicate-press/]]></description>
+			<content:encoded><![CDATA[<p>Syndicate Press is moving along.  This latest release includes a number of error handling, security and administration page updates.  If you are looking for a great news feed aggregator for your WordPress site, give Syndicate Press a try: <a href="http://henryranch.net/software/syndicate-press/" target="_self">http://henryranch.net/software/syndicate-press/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2010/syndicate-press-version-0-9-9-2-available/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Salante Mint Madness Yerba Mate review</title>
+		<link>http://henryranch.net/2010/salante-mint-madness-yerba-mate-review/</link>
+		<comments>http://henryranch.net/2010/salante-mint-madness-yerba-mate-review/#comments</comments>
+		<pubDate>Wed, 24 Feb 2010 06:07:54 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=880</guid>
+		<description><![CDATA[I just got my hands on some of the Salante Mint Madness flavored yerba mate.  What a treat!  With deep mint flavors and a subtle mate foundation, this blend is sure to please the most discerning of mate drinkers.  Take &#8230; <a class="more-link" href="http://henryranch.net/2010/salante-mint-madness-yerba-mate-review/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>I just got my hands on some of the Salante Mint Madness flavored yerba mate.  What a treat!  With deep mint flavors and a subtle mate foundation, this blend is sure to please the most discerning of mate drinkers.  Take a look at my review here: <a title="http://henryranch.net/reviews/yerba-mate-reviews/" href="http://henryranch.net/reviews/yerba-mate-reviews/" target="_self">http://henryranch.net/reviews/yerba-mate-reviews/</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2010/salante-mint-madness-yerba-mate-review/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>New Yerba Mate review &#8211; Adding stevia to your mate</title>
+		<link>http://henryranch.net/2010/new-yerba-mate-review-adding-stevia-to-your-mate/</link>
+		<comments>http://henryranch.net/2010/new-yerba-mate-review-adding-stevia-to-your-mate/#comments</comments>
+		<pubDate>Fri, 19 Feb 2010 03:39:11 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=874</guid>
+		<description><![CDATA[Stevia is a completely natural, sugar free sweetener that you can add to your hot and cold drinks without it becoming bitter like the more popular sugar free sweeteners on the market.  Take a look at the new review of &#8230; <a class="more-link" href="http://henryranch.net/2010/new-yerba-mate-review-adding-stevia-to-your-mate/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>Stevia is a completely natural, sugar free sweetener that you can add to your hot and cold drinks without it becoming bitter like the more popular sugar free sweeteners on the market.  Take a look at the new review of the Salante strawberry teabags and the new section about stevia sweetener.  The review is available here: <a title="Yerbe mate reviews" href="http://henryranch.net/reviews/yerba-mate-reviews/" target="_blank">http://henryranch.net/reviews/yerba-mate-reviews/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2010/new-yerba-mate-review-adding-stevia-to-your-mate/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Airsoft reviews, products and links</title>
+		<link>http://henryranch.net/2010/airsoft-reviews-products-and-links/</link>
+		<comments>http://henryranch.net/2010/airsoft-reviews-products-and-links/#comments</comments>
+		<pubDate>Fri, 12 Feb 2010 03:03:53 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=862</guid>
+		<description><![CDATA[I just got into airsoft and like any newbie I have been learning as much as I can about all the gear I need. As a result of all this research I have been compiling quite a list of links &#8230; <a class="more-link" href="http://henryranch.net/2010/airsoft-reviews-products-and-links/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>I just got into airsoft and like any newbie I have been learning as much as I can about all the gear I need.  As a result of all this research I have been compiling quite a list of links to articles, tutorials and products.  Take a look at my airsoft article here: <a href="http://henryranch.net/airsoft/">http://henryranch.net/airsoft/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2010/airsoft-reviews-products-and-links/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>FRS/GMRS radio privacy code list</title>
+		<link>http://henryranch.net/2010/frsgmrs-radio-privacy-code-list/</link>
+		<comments>http://henryranch.net/2010/frsgmrs-radio-privacy-code-list/#comments</comments>
+		<pubDate>Wed, 27 Jan 2010 05:40:53 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=807</guid>
+		<description><![CDATA[FRS and GMRS radios can make use of privacy tones to reduce the audio chatter that can sometimes make a channel nearly unusable.  This article provides some more detail about what privacy tones really are and what frequency each privacy &#8230; <a class="more-link" href="http://henryranch.net/2010/frsgmrs-radio-privacy-code-list/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>FRS and GMRS radios can make use of privacy tones to reduce the audio chatter that can sometimes make a channel nearly unusable.  This article provides some more detail about what privacy tones really are and what frequency each privacy code number maps to.  For more info, read the article: <a href="http://henryranch.net/reviews/frs-radio-privacy-tone-list/">http://henryranch.net/reviews/frs-radio-privacy-tone-list/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2010/frsgmrs-radio-privacy-code-list/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Ooma Telo review</title>
+		<link>http://henryranch.net/2010/ooma-telo-review/</link>
+		<comments>http://henryranch.net/2010/ooma-telo-review/#comments</comments>
+		<pubDate>Wed, 20 Jan 2010 14:42:58 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=788</guid>
+		<description><![CDATA[Just added a new review of the Ooma Telo VOIP phone system. If you have broadband internet access and would like to stop paying for a home phone line, then you should take a serious look at the Ooma and &#8230; <a class="more-link" href="http://henryranch.net/2010/ooma-telo-review/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>Just added a new review of the Ooma Telo VOIP phone system.  If you have broadband internet access and would like to stop paying for a home phone line, then you should take a serious look at the Ooma and read my review <a href="http://henryranch.net/reviews/ooma-review-a-real-look-at-the-ooma-voip-phone-system/">http://henryranch.net/reviews/ooma-review-a-real-look-at-the-ooma-voip-phone-system/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2010/ooma-telo-review/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>FRS frequency list</title>
+		<link>http://henryranch.net/2010/frs-frequency-list/</link>
+		<comments>http://henryranch.net/2010/frs-frequency-list/#comments</comments>
+		<pubDate>Mon, 18 Jan 2010 02:12:48 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=776</guid>
+		<description><![CDATA[Check out this quick reference chart that shows FRS/GMRS channels and frequencies: http://henryranch.net/reviews/frs-radio-frequency-list/]]></description>
+			<content:encoded><![CDATA[<p>Check out this quick reference chart that shows FRS/GMRS channels and frequencies: <a href="http://henryranch.net/reviews/frs-radio-frequency-list/">http://henryranch.net/reviews/frs-radio-frequency-list/</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2010/frs-frequency-list/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Problem checking out a plugin from the WordPress SVN site?</title>
+		<link>http://henryranch.net/2010/problem-checking-out-a-plugin-from-the-wordpress-svn-site/</link>
+		<comments>http://henryranch.net/2010/problem-checking-out-a-plugin-from-the-wordpress-svn-site/#comments</comments>
+		<pubDate>Tue, 12 Jan 2010 05:49:59 +0000</pubDate>
+		<dc:creator>HenryRanch LLC</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=765</guid>
+		<description><![CDATA[Ever encountered the following error from svn when trying to checkout (or checkin) to a wordpress plugin repository: svn: OPTIONS of &#8216;http://plugins.svn.wordpress.org/yourPlugin&#8217;: 200 OK (http://plugins.svn.wordpress.org) Unfortunately, that error message makes almost no sense and is a bit frustrating, especially when &#8230; <a class="more-link" href="http://henryranch.net/2010/problem-checking-out-a-plugin-from-the-wordpress-svn-site/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>Ever encountered the following error from svn when trying to checkout (or checkin) to a wordpress plugin repository:</p>
+<blockquote><p>svn: OPTIONS of &#8216;http://plugins.svn.wordpress.org/yourPlugin&#8217;: 200 OK (http://plugins.svn.wordpress.org)</p></blockquote>
+<p>Unfortunately, that error message makes almost no sense and is a bit frustrating, especially when you are in a hurry to get working on your repository&#8230;</p>
+<p>After a bit of testing and trying various things, it turns out that the problem is that the <a title="http://wordpress.org/extend/plugins/about/svn/" href="http://wordpress.org/extend/plugins/about/svn/" target="_blank">WordPress SVN plugin developer instructions</a> provide the incorrect protocol for the URL.  Rather than using &#8216;<em><strong>http</strong></em>&#8216;, try using &#8216;<strong><em>https</em></strong>&#8216;.  This should get you going again.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2010/problem-checking-out-a-plugin-from-the-wordpress-svn-site/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Awesome tequila shrimp!</title>
+		<link>http://henryranch.net/2009/awesome-tequila-shrimp/</link>
+		<comments>http://henryranch.net/2009/awesome-tequila-shrimp/#comments</comments>
+		<pubDate>Thu, 10 Dec 2009 23:28:47 +0000</pubDate>
+		<dc:creator>shaun</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=637</guid>
+		<description><![CDATA[These tequila shrimp are nothing short of awesome and if you like shrimp, then you need to try this.  All you need are some simple ingredients and about 15 minutes including prep and cooking time. Ingredients: 1/2 to 1 pound &#8230; <a class="more-link" href="http://henryranch.net/2009/awesome-tequila-shrimp/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>These tequila shrimp are nothing short of awesome and if you like shrimp, then you need to try this.  All you need are some simple ingredients and about 15 minutes including prep and cooking time.</p>
+<h2>Ingredients:</h2>
+<ul>
+<li>1/2 to 1 pound of  raw or cooked shrimp that have been peeled, de-veined, thawed and gently rinsed.
+<ul>
+<li>I prefer raw shrimp as it gives me more control over the &#8216;done-ness&#8217; of the shrimp and helps avoid over-cooking them</li>
+<li>The shrimp should be completely thawed.
+<ul>
+<li>I like to thaw my shrimp on a metal cookie sheet as the metal appears to help them thaw faster by dissipating the cold temperature.</li>
+<li>Don&#8217;t force thaw shrimp under running water as the water will damage the flesh</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Cilantro: 1/2 cup of washed, chopped, fresh cilantro</li>
+<li>Cream or half-and-half: 1/2 pint</li>
+<li>Butter: about 1/2 stick</li>
+<li>Salt: 1/4 tablespoon</li>
+<li>Pepper: 1/8 tablespoon of pepper</li>
+<li>Garlic: about 1/8 tablespoon of garlic powder or 1 freshly minced clove</li>
+<li>Tequila: 1 tablespoon of medium to high quality golden or white tequila.</li>
+</ul>
+<h2>Cook &#8216;em up&#8230;</h2>
+<p>Mix all the ingredients, except for the shrimp, in a deep sided frying pan.  Bring the sauce to a gentle boil while stirring often.  You don&#8217;t want to scorch the butter or cream, so be careful.  You will want to let the sauce gently boil/steam for a while to thicken it up a bit.  If you like really thick sauce you can add rice flour as a thickener.  Rice flour is a perfect thickener because it does not impart flavor like flour or cornstarch.</p>
+<p>Once the sauce is at the desired consistency, and while it is still &#8216;cooking&#8217;, you can add the shrimp.  If you used raw shrimp, be sure to cook the shrimp in the sauce until they are completely pink.  If you used pre-cooked shrimp, you goal here is not to cook them, but to heat them up.</p>
+<table border="0">
+<tbody>
+<tr>
+<td>
+<p><div id="attachment_671" class="wp-caption alignnone" style="width: 160px"><a href="http://henryranch.net/wp-content/uploads/2009/12/1.JPG" rel="lightbox[637]" title="Chopped cilantro"><img class="size-thumbnail wp-image-671" title="Chopped cilantro" src="http://henryranch.net/wp-content/uploads/2009/12/1-150x150.jpg" alt="Choped cilantro in the deep side frying pan" width="150" height="150" /></a><p class="wp-caption-text">Chopped cilantro in the deep side frying pan</p></div></td>
+<td>
+<p><div id="attachment_674" class="wp-caption alignnone" style="width: 160px"><a href="http://henryranch.net/wp-content/uploads/2009/12/2.JPG" rel="lightbox[637]" title="Sauce"><img class="size-thumbnail wp-image-674" title="Sauce" src="http://henryranch.net/wp-content/uploads/2009/12/2-150x150.jpg" alt="Butter, cream and cilantro" width="150" height="150" /></a><p class="wp-caption-text">Butter, cream and cilantro</p></div></td>
+<td>
+<p><div id="attachment_676" class="wp-caption alignnone" style="width: 160px"><a href="http://henryranch.net/wp-content/uploads/2009/12/3.JPG" rel="lightbox[637]" title="Garlic powder, pepper and salt"><img class="size-thumbnail wp-image-676" title="Garlic powder, pepper and salt" src="http://henryranch.net/wp-content/uploads/2009/12/3-150x150.jpg" alt="Garlic powder, pepper and salt" width="150" height="150" /></a><p class="wp-caption-text">Garlic powder, pepper and salt</p></div></td>
+</tr>
+<tr>
+<td>
+<p><div id="attachment_677" class="wp-caption alignnone" style="width: 160px"><a href="http://henryranch.net/wp-content/uploads/2009/12/4.JPG" rel="lightbox[637]" title="4"><img class="size-thumbnail wp-image-677" title="4" src="http://henryranch.net/wp-content/uploads/2009/12/4-150x150.jpg" alt="Raw shrimp cooking in the 'sauce'" width="150" height="150" /></a><p class="wp-caption-text">Raw shrimp cooking in the &#39;sauce&#39;</p></div></td>
+<td>
+<p><div id="attachment_679" class="wp-caption alignnone" style="width: 160px"><a href="http://henryranch.net/wp-content/uploads/2009/12/5.JPG" rel="lightbox[637]" title="Done!"><img class="size-thumbnail wp-image-679" title="Done!" src="http://henryranch.net/wp-content/uploads/2009/12/5-150x150.jpg" alt="Mmmm, tasty shrimp, ready to eat!" width="150" height="150" /></a><p class="wp-caption-text">Mmmm, tasty shrimp, ready to eat!</p></div></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>Serve &#8216;em up&#8230;</h2>
+<p>You can serve the shrimp as an appetizer or a main course.  The sauce can be used as either a dipping sauce for the shrimp, or as a fantastic complement to thin, angel hair style noodles.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2009/awesome-tequila-shrimp/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Syndicate Press WordPress plugin being prepped for release</title>
+		<link>http://henryranch.net/2009/syndicate-press-wordpress-plugin-being-prepped-for-release/</link>
+		<comments>http://henryranch.net/2009/syndicate-press-wordpress-plugin-being-prepped-for-release/#comments</comments>
+		<pubDate>Tue, 17 Nov 2009 06:08:39 +0000</pubDate>
+		<dc:creator>shaun</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=508</guid>
+		<description><![CDATA[The Syndicate Press RSS/Atom/RDF syndication plugin for WordPress got one step closer to it&#8217;s initial release today with the cleanup of code, testing of features and optimization of the formatted output cache.  See http://henryranch.net/software/syndicate-press/ for more information. If you would &#8230; <a class="more-link" href="http://henryranch.net/2009/syndicate-press-wordpress-plugin-being-prepped-for-release/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>The Syndicate Press RSS/Atom/RDF syndication plugin for WordPress got one step closer to it&#8217;s initial release today with the cleanup of code, testing of features and optimization of the formatted output cache.  See <a href="http://henryranch.net/software/syndicate-press/">http://henryranch.net/software/syndicate-press/</a> for more information.</p>
+<p>If you would like to be a beta tester, please request the beta release access information by leaving a comment on the Syndicate Press page.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2009/syndicate-press-wordpress-plugin-being-prepped-for-release/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Syndicate Press RSS/Atom feed WordPress plugin nears release</title>
+		<link>http://henryranch.net/2009/syndicate-press-rssatom-feed-wordpress-plugin-nears-release/</link>
+		<comments>http://henryranch.net/2009/syndicate-press-rssatom-feed-wordpress-plugin-nears-release/#comments</comments>
+		<pubDate>Fri, 06 Nov 2009 15:10:37 +0000</pubDate>
+		<dc:creator>shaun</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=486</guid>
+		<description><![CDATA[The Syndicate Press plugin for wordpress took a major step forward this week with the release of Version 0.6 for beta testers.  This release uses a completely redesigned feed parser implemented from the ground up. See http://henryranch.net/software/syndicate-press/ for more information]]></description>
+			<content:encoded><![CDATA[<p>The Syndicate Press plugin for wordpress took a major step forward this week with the release of Version 0.6 for beta testers.  This release uses a completely redesigned feed parser implemented from the ground up.  <a href="http://henryranch.net/software/syndicate-press/">See http://henryranch.net/software/syndicate-press/ for more information</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2009/syndicate-press-rssatom-feed-wordpress-plugin-nears-release/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Secure that coffee shop wi-fi!</title>
+		<link>http://henryranch.net/2009/secure-that-coffee-shop-wi-fi/</link>
+		<comments>http://henryranch.net/2009/secure-that-coffee-shop-wi-fi/#comments</comments>
+		<pubDate>Thu, 05 Nov 2009 03:39:37 +0000</pubDate>
+		<dc:creator>shaun</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=478</guid>
+		<description><![CDATA[We have all browsed the internet over an unsecured wi-fi network at some point in time. Obviously, this presents numerous security and privacy implications. Fortunately, there is a relatively simple solution that will allow you to securely &#8220;tunnel&#8221; back to &#8230; <a class="more-link" href="http://henryranch.net/2009/secure-that-coffee-shop-wi-fi/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>We have all browsed the internet over an unsecured wi-fi network at some point in time.  Obviously, this presents numerous security and privacy implications.  Fortunately, there is a relatively simple solution that will allow you to securely &#8220;tunnel&#8221; back to your home broadband network and browse as though you were at your house.  The key peice of equipment is the Lynksys NSLU2 device.  <a title="securing open wi-fi browsing with the NSLU2" href="http://henryranch.net/tutorials/secure-your-mobile-wi-fi-browsing-with-the-nslu2/" target="_self">Read on for more details&#8230;</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2009/secure-that-coffee-shop-wi-fi/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>The crippling of PHP&#8217;s file_get_contents()</title>
+		<link>http://henryranch.net/2009/the-crippling-of-phps-file_get_contents/</link>
+		<comments>http://henryranch.net/2009/the-crippling-of-phps-file_get_contents/#comments</comments>
+		<pubDate>Sun, 01 Nov 2009 21:33:37 +0000</pubDate>
+		<dc:creator>shaun</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=443</guid>
+		<description><![CDATA[If you have been around the PHP scene for a while now, you are probably aware of the file_get_contents() function. This function has been used in many web applications for years, but has been under increasing attack from nefarious evil &#8230; <a class="more-link" href="http://henryranch.net/2009/the-crippling-of-phps-file_get_contents/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>If you have been around the PHP scene for a while now, you are probably aware of the file_get_contents() function.  This function has been used in many web applications for years, but has been under increasing attack from nefarious evil doers.  Due to the security issues when using this function to download URL content, many web hosts have disabled the URL functionality.  Take a look at the <a href="http://henryranch.net/software/php-http-socket-client/">PHP HTTP socket Client</a> article for the TinyHttpClient, a simple yet very functional alternative which supports HTTP 1.0 GET, POST and Basic Authentication&#8230;</p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2009/the-crippling-of-phps-file_get_contents/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Chicken in a bag</title>
+		<link>http://henryranch.net/2009/chicken-in-a-bag/</link>
+		<comments>http://henryranch.net/2009/chicken-in-a-bag/#comments</comments>
+		<pubDate>Sun, 04 Oct 2009 00:10:28 +0000</pubDate>
+		<dc:creator>shaun</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=258</guid>
+		<description><![CDATA[Ever wondered how to transport a chicken in your car when you don&#8217;t have a cage or a box? While traveling in East Africa several years ago, my wife and I faced just such a quandary. We had traveled about &#8230; <a class="more-link" href="http://henryranch.net/2009/chicken-in-a-bag/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>Ever wondered how to transport a chicken in your car when you don&#8217;t have a cage or a box?</p>
+<p>While traveling in East Africa several years ago, my wife and I faced just such a quandary.  We had traveled about 4 hours by very rough roads to a small town where we were the lunch guests at the home of the local public school headmaster.</p>
+<p>After lunch was over, the headmaster presented my wife with two chickens to take home with us.  This was an honor that the headmaster was showing us and we could not refuse them without causing offense due to local customs.  Not knowing what to do, my father in law came up with a great idea for safely transporting the chickens home.  He went around to the back of the truck and rummaged through the &#8220;junk&#8221; that all work trucks have.</p>
+<p><a href="http://henryranch.net/wp-content/uploads/2009/10/chickenInABag_1.JPG" rel="lightbox[258]" title="chickenInABag_1"><img class="alignleft size-thumbnail wp-image-259" title="chickenInABag_1" src="http://henryranch.net/wp-content/uploads/2009/10/chickenInABag_1-150x150.jpg" alt="chickenInABag_1" width="150" height="150" /></a><a href="http://henryranch.net/wp-content/uploads/2009/10/chickenInABag_2.JPG" rel="lightbox[258]" title="chickenInABag_2"><img class="alignleft size-thumbnail wp-image-261" title="chickenInABag_2" src="http://henryranch.net/wp-content/uploads/2009/10/chickenInABag_2-150x150.jpg" alt="chickenInABag_2" width="150" height="150" /></a>Out came two blue, plastic &#8220;shopping bags&#8221;, like the ones you get at the grocery store.  He then proceeded to poke a hole in the bottom corner of each bag and placed the bag over the chicken and poked the chickens head out the little hole.  We gently put the legs and tail of the bird into the bag and then tied it up using the bag handles.</p>
+<p>The bird was content and rode all the way back home over very rough roads at my feet.  It never squirmed or even appeared agitated. We drove along the dirt roads for about 4 more hours and when we arrived at our destination, the chicken was relaxed and unharmed.  Best of all, there was no mess.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2009/chicken-in-a-bag/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>New Yerba Mate review</title>
+		<link>http://henryranch.net/2009/new-yerbe-mate-review/</link>
+		<comments>http://henryranch.net/2009/new-yerbe-mate-review/#comments</comments>
+		<pubDate>Sat, 29 Aug 2009 15:25:31 +0000</pubDate>
+		<dc:creator>shaun</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=228</guid>
+		<description><![CDATA[Posted a new review of various Yerba Mate brands and blends.  Check it out here.]]></description>
+			<content:encoded><![CDATA[<p>Posted a new review of various Yerba Mate brands and blends.  Check it out <a title="Review of Rosamonte, Salante, Cruz De Malta and others..." href="http://henryranch.net/reviews/yerba-mate-reviews/">here</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2009/new-yerbe-mate-review/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Looking for the citumpe.com site?</title>
+		<link>http://henryranch.net/2009/looking-for-the-citumpe-com-site/</link>
+		<comments>http://henryranch.net/2009/looking-for-the-citumpe-com-site/#comments</comments>
+		<pubDate>Sat, 29 Aug 2009 05:04:23 +0000</pubDate>
+		<dc:creator>shaun</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=222</guid>
+		<description><![CDATA[Welcome to henryranch.net, where we bring you a holistic mix of articles, tutorials and reviews covering topics such as software and technology, sustainablity and rural living. The citumpe.com site content has been folded into the new and improved henryranch.net site. &#8230; <a class="more-link" href="http://henryranch.net/2009/looking-for-the-citumpe-com-site/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>Welcome to henryranch.net, where we bring you a holistic mix of articles, tutorials and reviews covering topics such as software and technology, sustainablity and rural living.</p>
+<p>The citumpe.com site content has been folded into the new and improved henryranch.net site.</p>
+<p>Please take a moment and check out the new articles, tutorials and reviews here at henryranch.net.  To get started, use the menu links at the top of the site, or the direct page links in the sidebar.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2009/looking-for-the-citumpe-com-site/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>It&#8217;s just two acres</title>
+		<link>http://henryranch.net/2009/its-just-two-acres/</link>
+		<comments>http://henryranch.net/2009/its-just-two-acres/#comments</comments>
+		<pubDate>Sat, 04 Jul 2009 14:22:23 +0000</pubDate>
+		<dc:creator>shaun</dc:creator>
+				<category><![CDATA[Posts]]></category>
+
+		<guid isPermaLink="false">http://henryranch.net/?p=3</guid>
+		<description><![CDATA[Two acres.  Before moving out of the city, we thought that two acres was a lot of land.  From the perspective of a suburban dweller, two acres is a lot of space.  After living here for the last five years, &#8230; <a class="more-link" href="http://henryranch.net/2009/its-just-two-acres/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+			<content:encoded><![CDATA[<p>Two acres.  Before moving out of the city, we thought that two acres was a lot of land.  From the perspective of a suburban dweller, two acres <em>is</em> a lot of space.  After living here for the last five years, our perspective has changed.  Two acres is just about enough for a large garden, a pond and a couple of cows.  It is enough land to eat up your time and but not enough to qualify for agricultural property tax status.</p>
+<p>The move from a suburban neighborhood to a rural piece of land was a good one.  While we are not ranchers, nor farmers, we do live a more rural lifestyle.  We feel more connected to the land and our food.  Our commute has increased by about 5 miles each way, but we now get to watch the corn, wheat and alfalfa fields mature throughout the season.  Occasionally, we see a calf born on the way to the office.</p>
+<p>It&#8217;s a good life and two acres is about right for now.  There is a richness and a depth in rural life that soothes the soul and calms the mind.  Watching the cows is often more enjoyable than prime time  television&#8230;</p>
+<p>The weird part is that you just don&#8217;t get it until you take the plunge and move out of the subdivision.</p>
+]]></content:encoded>
+			<wfw:commentRss>http://henryranch.net/2009/its-just-two-acres/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+		</item>
+	</channel>
+</rss>
+
+<!-- Dynamic page generated in 1.337 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2012-11-06 10:55:19 -->

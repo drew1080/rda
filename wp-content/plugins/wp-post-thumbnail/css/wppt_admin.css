@@ -1,0 +1,94 @@
+.wppt-step { background:#989898; padding:0.28em 0.48em; font-size:1.25em; color:#fff; -moz-border-radius:5px; -webkit-border-radius:5px; border:1px solid #989898; border-color:#b8b8b8 #686868 #686868 #b8b8b8; }
+.wppt-save-draft-before-using-msg { display:none; padding:1em 1em 1em 38px; border:1px dashed #f69191; background:transparent url(../images/wppt-warning-icon.png) 8px 50% no-repeat; }
+
+.wppt-thumbnail-tabs-container { padding:0;	float:left;	width:70%;	margin:0 0 1.28em 0; display:block; }
+    .wppt_thumbnail_tabs_ul, .wppt_options_thumbnail_tabs_ul { list-style:none; margin:16px 0 0 10px; padding:0 0 11px 0; color:#a8a8a8;	font-size:11px; }
+    .wppt_thumbnail_tabs_ul li, .wppt_options_thumbnail_tabs_ul li { display:inline; padding:10px 8px 6px 8px;   line-height:2em; -moz-border-radius:5px 5px 0 0; -webkit-border-radius:5px 5px 0 0; }
+    .wppt_selected_thumbnail { border:1px solid #dfdfdf; border-color:#dfdfdf #b8b8b8 #f1f1f1 #dfdfdf; border-bottom-width:2px; color:#333333; font-weight:bold; background:#f1f1f1; }
+
+    .wppt_thumbnail_preview { width:100%; }
+        .wppt-thumbnail-preview-meta { padding:6px 0 6px 12px; margin:-8px 0 12px 0; background:#f9f9f9; color:#a8a8a8; font-size:0.9em; display:block; border-top:1px solid #dfdfdf; }
+        .wppt-thumbnail-preview-image img { padding:3px; margin:0 0 0 12px; border:1px solid #dfdfdf; }
+
+        .wppt-thumbnail-not-found { border:1px dashed #f69191; margin:0 0 1.68em 0.62em; }
+
+        .wppt-delete-thumbnail-link { display:none; padding-left:6px; width:auto; }
+        .wppt-delete-thumbnail-link > a { color:red; }
+
+
+
+
+
+
+    #wppt-image-library-thumbnails-area { padding:5px; background:#f9f9f9; -moz-border-radius:5px; -webkit-border-radius:5px; border:1px solid #dfdfdf; margin:8px 0; }
+	
+        ul.wppt-image-library-thumbnails { list-style:none; }
+        
+        ul.wppt-image-library-thumbnails li { padding:0; margin:0; display:inline; }
+    
+        ul.wppt-image-library-thumbnails li img { width:40px; height:40px; margin:5px 0 0 0; opacity:0.38; }
+        
+        #wppt-image-library-thumbnails-area .footer { border-top:1px solid #dfdfdf; margin-top:3px;}
+    
+        #wppt-image-library-thumbnails-area  .footer .loading-msg { display:none; padding:5px 0px 5px 23px; background:transparent url(../images/loader-medium.gif) 0 50% no-repeat; }
+
+
+
+
+
+
+    .wppt-save-thumbnail-area { min-width:130px; width:25%; float:left; background:#fff url(../images/wppt_save_form_bg.png) 0 -38px no-repeat; display:block; padding:0.28em 0 0 0.88em; line-height:1.28em; margin:0.48em 0 0 0;}
+
+        .wppt-save-thumbnail-area #wppt_save_button_area_loading { display:none; padding:8px 0 8px 23px; text-indent:8px; background:#fff url(../images/loader-medium.gif) 0 50% no-repeat; }
+
+        .wppt_optional_fields_toggle { /*padding:5px 0 7px 0;*/ }
+
+        .wppt-optional-field-label { font-weight:bold; color:#c8c8c8; }
+
+        .wppt-optional-field-display { padding:1px 0 2px 0; }
+
+        .wppt-optional-field-display-empty-msg { font-style:italic; font-size:0.9em; color: #a8a8a8; }
+
+        .wppt-optional-field-edit { display:none; margin-top:-1px; }
+
+        .wppt_optional_fields { display:none; }
+
+        .wppt_optional_fields > div { margin:0 0 10px 0; }
+
+        .wppt_optional_fields fieldset { margin-bottom:15px; }
+
+        .wppt_optional_fields fieldset legend { margin:8px 0 -5px 0; }
+
+        .wppt_optional_fields fieldset img { margin-right:8px; }
+
+        .wppt_optional_fields input.wppt-optional-text-field { width:100%; border: 1px inset rgb(233, 233, 174); background-color: rgb(255, 255, 211); }
+
+
+
+
+
+
+    #wp-post-thumbnail #wppt-source-image-area { width:100%; margin:0; min-height:38px; overflow:fixed; position:relative; display:none; }
+        #wp-post-thumbnail #wppt-source-image-area img { padding:0; margin:0; }
+        #wp-post-thumbnail #wppt-source-image-area .wppt-source-image-loading { padding:8px 0 8px 0px; text-indent:30px; background:#fff url(../images/loader-medium.gif) 8px 50% no-repeat; vertical-align:text-bottom; opacity:0.8; font-family:arial,helvetica; position:absolute; width:100%; top:0; left:0; display:none; }
+
+
+
+
+
+
+
+.wppt-optional-field-save-button, .wppt-optional-field-cancel-button, #wppt-thumbnail-size-override-button { font-size:0.9em; padding:0 3px; border-width:1px; }
+
+.wppt-loading-msg { display:none; padding-left:15px; background:transparent url(../images/loader-small.gif) 0 50% no-repeat; vertical-align:text-bottom; }
+
+.wppt_options_thumbnail_ul { padding:1em 2em 1em 1em; margin:-8px 0 12px 0; background:#f9f9f9; color:#686868; font-size:0.9em; display:block; border-top:1px solid #dfdfdf; }
+
+.wppt_options_thumbnail_ul li { display:none; }
+
+.wppt-options-selected-thumbnail { border:1px solid #dfdfdf; border-color:#dfdfdf #b8b8b8 #f1f1f1 #dfdfdf; border-bottom-width:2px; color:#333333; font-weight:bold; background:#f1f1f1; }
+
+fieldset.wppt-settings-fieldset { border:1px solid #dfdfdf; padding:0 1.68em 1.98em 1.68em; margin-bottom:1.68em; }
+fieldset.wppt-settings-fieldset legend { font-style:italic; }
+
+.wppt-option-desc { margin-top:0.38em; font-style:italic; }
