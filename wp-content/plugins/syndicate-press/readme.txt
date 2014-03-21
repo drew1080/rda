@@ -1,10 +1,10 @@
 === Syndicate Press ===
 Contributors: hranchFundi 
-Donate link: http://henryranch.net/software/syndicate-press/
+Donate link: http://syndicatepress.henryranch.net/donate/
 Tags: RSS,RDF,Atom,feed,syndicate,syndication,news,aggregator,aggregation,plugin,active,maintained,custom,widget,post,plugin,posts,admin,sidebar,theme,comments,images,twitter,page,google,links
 Requires at least: 2.8
-Tested up to: 3.4.1
-Stable tag: 1.0.17
+Tested up to: 3.8.1
+Stable tag: 1.0.30
 
 Syndicate Press lets you include RSS, RDF or Atom feeds directly in your Wordpress posts, pages, widgets or theme. 
 
@@ -18,7 +18,7 @@ Syndicate Press is actively maintained and regularly updated with new features a
 
 == Installation ==
 
-This section describes how to install the plugin and get it working.
+This section describes how to install the plugin and get it working.  For more details please see http://syndicatepress.henryranch.net/documentation/install/
 
 1. Install the plugin
    - Via th Wordpress plugin repository: Click 'Install' and then 'Activate' after installation completes.
@@ -29,23 +29,96 @@ This section describes how to install the plugin and get it working.
 
 == Frequently Asked Questions ==
 
-See http://henryranch.net/software/syndicate-press/
+See http://syndicatepress.henryranch.net/documentation/faq/
 
 == Screenshots ==
 
-For detailed screenshots of the admin control panel, please visit the Syndicate Press documentation page: http://henryranch.net/software/syndicate-press/
+For detailed screenshots of the admin control panel, please visit the Syndicate Press documentation page: http://syndicatepress.henryranch.net/screenshots/
 
 Please see the following pages for examples of the syndicated news feeds on a Wordpress blog:<br>
 
-http://henryranch.net/news/ <br>
+http://syndicatepress.henryranch.net/feed-tests/simple-wordpress-feeds/ <br>
 
-http://henryranch.net/news/real-time-earthquake-news/ <br>
+http://syndicatepress.henryranch.net/feed-tests/amazon-affiliate-feeds/ <br>
 
-http://henryranch.net/news/science-technology/ <br>
+http://syndicatepress.henryranch.net/feed-tests/feedburner-feeds/ <br>
 
 == Changelog ==
 
-http://henryranch.net/software/syndicate-press/syndicate-press-releases/
+http://syndicatepress.henryranch.net/documentation/changelog/
+
+v1.0.30: Some fixes to the lightbox popup and html special character handling
+- Lightbox: Ensure it displays in the center of the page when the page is scrolled.  Also, fixed multiple vertical scroll bar issue in lightbox.
+- HTML special char: fixed issue from forum where & and then various chars such as reg will show the html special char
+
+v1.0.29: Quick fix for permissions message when there was no perms issue
+
+v1.0.28: Lightbox popup for article links
+- Added new lightbox feature with tab on SP Admin Control Panel
+- Fixed issue with 'hide articles after X number of articles' where styling was off and content would jump out of theme div's.
+- Cleaned up some dead code from the parser
+- Re-arranged the Donations tab to highlight the donors website link 
+- Cleaned up some warnings visible in php/wordpress debug mode related to uninitialized vars.
+
+v1.0.27: Custom shortcode parameter: replaceStringInTitle
+- Added a new parameter to the shortcode which allows the admin to replace one or more strings in the article title with another string.
+
+v1.0.26: Small update
+- Updated support for advertising code between feeds.
+
+1.0.25: New feature release - Lots of features...<br>
+- Custom formatting now supports:<br>
+--- Timestamp<br>
+--- Author<br>
+--- Copyright<br>
+--- Price<br>
+--- Image<br>
+- Basic namespace support for 'pm' namespace<br>
+- Updated 'Custom Formatting' tab in admin panel to make it easier to use<br>
+- Updated documentation and disclaimers in the admin panel<br>
+- GUID from article is placed into html comments in the rendered page<br>
+- Added subtitle for article to parsed output<br>
+
+
+1.0.24: New feature release<br>
+- Added the ability to remove the CDATA tags from the feed.  The content is still retained that was within the CDATA tags.  This feature can be accessed on the 'Display Settings' tab.<br>
+
+
+1.0.23: New feature release<br>
+- Show the first X number of articles from a feed and then hide the rest.  Allow the website viewer to click a link to show the hidden articles.<br>
+
+
+1.0.22: New feature release<br>
+- Custom cache directory:<br>
+--- The admin can now set a custom cache root directory in the "Cache" tab.  This may be useful for Wordpress multi-site configurations.<br>
+--- The "Cache" tab now shows the cache root, input and output directories along with their current permissions and how many cache files are in each dir.<br>
+- Bug fix:<br>
+--- Fixed a bug in which the clear cache buttons were not working as expected.<br>
+
+1.0.21: New feature release<br>
+This release contains multiple new features...<br>
+- Custom Formatting:<br> 
+--- Feed and article title custom formatting now supports full html parameters such as the css style param and the javascript param<br>
+--- Added custom formatting to the article body<br>
+- Article identification:<br>
+--- Added div id's to the articles.  This div surrounds the article tite, timestamp and body content.<br>
+- Support:<br>
+--- Added a feature on the support tab which will show the internal, global settings for SP so that an admin can include the settings in a support request email.<br>
+- TinyHttpClient class:<br>
+--- Changed User-Agent to Mozilla to help more servers accept the client.<br>
+- Documentation:<br>
+--- Added a reminder on the RSS Feeds tab that the site admin is fully responsible for following a feed publishers Copyright and Terms of Use.<br>
+
+
+
+1.0.20: New feature release<br>
+Added a new short-code parameter, truncateTitleAtWord, which allows you to set a word, which, if detected in the title will truncate the title just prior to that word.  The result is that the word, and all words following it will not be shown on the page.  This is especially useful for affiliate rss feeds where product meta information is included in the article title, but is not actually important. Also updated docs on the help tab.
+
+1.0.19: Bug fix release<br>
+Fixed a bug in the length truncation code which would truncate the article or the article headline in the middle of a word.  With this fix, the article or headline will now be truncated on whole word boundaries, where a word is defined by any string of characters, separated by a space.  This change applies to the "Limit article to _____ characters" setting and the the "Limit article headline to _____ characters" setting on the "Display Settings" tab of the SP Admin panel.
+
+1.0.18: New feature release<br>
+Added a new short-code parameter, limitArticles, which allows you to override the global article limit for the short-code that the param is included in.  Use the new param as follows: [sp# feedList=feedName limitArticles=5].  Change 5 to whatever you want the max number of articles to be.
 
 1.0.17: New feature release<br>
 Added new SEO feature which allows the admin to add the rel=nofollow tag to the article links.
@@ -105,8 +178,6 @@ header2 level, but this can be removed in the plugin admin page.
 
 Please see the following pages for examples of the syndicated news feeds on a Wordpress blog:<br>
 
-http://henryranch.net/news/ <br>
+Usage information: http://syndicatepress.henryranch.net/documentation/usage/ <br>
 
-http://henryranch.net/news/real-time-earthquake-news/ <br>
 
-http://henryranch.net/news/science-technology/ <br>

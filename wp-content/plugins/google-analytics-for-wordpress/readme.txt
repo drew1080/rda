@@ -1,16 +1,16 @@
-=== Google Analytics for WordPress ===
-Contributors: joostdevalk
+﻿=== Google Analytics for WordPress ===
+Contributors: joostdevalk, barrykooij
 Donate link: http://yoast.com/donate/
 Tags: analytics, google analytics, statistics, tracking, stats, google
-Requires at least: 2.8
-Tested up to: 3.1
-Stable tag: 4.0.13
+Requires at least: 3.3
+Tested up to: 3.8.1
+Stable tag: 4.3.5
 
 Track your WordPress site easily and with lots of metadata: views per author & category, automatic tracking of outbound clicks and pageviews.
 
 == Description ==
 
-The Google Analytics for WordPress plugin allows you to track your blog easily and with lots of metadata. 
+The Google Analytics for WordPress plugin allows you to track your blog easily and with lots of metadata.
 
 Check out the [Google Analytics for WordPress video](http://www.youtube.com/watch?v=tnUXzbvXxSQ):
 
@@ -19,8 +19,9 @@ http://www.youtube.com/watch?v=tnUXzbvXxSQ&hd=1
 Full list of features:
 
 * Simple installation through integration with Google Analytics API: authenticate, select the site you want to track and you're done.
-* This plugin uses the asynchronous tracking code, the fastest and most reliable tracking code Google Analytics offers.
+* This plugin uses the asynchronous Google Analytics tracking code, the fastest and most reliable tracking code Google Analytics offers.
 * Option to manually place the tracking code in another location.
+* Automatic Google Analytics site speed tracking.
 * Outbound link & downloads tracking.
 	* Configurable options to track outbound links either as pageviews.
 	* Option to track just downloads as pageviews in Google Analytics.
@@ -33,21 +34,18 @@ Full list of features:
 	* Tags
 * Possibility to ignore any user level and up, so all editors and higher for instance.
 * Easily connect your Google AdSense and Google Analytics accounts.
-* Option to tag links with campaign tracking, with the option to use hashes (#).
+* Option to tag links with Google Analytics campaign tracking, with the option to use hashes (#).
 * Option anonymize IP's, for use in countries like Germany.
-* Full [debug mode](http://yoast.com/google-analytics-debug-mode/), including Firebug lite and ga_debug.js for debugging Analytics issues.
+* Full [debug mode](http://yoast.com/google-analytics-debug-mode/), including Firebug lite and ga_debug.js for debugging Google Analytics issues.
 * Allow local hosting of ga.js file.
-* Tracking non default search engines
+* Tracking of search engines not included in Google Analytics default tracking.
 * Tracking of login and registration forms.
 
 Other interesting stuff:
 
-* Check out the other [Wordpress plugins](http://yoast.com/wordpress/) by the same author.
+* Check out the other [WordPress Plugins](http://yoast.com/wordpress/) by the same author.
 * Want to increase traffic to your WordPress blog? Check out the [WordPress SEO](http://yoast.com/articles/wordpress-seo/) Guide!
 * Check out the authors [WordPress Hosting](http://yoast.com/articles/wordpress-hosting/) experience. Good hosting is hard to come by, but it doesn't have to be expensive, Joost tells you why!
-* If you've still not seen enough, or you'd rather listen than read, check out the [WordPress Podcast](http://wp-community.org/), hosted by the author of this plugin and Frederick Townes, the creator of [W3 Total Cache](http://wordpress.org/extend/plugins/w3-total-cache/).
-
-<meta name="google-site-verification" content="JfWAcXeAyBe5IPMBFjYLi8OX5K_XFwz3sjSasjsoULs" />
 
 == Installation ==
 
@@ -60,13 +58,104 @@ This section describes how to install the plugin and get it working.
 
 == Changelog ==
 
-= 4.0.13 =
+= 4.3.5 =
+
+* Enhancement:
+	* Update banners in admin.
+
+= 4.3.4 =
+
+* Bugfix: 
+	* Fixed error in a database query as reported by [mikeotgaar](http://wordpress.org/support/topic/wordpress-database-error-table-1) and applied some best practices for the database queries - props [Jrf](http://profiles.wordpress.org/jrf).
+	* Fixed error in a database query.
+	* Made check for customcode option more robust - props [Rarst](https://github.com/Rarst).
+
+* i18n
+	* Updated gawp.pot file
+	* Added de_DE, el_GR, es_ES, fi, fr_FR, hu_HU & nl_NL
+
+= 4.3.3 =
+
+* Fix a possible fatal error in tracking.
+
+= 4.3.2 =
+
+* Bugfix: Google Analytics crappy API output is different when you have a single GA account versus multiple. Annoying, but fixed now.
+
+= 4.3.1 =
+
+* Removes a left over JS alert.
+
+= 4.3 =
+
+* Major refactor of plugin code, to only load necessary code on front and backend.
+* Made entire plugin i18n ready.
+* Fixed Google Authentication process (thanks to [Jan Willem Eshuis](http://www.janwillemeshuis.nl/)).
+
+= 4.2.8 =
+
+* Fix a small bug in tracking that could potentially slow down admin.
+
+= 4.2.7 =
+
+* Fix to prevent far too agressive oAuth implementation from breaking other plugins.
+
+= 4.2.6 =
+
+* Fix to prevent far too agressive oAuth implementation from breaking other plugins.
+
+= 4.2.5 =
+
+* Fixed a couple notices.
+* Added tracking to better understand configurations to test the plugin with.
+
+= 4.2.4 =
+
+* Fixed bug introduced with 4.2.3 that wouldn't allow saving settings.
+* Now only flushing enabled W3TC caches.
+
+= 4.2.3 =
+
+* Removed Dashboard widget.
+* Improvements to comment form tracking.
+
+= 4.2.2 =
+
+* Fix for OAuth issues, caused by other plugins that don't check for the existence of a class. Namespaced the whole thing to prevent it.
+
+= 4.2.1 =
+
+* Minor bugfix.
+
+= 4.2 =
+
+* Google Authentication now happens using OAuth. The requests have become signed as an extra security measure and tokens have become more stable, as opposed to the prior tokens used with AuthSub.
+* Added support for cross-domain tracking.
+* Fixed various small bugs.
+
+= 4.1.3 =
+
+* Security fix: badly crafted comments could lead to insertion of "weird" links into comments. They'd have to pass your moderation, but still... Immediate update advised. Props to David Whitehouse and James Slater for finding it.
+
+= 4.1.2 =
+
+* Fixed bug with custom SE tracking introduced in 4.1.1.
+
+= 4.1.1 =
+
+* Made plugin admin work with jQuery 1.6 and jQuery 1.4.
+* Added contextual help.
+* Improved cache flushing when using W3TC.
+* Fixed various minor other notices.
+* First stab at getting ready for full i18n compatibility.
+
+= 4.1 =
+
+* Added:
+	* Google Site Speed tracking, turned it on by default.
 
 * Fixed:
-	* Properly track the post type when you're on a post type archive page.
-	* Remove single quotes from item names for Shopp and WP E-commerce to prevent tracking issues (props [Caleb Whitmore](http://www.analyticspros.com/)).
-	* Only load the admin class when you're actually in admin and not doing AJAX.
-	* Prevent notices on post types that do not have categories or tags.
+	* Custom code now properly removes slashes.
 
 = 4.0.12 =
 
@@ -77,18 +166,18 @@ This section describes how to install the plugin and get it working.
 	* Notice for unset variable.
 	* Error when user is not logged in in certain corner cases.
 	* Bug where $options was used but never loaded for blogroll links.
-	
+
 = 4.0.11 =
 
 * Bugs fixed:
 	* You can now disable comment form tracking properly.
 	* Removed charset property from script tags to allow validation with HTML5 doctype.
-	
+
 = 4.0.10 =
 
 * Known issues:
 	* Authentication with Google gives errors in quite a few cases. Please use the manual option to add your UA code until we find a way to reliably fix it.
-	
+
 * Added functionality:
 	* Option to set `_setAllowHash` to false, for proper subdomain tracking and some other uses.
 	* Option to add a custom string of code to the tracking, before the push string is sent out.
@@ -129,9 +218,9 @@ This section describes how to install the plugin and get it working.
 * Documentation fixes:
 	* Updated custom variable order in settings panel to reflect order of tracking. You can now determine their index key by counting down, first checked box is index 1, second 2, etc.
 	* Ignored users dropdown now correctly reflects that ignoring subcribers and up means ignoring ALL logged in users.
-	
+
 = 4.0.5 =
-* New features in this release: 
+* New features in this release:
 	* Added a simple check to see if the UA code, when entered manually, matches a basic pattern of UA-1234567-12.
 	* Added integration with [W3 Total Cache](http://wordpress.org/extend/plugins/w3-total-cache/) and [WP Super Cache](http://wordpress.org/extend/plugins/wp-super-cache/). The page cache is now automatically cleared after updating settings. Caching is recommended for all WordPress users, as faster page loads improve tracking reliability and W3 Total Cache is our recommended caching plugin.
 	* Added the option to enter a manual location for ga.js, allowing you to host it locally should you wish to.
@@ -147,7 +236,7 @@ This section describes how to install the plugin and get it working.
 * Fix for stupid boolean mistake in 4.0.3.
 
 = 4.0.3 =
-* New features in this release: 
+* New features in this release:
 	* Added versioning to the options array, to allow for easy addition of options.
 	* Added an option to enable comment form tracking (as this loads jQuery), defaults to on.
 * Bugs fixed:
@@ -156,7 +245,7 @@ This section describes how to install the plugin and get it working.
 
 = 4.0.2 =
 * Old settings from versions below 4.0 are now properly sanitized and inherited (slaps forehead about simplicity of fix).
-* New features in this release: 
+* New features in this release:
 	* Link sanitization added: relative links will be rewritten to absolute, so /out/ becomes http://example.com/out/ and is tracked properly.
 	* Added a feature to track and label internal links as outbound clicks, for instance /out/ links.
 	* Added tracking for mailto: links.
@@ -173,8 +262,8 @@ This section describes how to install the plugin and get it working.
 * Complete rewrite of the codebase
 * Switched to the new asynchronous event tracking model
 * Switched link tracking to an event tracking model, because of this change removed 5 settings from the settings panel that were no longer needed
-* Implemented custom variable tracking to track: 
-	* On the session level: whether the user is logged in or not. 
+* Implemented custom variable tracking to track:
+	* On the session level: whether the user is logged in or not.
 	* On the page level: the current posts's author, category, tags, year of publication and post type.
 * Added Google Analytics API integration, so you can easily select a site to track.
 * E-Commerce integration, tracking transactions, support for WP E-Commerce and Shopp.
@@ -233,15 +322,15 @@ This section describes how to install the plugin and get it working.
 * Prevent link tracking when admin is logged in and admin tracking is disabled.
 * Now prevents parsing of non http and https link.
 
-= 2.9 = 
+= 2.9 =
 * Re arranged admin panel to have "standard" and "advanced" settings.
 * Added domain tracking.
 * Added fix for double onclick parameter, as suggested [here](http://wordpress.org/support/topic/241757).
 
-= 2.8 = 
+= 2.8 =
 * Added the option to add setAllowAnchor to the tracking code, allowing you to track campaigns with # instead of ?.
 
-= 2.7 = 
+= 2.7 =
 * Added option to select either header of footer position.
 * Added new AdSense integration options.
 * Removed now unneeded adsense tracking script.
@@ -249,13 +338,13 @@ This section describes how to install the plugin and get it working.
 = 2.6.6=
 * Fixed settings link.
 
-= 2.6.5 = 
+= 2.6.5 =
 * added Ozh admin menu icon and settings link.
 
-= 2.6.4 = 
+= 2.6.4 =
 * Fixes for 2.7.
 
-= 2.6.3 = 
+= 2.6.3 =
 * Fixed bug that didn't allow saving of outbound clicks from comments string.
 
 = 2.6 =
@@ -265,13 +354,13 @@ This section describes how to install the plugin and get it working.
 * Fixed an issue with pluginpath being used globally.
 * Changed links to [new domain](http://yoast.com/).
 
-= 2.2 = 
+= 2.2 =
 * Switched to the new tracking code.
 
-= 2.1 = 
+= 2.1 =
 * Made sure tracking was disabled on preview pages.
 
-= 2.0 = 
+= 2.0 =
 * Added AdSense tracking.
 
 = 1.5 =
@@ -308,7 +397,3 @@ Because that's where it belongs. It makes the page load faster (yes, faster, due
 5. Screenshot of the debugging mode in action.
 
 == Upgrade Notice ==
-
-= 4.0.11 =
-
-You can now properly disable the comment form tracking, and the charset attribute on script tags is gone so you can validate as HTML5 too.

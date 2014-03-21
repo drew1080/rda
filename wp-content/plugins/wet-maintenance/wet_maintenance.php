@@ -4,7 +4,7 @@ Plugin Name: Maintenance
 Plugin URI: http://talkpress.de/blip/wet-maintenance-wordpress-plugin
 Description: Puts the site into maintenance mode by sending a '503 Service Unavailable' status to all unauthenticated clients.
 Author: Robert Wetzlmayr
-Version: 1.0
+Version: 2.2
 Author URI: http://wetzlmayr.com/
 License: GPL 2.0, @see http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -21,12 +21,20 @@ if(!function_exists('wet_maintenance_content')):
 function wet_maintenance_content() {
 	if ( !is_user_logged_in() ) {
 		$page = <<<EOT
+<!DOCTYPE html>
 <html>
 <head>
-<title>Rice Design Alliance</title>
+<title>Service unavailable.</title>
+<style>
+body {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	background-color: #F7FCFE;
+}
+</style>
 </head>
 <body>
-<p>The RDA website will be right back. We are undergoing scheduled maintenance. Thank you for your patience.</p>
+<h1>Service unavailable.</h1>
+<p>Please check back later&hellip;</p>
 </body>
 </html>
 EOT;
@@ -39,7 +47,7 @@ if(!function_exists('wet_maintenance_feed')):
 function wet_maintenance_feed() {
 	if ( !is_user_logged_in() ) {
 		die('<?xml version="1.0" encoding="UTF-8"?>'.
-			'<status>Service unavailable</status>');
+			'<status>Service unavailable.</status>');
 	}
 }
 endif;
@@ -61,4 +69,3 @@ else:
 // Prevent direct invocation by user agents.
 die('Get off my lawn!');
 endif;
-?>

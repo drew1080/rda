@@ -18,7 +18,7 @@ class Commentbar extends Basebar {
 					  $this->pbOptions[$key] = $tmp_pbOptions[$key];
                                     $this->div_name = "pagebar";
 				}
-
+				$this->action = 'commentbar';
 				$this->display();
 		} //__construct()
 
@@ -40,7 +40,7 @@ class Commentbar extends Basebar {
 
 		// -----------------------------------------------------------------------------
 		function create_link($page) {
-				return clean_url( get_comments_pagenum_link( $page, $this->max_page ) );
+				return esc_url( get_comments_pagenum_link( $page, $this->max_page ) );
 		} //create_link()
 
 		// -----------------------------------------------------------------------------

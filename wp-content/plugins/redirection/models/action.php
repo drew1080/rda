@@ -10,28 +10,28 @@ class Red_Action
 			 	$this->$key = $value;
 		}
 	}
-	
+
 	function can_change_code () { return false;}
-	
+
 	function config () { }
 
-	function create ($name, $code)
+	static function create ($name, $code)
 	{
-		$avail = Red_Action::available ();
+		$avail = self::available ();
 		if (isset ($avail[$name]))
 		{
 			if (!class_exists (strtolower ($avail[$name][1])))
 				include (dirname (__FILE__).'/../actions/'.$avail[$name][0]);
-				
+
 			$obj = new $avail[$name][1] (array ('action_code' => $code));
 			$obj->type = $name;
 			return $obj;
 		}
-		
+
 		return false;
 	}
-	
-	function available ()
+
+	static function available ()
 	{
 	 	return array
 		(
@@ -42,17 +42,17 @@ class Red_Action
 			'pass'    => array ('pass.php',    'Pass_Action'),
 		);
 	}
-	
+
 	function type ()
 	{
 		return $this->type;
 	}
-	
+
 	function process_before ($code, $target) { return true; }
 	function process_after ($code, $target) { return true; }
 	function can_perform_action () { return true; }
 	function action_codes () { return array ();}
-	
+
 	function display_actions ()
 	{
 		foreach ($this->action_codes () AS $key => $code)

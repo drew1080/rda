@@ -1,12 +1,13 @@
 <?php
 
-require_once("class-basebar.php");
+require_once('class-basebar.php');
 
 class Postbar extends Basebar {
 
 		function __construct($paged, $max_page) {
 				parent::__construct($paged, $max_page);
-				$this->div_name = "pagebar";
+				$this->div_name = 'pagebar';
+				$this->action = 'postbar';
 				$this->display();
 		}  // function __construct()
 		

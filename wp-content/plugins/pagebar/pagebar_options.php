@@ -154,41 +154,49 @@ if (!class_exists('PagebarOptions')) {
 	function adminmenu() {
 		global $pbOptions;
 		if (function_exists('add_options_page'))
-			$hook = add_options_page('Pagebar', 'Pagebar', 'manage_options', basename(__FILE__), array(&$this, 'pboptions'));
+			$this->hook = add_options_page('Pagebar', 'Pagebar', 'manage_options', basename(__FILE__), array(&$this, 'pboptions'));
 
 		//add contextual help
-		if (function_exists('add_contextual_help')) {
-		add_contextual_help(
-			$hook,
-			'<a href="http://www.elektroelch.de/hacks/wp/pagebar/" target="_blank">Manual</a>'
-		); }
+    if ( $this->hook )
+       add_action( 'load-' . $this->hook, array(&$this, 'load_help' ));
+			 
+	} //admin_menu()
+	/* -------------------------------------------------------------------------- */
+	function load_help() {
+		if (method_exists(get_current_screen(),'add_help_tab')) {  // WP >= v3.3
+			get_current_screen()->add_help_tab(array('id'=>'pagebar_info', 'title'=>'Manual',
+        'content'=>'<p>If you\'re having problems you can consult the <a href="http://www.elektroelch.de/hacks/wp/pagebar/" target="_blank">Manual</a></p>'));
+		} else {		
+			if (function_exists('add_contextual_help')) {
+				add_contextual_help(
+					$this->hook,
+					'<a href="http://www.elektroelch.de/hacks/wp/pagebar/" target="_blank">Manual</a>'
+				);
+			}
+		}
 
 	}
-
 	/* -------------------------------------------------------------------------- */
     function pb_load_jquery() {
-		wp_enqueue_script('jquery-ui-tabs');
+        global $wp_scripts;
+
+        // tell WordPress to load jQuery UI tabs
+        wp_enqueue_script('jquery-ui-tabs');
+
+        // get registered script object for jquery-ui
+        $ui = $wp_scripts->query('jquery-ui-core');
+
+        // tell WordPress to load the Smoothness theme from Google CDN
+        $protocol = is_ssl() ? 'https' : 'http';
+        $url = "$protocol://ajax.googleapis.com/ajax/libs/jqueryui/{$ui->ver}/themes/smoothness/jquery-ui.css";
+        wp_enqueue_style('jquery-ui-smoothness', $url, false, null);
+
 	}
 	/* -------------------------------------------------------------------------- */
 
 	function pboptions() {
 		global $pbOptions;
 	?>
-	<style type="text/css">
-		.ui-tabs {padding: .2em;}
-		.ui-tabs-nav { padding: .2em .2em 0 .2em;  position: relative;  clear: both;}
-		.ui-tabs-nav li { float: left;  margin: 0 .2em -1px 0; padding: 0; border: 1px solid #000; background-color: #ccc;}
-		.ui-tabs-nav li a { display:block; text-decoration: none; padding: .5em 1em; }
-		.ui-tabs-nav li.ui-tabs-selected {  padding-bottom: .1em; border-bottom: 0;  background-color: #fff;}
-		.ui-tabs-panel { padding: 1em 1.4em;  display: block; border: 0; background: url(tab.png);}
-		.ui-tabs-hide { display: none !important; }
-
-		.tabs-nav {display: inline-block;}
-		.tabs-nav .tabs-disabled {position: relative; filter: alpha(opacity=40); }
-		.tabs-nav .tabs-disabled a span {_height: 19px; min-height: 19px; }
-		#optiontabs {clear:all;}
-
-	</style>
 
 	<div class="wrap" id="top">
 		<h2>
@@ -198,7 +206,7 @@ if (!class_exists('PagebarOptions')) {
 	 <script>
 		$j=jQuery.noConflict();
 		$j(document).ready(function(){
-			$j("#optiontabs").tabs();
+            $j("#optiontabs").tabs();
 			js_comment();
 			js_multipage();
 		});
