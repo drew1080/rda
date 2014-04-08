@@ -21,7 +21,7 @@ body div.pp_pic_holder{z-index:100000}
 textarea{max-width:100%}
 body div.pp_overlay{background-color:#333333}
 .screen-reader-text {float:left;padding:8px 15px 8px 0}
-button,html input[type="button"],input[type="reset"],input[type="submit"]{line-height:100%}
+button,html input[type="button"],input[type="reset"],input[type="submit"]{line-height:100%;  -webkit-appearance: none;}
 
 /*header*/
 .cart-button{display:block;float: right;margin:20px 10px 0 30px;padding:0;position:relative;margin:15px 10px;}
@@ -780,7 +780,6 @@ body.woocommerce-page .quantity .plus:hover,
 body.woocommerce #content .quantity .plus:hover, 
 body.woocommerce-page #content .quantity .plus:hover{background:#333333; color:white}
 
-body.single-product .product_meta{display:none}
 .single-product.woocommerce #reviews #comments h2,
 .single-product.woocommerce-page #reviews #comments h2{display:none}
 
@@ -1191,9 +1190,6 @@ body.woocommerce-checkout.woocommerce-page form .form-row textarea{color:#333333
 
 body.woocommerce-cart .woocommerce .cart-collaterals .shipping_calculator h2 a,
 body.woocommerce-cart.woocommerce-page .cart-collaterals .shipping_calculator h2 a{text-decoration:none;color:#333333;} 
-
-/*BLOG PAGE*/
-#comments{width:100%;float:left}
 
 /*PRELOADER*/
 .woocommerce #content input.button.loading:before,
