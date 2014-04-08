@@ -39,6 +39,13 @@ if ( ! function_exists( 'fruitful_setup' ) ):
 require get_template_directory() . '/inc/template-tags.php';
 require get_template_directory() . '/inc/widgets.php';
 
+
+ /**
+ * Adding recommended plugins for Fruitful Theme.
+ */
+require_once('inc/func/plugins-included.php');
+
+
 /**
  * Custom functions that act independently of the theme templates
  */
@@ -642,7 +649,7 @@ function fruitful_get_responsive_style () {
 				if(isset($theme_options['bg_repeating']) && ($theme_options['bg_repeating'] == 'on')) { 
 					$back_style .= 'background-image : url(' .$bg_url .'); background-repeat : repeat; ';  
 				} else {
-					$back_style .= 'background-image : url(' .$bg_url .'); background-repeat : no-repeat; background-size:cover; background-attachment:fixed; ';  
+					$back_style .= 'background-image : url(' .$bg_url .'); background-repeat : no-repeat; background-size:100% 100%; background-size:cover; background-attachment:fixed; ';  
 				}
 			}
 
@@ -667,10 +674,52 @@ function fruitful_get_responsive_style () {
 			if (!empty($theme_options['menu_btn_color']))    { $style_ .= '.main-navigation ul li.current_page_item a, .main-navigation ul li.current-menu-ancestor a, .main-navigation ul li.current-menu-item a, .main-navigation ul li.current-menu-parent a, .main-navigation ul li.current_page_parent a {background-color : '.esc_js($theme_options['menu_btn_color']) . '; }' . "\n";  }
 			if (!empty($theme_options['menu_hover_color']))  { $style_ .= '.main-navigation ul li.current_page_item a, .main-navigation ul li.current-menu-ancestor a, .main-navigation ul li.current-menu-item a, .main-navigation ul li.current-menu-parent a, .main-navigation ul li.current_page_parent a {color : '.esc_js($theme_options['menu_hover_color']) . '; } ' . "\n";  }
   
-			$style_ .= '.main-navigation ul > li:hover a {' . "\n";
+			$style_ .= '.main-navigation ul > li:hover>a {' . "\n";
 				if (!empty($theme_options['menu_btn_color']))    { $style_ .= 'background-color : '. esc_js($theme_options['menu_btn_color']) . '; ' . "\n"; }
 				if (!empty($theme_options['menu_hover_color']))  { $style_ .= 'color : '.esc_js($theme_options['menu_hover_color']) . ';  ' . "\n"; }
 			$style_ .= ' } ' . "\n"; 
+  
+			/*styles for dropdown menu*/
+			$style_ .= '#masthead .main-navigation ul > li > ul > li > a {' . "\n";
+				if (!empty($theme_options['dd_menu_bg_color']))    { $style_ .= 'background-color : '. esc_js($theme_options['dd_menu_bg_color']) . '; ' . "\n"; }
+				if (!empty($theme_options['dd_menu_font_color']))  { $style_ .= 'color : '.esc_js($theme_options['dd_menu_font_color']) . ';  ' . "\n"; }
+			$style_ .= ' } ' . "\n"; 
+
+			$style_ .= '#masthead .main-navigation ul > li > ul > li:hover > a {' . "\n";
+				if (!empty($theme_options['dd_menu_btn_color']))    { $style_ .= 'background-color : '. esc_js($theme_options['dd_menu_btn_color']) . '; ' . "\n"; }
+				if (!empty($theme_options['dd_menu_hover_color']))  { $style_ .= 'color : '.esc_js($theme_options['dd_menu_hover_color']) . ';  ' . "\n"; }
+			$style_ .= ' } ' . "\n"; 
+			
+			$style_ .= '#masthead .main-navigation ul > li ul > li.current-menu-item > a {' . "\n";
+				if (!empty($theme_options['dd_menu_btn_color']))    { $style_ .= 'background-color : '. esc_js($theme_options['dd_menu_btn_color']) . '; ' . "\n"; }
+				if (!empty($theme_options['dd_menu_hover_color']))  { $style_ .= 'color : '.esc_js($theme_options['dd_menu_hover_color']) . ';  ' . "\n"; }
+			$style_ .= ' } ' . "\n"; 
+			
+			$style_ .= '#masthead div .main-navigation ul > li > ul > li > ul a {' . "\n";
+				if (!empty($theme_options['dd_menu_bg_color']))    { $style_ .= 'background-color : '. esc_js($theme_options['dd_menu_bg_color']) . '; ' . "\n"; }
+				if (!empty($theme_options['dd_menu_font_color']))  { $style_ .= 'color : '.esc_js($theme_options['dd_menu_font_color']) . ';  ' . "\n"; }
+			$style_ .= ' } ' . "\n"; 
+
+			$style_ .= '#masthead div .main-navigation ul > li > ul > li > ul li:hover a {' . "\n";
+				if (!empty($theme_options['dd_menu_btn_color']))    { $style_ .= 'background-color : '. esc_js($theme_options['dd_menu_btn_color']) . '; ' . "\n"; }
+				if (!empty($theme_options['dd_menu_hover_color']))  { $style_ .= 'color : '.esc_js($theme_options['dd_menu_hover_color']) . ';  ' . "\n"; }
+			$style_ .= ' } ' . "\n"; 
+				
+			$style_ .= '#lang-select-block li ul li a{'. "\n";
+				if (!empty($theme_options['dd_menu_bg_color']))    { $style_ .= 'background-color : '. esc_js($theme_options['dd_menu_bg_color']) . '; ' . "\n"; }
+				if (!empty($theme_options['dd_menu_font_color']))  { $style_ .= 'color : '.esc_js($theme_options['dd_menu_font_color']) . ';  ' . "\n"; }
+			$style_ .= '}';
+			
+			$style_ .= '#lang-select-block li ul li a:hover{'. "\n";
+				if (!empty($theme_options['dd_menu_btn_color']))    { $style_ .= 'background-color : '. esc_js($theme_options['dd_menu_btn_color']) . '; ' . "\n"; }
+				if (!empty($theme_options['dd_menu_hover_color']))  { $style_ .= 'color : '.esc_js($theme_options['dd_menu_hover_color']) . ';  ' . "\n"; }
+			$style_ .= '}';
+			
+			$style_ .= '#lang-select-block li ul li.active a{'. "\n";
+				if (!empty($theme_options['dd_menu_btn_color']))    { $style_ .= 'background-color : '. esc_js($theme_options['dd_menu_btn_color']) . '; ' . "\n"; }
+				if (!empty($theme_options['dd_menu_hover_color']))  { $style_ .= 'color : '.esc_js($theme_options['dd_menu_hover_color']) . ';  ' . "\n"; }
+			$style_ .= '}';
+			/*end of styles for dropdown menu*/
   
 			$style_ .= '#header_language_select ul li.current > a { color : '.esc_js($theme_options['menu_font_color']). '; } ' . "\n";
 			if (!empty($theme_options['menu_bg_color'])) { $style_ .= '#header_language_select { background-color : '.esc_js($theme_options['menu_bg_color']) . '; } ' . "\n";  }
@@ -950,13 +999,16 @@ function fruitful_get_languages_list(){
 								echo $l['native_name'];
 							echo '</a>';
 						echo '</li>';
-				} else {
+				} 
+					
+			}
+			foreach($languages as $l){
+				if(!($l['active'])) {
 						echo '<li class="unactive">';
 						echo '<a class="'.$l['language_code'].'" href="'.$l['url'].'">';
 							echo $l['native_name'];
 						echo '</a></li>';
 				}
-					
 			}
 					echo '</ul>';
 				echo '</li>';					
@@ -980,42 +1032,16 @@ if (class_exists('Woocommerce')) {
 
 
 /*rewrite pagenavi for woocommerce*/
-function pagenavi( $p = 2 ) { // pages will be show before and after current page
-	echo '<div class="nav-links shop aligncenter">';
-		  if ( is_singular() ) return; // don't show in single page
-		  global $wp_query, $paged;
-		  $max_page = $wp_query->max_num_pages;
-		  if ( $max_page == 1 ) return; // don't show when only one page
-		  if ( empty( $paged ) ) $paged = 1;
-		  // echo '<span class="pages">Page: ' . $paged . ' of ' . $max_page . ' </span> '; // pages
-		  if ( $paged > $p + 1 ) p_link( 1, 'First' );
-		  if ( $paged > $p + 2 ) echo '... ';
-				echo '<div class="nav-previous ">'; next_posts_link( 'previous' ); echo '</div>';
-				echo '<div class="pages-links">';
-					for( $i = $paged - $p; $i <= $paged + $p; $i++ ) { // Middle pages
-						if ( $i > 0 && $i <= $max_page ) $i == $paged ? print "<span class='page-numbers current'>{$i}</span> " : p_link( $i );
-					 }
-				echo '</div>';
-		  if ( $paged < $max_page - $p - 1 ) echo '... ';
-		  if ( $paged < $max_page - $p ) p_link( $max_page, 'Last' );
-				echo '<div class="nav-next">'; previous_posts_link( 'next' ); echo '</div>';
-	echo '</div>';
-}
-function p_link( $i, $title = '' ) {
-  if ( $title == '' ) $title = "Page {$i}";
-  echo "<a class='page-numbers' href='", esc_html( get_pagenum_link( $i ) ), "' title='{$title}'>{$i}</a> ";
-}
-
-function wp_corenavi() {  
+function fruitful_wp_corenavi() {  
 	global $wp_query, 
 			$wp_rewrite;  
 	$next_label = $prev_label = '';
 	if (wp_is_mobile()) {
-		$next_label = ' « ';
-		$prev_label = ' » ';
+		$next_label = ' &laquo; '; 
+		$prev_label = ' &raquo; ';
 	} else {
-		$next_label = '« Previous Page';
-		$prev_label = 'Next Page »';
+		$next_label = '&laquo; Previous Page';
+		$prev_label = 'Next Page &raquo;'; 
 	}
 	
 	$pages = '';  
@@ -1055,7 +1081,7 @@ if (class_exists('Woocommerce')) {
 	add_action( 'woocommerce_pagination', 'woocommerce_pagination', 10);
 }
 function woocommerce_pagination() { 
-	wp_corenavi();
+	fruitful_wp_corenavi();
 }
 
 /*rewrite get_product_search_form() function*/
@@ -1147,7 +1173,7 @@ function fruitful_woocommerce_header_add_to_cart_fragment( $fragments ) {
 	<a href="<?php echo get_permalink( woocommerce_get_page_id( 'cart' ) ); ?>" class="cart-contents">
 		<div class="cart_image"></div>
 		<span class="num_of_product_cart"><?php global $woocommerce;
-		 echo sprintf(_n('%d ', '%d ', $woocommerce->cart->cart_contents_count, 'woothemes'), $woocommerce->cart->cart_contents_count); ?> </span>
+		 echo sprintf(_n('%d ', '%d ', $woocommerce->cart->cart_contents_count, 'fruitful'), $woocommerce->cart->cart_contents_count); ?> </span>
 	</a>
 	<?php
 	$fragments['a.cart-contents'] = ob_get_clean();
@@ -1163,4 +1189,100 @@ function fruitful_is_woo_sidebar() {
 		}
 	}	
 	return $is_sidebar;
+}
+
+/* Add sidebar option for Standard Post */
+function fruitful_add_post_sidebar() {  
+	$screens = array( 'post');
+	foreach ( $screens as $screen ) {
+		 add_meta_box(
+            'fruitful_post_sidebar_metaboxes',
+            __( 'Page Attributes', 'fruitful' ),  
+            'fruitful_post_sidebar_metaboxes_inner',
+            $screen,
+			'side',
+			'low'
+        );
+	}					
+}  
+add_action( 'add_meta_boxes', 'fruitful_add_post_sidebar', 99 );
+
+function fruitful_post_sidebar_metaboxes_inner($post ){
+	wp_nonce_field( 'fruitful_post_sidebar_metaboxes', 'fruitful_post_sidebar_metaboxes_nonce' );
+	$frutiful_posts_template = (get_post_meta( $post->ID, 'frutiful_posts_template', true ) !== '' ? get_post_meta( $post->ID, 'frutiful_posts_template', true ) : '3');
+	?>
+	<label for="frutiful_posts_template_val" class="screen-reader-text"><?php _e( 'Template', 'fruitful' ); ?></label>
+	<select id="frutiful_posts_template" name="frutiful_posts_template">
+		<option value="1" <?php selected( $frutiful_posts_template, 1 ); ?>><?php _e('Left sidebar Template','fruitful'); ?></option>
+		<option value="2" <?php selected( $frutiful_posts_template, 2 ); ?>><?php _e('Full width Template','fruitful'); ?></option>
+		<option value="3" <?php selected( $frutiful_posts_template, 3 ); ?>><?php _e('Right sidebar Template','fruitful'); ?></option>
+	</select>
+	<p class="howto"><?php _e( 'Choose template for post', 'fruitful' ); ?></p>
+	<?php
+}
+
+function fruitful_post_sidebar_metabox_save( $post_id ) {
+	if ( ! isset( $_POST['fruitful_post_sidebar_metaboxes_nonce'] ) )
+		return $post_id;
+	$nonce = $_POST['fruitful_post_sidebar_metaboxes_nonce'];
+
+	if ( ! wp_verify_nonce( $nonce, 'fruitful_post_sidebar_metaboxes' ) )
+		return $post_id;
+
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
+		return $post_id;
+
+	if ( 'post' == $_POST['post_type'] ) {
+	if ( ! current_user_can( 'edit_page', $post_id ) )
+		return $post_id;
+	} else {
+	if ( ! current_user_can( 'edit_post', $post_id ) )
+		return $post_id;
+	}
+	
+	$frutiful_posts_template = $_POST['frutiful_posts_template'];
+	update_post_meta( $post_id, 'frutiful_posts_template', $frutiful_posts_template );
+}
+add_action( 'save_post', 'fruitful_post_sidebar_metabox_save' );
+
+
+function fruitful_get_content_with_custom_sidebar($curr_template) {
+	function get_content_part() {
+		global $post;
+		while ( have_posts() ) : the_post();
+			get_template_part( 'content', get_post_format() );
+			fruitful_content_nav( 'nav-below' );
+			if (fruitful_state_post_comment()) {
+				if ( comments_open() || '0' != get_comments_number() ) comments_template(); 
+			}
+		endwhile;
+	}
+	function get_html_custom_post_template($content_, $sidebar_, $type_ = 1) { ?>
+		<?php if ($type_ == 1) { ?>
+		<div class="eleven columns <?php echo $content_;?>">
+		<?php } else { ?>
+		<div class="sixteen columns <?php echo $content_ . ' ' . $sidebar_;?>">
+		<?php } ?>
+			<div id="primary" class="content-area">
+				<div id="content" class="site-content" role="main">
+					<?php get_content_part(); ?>				
+				</div><!-- #content .site-content -->
+			</div><!-- #primary .content-area -->
+		</div>
+		<?php if ($type_ == 1) { ?>
+			<div class="five columns <?php echo $sidebar_;?>">
+				<?php get_sidebar('single-post'); ?>
+			</div>
+		<?php } ?>
+	<?php	
+	}
+	if ($curr_template == 1) { 
+		get_html_custom_post_template('omega', 'alpha');
+	} else if ($curr_template == 3) { 
+		get_html_custom_post_template('alpha', 'omega');
+	} else if ($curr_template == ''){
+		get_html_custom_post_template('alpha', 'omega');
+	} else {
+		get_html_custom_post_template('omega', 'alpha', 0);
+	}
 }

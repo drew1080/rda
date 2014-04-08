@@ -460,6 +460,7 @@ return array(
 				'is_wpml_ready'		=> 'on',
 
 				/*Header image*/
+				'header_bg_color'	=> '#ffffff',	
 				'header_img' 	=> '',
 				'header_height' => '84',
 				
@@ -481,13 +482,22 @@ return array(
 				'menu_btn_color'	=> '#F15A23',
 				'menu_hover_color'	=> '#ffffff',
 				'menu_font_color'	=> '#333333',		
-				'header_bg_color'	=> '#ffffff',	
+				
 
+				/*Dropdown Color*/
+				'dd_menu_bg_color'		=> '#ffffff',
+				'dd_menu_btn_color'		=> '#F15A23',
+				'dd_menu_hover_color'	=> '#333333',
+				'dd_menu_font_color'	=> '#333333',		
+	
+				/*General font colors*/
 				'p_font_color'			=> '#333333',
 				'a_font_color'			=> '#333333',
 				'a_hover_font_color'	=> '#FF5D2A',
 				'a_focus_font_color'	=> '#FF5D2A',
 				'a_active_font_color'	=> '#FF5D2A',
+				
+				/*Color for lines*/
 				'widgets_sep_color'		=> '#F15A23',	
 				'btn_color'				=> '#333333',	
 				'btn_active_color'		=> '#F15A23',	
@@ -548,7 +558,7 @@ return array(
 				/*End Sliders*/
 				
 				/*footer*/			 
-				'footer_text'		=> stripslashes('Fruitful theme by <a href="http://fruitfulcode.com">fruitfulcode</a> Powered by: <a href="http://wordpress.org">WordPress</a>'),
+				'footer_text'	 => esc_attr__( 'Fruitful theme by', 'fruitful' ) . ' <a href="' . esc_url(__('http://fruitfulcode.com','fruitful')) . '">' . esc_attr__( 'fruitfulcode', 'fruitful' ) . '</a> ' . esc_attr__( 'Powered by:', 'fruitful' ) . ' <a href="' . esc_url(__('http://wordpress.org','fruitful')) . '">' . esc_attr__( 'WordPress', 'fruitful' ) . '</a>', 
 				
 				/*socials*/
 				'sl_position'		=> '0',

@@ -49,19 +49,19 @@ jQuery(document).ready(function($) {
 });
 
 jQuery(window).bind('resize', function() { 
-	vhGroupClass   = jQuery('.responsive #page .container header hgroup').data('originalstyle');
+	vhGroupClass   = jQuery('.responsive #page .container header .header-hgroup').data('originalstyle');
 	vmWrapperClass = jQuery('.responsive #page .container header .menu-wrapper').data('originalstyle');
 	
 	if (jQuery(window).width() <= 767)	 {
 		if (jQuery('.responsive .cart-button').length > 0) {
 			jQuery('.responsive .select-menu').css({'max-width':'80%', 'margin' : '6px 0 25px 0'});		
 		} 
-		jQuery('.responsive #page .container header hgroup').removeClass(vhGroupClass).addClass('center-pos');
+		jQuery('.responsive #page .container header .header-hgroup').removeClass(vhGroupClass).addClass('center-pos');
 		jQuery('.responsive #page .container header .menu-wrapper').removeClass(vmWrapperClass).addClass('center-pos');
 	} else {
 		jQuery('.select-menu').css({'max-width':'none', 'margin' : '0 0 25px 0'});		
 			
-		jQuery('.responsive #page .container header hgroup').removeClass('center-pos').addClass(vhGroupClass);
+		jQuery('.responsive #page .container header .header-hgroup').removeClass('center-pos').addClass(vhGroupClass);
 		jQuery('.responsive #page .container header .menu-wrapper').removeClass('center-pos').addClass(vmWrapperClass);
 	}
 	
@@ -70,11 +70,18 @@ jQuery(window).bind('resize', function() {
 });
 
 function autoWidthMenu () {
+	var vElemsWidth = 0;
 	if (jQuery('.menu-wrapper').hasClass('center-pos')) {
-		if (jQuery('.cart-button').length > 0) {
-			vElemsWidth = jQuery('.cart-button').outerWidth() + jQuery('.site-navigation').outerWidth();
+		if ((jQuery('.cart-button').length > 0) || (jQuery('#header_language_select').length > 0)) {
+			if (jQuery('.cart-button').length > 0){
+				vElemsWidth += jQuery('.cart-button').outerWidth();
+			}
+			if (jQuery('#header_language_select').length > 0){
+				vElemsWidth += jQuery('#header_language_select').outerWidth();
+			}
+			vElemsWidth += jQuery('.site-navigation').outerWidth();
 		} else {
-			vElemsWidth = jQuery('.site-navigation').outerWidth();
+			vElemsWidth = jQuery('.site-navigation').outerWidth() + 20;
 		}		
 		vElemsWidth = vElemsWidth + 50;
 		jQuery('.menu-wrapper').css({'max-width': vElemsWidth + 'px'})
