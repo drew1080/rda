@@ -50,7 +50,7 @@ class Basebar {
 				$this->max_page = $max_page;
 				$this->wp_query = $wp_query;
 				$this->pbOptions = $pbOptions;         // load options
-				$this->init($this->pbOptions);                             // initialize
+				$this->init($this->pbOptions);        // initialize
 		}  //function __construct()
 
 
@@ -109,7 +109,7 @@ class Basebar {
 		function transit($place) {
 			if ($place > 0) echo '<span class="break">';
 			echo $this->pbOptions["connect"] !== "" ? $this->pbOptions["connect"] : '...';
-			echo '</span>';
+			echo "</span>\n";
 		}
 		// -----------------------------------------------------------------------------
 
@@ -179,10 +179,14 @@ class Basebar {
 					$this->paged = 1;
 
 				// insert HTML comment for support reasons
-				echo "<!-- pb259 -->";
+				echo "<!-- pb265 -->";
+				do_action('pagebar_before'); // do general action
 				$this->div_start();
 
-				echo $this->tagReplace ( $this->pbOptions ["pbText"], $this->paged ) . '&nbsp;';
+				if (isset($this->action))
+					do_action($this->action . '_before');
+
+				echo '<span>' . $this->tagReplace ( $this->pbOptions ["pbText"], $this->paged ) . '&nbsp;' . '</span>';
 
 				// it's easy to show all page numbers:
 				// simply loop and  exit
@@ -190,10 +194,15 @@ class Basebar {
 					$this->previousPage ( $this->paged );
 					for($i = 1; $i <= $this->max_page; $i ++)
 						if ($i == $this->paged)
-							$this->thisPage ( $i ); else
+							$this->thisPage ( $i ); 
+						else
 							$this->page ( $i );
 					$this->nextPage ( $this->paged, $this->max_page );
-					echo "</div>";
+
+	    			if (isset($this->action)) 
+						do_action($this->action . '_after');  // do specific action
+					echo '</div>';
+					do_action('pagebar_after'); // do general action
 					return;
 				} //if
 
@@ -248,7 +257,10 @@ class Basebar {
 		$this->nextPage($this->paged, $this->max_page);
 	}
 
+  if (isset($this->action)) // do specific action
+	do_action($this->action . '_after'); // do general action
   $this->div_end();
+  do_action('pagebar_after');
 
 		} // function display()
 

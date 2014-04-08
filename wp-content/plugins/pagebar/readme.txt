@@ -1,9 +1,9 @@
-=== pagebar ===
+ï»¿=== pagebar ===
 Contributors: Lutz Schroeer
 Donate link: http://elektroelch.de
 Tags: navigation, navi, page, comments
-Requires at least: 2.7
-Tested up to: 3.01
+Requires at least: 3.3
+Tested up to: 3.7
 Stable tag: trunk
 
 Pagebar adds a nice page bar to your blog posts, multipaged posts and paged comments.
@@ -37,7 +37,7 @@ There are two ways of inserting postbar into you blog:
      - manual
 
 + Automatic installation
-If you have a simple blog (e.g. the default theme) you can easily add postbar by selecting “Automagic insertion” in the options page. Then you can select where you want the postbar to appear:
+If you have a simple blog (e.g. the default theme) you can easily add postbar by selecting â€œAutomagic insertionâ€ in the options page. Then you can select where you want the postbar to appear:
      - Front of postings
      - Behind postings
      - Footer
@@ -177,6 +177,19 @@ Tokens can be used in any display area of pagebar. If it makes sense where you w
 {current} -> Current page number
 
 
+== Actions ==
+Since v2.60 pagebar contains some actions: pagebar_before/pagebar_after, postbar_before/postbar_after, multipagebar_before/multipagebar_after, 
+commentbar_before/commentbar_after:
+
+[pagebar_before]
+   <div id="pagebar>">
+     [postbar_before]
+         1 2 3 4 5 6 7 8 9 
+     [postbar_after]
+   </div>
+ [pagebar_after]
+
+
 == Frequently Asked Questions ==
 = How do I center pagebar? =
 Simply edit style.css, pagebar.css, or whatever CSS file your defintions are stored:
@@ -196,8 +209,31 @@ Simply edit style.css, pagebar.css, or whatever CSS file your defintions are sto
 + Joern of diekretschmars.de for his various comments and ideas.
 + Marco of mafia-daily.com for pointing out problem with theme editor.
 + Thomas (koehntopp.com) for his bug report on name collisions.
++ chipmint.com for the new default design
++ Borisa Djuraskovic for his Serbian translation
 
 == Changelog ==
+= 2.61 =
+* Fixed: tab code in settings pages
+* Fixed: remove standard navigation in twenty-eleven
+* Fixed: detection of main loop
++ Added: Automagic styling of page in Automattic's twenty-(ten, eleven, twelve, thirteen) themes
+
+
+= 2.60.1 =
+* Fixed: Problem with manual insertion of pagebar and parameter error
+
+= 2.60 =
++ Added: some actions (*_before, *_after)
++ Added: Romaian language file. Thanks Web Geek Science (webhostinggeeks.com)
+* Changed: default pagebar design
+* Fixed: replaced deprecated function clean_url()
+* Fixed: Automagic insert of pagebar only in main loop (Thanks to @toscho, @herrllama and @bueltge)
+
+= 2.59.1 =
+* Fixed: enabling/disabling of positioning options
+* Fixed: Replaced "add_contextual_help()" with "$screen->add_help_tab()" for WP >= v3.3
+
 = 2.59 =
 + Added Dutch language file (thanks to Rene of WordPress Plugin Guide - http://wppg.me)
 * Fixed some security issues (thanks to Rene - https://www.reneschmidt.de/)

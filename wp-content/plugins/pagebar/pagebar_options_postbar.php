@@ -2,18 +2,21 @@
 <script type="text/javascript">
 
 function autoSwitch(id) {
-var elements = ['footer', 'bef_loop', 'aft_loop', 'remove'];
+	 var elements = ['footer', 'bef_loop', 'aft_loop', 'remove'];
    $j=jQuery.noConflict();
    if ($j('#cb_auto:checked').val() == null) {
       color = '#ccc';
-      dis = "disabled";
+      dis = true;
    } else {
       color = '#000';
-      dis = "";
+      dis = false;
    }
    for (i=0;i<=elements.length;i++) {
-      $j('#lbl_' + elements[i]).css( { color: color} );
-      $j("#cb_"+elements[i]).attr("disabled",dis);
+      $j('#lbl_' + elements[i]).css( { color: color} );  // grey out label texts
+			if (dis)  //disable/enable checkboxes
+				 $j("#cb_"+elements[i]).attr("disabled","disabled");
+			else
+				 $j("#cb_"+elements[i]).removeAttr("disabled");
    }
    $j('#pos').css( { color: color});
    $j('#integrate').css( { color: color});

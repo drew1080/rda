@@ -1,10 +1,11 @@
 === WP-EMail ===
-Contributors: GamerZ, aaroncampbell
-Donate link: http://lesterchan.net/wordpress
-Tags: email, e-mail, wp-email, mail, send, recommend, ajax, friend
-Requires at least: 2.8
-Tested up to: 2.9.1
-Stable tag: 2.52
+Contributors: GamerZ, aaroncampbell  
+Donate link: http://lesterchan.net/site/donation/  
+Tags: email, e-mail, wp-email, mail, send, recommend, ajax, friend  
+Requires at least: 2.8  
+Tested up to: 3.6  
+Stable tag: trunk  
+License: GPLv2 or later  
 
 Allows people to recommend/send your WordPress blog's post/page to a friend.
 
@@ -34,17 +35,14 @@ Once installed take the following steps to set it up:
 
 1. Under E-Mail Settings, modify the setting Method Used To Send E-Mail accordingly. If the method is wrong, no email will get sent.
 1. You Need To Re-Generate The Permalink (WP-Admin -> Settings -> Permalinks -> Save Changes)
-1. Refer To Usage For Further Instructions
-
-= Usage =
-
-1. Open `wp-content/themes/<YOUR THEME NAME>/index.php`
-      You may place it in single.php, post.php, page.php, etc also.
-1. Find: `<?php while (have_posts()) : the_post(); ?>`
-1. Add Anywhere Below It: `<?php if(function_exists('wp_email')) { email_link(); } ?>`
+1. Open `wp-content/themes/<YOUR THEME NAME>/index.php` (You may place it in single.php, post.php, page.php, etc also)
+ * Find: `<?php while (have_posts()) : the_post(); ?>`
+ * Simply add this code inside the loop where you want the email link to display: <code>if(function_exists('email_link')) { email_link(); }</code>
 
 If you DO NOT want the email link to appear in every post/page, DO NOT use the code above. Just use the shortcode by typing [email_link] into the selected post/page content and it will embed the email link into that post/page only.
 
+== Upgrade Notice ==
+N/A
 
 == Screenshots ==
 
@@ -55,19 +53,15 @@ If you DO NOT want the email link to appear in every post/page, DO NOT use the c
 
 == Frequently Asked Questions ==
 
+= Does it support SMTP authentication with servers utilizing SSL encryption? =
+
+1. Yes. Go to `WP-Admin -> E-Mail -> Email Options`, under `SMTP Server`, use `ssl://smtp.gmail.com:465` if you are using Gmail SMTP.
+
 = How do I add this to my theme? =
 
-1. Open `wp-content/themes/<YOUR THEME NAME>/index.php`
-      You may place it in single.php, post.php, page.php, etc also.
+1. Open `wp-content/themes/<YOUR THEME NAME>/index.php` (You may place it in single.php, post.php, page.php, etc also)
 1. Find: `<?php while (have_posts()) : the_post(); ?>`
-1. Add Anywhere Below It: `<?php if(function_exists('wp_email')) { email_link(); } ?>`
-
-Simply add this code <strong>inside the loop</strong> where you want the email link to display:
-<code>
-if(function_exists('email_link')) {
-	email_link();
-}
-</code>
+1. Simply add this code <strong>inside the loop</strong> where you want the email link to display: <code>if(function_exists('email_link')) { email_link(); }</code>
 
 = How can I customize my E-Mail link? =
 
@@ -82,9 +76,9 @@ if(function_exists('email_link'))
 You can also force `email_link()` to return the link rather than echo it by setting the third parameter to false:
 <code>
 if(function_exists('email_link')) {
-	$email_link = email_link( 'E-Mail Text Link for Post', 'E-Mail Text Link for Page', false);
+	$email_link ### email_link( 'E-Mail Text Link for Post', 'E-Mail Text Link for Page', false);
 } else {
-	$email_link = '';
+	$email_link ### '';
 }
 
 echo $email_link;
@@ -160,6 +154,13 @@ If you add a custom field with the key "wp-email-title" it will be used as the E
 If you add a custom field with the key "wp-email-remark" it will be placed in the remarks field in the E-Mail form.
 
 == Changelog ==
+
+= 2.61 =
+* FIXED: Unable to load WP-Email on Password Protected posts
+
+= 2.60 =
+* Move AJAX Request to wp-admin/admin-ajax.php
+* Added nonce To Email Form
 
 = 2.52 =
 * Added support for the wp-email-title and wp-email-remark custom fields

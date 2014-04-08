@@ -1,5 +1,4 @@
 <?php
-
 function websitez_themes_page(){
 	global $wpdb, $websitez_plugin_description, $table_prefix, $websitez_free_version;
 	
@@ -70,12 +69,21 @@ function websitez_themes_page(){
 <div class="wrap">
 <table width="100%" cellpadding="0" cellspacing="0">
 	<tr>
-		<td width="60%" valign="top">
-			<h1><?php echo esc_html( __(WEBSITEZ_PLUGIN_NAME." - Mobile Themes") ); ?></h1>
-			<p><?php _e('Configure which theme to show to each mobile device.') ?></p>
-		</td>
-		<td width="40%" valign="top" align="right" style="padding: 15px 15px 0px 0px">
-			<p><a href="http://ready.mobi/results.jsp?uri=<?php echo bloginfo('url'); ?>&ref=websitez-com-wp-mobile-detector" target="_blank" title="<?php _e('Check the mobile readiness of this website.') ?>"><img src="<?php echo plugin_dir_url(__FILE__).'images/check-mobile-readiness.jpg'?>" border="0" alt="<?php _e('Check the mobile readiness of this website.') ?>"></a></p>
+		<td width="100%" valign="top">
+			<div class="wz_pro">
+				<div class="head">
+					<?php echo esc_html( __(WEBSITEZ_PLUGIN_NAME." - Mobile Themes") ); ?>
+					<ul class="nav">
+						<li><?php echo sprintf(__( "%sUpgrade to WP Mobile Detector PRO%s", "wp-mobile-detector" ), '<a href="http://websitez.com/?utm_campaign=wp-admin-upgrade-link&utm_medium=web" target="_blank">','</a>'); ?></li>
+						<li><?php echo sprintf(__( "%sRead User's Guide%s", "wp-mobile-detector" ), '<a href="http://websitez.com/wp-mobile-detector-guide/?utm_campaign=wp-admin-guide&utm_medium=web" target="_blank">','</a>'); ?></li>
+						<li><?php echo sprintf(__( "%sWP Mobile Detector on Twitter%s", "wp-mobile-detector" ), '<a href="http://www.twitter.com/websitezcom" target="_blank">','</a>'); ?></li>
+					</ul>
+				</div>
+				<div class="body">
+					<a href="http://websitez.com/?utm_campaign=wp-admin-l-image&utm_medium=web" target="_blank"><img src="http://img.websitez.com/websitez-pro-pitch.png" border="0" class="desc"></a>
+					<a href="http://websitez.com/?utm_campaign=wp-admin-r-image&utm_medium=web" target="_blank"><img src="http://img.websitez.com/websitez-pro-pitch-right.png" border="0" class="pic"></a>
+				</div>
+			</div>
 		</td>
 	</tr>
 </table>

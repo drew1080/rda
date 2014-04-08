@@ -38,7 +38,7 @@ class WP_Error {
 	var $error_data = array();
 
 	/**
-	 * PHP4 Constructor - Sets up error message.
+	 * Constructor - Sets up error message.
 	 *
 	 * If code parameter is empty then nothing will be done. It is possible to
 	 * add multiple messages to the same code, but with other methods in the
@@ -54,7 +54,7 @@ class WP_Error {
 	 * @param mixed $data Optional. Error data.
 	 * @return WP_Error
 	 */
-	function WP_Error($code = '', $message = '', $data = '') {
+	function __construct($code = '', $message = '', $data = '') {
 		if ( empty($code) )
 			return;
 
@@ -70,7 +70,7 @@ class WP_Error {
 	 * @since 2.1.0
 	 * @access public
 	 *
-	 * @return array List of error codes, if avaiable.
+	 * @return array List of error codes, if available.
 	 */
 	function get_error_codes() {
 		if ( empty($this->errors) )
@@ -102,7 +102,7 @@ class WP_Error {
 	 * @since 2.1.0
 	 *
 	 * @param string|int $code Optional. Retrieve messages matching code, if exists.
-	 * @return array Error strings on success, or empty array on failure (if using codee parameter).
+	 * @return array Error strings on success, or empty array on failure (if using code parameter).
 	 */
 	function get_error_messages($code = '') {
 		// Return all messages if no code specified.
@@ -194,13 +194,11 @@ class WP_Error {
 /**
  * Check whether variable is a WordPress Error.
  *
- * Looks at the object and if a WP_Error class. Does not check to see if the
- * parent is also WP_Error, so can't inherit WP_Error and still use this
- * function.
+ * Returns true if $thing is an object of the WP_Error class.
  *
  * @since 2.1.0
  *
- * @param mixed $thing Check if unknown variable is WordPress Error object.
+ * @param mixed $thing Check if unknown variable is a WP_Error object.
  * @return bool True, if WP_Error. False, if not WP_Error.
  */
 function is_wp_error($thing) {
@@ -208,5 +206,3 @@ function is_wp_error($thing) {
 		return true;
 	return false;
 }
-
-?>

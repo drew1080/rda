@@ -17,6 +17,7 @@ class Multipagebar extends Basebar {
                                 $this->pbOptions[$key] = $tmp_pbOptions[$key];
                             $this->div_name = "pagebar";
 		    }
+		    $this->action = "multipagebar";
 		    echo parent::display();
 
 		}  // function __construct()

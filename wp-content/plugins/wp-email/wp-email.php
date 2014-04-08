@@ -1,16 +1,16 @@
 <?php
-/**
- * Plugin Name: WP-EMail
- * Plugin URI: http://lesterchan.net/portfolio/programming/php/
- * Description: Allows people to recommand/send your WordPress blog's post/page to a friend.
- * Version: 2.52
- * Author: Lester 'GaMerZ' Chan
- * Author URI: http://lesterchan.net
+/*
+ Plugin Name: WP-EMail
+ Plugin URI: http://lesterchan.net/portfolio/programming/php/
+ Description: Allows people to recommand/send your WordPress blog's post/page to a friend.
+ Version: 2.61
+ Author: Lester 'GaMerZ' Chan
+ Author URI: http://lesterchan.net
+ Text Domain: wp-email
  */
 
-
 /*
-	Copyright 2009  Lester Chan  (email : lesterchan@gmail.com)
+	Copyright 2013  Lester Chan  (email : lesterchan@gmail.com)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -38,21 +38,10 @@
 define('EMAIL_SHOW_REMARKS', true);
 
 
-### Load WP-Config File If This File Is Called Directly
-if (!function_exists('add_action')) {
-	$wp_root = '../../..';
-	if (file_exists($wp_root.'/wp-load.php')) {
-		require_once($wp_root.'/wp-load.php');
-	} else {
-		require_once($wp_root.'/wp-config.php');
-	}
-}
-
-
 ### Create Text Domain For Translations
 add_action('init', 'email_textdomain');
 function email_textdomain() {
-	load_plugin_textdomain('wp-email', false, 'wp-email');
+	load_plugin_textdomain( 'wp-email', false, dirname( plugin_basename( __FILE__ ) ) );
 }
 
 
@@ -166,21 +155,21 @@ add_action('wp_enqueue_scripts', 'email_scripts');
 function email_scripts() {
 	global $text_direction;
 	if(@file_exists(TEMPLATEPATH.'/email-css.css')) {
-		wp_enqueue_style('wp-email', get_stylesheet_directory_uri().'/email-css.css', false, '2.50', 'all');
+		wp_enqueue_style('wp-email', get_stylesheet_directory_uri().'/email-css.css', false, '2.60', 'all');
 	} else {
-		wp_enqueue_style('wp-email', plugins_url('wp-email/email-css.css'), false, '2.50', 'all');
+		wp_enqueue_style('wp-email', plugins_url('wp-email/email-css.css'), false, '2.60', 'all');
 	}
 	if('rtl' == $text_direction) {
 		if(@file_exists(TEMPLATEPATH.'/email-css-rtl.css')) {
-			wp_enqueue_style('wp-email-rtl', get_stylesheet_directory_uri().'/email-css-rtl.css', false, '2.50', 'all');
+			wp_enqueue_style('wp-email-rtl', get_stylesheet_directory_uri().'/email-css-rtl.css', false, '2.60', 'all');
 		} else {
-			wp_enqueue_style('wp-email-rtl', plugins_url('wp-email/email-css-rtl.css'), false, '2.50', 'all');
+			wp_enqueue_style('wp-email-rtl', plugins_url('wp-email/email-css-rtl.css'), false, '2.60', 'all');
 		}
 	}
 	$email_max = intval(get_option('email_multiple'));
-	wp_enqueue_script('wp-email', plugins_url('wp-email/email-js.js'), array('jquery'), '2.50', true);
+	wp_enqueue_script('wp-email', plugins_url('wp-email/email-js.js'), array('jquery'), '2.60', true);
 	wp_localize_script('wp-email', 'emailL10n', array(
-		'ajax_url' => plugins_url('wp-email/wp-email.php'),
+		'ajax_url' => admin_url('admin-ajax.php', (is_ssl() ? 'https' : 'http')),
 		'max_allowed' => $email_max,
 		'text_error' => __('The Following Error Occurs:', 'wp-email'),
 		'text_name_invalid' => __('- Your Name is empty/invalid', 'wp-email'),
@@ -203,7 +192,7 @@ add_action('admin_enqueue_scripts', 'email_stylesheets_admin');
 function email_stylesheets_admin($hook_suffix) {
 	$email_admin_pages = array('wp-email/email-manager.php', 'wp-email/email-options.php', 'wp-email/email-uninstall.php');
 	if(in_array($hook_suffix, $email_admin_pages)) {
-		wp_enqueue_style('wp-email-admin', plugins_url('wp-email/email-admin-css.css'), false, '2.50', 'all');
+		wp_enqueue_style('wp-email-admin', plugins_url('wp-email/email-admin-css.css'), false, '2.60', 'all');
 	}
 }
 
@@ -494,10 +483,8 @@ function email_content_alt() {
 ### Function: E-Mail Get The Content
 function get_email_content() {
 	global $pages, $multipage, $numpages, $post;
-	if (!empty($post->post_password)) {
-		if (stripslashes($_COOKIE['wp-postpass_'.COOKIEHASH]) != $post->post_password) {
-			return __('Password Protected Post', 'wp-email');
-		}
+	if(post_password_required()) {
+		return __('Password Protected Post', 'wp-email');
 	}
 	if($multipage) {
 		for($page = 0; $page < $numpages; $page++) {
@@ -534,19 +521,6 @@ function get_email_ipaddress() {
 	}
 	return esc_attr($ip_address);
 }
-
-
-### Function: Check For Password Protected Post
-function not_password_protected() {
-	global $post;
-	if (!empty($post->post_password)) {
-		if ($_COOKIE['wp-postpass_'.COOKIEHASH] != $post->post_password) {
-			return false;
-		}
-	}
-	return true;
-}
-
 
 ### Function: There Are Still Many PHP 4.x Users
 if(!function_exists('htmlspecialchars_decode')) {
@@ -598,7 +572,7 @@ function not_spamming() {
 	global $wpdb;
 	$current_time = current_time('timestamp');
 	$email_ip = get_email_ipaddress();
-	$email_host = @gethostbyaddr($email_ip);
+	$email_host = esc_attr(@gethostbyaddr($email_ip));
 	$email_status = __('Success', 'wp-email');
 	$last_emailed = $wpdb->get_var("SELECT email_timestamp FROM $wpdb->email WHERE email_ip = '$email_ip' AND email_host = '$email_host' AND email_status = '$email_status' ORDER BY email_timestamp DESC LIMIT 1");
 	$email_allow_interval = intval(get_option('email_interval'))*60;
@@ -665,6 +639,7 @@ function email_form_header($echo = true, $temp_id) {
 			$output .= '<p style="display: none;"><input type="hidden" id="p" name="p" value="'.$id.'" /></p>'."\n";
 		}
 	}
+	$output .= '<p style="display: none;"><input type="hidden" id="wp-email_nonce" name="wp-email_nonce" value="'.wp_create_nonce('wp-email-nonce').'" /></p>'."\n";
 	if($echo) {
 		echo $output;
 	} else {
@@ -706,6 +681,7 @@ function email_popup_form_header($echo = true, $temp_id) {
 			$output .= '<p style="display: none;"><input type="hidden" id="p" name="p" value="'.$id.'" /></p>'."\n";
 		}
 	}
+	$output .= '<p style="display: none;"><input type="hidden" id="wp-email_nonce" name="wp-email_nonce" value="'.wp_create_nonce('wp-email-nonce').'" /></p>'."\n";
 	if($echo) {
 		echo $output;
 	} else {
@@ -770,6 +746,25 @@ if(!function_exists('get_emails_failed')) {
 }
 
 
+### Function: Get EMail Sent For Post
+if(!function_exists('get_email_count')) {
+	function get_email_count($post_id = 0, $echo = true) {
+		global $wpdb;
+		if($post_id == 0) {
+			 global $post;
+			$post_id = $post->ID;
+		}
+		$post_id = intval($post_id);
+		$totalemails = $wpdb->get_var("SELECT COUNT(email_id) FROM $wpdb->email WHERE email_postid = $post_id");
+		if($echo) {
+			echo number_format_i18n($totalemails);
+		} else {
+			return number_format_i18n($totalemails);
+		}
+	}
+}
+
+
 ### Function: Get Most E-Mailed
 if(!function_exists('get_mostemailed')) {
 	function get_mostemailed($mode = '', $limit = 10, $chars = 0, $echo = true) {
@@ -824,26 +819,36 @@ function wp_email() {
 
 
 ### Function: Process E-Mail Form
-process_email_form();
+add_action('wp_ajax_email', 'process_email_form');
+add_action('wp_ajax_nopriv_email', 'process_email_form');
 function process_email_form() {
 	global $wpdb, $post, $text_direction;
 	// If User Click On Mail
-	if(!empty($_POST['wp-email'])) {
+	if(isset($_POST['action']) && $_POST['action'] == 'email') {
+
+		// Verify Referer
+		if(!check_ajax_referer('wp-email-nonce', 'wp-email_nonce', false))
+		{
+			_e('Failed To Verify Referrer', 'wp-email');
+			exit();
+		}
+
 		@session_start();
 		email_textdomain();
 		header('Content-Type: text/html; charset='.get_option('blog_charset').'');
 		// POST Variables
-		$yourname = strip_tags(stripslashes(trim($_POST['yourname'])));
-		$youremail = strip_tags(stripslashes(trim($_POST['youremail'])));
-		$yourremarks = strip_tags(stripslashes(trim($_POST['yourremarks'])));
-		$friendname = strip_tags(stripslashes(trim($_POST['friendname'])));
-		$friendemail = strip_tags(stripslashes(trim($_POST['friendemail'])));
-		$imageverify = $_POST['imageverify'];
-		$p = intval($_POST['p']);
-		$page_id = intval($_POST['page_id']);
+		$yourname		= (!empty($_POST['yourname'])	? strip_tags(stripslashes(trim($_POST['yourname']))) : '');
+		$youremail		= (!empty($_POST['youremail'])	? strip_tags(stripslashes(trim($_POST['youremail']))) : '');
+		$yourremarks	= (!empty($_POST['yourremarks'])? strip_tags(stripslashes(trim($_POST['yourremarks']))) : '');
+		$friendname		= (!empty($_POST['friendname'])	? strip_tags(stripslashes(trim($_POST['friendname']))) : '');
+		$friendemail	= (!empty($_POST['friendemail'])? strip_tags(stripslashes(trim($_POST['friendemail']))) : '');
+		$imageverify	= (!empty($_POST['imageverify'])? $_POST['imageverify'] : '');
+		$p 				= (!empty($_POST['p'])			? intval($_POST['p']) : 0);
+		$page_id 		= (!empty($_POST['page_id'])	? intval($_POST['page_id']) : 0);
 		// Get Post Information
 		if($p > 0) {
-			$query_post = 'p='.$p;
+			$post_type = get_post_type($p);
+	 		$query_post = 'p='. $p . '&post_type=' . $post_type;
 			$id = $p;
 		} else {
 			$query_post = 'page_id='.$page_id;
@@ -1018,7 +1023,7 @@ function process_email_form() {
 			$template_email_bodyalt = str_replace("%EMAIL_PERMALINK%", get_permalink(), $template_email_bodyalt);
 			// PHP Mailer Variables
 			if (!class_exists("phpmailer")) {
-				require_once(ABSPATH.'wp-includes/class-phpmailer.php');
+				require_once(ABSPATH.WPINC.'/class-phpmailer.php');
 			}
 			$mail = new PHPMailer();
 			$mail->From     = $youremail;
@@ -1026,7 +1031,7 @@ function process_email_form() {
 			foreach($friends as $friend) {
 				$mail->AddAddress($friend['email'], $friend['name']);
 			}
-			$mail->CharSet = get_bloginfo('charset');
+			$mail->CharSet = strtolower(get_bloginfo('charset'));
 			$mail->Username = $email_smtp['username'];
 			$mail->Password = $email_smtp['password'];
 			$mail->Host     = $email_smtp['server'];
@@ -1075,7 +1080,7 @@ function process_email_form() {
 			$email_posttitle = addslashes($post_title);
 			$email_timestamp = current_time('timestamp');
 			$email_ip = get_email_ipaddress();
-			$email_host = @gethostbyaddr($email_ip);
+			$email_host = esc_attr(@gethostbyaddr($email_ip));
 			foreach($friends as $friend) {
 				$email_friendname = addslashes($friend['name']);
 				$email_friendemail = addslashes($friend['email']);
@@ -1120,6 +1125,7 @@ function email_form($content, $echo = true, $subtitle = true, $div = true, $erro
 	$email_options = get_option('email_options');
 	$email_type = intval($email_options['email_type']);
 	$error_field = apply_filters('email_form-fieldvalues', $error_field);
+	$output = '';
 	// Template - Subtitle
 	if($subtitle) {
 		$template_subtitle = stripslashes(get_option('email_template_subtitle'));
@@ -1137,27 +1143,23 @@ function email_form($content, $echo = true, $subtitle = true, $div = true, $erro
 		$output .= '<div id="wp-email-content" class="wp-email">'."\n";
 	}
 	if (not_spamming()) {
-		if(not_password_protected()) {
+		if(!post_password_required()) {
 			if($email_type == 2){
-				$output .= email_popup_form_header(false, $error_field['id']);
+				$output .= email_popup_form_header(false, (!empty($error_field['id']) ? $error_field['id'] : 0));
 			} else {
-				$output .= email_form_header(false, $error_field['id']);
+				$output .= email_form_header(false, (!empty($error_field['id']) ? $error_field['id'] : 0));
 			}
-			$output .= '<!-- Display Error, If There Is Any -->'."\n";
-			$output .= $template_email_sentfailed;
-			$output .= $template_email_error;
-			$output .= '<!-- End Display Error, If There Is Any -->'."\n";
 			$output .= '<p id="wp-email-required">'.__('* Required Field', 'wp-email').'</p>'."\n";
 			if(intval($email_fields['yourname']) == 1) {
 				$output .= '<p>'."\n";
 				$output .= '<label for="yourname">'.__('Your Name: *', 'wp-email').'</label><br />'."\n";
-				$output .= '<input type="text" size="50" id="yourname" name="yourname" class="TextField" value="'.$error_field['yourname'].'" />'."\n";
+				$output .= '<input type="text" size="50" id="yourname" name="yourname" class="TextField" value="'.(!empty($error_field['yourname']) ? $error_field['yourname'] : '').'" />'."\n";
 				$output .= '</p>'."\n";
 			}
 			if(intval($email_fields['youremail']) == 1) {
 				$output .= '<p>'."\n";
 				$output .= '<label for="youremail">'.__('Your E-Mail: *', 'wp-email').'</label><br />'."\n";
-				$output .= '<input type="text" size="50" id="youremail" name="youremail" class="TextField" value="'.$error_field['youremail'].'" dir="ltr" />'."\n";
+				$output .= '<input type="text" size="50" id="youremail" name="youremail" class="TextField" value="'.(!empty($error_field['youremail']) ? $error_field['youremail'] : '').'" dir="ltr" />'."\n";
 				$output .= '</p>'."\n";
 			}
 			if(intval($email_fields['yourremarks']) == 1) {
@@ -1177,12 +1179,12 @@ function email_form($content, $echo = true, $subtitle = true, $div = true, $erro
 			if(intval($email_fields['friendname']) == 1) {
 				$output .= '<p>'."\n";
 				$output .= '<label for="friendname">'.__('Friend\'s Name: *', 'wp-email').'</label><br />'."\n";
-				$output .= '<input type="text" size="50" id="friendname" name="friendname" class="TextField" value="'.$error_field['friendname'].'" />'.email_multiple(false)."\n";
+				$output .= '<input type="text" size="50" id="friendname" name="friendname" class="TextField" value="'.(!empty($error_field['friendname']) ? $error_field['friendname'] : '').'" />'.email_multiple(false)."\n";
 				$output .= '</p>'."\n";
 			}
 			$output .= '<p>'."\n";
 			$output .= '<label for="friendemail">'.__('Friend\'s E-Mail: *', 'wp-email').'</label><br />'."\n";
-			$output .= '<input type="text" size="50" id="friendemail" name="friendemail" class="TextField" value="'.$error_field['friendemail'].'" dir="ltr" />'.email_multiple(false)."\n";
+			$output .= '<input type="text" size="50" id="friendemail" name="friendemail" class="TextField" value="'.(!empty($error_field['friendemail']) ? $error_field['friendemail'] : '').'" dir="ltr" />'.email_multiple(false)."\n";
 			$output .= '</p>'."\n";
 			if($email_image_verify) {
 				$output .= '<p>'."\n";
@@ -1194,7 +1196,7 @@ function email_form($content, $echo = true, $subtitle = true, $div = true, $erro
 			$output .= '</form>'."\n";
 		} else {
 			$output .= get_the_password_form();
-		} // End if(not_password_protected())
+		} // End if(!post_password_required())
 	} else {
 		$output .= '<p>'.sprintf(_n('Please wait for <strong>%s Minute</strong> before sending the next article.', 'Please wait for <strong>%s Minutes</strong> before sending the next article.', email_flood_interval(false), 'wp-email'), email_flood_interval(false)).'</p>'."\n";
 	} // End if (not_spamming())
@@ -1249,11 +1251,16 @@ if($_GET['sortby'] == 'email') {
 
 
 ### Function: Plug Into WP-Stats
-if(strpos(get_option('stats_url'), $_SERVER['REQUEST_URI']) || strpos($_SERVER['REQUEST_URI'], 'stats-options.php') || strpos($_SERVER['REQUEST_URI'], 'wp-stats/wp-stats.php')) {
-	add_filter('wp_stats_page_admin_plugins', 'email_page_admin_general_stats');
-	add_filter('wp_stats_page_admin_most', 'email_page_admin_most_stats');
-	add_filter('wp_stats_page_plugins', 'email_page_general_stats');
-	add_filter('wp_stats_page_most', 'email_page_most_stats');
+add_action('wp','email_wp_stats');
+function email_wp_stats() {
+	if(function_exists('stats_page')) {
+		if(strpos(get_option('stats_url'), $_SERVER['REQUEST_URI']) || strpos($_SERVER['REQUEST_URI'], 'stats-options.php') || strpos($_SERVER['REQUEST_URI'], 'wp-stats/wp-stats.php')) {
+			add_filter('wp_stats_page_admin_plugins', 'email_page_admin_general_stats');
+			add_filter('wp_stats_page_admin_most', 'email_page_admin_most_stats');
+			add_filter('wp_stats_page_plugins', 'email_page_general_stats');
+			add_filter('wp_stats_page_most', 'email_page_most_stats');
+		}
+	}
 }
 
 
@@ -1421,6 +1428,7 @@ function email_page_most_stats($content) {
 ### Function: Init WP-EMail Widget
 add_action('widgets_init', 'widget_email_init');
 function widget_email_init() {
+	email_textdomain();
 	register_widget('WP_Widget_Email');
 }
 
@@ -1498,7 +1506,7 @@ function create_email_table() {
 	if($email_mailer == 'php') {
 		update_option('email_mailer', 'mail');
 	}
-	// Version 2.50 Upgrade
+	// Version 2.60 Upgrade
 	delete_option('widget_email_most_emailed');
 	// Set 'manage_email' Capabilities To Administrator
 	$role = get_role('administrator');

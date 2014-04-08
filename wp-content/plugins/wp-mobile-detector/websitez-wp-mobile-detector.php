@@ -1,12 +1,12 @@
 <?php
-/**
- Plugin Name: WP Mobile Detector
+/*
+ Plugin Name: WP Mobile Detector Mobile Plugin
  Plugin URI: http://www.websitez.com/
- Description: The WP Mobile Detector wordpress plugin automatically detects if the visitor is using a standard mobile phone or a smart phone and loads a compatible wordpress mobile theme for each. This plugin is one of the first to differentiate between a standard mobile phone and a smart phone. With advanced mobile statistics, image resizing, automatically formatted content, and detection of 5,000+ mobile phones, the WP Mobile Detector gives your mobile visitors the experience they desire.
+ Description: The WP Mobile Detector wordpress mobile plugin automatically detects if the visitor is using a standard mobile phone or a smart phone and loads a compatible wordpress mobile theme for each. This mobile plugin is one of the first to differentiate between a standard mobile phone and a smart phone. With advanced mobile statistics, image resizing, automatically formatted content, and detection of 5,000+ mobile phones, the WP Mobile Detector gives your mobile visitors the experience they desire.
 
- Version: 1.7.2
+ Version: 1.8
  Author: Websitez.com
- Author URI: http://www.websitez.com
+ Author URI: http://websitez.com
 */
 
 /*
@@ -25,8 +25,11 @@ $websitez_mobile_device = array();
 /*
 Define Globals
 */
+define('WEBSITEZ_COOKIE_NAME', 'websitez_mobile_detector_v1-8');
 define('WEBSITEZ_PLUGIN_NAME', 'WP Mobile Detector');
+define('WEBSITEZ_PLUGIN_AUTHORIZATION', 'wp_mobile_detector_token');
 define('WEBSITEZ_PLUGIN_DIR', dirname(__FILE__));
+define('WEBSITEZ_PLUGIN_WEB_DIR', plugin_dir_url(__FILE__));
 define('WEBSITEZ_BASIC_THEME', 'websitez_basic_theme');
 define('WEBSITEZ_ADVANCED_THEME', 'websitez_advanced_theme');
 define('WEBSITEZ_INSTALL_BASIC_THEME', 'bluesteel-mobile');
@@ -49,6 +52,11 @@ define('WEBSITEZ_SHOW_DASHBOARD_WIDGET_NAME', "websitez_show_dashboard_widget");
 define('WEBSITEZ_SHOW_MOBILE_TO_TABLETS', "true");
 define('WEBSITEZ_SHOW_MOBILE_TO_TABLETS_NAME', "websitez_show_mobile_to_tablets");
 
+/* ADs off by default */
+define('WEBSITEZ_SHOW_MOBILE_ADS', "false");
+define('WEBSITEZ_SHOW_MOBILE_ADS_NAME', "websitez_show_mobile_ads");
+define('WEBSITEZ_MONETIZATION_MESSAGE', "websitez_monetization_message");
+
 //Does this plugin come with pre-installed templates?
 global $websitez_preinstalled_templates;
 $websitez_preinstalled_templates = get_option(WEBSITEZ_USE_PREINSTALLED_THEMES_NAME);
@@ -64,6 +72,8 @@ if(is_admin()) {
 	add_action('admin_menu', 'websitez_configuration_menu');
 	//Check to make sure plugin is installed properly
 	add_action('init', 'websitez_checkInstalled');
+	add_action('init', 'websitez_authorization');
+	//add_action('init', 'websitez_check_monetization');
 	add_action('wp_dashboard_setup', 'websitez_dashboard_setup' );
 }
 

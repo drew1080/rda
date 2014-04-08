@@ -1,13 +1,13 @@
 <?php
 /*
 File: TinyFeedParser.php
-Date: 7/18/2012
-Version 1.9.6
+Date: 11/05/2013
+Version 1.9.14
 Author: HenryRanch LLC
 
 LICENSE:
 ============
-Copyright (c) 2009-2012, Henry Ranch LLC. All rights reserved. http://www.henryranch.net
+Copyright (c) 2009-2013, Henry Ranch LLC. All rights reserved. http://www.henryranch.net
 
 
 TinyFeedParser is governed by the following license and is not licensed for use outside of 
@@ -53,6 +53,11 @@ class Article
     var $pubDateStr;
     var $pubTimeStamp;
     var $link;
+    var $linkComments;
+    var $linkSelf;
+    var $linkAlternate;
+    var $linkEdit;
+    var $linkReplies;
     var $title;
     var $subtitle;
     //description: typically contains the syndicated article content
@@ -62,13 +67,20 @@ class Article
     //headline: a copy of the description data, but with html tags stripped out
     var $headline;
     var $image;
+    var $imageCaptionAlt;
     var $copyright;
+    var $author;
+    var $guid;
+    var $comments;
+    var $price;
 }
 
 class TinyFeedParser
 {
     var $articles = array();
     
+    var $feedIndex = 0;
+
     var $feedUpdateTime = '';
     
     var $maxDescriptionLength = -1;
@@ -76,17 +88,19 @@ class TinyFeedParser
     var $allowImagesInDescription = 'false';
     var $allowMarkupInDescription = 'false';
 	
-	var $addNoFollowTag = 'true';
+    var $addNoFollowTag = 'true';
     
     var $showContentOnlyInLinkTitle = false;
     var $showFeedChannelTitle = true;
     var $showFeedMetrics = true;
     var $maxNumArticlesToDisplay = 5;
+    var $hideArticlesAfterArticleNumber = -1;
     var $exclusiveKeywordList = "";
     var $inclusiveKeywordList = "";
     
     var $showArticlePublishTimestamp = true;
-    
+    var $showComments = false;
+
     var $useCustomFeednameAsChannelTitle = false;
     var $customFeedName = "";
         
@@ -94,12 +108,30 @@ class TinyFeedParser
     var $feedTitleHTMLCodePost = '</h2>';
     var $articleTitleHTMLCodePre = '<h3>';
     var $articleTitleHTMLCodePost = '</h3>';
-    
+    var $articleBodyHTMLCodePre = '<div name="bodyHtmlCodePre">';
+    var $articleBodyHTMLCodePost = '</div>';
+    var $articleTimestampHTMLCodePre = '<i>';
+    var $articleTimestampHTMLCodePost = '</i>';
+    var $articleAuthorHTMLCodePre = '<i>';
+    var $articleAuthorHTMLCodePost = '</i>';
+    var $articleCopyrightHTMLCodePre = '<i>';
+    var $articleCopyrightHTMLCodePost = '</i>';
+    var $articlePriceHTMLCodePre = '<i>';
+    var $articlePriceHTMLCodePost = '</i>';
+    var $articleSubtitleHTMLCodePre = '<i>';
+    var $articleSubtitleHTMLCodePost = '</i>';
+    var $articleImageHTMLCodePre = '<div name="imgHtmlCodePre"><br>';
+    var $articleImageHTMLCodePost ='</div>';
+
     var $numArticles = 0;
     
-	var $useCustomTimestampFormat = true;
-	var $defaultTimestampFormatString = 'l F jS, Y h:i:s A';
-	var $timestampFormatString = 'l F jS, Y h:i:s A';
+    var $useCustomTimestampFormat = true;
+    var $defaultTimestampFormatString = 'l F jS, Y h:i:s A';
+    var $timestampFormatString = 'l F jS, Y h:i:s A';
+    var $truncateTitleAtWord = '';
+    var $replaceStringInTitle = '';
+    var $openArticleInLightbox = false;
+    var $lightboxHTMLCode = '';//"\r\n<div id=\"lightbox-external\" class=\"lightbox_content\">\r\n<a href=\"javascript:void(0)\" onclick=\"document.getElementById('lightbox-external').style.display='none';document.getElementById('body').style.display='none'\" title=\"click to close the lightbox\">X</a><br>\r\n<iframe id=\"external-content-iframe\" name=\"external-content-iframe\" frameborder=0 width=\"100%\" height=\"100%\">Hello world!</iframe>\r\n</div><!-- end div lightbox-external-->\r\n";
 	
     function TinyFeedParser() 
     {
@@ -186,10 +218,17 @@ class TinyFeedParser
         {
             $xmlString = file_get_contents($url_or_file);
         }
-        if(strripos($xmlString, 'rdf') !== false)
+        if(strripos($xmlString, 'rdf:') !== false)
         {
             $xmlString = str_replace("rdf:", "rdf_", $xmlString);
-            $xmlString = str_replace("dc:", "dc_", $xmlString);
+        }
+        if(strripos($xmlString, 'dc:') !== false)
+        {
+            $xmlString = str_replace("dc:", "ns_", $xmlString);
+        }
+        if(strripos($xmlString, 'pm:') !== false)
+        {
+            $xmlString = str_replace("pm:", "ns_", $xmlString);
         }
         if(strripos($xmlString, '<html') !== false)
         {
@@ -209,7 +248,9 @@ class TinyFeedParser
         }
         if(count($xmlDocObj) == 0)
             return "Unable to parse xml data...";
-        
+
+        //print "\r\n\r\n<!-- \r\n\r\n$xmlString\r\n\r\n -->\r\n\r\n";
+
         if($this->isRss($xmlDocObj))
         {
             $this->parseRSSFeed($xmlDocObj);
@@ -264,7 +305,9 @@ class TinyFeedParser
         }
         $article->title = (string)$xmlDocObj->title;
         $article->subtitle = (string)$xmlDocObj->subtitle;
-        $article->description = (string)$xmlDocObj->summary;                        
+        $article->description = (string)$xmlDocObj->summary;   
+        $article->author = (string)$xmlDocObj->author;      
+                  
         $this->addArticle($article);
             
         foreach($xmlDocObj->entry as $entry)
@@ -297,13 +340,21 @@ class TinyFeedParser
         {
             $article = new Article();
             $article->title = (string)$channel->title;
+            $article->subtitle = (string)$channel->subtitle;
             $article->link = (string)$channel->link;
             $article->description = (string)$channel->description;    
             $article->pubDateStr = (string)$channel->lastBuildDate;
             $article->pubTimeStamp = strtotime($channel->lastBuildDate);
+            $article->guid = $channel->guid;
             $article->image = $channel->image;
-            $article->copyright = $channel->copyright;
-                    
+            $article->copyright = (string)$channel->copyright;
+            $article->author = (string)$channel->author;
+            if($channel->ns_creator)
+            {
+                $article->author = (string)$channel->ns_creator;
+            }
+            
+
             $this->addArticle($article);
             
             foreach($channel->item as $item)
@@ -314,20 +365,35 @@ class TinyFeedParser
                 }
                 
                 $article = new Article();
-                if($item->pubDate)
-                {
-                    $article->pubDateStr = (string)$item->pubDate;
-                }            
-                else
-                {
-                    $article->pubDateStr = (string)$item->pubDate;
-                }
-                
+                $article->pubDateStr = (string)$item->pubDate;
+                                
                 $article->pubTimeStamp = strtotime($article->pubDateStr);
                 $article->link = (string)$item->link;
                 $article->title = (string)$item->title;
+                $article->subtitle = (string)$item->subtitle;
                 $article->description = (string)$item->description;
-                                
+                $article->guid = (string)$item->guid;
+                $article->image = $item->image;
+                $article->comments = (string)$item->comments;
+                if($item->ns_Image)
+                {
+                    $article->image = (string)$item->ns_Image;
+                }              
+                if($item->ns_CurrentPrice)
+                {
+                    $article->price = (string)$item->ns_CurrentPrice;
+                }   
+                if($item->ns_Caption)
+                {
+                    $article->imageCaptionAlt = (string)$item->ns_Caption;
+                }
+                $article->copyright = (string)$item->copyright;
+                $article->author = (string)$item->author;
+                if($item->ns_creator)
+                {
+                    $article->author = (string)$item->ns_creator;
+                }
+                
                 $this->addArticle($article);
             }
         }
@@ -337,12 +403,16 @@ class TinyFeedParser
     {
         $article = new Article();
         $article->title = (string)$xmlDocObj->channel->title;
+        $article->subtitle = (string)$xmlDocObj->channel->subtitle;
         $article->link = (string)$xmlDocObj->channel->link;
+        $article->guid = (string)$xmlDocObj->channel->guid;
         $article->description = (string)$xmlDocObj->channel->description;      
-        $article->pubDateStr = (string)$xmlDocObj->channel->dc_date;
-        $article->pubTimeStamp = strtotime($xmlDocObj->channel->dc_date);
+        $article->pubDateStr = (string)$xmlDocObj->channel->ns_date;
+        $article->pubTimeStamp = strtotime($xmlDocObj->channel->ns_date);
         $article->image = $xmlDocObj->channel->image;
-        $article->copyright = $xmlDocObj->channel->dc_rights;
+        
+        $article->author = (string)$xmlDocObj->channel->author;
+        $article->copyright = (string)$xmlDocObj->channel->ns_rights;
                  
         $this->addArticle($article);
        
@@ -356,10 +426,14 @@ class TinyFeedParser
             $article->title = (string)$item->title;
             $article->link = (string)$item->link;
             $article->description = (string)$item->description;      
-            $article->pubDateStr = (string)$item->dc_date;
-            $article->pubTimeStamp = strtotime($item->dc_date);
+            $article->pubDateStr = (string)$item->ns_date;
+            $article->pubTimeStamp = strtotime($item->ns_date);
             $article->image = (string)$item->image;
-            $article->copyright = (string)$item->dc_rights;
+            if($xmlDocObj->channel->ns_image)
+            {
+                $article->image = $xmlDocObj->channel->ns_image;
+            }
+            $article->copyright = (string)$item->ns_rights;
                        
             $this->addArticle($article);
         } 
@@ -443,9 +517,30 @@ class TinyFeedParser
         $article->headline = $article->description;
         $article->headline = (string)$this->removeAllHtmlMarkup($article->headline);
         $article->headline = $this->truncateToLength($article->headline, $this->maxHeadlineLength, 'NO_LINK');
+        if($this->truncateTitleAtWord != '')
+        {
+            $length = strpos($article->headline, $this->truncateTitleAtWord, 0) - 1;
+            $article->headline = $this->truncateToLength($article->headline, $length, 'NO_LINK', false);
+        }
         
         $article->title = (string)$this->removeAllHtmlMarkup($article->title);
         $article->title = $this->truncateToLength($article->title, $this->maxHeadlineLength, 'NO_LINK');
+        if($this->truncateTitleAtWord != '')
+        {
+            $length = strpos($article->title, $this->truncateTitleAtWord, 0) - 1;
+            $article->title = $this->truncateToLength($article->title, $length, 'NO_LINK', false);
+        }
+        if($this->replaceStringInTitle != '')
+        {
+        	 $keyValuePairArray = explode(',', $this->replaceStringInTitle);
+        	 foreach($keyValuePairArray as $replacementPair)
+        	 {        	   
+        	   $replacementArray = explode(':', $replacementPair);
+        	   $strToBeReplaced = $replacementArray[0];
+        	   $replacementStr = $replacementArray[1];
+        	   $article->title = str_replace($strToBeReplaced, $replacementStr, $article->title);
+        	 }
+        }
                 
         $article->subtitle = (string)$this->removeAllHtmlMarkup($article->subtitle);
         
@@ -457,21 +552,29 @@ class TinyFeedParser
         return $article;
     }
     
-    function truncateToLength($text, $length, $urlLink="")
+    function truncateToLength($text, $length, $urlLink="", $elipsis=true)
     {
         if($length != -1 && strlen($text) > $length)
         {
+            //find the end of the word, as denoted by a space char
+            $length = strpos($text, ' ', $length);
+            //now do the truncation
             $text = substr($text, 0, $length);
             if($urlLink != "" && $urlLink != 'NO_LINK')
             {
                 $text .= " <a href=\"$urlLink\" target=\"_blank\" title=\"Open article in a new window\"";				
-				if($this->addNoFollowTag == 'true')
-				{
-					$text .= ' rel="nofollow"';
-				}
-				$text .= ">...</a>";
+                if($this->addNoFollowTag == 'true')
+                {
+                    $text .= ' rel="nofollow"';
+                }
+                $text .= ">";
+                if($elipsis)
+                {
+                    $text .= '...';
+                }
+                $text .= "</a>";
             }
-            else
+            else if($elipsis)
             {
                 $text .= '...';
             }
@@ -528,9 +631,48 @@ class TinyFeedParser
         return $str;
     }
     
+    function getJS()
+    {
+        return '<script language="javascript" type="text/javascript">'.
+               'function toggle(elementId) '.
+               '{'.
+               '  var ele = document.getElementById(elementId);'.
+               '  var text = document.getElementById("displayText");'.
+               '  if(ele.style.display == "block")'. 
+               '  {'.
+               '    ele.style.display = "none";'.
+               '  }'.
+               '  else '.
+               '  {'.
+               '    ele.style.display = "block";'.
+               '  }'.
+               '} '.
+               'function loadLightbox(elementId, url) {'.           
+               '  var request = new XMLHttpRequest();'.
+               '  request.open("GET", url, false);'.
+               '  request.send(null);'.
+               '  var content = request.responseText;'.
+               '  document.getElementById(elementId).innerHTML = content;'.
+               '}'.                            
+               '</script>';
+    }
+    
+
     function getHtml()
     {
         $html = "";
+
+        if($this->hideArticlesAfterArticleNumber > 1)
+        {
+            $html .= $this->getJS();
+        }
+                
+        if($this->openArticleInLightbox == 'true')
+        {
+            $html .= $this->getJS();
+            $html .= $this->lightboxHTMLCode;
+        }
+
         $articles = $this->articles;
         $currentArticleIndex = 0;
         foreach($articles as $article)
@@ -544,6 +686,12 @@ class TinyFeedParser
             }
             else
             {
+                if(($this->hideArticlesAfterArticleNumber > 1) && (($currentArticleIndex - 2) == $this->hideArticlesAfterArticleNumber))
+                {
+                    $hiddenDivId = 'hiddenArticleDiv-'.rand().'-feedIndex-'.$this->feedIndex;
+                    $html .= "<br>\r\n<div id=\"showHideArticlesControlDiv\"><a id=\"displayText\" href=\"javascript:toggle('".$hiddenDivId."');\">Show / Hide more articles from this feed.</a><br></div><!-- end div showHideArticlesControlDiv-->";
+                    $html .= "\r\n<div id=\"".$hiddenDivId."\" style=\"display: none\">\r\n";
+                }
                 $headerHtmlPre = $this->articleTitleHTMLCodePre;
                 $headerHtmlPost = $this->articleTitleHTMLCodePost;
             }
@@ -560,64 +708,104 @@ class TinyFeedParser
                     continue;
                 }
             }
-            $html .= "<p>\r\n";
-            if($article->image)
-            {
-                $html .= '<a href="'.$article->image->link.'"';
-				if($this->addNoFollowTag == 'true')
-				{
-					$html .= ' rel="nofollow"';
-				}
-				$html .= '><img src="'.$article->image->url.'"></a>';//."\r\n";     
-            }
+            $html .= "\r\n<div id=\"itemDiv-feed-".$this->feedIndex.'-article-'.($currentArticleIndex-1)."\"><!-- Article GUID: ".$article->guid."-->\r\n";
+            
             $html .= $headerHtmlPre;
-            $html .= '<a href="'.$article->link.'" ';
-            if($this->showContentOnlyInLinkTitle == 'true')
+
+
+            if($this->openArticleInLightbox == 'true')
             {
-                $html .= 'title="'.$article->description.'  Click to read the full article..."';
-                if($article->description == '')
-                {
-                    continue;
-                }
-            }
-            else
-            {
-                $html .= 'title="Click to read article..."';
-            }
-			if($this->addNoFollowTag == 'true')
-			{
-				$html .= ' rel="nofollow"';
-			}
-            $html .= ' target=_blank>'.$article->title.'</a>'.$headerHtmlPost."\r\n";
+                $html .= ' <a href="javascript:void(0)" onclick="document.getElementById(\'external-content-iframe\').src=\''.$article->link.
+                      '\';document.getElementById(\'lightbox-external\').style.display=\'block\';document.getElementById(\'main\').style.display=\'block\';">'.$article->title.'</a>'."\r\n";
+            }			
+				else 
+				{            
+              	$html .= '<a href="'.$article->link.'" ';
+            	if($this->showContentOnlyInLinkTitle == 'true')
+            	{
+                	$html .= 'title="'.$article->description.'  Click to read the full article..."';
+                	if($article->description == '')
+                	{
+                  	  continue;
+               	}
+            	}
+            	else
+            	{
+                	$html .= 'title="Click to read article..."';
+            	}
+            	if($this->addNoFollowTag == 'true')
+            	{
+              	 	$html .= ' rel="nofollow"';
+            	}
+            	$html .= ' target=_blank>'.$article->title.'</a>';
+ 				}
+				$html .= $headerHtmlPost."\r\n";            
+            
             if($article->subtitle != '')
             {
-                $html = $this->addBrIfNeeded($html);
-                $html .= $article->subtitle;
+                $html .= $this->articleSubtitleHTMLCodePre.$article->subtitle.$this->articleSubtitleHTMLCodePost."\r\n";
             }
             if($this->showArticlePublishTimestamp == 'true' && $currentArticleIndex != 1)
             {
                 if($article->pubDateStr)
                 {
-                    //$html = $this->addBrIfNeeded($html);
-					if($this->useCustomTimestampFormat)
-					{
-						$html .= '<font size=-3>'.date($this->timestampFormatString, $article->pubTimeStamp).'</font>'."\r\n";
-					}
-					else
-					{
-						$html .= '<font size=-3>'.$article->pubDateStr.'</font>'."\r\n";
-					}
+                    if($this->useCustomTimestampFormat)
+                    {
+                       $html .= $this->articleTimestampHTMLCodePre.date($this->timestampFormatString, $article->pubTimeStamp).$this->articleTimestampHTMLCodePost."\r\n";
+                    }
+                    else
+                    {
+                      $html .= $this->articleTimestampHTMLCodePre.$article->pubDateStr.$this->articleTimestampHTMLCodePost."\r\n";
+                    }
                 }
                 else
                 {
-                    //$html = $this->addBrIfNeeded($html);
-                    $html .= '<font size=-3>No timestamp info...</font>'."\r\n";
+                    $html .= $this->articleTimestampHTMLCodePre.'No timestamp info...'.$this->articleTimestampHTMLCodePost."\r\n";
                 }
             }
         
-            $html = $this->addBrIfNeeded($html);
+            if($article->copyright)
+            {
+                $html .= $this->articleCopyrightHTMLCodePre.$article->copyright.$this->articleCopyrightHTMLCodePost."\r\n";
+            }
+            if($article->author)
+            {
+                $html .= $this->articleAuthorHTMLCodePre.$article->author.$this->articleAuthorHTMLCodePost."\r\n";
+            }            
+            if($article->price)
+            {
+                $html .= $this->articlePriceHTMLCodePre.$article->price.$this->articlePriceHTMLCodePost."\r\n";
+            }
+
+            if($article->image)
+            {
+                if($article->image->url)
+                {
+                    $imageUrl = $article->image->url;
+                }
+                else
+                {
+                    $imageUrl = (string)$article->image;
+                }
+                if($article->image->link)
+                {
+                    $articleLink = $article->image->link;
+                }
+                else
+                {
+                    $articleLink = $article->link;
+                }
+                $html .= $this->articleImageHTMLCodePre.'<a href="'.$articleLink.'"';
+                if($this->addNoFollowTag == 'true')
+                {
+                    $html .= ' rel="nofollow"';
+                }
+                $html .= '><img src="'.$imageUrl.'" alt="'.$article->imageCaptionAlt.'"></a>'.$this->articleImageHTMLCodePost."\r\n";     
+            }
+
             if(($this->showContentOnlyInLinkTitle == 'false'))
             {
+                $html .= $this->articleBodyHTMLCodePre."\r\n";
                 if($article->description != "")
                 {
                     $html .= $article->description."\r\n";
@@ -626,18 +814,23 @@ class TinyFeedParser
                 {
                     $html .= $article->content."\r\n";
                 }
-            }
-            if($article->copyright)
-            {
-                $html = $this->addBrIfNeeded($html);
-                $html .= '<font size=-3>'.$article->copyright."</font>";
+                if($this->showComments && $article->comments != "")
+                {
+                    $html = $this->addBrIfNeeded($html);
+                    $html .= "<a href=\"".$article->comments."\" target=_blank>View comments</a>\r\n";
+                }
+                $html .= $this->articleBodyHTMLCodePost."\r\n";
             }
             if(($this->showFeedMetrics == 'true') && ($this->feedUpdateTime) && ($currentArticleIndex == 1))
             {
                 $html = $this->addBrIfNeeded($html);
                 $html .= '<font size=-4>Last feed update: '.$this->feedUpdateTime.'</font>'."\r\n";
             }
-            $html .= "</p>\r\n";
+            $html .= "\r\n</div><!-- end div itemDiv-feed-".$this->feedIndex.'-article-'.($currentArticleIndex-1)."-->\r\n";
+        }
+        if(($this->hideArticlesAfterArticleNumber > 1)  && (($currentArticleIndex - 2) >= $this->hideArticlesAfterArticleNumber))
+        {
+            $html .= "\r\n</div><!-- end div hidearticles - $hiddenDivId -->\r\n";
         }
         return $html;
     }

@@ -19,6 +19,8 @@ sitemap.xml
 wp-content/cache/
 wp-content/backups/
 sitemap.xml.gz
+wp-content/updraft/
+pclzip*
 #FILES LARGER THAN 100MB
 pclzip-532b03b27522e.tmp
 wp-content/uploads/2009/09/Tall-buildings.ppt
@@ -38,5 +40,3 @@ wp-content-orig/uploads/2009/10/speaker-2-Speaker-2-RDA-MP4.flv
 wp-content-orig/uploads/2009/09/Tall-buildings.ppt
 pclzip-532b0628986cb.gz
 pclzip-532b062c2967d.tmp
-pclzip*
-wp-content/updraft/*

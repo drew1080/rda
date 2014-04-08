@@ -1,12 +1,12 @@
-=== WP Mobile Detector ===
+=== WP Mobile Detector Mobile Plugin ===
 Tags: mobile, pda, wireless, cellphone, phone, iphone, touch, webkit, android, blackberry, ipod, mobile phone, ipad, mobile website, BuddyPress
 Contributors: Websitez.com
 Minimum version: 2.7
 Requires at least: 2.7
-Tested up to: 3.3.1
-Stable tag: 1.7.1
+Tested up to: 3.7.1
+Stable tag: 1.8
 
-WP Mobile Detector automatically detects standard and advanced mobile devices and displays a compatible wordpress mobile theme.
+The WP Mobile Detector mobile plugin automatically detects over 5,000 mobile devices and displays a compatible mobile theme.
 
 == Description ==
 
@@ -28,10 +28,11 @@ This plugin is compatible with most other mobile detection plugins. Use the WP M
 * Includes seven mobile themes pre-installed.
 * Select any of the seven pre-installed mobile themes or choose one of your own.
 
-*WP Mobile Detector premium is now available!*
+**Now Available: WP Mobile Detector PRO v2.6**
+
 Build your own custom mobile theme with our brand new interactive mobile theme editor. Change colors, upload a logo, insert mobile ads, track visitors with mobile statistics, and much more! See all of your changes in real-time right from your own browser. See exactly what your mobile visitors see.
 
-For more information please visit our website: http://websitez.com/wordpress-mobile/
+For more information please visit the [WP Mobile Detector PRO Product Page](http://websitez.com/?utm_campaign=wp-mobile-detector-front-readme&utm_medium=web&utm_source=wordpressdotorg "WP Mobile Detector PRO Product Page")
 
 == Installation ==
 
@@ -66,8 +67,46 @@ Yes, on the 'Page Cache Settings' inside of W3 Total Cache place 'websitez_is_mo
 8. Viper Mobile Theme
 9. Anakin Mobile Theme
 10. Bluesteel Mobile Theme
+11. WZ Mobile Theme
 
 == Changelog ==
+
+= 1.8 =
++ Added checks to installation to make sure plugin is configured properly
++ Added active plugin check for conflicting plugins
++ Fixing WZ Mobile theme header
++ Removing ad monetization feature for now
++ Updating Timthumb Library
+
+= 1.7.9 =
++ Fixing administration area messages
+
+= 1.7.8 =
++ Adding mobile ad monetization feature
++ Pruning old stats to reduce table size
+
+= 1.7.7 =
+
++ New powerful mobile theme, WZ Mobile
++ Mobile Ad Support
+
+= 1.7.6 =
+
++ Fixing content encoding issues
++ Improving logic on mobile detection
+
+= 1.7.5 =
+
++ Adding more powerful statistics
++ Improving logic on mobile detection
+
+= 1.7.4 =
+
++ Fixed bug with search_theme_directories function that prevented themes from showing.
+
+= 1.7.3 =
+
++ Updated version of Timthumb
 
 = 1.7.2 =
 

@@ -3,7 +3,11 @@
 Plugin Name: Pagebar2
 Plugin URI: http://www.elektroelch.de/hacks/wp/pagebar
 Description: Adds an advanced page navigation to Wordpress.
-Version: 2.59
+Version: 2.65
+Requires at least: 3.3
+Tested up to: 3.7
+Tags: navigation, pagination
+Stable tag: trunk
 Author: Lutz Schr&ouml;er
 Author URI: http://elektroelch.de/blog
 */
@@ -22,37 +26,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-/* -------------------------------------------------------------------------------------------- */
-
-function postbar() {
-		global $paged, $wp_query;
-		require_once('class-postbar.php');
-		$pagebar = new Postbar($paged, intval($wp_query->max_num_pages));
-}
-
-/* -------------------------------------------------------------------------------------------- */
-function pagebar() {  // for compatibility with pagebar v2.21
-		postbar();
-}
-/* -------------------------------------------------------------------------------------------- */
-function wp_pagebar() {  // for compatibility with pagebar v2.21
-		postbar();
-}
-/* -------------------------------------------------------------------------------------------- */
-function multipagebar () {
-		global $page, $numpages;
-		require_once('class-multipagebar.php');
-		$multipagebar = new Multipagebar($page, $numpages);
-} //multipagebar()
-/* -------------------------------------------------------------------------------------------- */
-function commentbar() {
-		global $wp_query;
-		require_once('class-commentbar.php');
-		$paged = intval(get_query_var('cpage'));
-		$max_page = intval($wp_query->max_num_comment_pages);
-		$commentbar = new Commentbar($paged, $max_page);
-}
-// -------------------------------------------------------------------------
+/* ------------------------------------------------------------------------------- */
 // determine the path of the plugin
 // stolen from Commentmix
 if (!defined('PLUGIN_URL'))
@@ -63,6 +37,55 @@ define('PAGEBAR_URL', PLUGIN_URL . dirname(plugin_basename(__FILE__)).'/');
 define('PAGEBAR_PATH', PLUGIN_PATH . dirname(plugin_basename(__FILE__)).'/');
 /* -------------------------------------------------------------------------- */
 
+function is_main_loop() {
+  global $wp_query, $wp_the_query;
+  if ($wp_the_query === $wp_query) {
+    return true;
+  }
+  return false;
+}
+/* -------------------------------------------------------------------------- */
+function automagic_postbar($query) {
+	global $paged, $wp_query, $pbOptions;
+
+	// no automagic insertion if we're not in the main loop
+	if ( $pbOptions['auto'] && ! ($wp_query->is_main_query()) )
+		return;
+
+	postbar();
+	
+}
+/* ------------------------------------------------------------------------------- */
+function postbar() {
+	global $paged, $wp_query, $pbOptions;
+
+	require_once('class-postbar.php');
+	$pagebar = new Postbar($paged, intval($wp_query->max_num_pages));
+	
+}
+/* ------------------------------------------------------------------------------- */
+function pagebar() {  // for compatibility with pagebar v2.21
+	postbar();
+}
+/* ------------------------------------------------------------------------------- */
+function wp_pagebar() {  // for compatibility with pagebar v2.21
+		postbar();
+}
+/* ------------------------------------------------------------------------------- */
+function multipagebar () {
+		global $page, $numpages;
+		require_once('class-multipagebar.php');
+		$multipagebar = new Multipagebar($page, $numpages);
+} //multipagebar()
+/* ------------------------------------------------------------------------------- */
+function commentbar() {
+		global $wp_query;
+		require_once('class-commentbar.php');
+		$paged = intval(get_query_var('cpage'));
+		$max_page = intval($wp_query->max_num_comment_pages);
+		$commentbar = new Commentbar($paged, $max_page);
+}
+
 function pagebar_registerStylesheet($url, $handle, $pluginurl = "") {
 	wp_register_style($handle, $pluginurl . $url);
 	wp_enqueue_style($handle);
@@ -71,10 +94,17 @@ function pagebar_registerStylesheet($url, $handle, $pluginurl = "") {
 /* -------------------------------------------------------------------------- */
 function pagebar_addUserStylesheet() {
   global $pbOptions;
-	if ($pbOptions["stylesheet"] != "styleCss")
+
+    // use default style for default themes
+    $stylesheet = get_stylesheet();
+    if (in_array($stylesheet, array('twentyten', 'twentyeleven', 'twentytwelve', 'twentythirteen', 'twentyfourteen')))
+        pagebar_registerStylesheet(plugin_dir_url(__FILE__) . 'css/' . $stylesheet . '.css', 'preset_css');
+
+    if ($pbOptions["stylesheet"] != "styleCss")
 		pagebar_registerStylesheet(get_bloginfo('stylesheet_directory')
 											 . '/' . $pbOptions["cssFilename"],
 											 'pagebar-stylesheet');
+
 }
 /* -------------------------------------------------------------------------- */
 function pagebar_activate() {
@@ -156,6 +186,7 @@ function pb_allpage_permalink() {
 function pb_remove_nav() {
 	if (! is_single ())
 		echo "\n<style type=\"text/css\">.navigation{display: none;}</style>\n";
+        echo "\n<style type=\"text/css\">#nav-below{display: none;}</style>\n";
 }
 /* -------------------------------------------------------------------------- */
 // add filter to allow URL parameter "all"
@@ -170,7 +201,21 @@ function register_pagebar_settings() {
 		register_setting('pagebar-options', 'postbar');
 		register_setting('pagebar-options', 'multipagebar');
 		register_setting('pagebar-options', 'commentbar');
+}/* -------------------------------------------------------------------------- */
+function detect_theme() {
+
+//    $stylesheet = get_stylesheet();
+//    if ($stylesheet = "twentyten") {
+//
+//        $handle = 'detected_css';
+//        wp_register_style($handle, plugin_dir_url(__FILE__) . 'css/' . $stylesheet . '.css');
+//        wp_enqueue_style($handle);
+//        wp_print_styles();
+//
+////        pagebar_registerStylesheet('preset_css', plugin_dir_url(__FILE__) . 'css/' . $stylesheet . '.css');
+//    }
 }
+
 /* -------------------------------------------------------------------------- */
 /* main()                                                                     */
 
@@ -203,14 +248,16 @@ if (! $pbOptions = get_option ( 'postbar' )) {
 // register_activation_hook( __FILE__, 'pagebar_activate' );
 
 add_action ( 'wp_head', 'pagebar_addUserStylesheet');
+// add_action ( 'wp_print_styles', 'detect_theme');
+//add_action ( 'wp_print_styles', 'pagebar_addUserStylesheet');
 
 if ($pbOptions ['auto'] && in_array($pagenow, array("index.php"))) {
 	if ($pbOptions ["bef_loop"] == "on")
-		add_action ( 'loop_start', 'pagebar' );
+		add_action ( 'loop_start', 'automagic_postbar' );
 	if ($pbOptions ["aft_loop"] == "on")
-		add_action ( 'loop_end', 'pagebar' );
+		add_action ( 'loop_end', 'automagic_postbar' );
 	if ($pbOptions ["footer"] == "on")
-				add_action ( 'wp_footer', 'pagebar' );
+				add_action ( 'wp_footer', 'automagic_postbar' );
 	if ($pbOptions ["remove"] == "on")
 		add_action ( 'wp_head', 'pb_remove_nav' );
 } //if

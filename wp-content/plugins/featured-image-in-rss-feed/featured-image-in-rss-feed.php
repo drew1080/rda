@@ -1,10 +1,10 @@
 <?php
 /* 
 Plugin Name: Featured Image In Rss Feed
-Plugin URI: http://dineshkarki.com.np/plugins/featured-image-in-rss-feed
+Plugin URI: http://dineshkarki.com.np/featured-image-in-rss-feed
 Description: Add Feature Image to your RSS Feed.
 Author: Dinesh Karki
-Version: 0.3
+Version: 1.0
 Author URI: http://www.dineshkarki.com.np
 */
 

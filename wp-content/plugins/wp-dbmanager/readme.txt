@@ -1,10 +1,10 @@
 === WP-DBManager ===
-Contributors: GamerZ
-Donate link: http://lesterchan.net/site/donation/
-Tags: database, manage, wp-dbmanager, manager, table, optimize, backup, queries, query, drop, empty, tables, table, run, repair, cron, schedule, scheduling, automatic
-Requires at least: 2.8
-Tested up to: 3.1.1
-Stable tag: trunk
+Contributors: GamerZ  
+Donate link: http://lesterchan.net/site/donation/  
+Tags: database, manage, wp-dbmanager, manager, table, optimize, backup, queries, query, drop, empty, tables, table, run, repair, cron, schedule, scheduling, automatic  
+Requires at least: 2.8  
+Tested up to: 3.7  
+Stable tag: trunk  
 
 Manages your WordPress database.
 
@@ -35,13 +35,18 @@ Allows you to optimize database, repair database, backup database, restore datab
 * I spent most of my free time creating, updating, maintaining and supporting these plugins, if you really love my plugins and could spare me a couple of bucks, I will really appericiate it. If not feel free to use it without any obligations.
 
 == Changelog ==
+= Version 2.65 =
+* FIXED: Set default character set to UTF-8. Props Karsonito
 
-= Version 2.62 (03-05-2011) =
+= Version 2.64 =
+* FIXED: Use intval() instead of is_int() when checking for port number. Props [Webby Scots](http://webbyscots.com/ "Webby Scots")
+
+= Version 2.63 (03-05-2011) =
 * NEW: Added Auto Repair Functionality
 * NEW: Added nonce To All Forms For Added Security
 
 = Version 2.61 (30-04-2011) =
-* FIXED: Checks File Extension And Sanitise File Name That Is Pass Through The URL When Downloading Database File. Props to [Joakim Jardenberg](http://jardenberg.se "Joakim Jardenberg"), [Jonas Nordstršm](http://jonasnordstrom.se "Jonas Nordstršm"), [Andreas Viklund](http://andreasviklund.com/ "Andreas Viklund")
+* FIXED: Checks File Extension And Sanitise File Name That Is Pass Through The URL When Downloading Database File. Props to [Joakim Jardenberg](http://jardenberg.se "Joakim Jardenberg"), [Jonas Nordstram](http://jonasnordstrom.se "Jonas Nordstrï¿½m"), [Andreas Viklund](http://andreasviklund.com/ "Andreas Viklund")
 
 = Version 2.60 (01-12-2009) =
 * FIXED: Bug In Cron Backup On Windows Server
@@ -98,13 +103,13 @@ Allows you to optimize database, repair database, backup database, restore datab
 
 = Version 2.04 (10-05-2006) =
 * FIXED: Unable To Download Backup DB Due To Header Sent Error
-* FIXED: Some XHTML Code Fixes			
+* FIXED: Some XHTML Code Fixes
 
 = Version 2.03 (01-04-2006) =
 * FIXED: Run Query Box Too Big
 * FIXED: Header Sent Error
 * FIXED: Extra Slashes For Mysql/Mysql Dump Path
-* FIXED: Mismatch Date Due To GMT					
+* FIXED: Mismatch Date Due To GMT
 
 = Version 2.02 (01-03-2006) =
 * NEW: Improved On 'manage_database' Capabilities
@@ -145,7 +150,7 @@ Allows you to optimize database, repair database, backup database, restore datab
 3. Put/Overwrite: `Folder: wp-dbmanager`
 4. Activate `WP-DBManager` Plugin
 5. Go to `WP-Admin -> Database -> DB Options` to re-configure the database options.
-	
+
 == Upgrade Notice ==
 
 N/A
@@ -165,7 +170,16 @@ N/A
 == Frequently Asked Questions ==
 
 = My database is not backed up / My backup file is 0Kb =
-* Ensure that your host allows you to access mysqldump. You can try to narrow the problem by [Debugging via SSH](http://forums.lesterchan.net/index.php/topic,4549.0.html "Debugging via SSH").
+* Ensure that your host allows you to access mysqldump. You can try to narrow the problem by Debugging via SSH:
+1. In `wp-dbmanager.php`
+2. Find `check_backup_files();` on line 243
+3. Add below it `echo $command;`
+4. Go to `WP-Admin -> Database -> Backup`
+5. Click `Backup`
+6. It should print some debugging statements
+7. Copy that line than run it in SSH
+8. If you need help on SSH contact your host or google for more info
+
 
 = What is the difference between WP-DBManager and WP-DB-Backup? =
 * WP-DBManager uses `mysqldump` application to generate the backup and `mysql` application to restore them via shell.
@@ -174,4 +188,4 @@ N/A
 
 = Why do I get the message "Warning: Your backup folder MIGHT be visible to the public!"? =
 * Ensure that you have renamed `htaccess.txt` to `.htaccess` and placed it in your backup folder (defaults to `wp-content/backup-db/`)
-* If you are 100% sure you have did that and have verfied that the folder no longer is accessible to the public by visiting the URL `http://yousite.com/wp-content/backup-db/`, you can safely remove it by deleting `add_action('admin_notices', 'dbmanager_admin_notices');` on `line 191` in `wp-dbmanager.php`.
+* If you are 100% sure you have did that and have verfied that the folder no longer is accessible to the public by visiting the URL `http://yousite.com/wp-content/backup-db/`, you can safely remove it by deleting `add_action('admin_notices', 'dbmanager_admin_notices');` on `line 204` in `wp-dbmanager.php`.

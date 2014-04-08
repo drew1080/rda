@@ -49,6 +49,7 @@ abstract class Minify_Controller_Base {
             ,'maxAge' => 1800 // 30 minutes
             ,'rewriteCssUris' => true
             ,'bubbleCssImports' => false
+            ,'processCssImports' => false
             ,'quiet' => false // serve() will send headers and output
             ,'debug' => false
             
@@ -196,7 +197,7 @@ abstract class Minify_Controller_Base {
      * @return null
      */
     protected function log($msg) {
-        require_once W3TC_LIB_MINIFY_DIR . '/Minify/Logger.php';
+        w3_require_once(W3TC_LIB_MINIFY_DIR . '/Minify/Logger.php');
         Minify_Logger::log($msg);
     }
 }
