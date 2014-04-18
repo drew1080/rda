@@ -484,7 +484,7 @@ function adrotate_custom_scripts() {
 	
 	if($adrotate_config['jquery'] == 'Y') wp_enqueue_script('jquery', false, false, false, $in_footer);
 	if($adrotate_config['jshowoff'] == 'Y') wp_enqueue_script('jshowoff-adrotate', plugins_url('/library/jquery.jshowoff.adrotate.js', __FILE__), false, '0.3', $in_footer);
-	wp_enqueue_script('clicktracker', plugins_url('/library/jquery.clicktracker.js', __FILE__), false, '0.6', $in_footer);
+	if($adrotate_config['clicktracking'] == 'Y') wp_enqueue_script('clicktrack-adrotate', plugins_url('/library/jquery.clicktracker.js', __FILE__), false, '0.6', $in_footer);
 }
 
 /*-------------------------------------------------------------

@@ -153,14 +153,14 @@ function adrotate_insert_input() {
 	
 			// Fetch group records for the ad
 			$groupmeta = $wpdb->get_results($wpdb->prepare("SELECT `group` FROM `".$wpdb->prefix."adrotate_linkmeta` WHERE `ad` = %d AND `block` = 0 AND `user` = 0 AND `schedule` = 0;", $id));
+			$group_array = array();
 			foreach($groupmeta as $meta) {
 				$group_array[] = $meta->group;
 			}
 			
-			if(!is_array($group_array)) $group_array = array();
-			if(!is_array($groups)) 		$groups = array();
 			
 			// Add new groups to this ad
+			if(!is_array($groups)) $groups = array();
 			$insert = array_diff($groups, $group_array);
 			foreach($insert as &$value) {
 				$wpdb->insert($wpdb->prefix.'adrotate_linkmeta', array('ad' => $id, 'group' => $value, 'block' => 0, 'user' => 0, 'schedule' => 0));
@@ -584,20 +584,22 @@ function adrotate_options_submit() {
 		}
 	
 		// Miscellaneous Options
-		if(isset($_POST['adrotate_widgetalign'])) 				$config['widgetalign'] 	= 'Y';
-			else 												$config['widgetalign'] 	= 'N';
-		if(isset($_POST['adrotate_widgetpadding'])) 			$config['widgetpadding']= 'Y';
-			else 												$config['widgetpadding']= 'N';
-		if(isset($_POST['adrotate_w3caching'])) 				$config['w3caching'] 	= 'Y';
-			else 												$config['w3caching'] 	= 'N';
-		if(isset($_POST['adrotate_supercache'])) 				$config['supercache'] 	= 'Y';
-			else 												$config['supercache'] 	= 'N';
-		if(isset($_POST['adrotate_jquery'])) 					$config['jquery'] 		= 'Y';
-			else 												$config['jquery'] 		= 'N';
-		if(isset($_POST['adrotate_jshowoff'])) 					$config['jshowoff'] 	= 'Y';
-			else 												$config['jshowoff'] 	= 'N';
-		if(isset($_POST['adrotate_jsfooter'])) 					$config['jsfooter'] 	= 'Y';
-			else 												$config['jsfooter'] 	= 'N';
+		if(isset($_POST['adrotate_widgetalign'])) 			$config['widgetalign'] 		= 'Y';
+			else 											$config['widgetalign'] 		= 'N';
+		if(isset($_POST['adrotate_widgetpadding'])) 		$config['widgetpadding']	= 'Y';
+			else 											$config['widgetpadding']	= 'N';
+		if(isset($_POST['adrotate_w3caching'])) 			$config['w3caching'] 		= 'Y';
+			else 											$config['w3caching'] 		= 'N';
+		if(isset($_POST['adrotate_supercache'])) 			$config['supercache'] 		= 'Y';
+			else 											$config['supercache'] 		= 'N';
+		if(isset($_POST['adrotate_jquery'])) 				$config['jquery'] 			= 'Y';
+			else 											$config['jquery'] 			= 'N';
+		if(isset($_POST['adrotate_jshowoff'])) 				$config['jshowoff'] 		= 'Y';
+			else 											$config['jshowoff'] 		= 'N';
+		if(isset($_POST['adrotate_clicktracking']))			$config['clicktracking'] 	= 'Y';
+			else											$config['clicktracking'] 	= 'N';
+		if(isset($_POST['adrotate_jsfooter'])) 				$config['jsfooter'] 		= 'Y';
+			else 											$config['jsfooter'] 		= 'N';
 
 		update_option('adrotate_config', $config);
 	
@@ -668,9 +670,7 @@ function adrotate_prepare_roles() {
  Since:		3.0
 -------------------------------------------------------------*/
 function adrotate_add_roles() {
-
 	add_role('adrotate_advertiser', 'AdRotate Advertiser', array('read' => 1));
-
 }
 
 /*-------------------------------------------------------------
@@ -682,8 +682,6 @@ function adrotate_add_roles() {
  Since:		3.0
 -------------------------------------------------------------*/
 function adrotate_remove_roles() {
-
 	remove_role('adrotate_advertiser');
-
 }
 ?>

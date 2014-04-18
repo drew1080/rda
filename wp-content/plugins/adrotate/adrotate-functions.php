@@ -14,25 +14,26 @@ Copyright 2010-2014 Arnan de Gans - AJdG Solutions (email : info@ajdg.net)
 function adrotate_shortcode($atts, $content = null) {
 	global $adrotate_config;
 
-	$banner_id = $group_ids = $block_id = $fallback = $weight = $columns = 0;
+	$banner_id = $group_ids = $block_id = $fallback = $weight = $site = 0;
 	if(!empty($atts['banner'])) $banner_id = trim($atts['banner'], "\r\t ");
 	if(!empty($atts['group'])) $group_ids = trim($atts['group'], "\r\t ");
 	if(!empty($atts['block'])) $block_id = trim($atts['block'], "\r\t ");
 	if(!empty($atts['fallback'])) $fallback	= trim($atts['fallback'], "\r\t "); // Optional for groups (override)
 	if(!empty($atts['weight']))	$weight	= trim($atts['weight'], "\r\t "); // Optional for groups (override)
+	if(!empty($atts['site'])) $site = 0; // Not supported in free version
 
 	$output = '';
 
 	if($adrotate_config['w3caching'] == "Y") $output .= '<!-- mfunc -->';
 
 	if($banner_id > 0 AND ($group_ids == 0 OR $group_ids > 0) AND $block_id == 0) { // Show one Ad
-		if($adrotate_config['supercache'] == "Y") $output .= '<!--mfunc echo adrotate_ad( $banner_id ) -->';
-		$output .= adrotate_ad($banner_id);
+		if($adrotate_config['supercache'] == "Y") $output .= '<!--mfunc echo adrotate_ad('.$banner_id.', true, 0, 0) -->';
+		$output .= adrotate_ad($banner_id, true, 0, 0);
 		if($adrotate_config['supercache'] == "Y") $output .= '<!--/mfunc-->';
 	}
 
 	if($banner_id == 0 AND $group_ids > 0 AND $block_id == 0) { // Show group 
-		if($adrotate_config['supercache'] == "Y") $output .= '<!--mfunc echo adrotate_group( $group_ids, $fallback, $weight ) -->';
+		if($adrotate_config['supercache'] == "Y") $output .= '<!--mfunc echo adrotate_group('.$group_ids.', '.$fallback.', '.$weight.') -->';
 		$output .= adrotate_group($group_ids, $fallback, $weight);
 		if($adrotate_config['supercache'] == "Y") $output .= '<!--/mfunc-->';
 	}
@@ -46,6 +47,22 @@ function adrotate_shortcode($atts, $content = null) {
 	if($adrotate_config['w3caching'] == "Y") $output .= '<!-- /mfunc -->';
 
 	return $output;
+}
+
+/*-------------------------------------------------------------
+ Name:      adrotate_is_networked
+
+ Purpose:   Determine if AdRotate is network activated
+ Receive:   -None-
+ Return:    Boolean
+ Since:		3.9.8
+-------------------------------------------------------------*/
+function adrotate_is_networked() {
+	$is_networked = get_site_option("adrotate_multisite");
+	if(is_multisite() AND is_array($is_networked) AND count($is_networked) > 0) {
+		return true;
+	}		
+	return false;
 }
 
 /*-------------------------------------------------------------

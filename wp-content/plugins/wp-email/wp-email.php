@@ -3,7 +3,7 @@
  Plugin Name: WP-EMail
  Plugin URI: http://lesterchan.net/portfolio/programming/php/
  Description: Allows people to recommand/send your WordPress blog's post/page to a friend.
- Version: 2.61
+ Version: 2.62
  Author: Lester 'GaMerZ' Chan
  Author URI: http://lesterchan.net
  Text Domain: wp-email
@@ -39,7 +39,7 @@ define('EMAIL_SHOW_REMARKS', true);
 
 
 ### Create Text Domain For Translations
-add_action('init', 'email_textdomain');
+add_action( 'plugins_loaded', 'email_textdomain' );
 function email_textdomain() {
 	load_plugin_textdomain( 'wp-email', false, dirname( plugin_basename( __FILE__ ) ) );
 }
@@ -53,14 +53,10 @@ $wpdb->email = $wpdb->prefix.'email';
 ### Function: E-Mail Administration Menu
 add_action('admin_menu', 'email_menu');
 function email_menu() {
-	if (function_exists('add_menu_page')) {
-		add_menu_page(__('E-Mail', 'wp-email'), __('E-Mail', 'wp-email'), 'manage_email', 'wp-email/email-manager.php', '', plugins_url('wp-email/images/email_famfamfam.png'));
-	}
-	if (function_exists('add_submenu_page')) {
-		add_submenu_page('wp-email/email-manager.php', __('Manage E-Mail', 'wp-email'), __('Manage E-Mail', 'wp-email'), 'manage_email', 'wp-email/email-manager.php');
-		add_submenu_page('wp-email/email-manager.php', __('E-Mail Options', 'wp-email'), __('E-Mail Options', 'wp-email'),  'manage_email', 'wp-email/email-options.php');
-		add_submenu_page('wp-email/email-manager.php', __('Uninstall WP-EMail', 'wp-email'), __('Uninstall WP-EMail', 'wp-email'),  'manage_email', 'wp-email/email-uninstall.php');
-	}
+	add_menu_page(__('E-Mail', 'wp-email'), __('E-Mail', 'wp-email'), 'manage_email', 'wp-email/email-manager.php', '', 'dashicons-email-alt');
+	add_submenu_page('wp-email/email-manager.php', __('Manage E-Mail', 'wp-email'), __('Manage E-Mail', 'wp-email'), 'manage_email', 'wp-email/email-manager.php');
+	add_submenu_page('wp-email/email-manager.php', __('E-Mail Options', 'wp-email'), __('E-Mail Options', 'wp-email'),  'manage_email', 'wp-email/email-options.php');
+	add_submenu_page('wp-email/email-manager.php', __('Uninstall WP-EMail', 'wp-email'), __('Uninstall WP-EMail', 'wp-email'),  'manage_email', 'wp-email/email-uninstall.php');
 }
 
 
@@ -184,16 +180,6 @@ function email_scripts() {
 		'text_friends_tally' => __('- Friend Name(s) count does not tally with Friend Email(s) count', 'wp-email'),
 		'text_image_verify_empty' => __('- Image Verification is empty', 'wp-email')
 	));
-}
-
-
-### Function: Enqueue E-Mail Stylesheet In WP-Admin
-add_action('admin_enqueue_scripts', 'email_stylesheets_admin');
-function email_stylesheets_admin($hook_suffix) {
-	$email_admin_pages = array('wp-email/email-manager.php', 'wp-email/email-options.php', 'wp-email/email-uninstall.php');
-	if(in_array($hook_suffix, $email_admin_pages)) {
-		wp_enqueue_style('wp-email-admin', plugins_url('wp-email/email-admin-css.css'), false, '2.60', 'all');
-	}
 }
 
 
