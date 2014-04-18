@@ -9,6 +9,10 @@ Template:       fruitful
 
 @import url("../fruitful/style.css");
 
+.clear {
+  clear: both;
+}
+
 /* START Change Hightlights to use RDA color orange */
 body a:hover, 
 body a:focus, 
@@ -42,3 +46,26 @@ body #page input[type="submit"]:hover {
   background: none repeat scroll 0 0 #d55f31 !important;
 }
 /* END Change Hightlights to use RDA color orange */
+
+.home a {
+	text-decoration: none;
+}
+
+#colophon .site-info {
+  width: 500px;
+}
+
+.site-header img.header-logos {
+  float: right;
+  width: auto;
+  height: 30px;
+  margin-left: 10px;
+}
+
+.main-navigation {
+  margin: 37px 0 0 0;
+}
+
+ol.hfeed.vcalendar {
+  margin: 0px;
+}
