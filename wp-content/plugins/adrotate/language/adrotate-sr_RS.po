@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdRotate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-09 16:47+0100\n"
-"PO-Revision-Date: 2014-03-09 16:47+0100\n"
+"POT-Creation-Date: 2014-04-16 20:44+0100\n"
+"PO-Revision-Date: 2014-04-16 20:44+0100\n"
 "Last-Translator: Arnan de Gans <adegans@meandmymac.net>\n"
 "Language-Team: Andrijana Nikolic <andrijanan@webhostinggeeks.com>\n"
 "Language: sr_RS\n"
@@ -16,19 +16,19 @@ msgstr ""
 "X-Generator: Poedit 1.6.3\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: adrotate-functions.php:592
+#: adrotate-functions.php:609
 msgid "No files found"
 msgstr "Nijedan fajl nije pronadjen"
 
-#: adrotate-functions.php:595
+#: adrotate-functions.php:612
 msgid "Folder not found or not accessible"
 msgstr "Folder nije pronadjen ili nije prihvatljiv"
 
-#: adrotate-output.php:738
+#: adrotate-output.php:746
 msgid "Oh no! Something went wrong!"
 msgstr "O ne! Nešto nije kako treba!"
 
-#: adrotate-output.php:739
+#: adrotate-output.php:747
 msgid ""
 "WordPress was unable to verify the authenticity of the url you have clicked. "
 "Verify if the url used is valid or log in via your browser."
@@ -37,51 +37,51 @@ msgstr ""
 "kliknuli. Verifikuj ak je url korišćen kao validan ili login via vašeg "
 "pretraživača."
 
-#: adrotate-output.php:740
+#: adrotate-output.php:748
 msgid ""
 "If you have received the url you want to visit via email, you are being "
 "tricked!"
 msgstr "Ako ste primili url koji želite da posetite via email, prevaeni ste!"
 
-#: adrotate-output.php:741
+#: adrotate-output.php:749
 msgid "Contact support if the issue persists:"
 msgstr "Kontaktirajte podršku ako se problem nastavi:"
 
-#: adrotate-output.php:759
+#: adrotate-output.php:767
 #, fuzzy
 msgid ""
 "Error, Ad is not available at this time due to schedule/geolocation "
 "restrictions or does not exist!"
-msgstr "nije dostupno ovog puta zbog zabrana rasporeda ili ne postoji!"
+msgstr "Nema vremena da se stvari urade ? Hajde da napravimo raspored !"
 
-#: adrotate-output.php:761
+#: adrotate-output.php:769
 #, fuzzy
 msgid ""
 "Error, Ad is not available at this time due to schedule/geolocation "
 "restrictions!"
-msgstr "nije dostupno ovog puta zbog zabrana rasporeda !"
+msgstr "Nema vremena da se stvari urade ? Hajde da napravimo raspored !"
 
-#: adrotate-output.php:768 adrotate-output.php:770
+#: adrotate-output.php:776 adrotate-output.php:778
 msgid ""
 "Either there are no banners, they are disabled or none qualified for this "
 "location!"
 msgstr "Ili nema banera, onemogućeni su ili nije kvalifikovan za ovu lokaciju!"
 
-#: adrotate-output.php:776
+#: adrotate-output.php:784
 msgid "Error, no Ad ID set! Check your syntax!"
 msgstr "Error, nema Ad ID seta! Proverite vašu syntax!"
 
-#: adrotate-output.php:782
+#: adrotate-output.php:790
 #, fuzzy
 msgid "Error, no group ID set! Check your syntax!"
-msgstr "Error, nema grupnog seta! Proverite vaš syntax!"
+msgstr "Error, nema Ad ID seta! Proverite vašu syntax!"
 
-#: adrotate-output.php:787
+#: adrotate-output.php:795
 #, fuzzy
 msgid "Error, group does not exist! Check your syntax!"
-msgstr "ne postoji! Proverite vaš syntax!"
+msgstr "Error, nema Ad ID seta! Proverite vašu syntax!"
 
-#: adrotate-output.php:793
+#: adrotate-output.php:801
 msgid ""
 "There was an error locating the database tables for AdRotate. Please "
 "deactivate and re-activate AdRotate from the plugin page!!"
@@ -89,67 +89,67 @@ msgstr ""
 "Error se prikazao locirajući bazupodataka tabele za AdRotate. Molim vas "
 "deaktivirajte i reaktivirajte AdRotate sa plugin stranice!!"
 
-#: adrotate-output.php:793
+#: adrotate-output.php:801
 msgid "If this does not solve the issue please seek support at"
 msgstr "Ako ne reši problem potražite podršku na"
 
-#: adrotate-output.php:799
+#: adrotate-output.php:807
 msgid "An unknown error occured."
 msgstr "Nepoznati error se ukazao."
 
-#: adrotate-output.php:825
+#: adrotate-output.php:833
 msgid "active ad(s) expired."
 msgstr "aktivni ad-ovi su istekli."
 
-#: adrotate-output.php:825
+#: adrotate-output.php:833
 msgid "Take action now"
 msgstr "Reagujte odmah"
 
-#: adrotate-output.php:827
+#: adrotate-output.php:835
 msgid "active ad(s) are about to expire."
 msgstr "aktivni ad-ovi će  uskoro da isteknu."
 
-#: adrotate-output.php:827
+#: adrotate-output.php:835
 msgid "Check it out"
 msgstr "Pogledajte ovde"
 
-#: adrotate-output.php:829
+#: adrotate-output.php:837
 msgid "active ad(s) with configuration errors."
 msgstr "aktivni ad-ovi sa konfiguracionim greškama."
 
-#: adrotate-output.php:829
+#: adrotate-output.php:837
 msgid "Solve this"
 msgstr "Reši ovo"
 
-#: adrotate-output.php:831
+#: adrotate-output.php:839
 msgid "ad(s) expired."
 msgstr "ad-ovi su istekli."
 
-#: adrotate-output.php:831
+#: adrotate-output.php:839
 msgid "ad(s) are about to expire."
 msgstr "ad-ovi će  uskoro da isteknu."
 
-#: adrotate-output.php:831
+#: adrotate-output.php:839
 msgid "ad(s) with configuration errors."
 msgstr "ad-ovi sa konfiguracionim greškama."
 
-#: adrotate-output.php:831
+#: adrotate-output.php:839
 msgid "Fix this as soon as possible"
 msgstr "Popravi ovo što pre je moguće"
 
-#: adrotate-output.php:851
+#: adrotate-output.php:859
 msgid "Your support makes a difference"
 msgstr "Your support makes a difference"
 
-#: adrotate-output.php:852
+#: adrotate-output.php:860
 msgid "Useful links"
 msgstr "Korisni linkovi"
 
-#: adrotate-output.php:853
+#: adrotate-output.php:861
 msgid "Brought to you by"
 msgstr "Za tebe od"
 
-#: adrotate-output.php:860
+#: adrotate-output.php:868
 msgid ""
 "Your awesome gift will ensure the continued development of AdRotate! Thanks "
 "for your consideration!"
@@ -157,73 +157,74 @@ msgstr ""
 "Vaš strava poklon će osigurati kontinuirani razvoj AdRotate! Hvala vam na "
 "tome!"
 
-#: adrotate-output.php:865
+#: adrotate-output.php:873
 msgid "Like the plugin?"
 msgstr "Dopada vam se plugin?"
 
-#: adrotate-output.php:865
+#: adrotate-output.php:873
 msgid "Rate and review"
 msgstr "Dajte ocenu i komentar"
 
-#: adrotate-output.php:866
+#: adrotate-output.php:874
 msgid "Find my website at"
 msgstr "Pronadjite moj website na"
 
-#: adrotate-output.php:867
+#: adrotate-output.php:875
 msgid "Grab the latest news and updates on the"
 msgstr "Uhvatite najnovije vesti i update na"
 
-#: adrotate-output.php:867
+#: adrotate-output.php:875
 msgid "AdRotate Blog"
 msgstr "AdRotate Blog"
 
-#: adrotate-output.php:868
+#: adrotate-output.php:876
 msgid "Check out the"
 msgstr "Pogledajte"
 
-#: adrotate-output.php:868
+#: adrotate-output.php:876
 msgid "manuals"
 msgstr "priručnici"
 
-#: adrotate-output.php:868
+#: adrotate-output.php:876
 msgid "and have the most popular features explained."
 msgstr "i najpopularnije karakteristike objašnjene"
 
-#: adrotate-output.php:873
+#: adrotate-output.php:881
 #, fuzzy
 msgid ""
 "Your one stop for Webdevelopment, consultancy and anything WordPress! Find "
 "out more about what I can do for you!"
 msgstr ""
-"Mesto za konsultaciju o  Webdevelopment, i biločim vezano za WordPress! Kada "
-"vam je potreban custom plugin,  kostumizacija teme ili da pomerite/migrirate "
-"potpuno. Saznajte više o tome šta sve mogu da uradim za vas na svom websajtu!"
+"Vaša jedna stanica za Webdevelopment , konsultacije i sve vezano za "
+"WordPress ! Ako vam je potreban prilagođeni plugin . Tema prilagođavanja ili "
+"je vaš sajt preseljen/ migrirali u potpunosti . Posetite moj sajt za više "
+"detalja !"
 
-#: adrotate-output.php:873
+#: adrotate-output.php:881
 msgid "Visit the"
 msgstr "Posetite"
 
-#: adrotate-output.php:873
+#: adrotate-output.php:881
 msgid "AJdG Solutions"
 msgstr "AJdG rešenja"
 
-#: adrotate-output.php:873
+#: adrotate-output.php:881
 msgid "website"
 msgstr "websajt"
 
-#: adrotate-output.php:891
+#: adrotate-output.php:899
 msgid "Available in AdRotate Pro"
 msgstr "Dostupno u AdRotate Pro"
 
-#: adrotate-output.php:891
+#: adrotate-output.php:899
 msgid "Buy now"
 msgstr "Kupite odmah"
 
-#: adrotate-output.php:892
+#: adrotate-output.php:900
 msgid "This feature is available in AdRotate Pro"
 msgstr "Ova karakteristika je dostupna na AdRotate Pro"
 
-#: adrotate-output.php:892
+#: adrotate-output.php:900
 msgid "Go Pro today"
 msgstr "Predjite na Pro danas"
 
@@ -303,49 +304,50 @@ msgstr "Sledeći"
 msgid "No data to show!"
 msgstr "Nema podataka za prikaz!"
 
-#: adrotate-widget.php:97
+#: adrotate-widget.php:101
 msgid "Title (optional):"
 msgstr "Naslov (opcionalno):"
 
-#: adrotate-widget.php:100
+#: adrotate-widget.php:104
 msgid "HTML will be stripped out."
 msgstr "HTML će biti skinut."
 
-#: adrotate-widget.php:103
+#: adrotate-widget.php:107
 #, fuzzy
 msgid "Description (optional):"
 msgstr "Naslov (opcionalno):"
 
-#: adrotate-widget.php:106
+#: adrotate-widget.php:110
+#, fuzzy
 msgid "What is this widget used for? (Not parsed, HTML will be stripped out.)"
-msgstr ""
+msgstr "HTML će biti skinut."
 
-#: adrotate-widget.php:109
+#: adrotate-widget.php:113
 msgid "Type:"
 msgstr "Tip:"
 
-#: adrotate-widget.php:111
+#: adrotate-widget.php:115
 msgid "Single Ad - Use Ad ID"
 msgstr "Single oglas- koristi Ad ID"
 
-#: adrotate-widget.php:112
+#: adrotate-widget.php:116
 msgid "Group of Ads - Use group ID"
 msgstr "Gupni oglasi - Koristite grupni ID"
 
-#: adrotate-widget.php:113
+#: adrotate-widget.php:117
 msgid "Block of Ads - Use Block ID"
 msgstr "Blokirajte oglase - Koristite Block ID"
 
-#: adrotate-widget.php:116
+#: adrotate-widget.php:120
 msgid "Choose what you want to use this widget for"
 msgstr "Izaberite za šta želite da koristite ovaj widget "
 
-#: adrotate-widget.php:119 dashboard/publisher/adrotate-blocks-edit.php:30
+#: adrotate-widget.php:123 dashboard/publisher/adrotate-blocks-edit.php:30
 #: dashboard/publisher/adrotate-groups-edit.php:46
 msgid "ID:"
 msgstr "ID:"
 
-#: adrotate-widget.php:122
+#: adrotate-widget.php:126
 msgid "Fill in the ID of the type you want to display!"
 msgstr "Popunite ID tipa koji želite da prikažete!"
 
@@ -600,10 +602,11 @@ msgid "Access Rights"
 msgstr "Prava pristupa"
 
 #: adrotate.php:587
+#, fuzzy
 msgid ""
 "Who has access to what? All but the \"advertiser page\" are usually for "
 "admins and moderators."
-msgstr ""
+msgstr "Stranica oglašivača"
 
 #: adrotate.php:590
 msgid "Advertiser page"
@@ -691,8 +694,9 @@ msgid "Advertisers"
 msgstr "Oglašivači"
 
 #: adrotate.php:687
+#, fuzzy
 msgid "Enable advertisers so they can review and manage their own ads."
-msgstr ""
+msgstr "Omogući oglašivače"
 
 #: adrotate.php:690
 msgid "Enable Advertisers"
@@ -741,10 +745,11 @@ msgid "Banner Folder"
 msgstr "Baner Folder"
 
 #: adrotate.php:720
+#, fuzzy
 msgid ""
 "Activate your AdRotate License here to receive support via the fast and "
 "personal ticket system."
-msgstr ""
+msgstr "AdRotate podrška"
 
 #: adrotate.php:723
 msgid "Where are your banner ads?"
@@ -779,8 +784,9 @@ msgid "Email Notifications"
 msgstr "Email Obaveštenja"
 
 #: adrotate.php:734
+#, fuzzy
 msgid "Set up who gets email notifications if ads need your attention."
-msgstr ""
+msgstr "Oglasi koje treba neposrednu pažnju"
 
 #: adrotate.php:737
 msgid "Notifications"
@@ -819,8 +825,9 @@ msgid "Advertiser Messages"
 msgstr "Advertiser poruke"
 
 #: adrotate.php:754
+#, fuzzy
 msgid "Configure who gets email from advertisers."
-msgstr ""
+msgstr "Oglašivači"
 
 #: adrotate.php:760
 msgid "Maximum of 2 addresses. Comma seperated. This field cannot be empty!"
@@ -838,7 +845,7 @@ msgstr ""
 #: adrotate.php:775
 #, fuzzy
 msgid "Enable stats"
-msgstr "Omogućiti?"
+msgstr "Statistika"
 
 #: adrotate.php:777
 msgid "Track clicks and impressions."
@@ -855,7 +862,7 @@ msgstr ""
 #: adrotate.php:781
 #, fuzzy
 msgid "Logged in impressions"
-msgstr "Maksimalni utisci:"
+msgstr "Pratite utiske ulogovanih korisniika (Preporučeno)"
 
 #: adrotate.php:783
 msgid "Track impressions from logged in users (Recommended)."
@@ -866,8 +873,9 @@ msgid "Has no effect when click and impression tracking is disabled."
 msgstr "Nema efekta ako se klik i utisak praćenja onemogući ."
 
 #: adrotate.php:787
+#, fuzzy
 msgid "Logged in clicks"
-msgstr ""
+msgstr "Pratite klikove ulogovani korisnici ."
 
 #: adrotate.php:789
 msgid "Track clicks from logged in users."
@@ -891,8 +899,9 @@ msgstr ""
 "Ovaj broj ne može da bude prazan , negativan ili veći od 3600 ( 1 sat ) ."
 
 #: adrotate.php:801
+#, fuzzy
 msgid "Bot filter"
-msgstr ""
+msgstr "User- agent filter"
 
 #: adrotate.php:804
 msgid "User-Agent Filter"
@@ -912,21 +921,23 @@ msgid ""
 "Keep in mind that this might give false positives. The word 'google' also "
 "matches 'googlebot', but not vice-versa. So be careful!"
 msgstr ""
-"Imajte na umu da ovo može dati lažne rezultate . Reč ' Google ' i ' odgovara "
-"' googlebot , zato budite oprezni !"
+"Sat koristi 24 -časovni sat . Kada se koristi za AM / PM sistem imajte ovo "
+"na umu : Ako je početak ili kraj je vreme posle ručka , dodajte 12 sati . "
+"2pm je 14:00 sati . 6 prepodne je 6:00 sati ."
 
 #: adrotate.php:808
+#, fuzzy
 msgid "Keep your list up-to-date"
 msgstr ""
+"Razdvojene zarezom spisak adresa e-pošte . Maksimalan broj 5 adresa . Držite "
+"ovu listu na minimum !"
 
 #: adrotate.php:809
 #, fuzzy
 msgid ""
 "Use only words with alphanumeric characters, [ - _ ] are allowed too. All "
 "other characters are stripped out."
-msgstr ""
-"Koristite samo reči sa alfanumeričkih znakova . Svi ostali znakovi se "
-"izvlačiti ."
+msgstr "HTML će biti skinut."
 
 #: adrotate.php:810
 msgid ""
@@ -950,21 +961,23 @@ msgid "Geo Targeting"
 msgstr "GeoTargeting"
 
 #: adrotate.php:820
+#, fuzzy
 msgid "Geographic Tracking"
-msgstr ""
+msgstr "Nema efekta ako se klik i utisak praćenja onemogući ."
 
 #: adrotate.php:821
 #, fuzzy
 msgid "Enable Freegeoip for adverts."
-msgstr "Omogući GeoLocation za reklame."
+msgstr "Oglasi"
 
 #: adrotate.php:822
 msgid "Consider making a donation to"
 msgstr ""
 
 #: adrotate.php:822
+#, fuzzy
 msgid "to keep their services free and awesome!"
-msgstr ""
+msgstr "Posetite prodavnicu da vidite sve usluge i proizvode"
 
 #: adrotate.php:828
 msgid "Allow advertisers to specify where their ads will show."
@@ -989,21 +1002,25 @@ msgstr ""
 #: adrotate.php:840
 #, fuzzy
 msgid "Widget padding"
-msgstr "Widget alignment"
+msgstr "Blokiraj punjenje"
 
 #: adrotate.php:841
+#, fuzzy
 msgid ""
 "Enable this to remove the padding (blank space) around ads in widgets. (Does "
 "not always work!)"
 msgstr ""
+"Proverite ovo polje ako dodaci ne uskladi u vaš sidebar teme . ( Ne pomaže "
+"uvek ! )"
 
 #: adrotate.php:844
 msgid "Admin Bar"
 msgstr ""
 
 #: adrotate.php:845
+#, fuzzy
 msgid "Enable the AdRotate Quickmenu in the Admin Bar."
-msgstr ""
+msgstr "Omogući oglašivače"
 
 #: adrotate.php:848
 #, fuzzy
@@ -1011,18 +1028,20 @@ msgid "Dashboard Notifications"
 msgstr "Notifikacije"
 
 #: adrotate.php:849
+#, fuzzy
 msgid "Disable Dashboard Notifications about advert statuses."
-msgstr ""
+msgstr "Notifikacije"
 
 #: adrotate.php:852
 #, fuzzy
 msgid "Hide Schedules"
-msgstr "Rasporedi"
+msgstr "Trenutni raspored"
 
 #: adrotate.php:853
+#, fuzzy
 msgid ""
 "When editing adverts; Hide schedules that are not in use by that advert."
-msgstr ""
+msgstr "Oblik i granica oglasa (Potrebno) - Definišite oblik i veličinu oglasa"
 
 #: adrotate.php:856
 msgid "W3 Total Caching"
@@ -1033,8 +1052,11 @@ msgid "Check this box if you use W3 Total Caching on your site."
 msgstr "Proverite ovo polje ako koristite W3 Total Caching na vašem sajtu."
 
 #: adrotate.php:860
+#, fuzzy
 msgid "WP Super Cache"
 msgstr ""
+"To može potrajati dok oglas počne da se rotira . Hvatanje plugina mora da "
+"osveži cache. To može da potraje i do nedelju dana, ako ne radi ručno "
 
 #: adrotate.php:861
 #, fuzzy
@@ -1062,46 +1084,73 @@ msgid "Check the manual of your caching plugin to see how this works."
 msgstr "Proverite uputstvo vašeg keširanje plugin da vidim kako to radi."
 
 #: adrotate.php:869
+#, fuzzy
 msgid "Javascript"
-msgstr ""
+msgstr "HTML / JavaScript dozvoljeno , koristite pažljivo !"
 
 #: adrotate.php:872
 #, fuzzy
 msgid "Load jQuery"
-msgstr "Uključi jQuery"
+msgstr ""
+"Ubacite novu reklamu u ovom intervalu , bez ponovnog učitavanja stranice."
+"Default: 6."
 
 #: adrotate.php:873
+#, fuzzy
 msgid ""
-"jQuery is required for Dynamic Groups. Enable if your theme does not load "
-"jQuery already."
-msgstr ""
+"jQuery is required for Dynamic Groups and Clicktracking. Enable if your "
+"theme does not load jQuery already."
+msgstr "Praćenje klikom:"
 
 #: adrotate.php:876
 #, fuzzy
 msgid "Load jQuery ShowOff"
-msgstr "Uključi jQuery"
+msgstr ""
+"Ubacite novu reklamu u ovom intervalu , bez ponovnog učitavanja stranice."
+"Default: 6."
 
 #: adrotate.php:877
+#, fuzzy
 msgid ""
-"The jQuery Showoff Library (0.1.2+) is required for Dynamic Groups. Disable "
-"if other plugins or themes already load this."
-msgstr ""
+"The jQuery.jshowoff.adrotate library is required for Dynamic Groups. This "
+"library depends on jQuery."
+msgstr "Grupe"
 
 #: adrotate.php:880
-msgid "Load in footer?"
-msgstr ""
+#, fuzzy
+msgid "Load jQuery Clicktracking"
+msgstr "Praćenje klikom:"
 
 #: adrotate.php:881
+#, fuzzy
+msgid ""
+"The jQuery.clicktracker library is required for Clicktracking. This library "
+"depends on jQuery."
+msgstr "Praćenje klikom:"
+
+#: adrotate.php:884
+#, fuzzy
+msgid "Load in footer?"
+msgstr ""
+"Ubacite novu reklamu u ovom intervalu , bez ponovnog učitavanja stranice."
+"Default: 6."
+
+#: adrotate.php:885
+#, fuzzy
 msgid ""
 "Enable if you want to load your Javascripts in the footer. Your theme needs "
 "to call wp_footer() for this to work."
 msgstr ""
+"Vaša jedna stanica za Webdevelopment , konsultacije i sve vezano za "
+"WordPress ! Ako vam je potreban prilagođeni plugin . Tema prilagođavanja ili "
+"je vaš sajt preseljen/ migrirali u potpunosti . Posetite moj sajt za više "
+"detalja !"
 
-#: adrotate.php:885
+#: adrotate.php:889
 msgid "Maintenance"
 msgstr "Održavanje"
 
-#: adrotate.php:886
+#: adrotate.php:890
 msgid ""
 "NOTE: The below functions are intented to be used to OPTIMIZE your database. "
 "They only apply to your ads/groups/blocks and stats. Not to other settings "
@@ -1115,19 +1164,19 @@ msgstr ""
 "rezervnu kopiju ! Ove funkcije mogu da se koriste kada se osećate ili "
 "primetite vaša baza podataka je spor , spor i ne reaguje ."
 
-#: adrotate.php:901 adrotate.php:903
+#: adrotate.php:905 adrotate.php:907
 msgid "Optimize Database"
 msgstr "Optimizacija baze podataka"
 
-#: adrotate.php:903
+#: adrotate.php:907
 msgid "You are about to optimize the AdRotate database."
 msgstr "Na putu ste da optimizirate  AdRotate bazu podataka ."
 
-#: adrotate.php:903
+#: adrotate.php:907
 msgid "Did you make a backup of your database?"
 msgstr "Da li ste napravili rezervnu kopiju baze podataka ?"
 
-#: adrotate.php:903
+#: adrotate.php:907
 msgid ""
 "This may take a moment and may cause your website to respond slow "
 "temporarily!"
@@ -1135,17 +1184,17 @@ msgstr ""
 "To može da potraje nekoliko trenutaka i može izazvati vaš sajt da reaguju "
 "sporo privremeno !"
 
-#: adrotate.php:903 adrotate.php:911 adrotate.php:919
+#: adrotate.php:907 adrotate.php:915 adrotate.php:923
 #: dashboard/publisher/adrotate-blocks-main.php:17
 #: dashboard/publisher/adrotate-groups-main.php:18
 msgid "OK to continue, CANCEL to stop."
 msgstr "OK da biste nastavili , CANCEL da se zaustavi ."
 
-#: adrotate.php:904
+#: adrotate.php:908
 msgid "Cleans up overhead data in the AdRotate tables."
 msgstr "Čiste se režijski  podaci u tabelama AdRotate ."
 
-#: adrotate.php:905
+#: adrotate.php:909
 msgid ""
 "Overhead data is accumulated garbage resulting from many changes you've "
 "made. This can vary from nothing to hundreds of KiB of data."
@@ -1153,70 +1202,68 @@ msgstr ""
 "Opšti podaci se akumulira smeća usled mnogih promena koje ste napravili . "
 "Ovo može da varira od nule do nekoliko stotina KiB podataka ."
 
-#: adrotate.php:909 adrotate.php:911
+#: adrotate.php:913 adrotate.php:915
 msgid "Clean-up Database"
 msgstr "Čišćenje baze"
 
-#: adrotate.php:911
+#: adrotate.php:915
+#, fuzzy
 msgid ""
 "You are about to clean up your database. This may delete expired schedules "
 "and older statistics."
-msgstr ""
+msgstr "Čišćenje baze"
 
-#: adrotate.php:911
+#: adrotate.php:915
+#, fuzzy
 msgid "Are you sure you want to continue?"
-msgstr ""
+msgstr "Izaberite za šta želite da koristite ovaj widget "
 
-#: adrotate.php:911 adrotate.php:919
+#: adrotate.php:915 adrotate.php:923
 #, fuzzy
 msgid "This might take a while and may slow down your site during this action!"
-msgstr "To može da potraje i da uspori vaš sajt u toku ove akcije !"
-
-#: adrotate.php:912
-msgid "Delete stats older than 356 days (Optional)."
 msgstr ""
+"To može da potraje nekoliko trenutaka i može izazvati vaš sajt da reaguju "
+"sporo privremeno !"
 
-#: adrotate.php:913
+#: adrotate.php:916
+#, fuzzy
+msgid "Delete stats older than 356 days (Optional)."
+msgstr "Uloga obrisati oglase i resetovanje ."
+
+#: adrotate.php:917
 #, fuzzy
 msgid ""
 "AdRotate creates empty records when you start making ads or groups. In rare "
 "occasions these records are faulty."
-msgstr ""
-"AdRotate stvara prazne zapise kada počnete da zarađujete reklame, grupa ili "
-"blokove . U retkim slučajevima ovi podaci su neispravni . Ako ste napravili "
-"oglasnu grupu , ili blok koji se ne čuva kada bi to koristite ovo dugme da "
-"biste izbrisali te prazne zapise ."
+msgstr "Prazni zapisi baze podataka uklanjaju"
 
-#: adrotate.php:913
+#: adrotate.php:917
 #, fuzzy
 msgid ""
 "If you made an ad or group that does not save when you make it use this "
 "button to delete those empty records."
-msgstr ""
-"AdRotate stvara prazne zapise kada počnete da zarađujete reklame, grupa ili "
-"blokove . U retkim slučajevima ovi podaci su neispravni . Ako ste napravili "
-"oglasnu grupu , ili blok koji se ne čuva kada bi to koristite ovo dugme da "
-"biste izbrisali te prazne zapise ."
+msgstr "Vi ste na putu da izbrišete grupu"
 
-#: adrotate.php:913
+#: adrotate.php:917
+#, fuzzy
 msgid ""
 "Additionally you can clean up old statistics. This will improve the speed of "
 "your site."
-msgstr ""
+msgstr "Čišćenje baze"
 
-#: adrotate.php:917
+#: adrotate.php:921
 msgid "Re-evaluate Ads"
 msgstr "Ponovo ocenjeni oglasi"
 
-#: adrotate.php:919
+#: adrotate.php:923
 msgid "Re-evaluate all ads"
 msgstr "Ponovo ocenite sve oglase"
 
-#: adrotate.php:919
+#: adrotate.php:923
 msgid "You are about to check all ads for errors."
 msgstr "Vi ste o tome da proveri sve oglase za greške ."
 
-#: adrotate.php:920
+#: adrotate.php:924
 msgid ""
 "This will apply all evaluation rules to all ads to see if any error slipped "
 "in. Normally you should not need this feature."
@@ -1224,7 +1271,7 @@ msgstr ""
 "Ovo će primeniti sva pravila za ocenjivanje na sve oglase da vidim da li "
 "bilo koja greška okliznuo unutra Normalno ne bi trebalo ovu funkciju ."
 
-#: adrotate.php:924
+#: adrotate.php:928
 msgid ""
 "DISCLAIMER: If for any reason your data is lost, damaged or otherwise "
 "becomes unusable in any way or by any means in whichever way I will not take "
@@ -1241,63 +1288,69 @@ msgstr ""
 "već nepopravljivo . Tvrdeći da je radio pre nego što kliknete na ovu dugmad "
 "nijevažna stvar u svakom slučaju ."
 
-#: adrotate.php:928
+#: adrotate.php:932
 msgid "Troubleshooting"
 msgstr "Rešavanje problema"
 
-#: adrotate.php:931
+#: adrotate.php:935
 msgid "Current version:"
 msgstr "Trenutna verzija :"
 
-#: adrotate.php:932
+#: adrotate.php:936
 msgid "Previous version:"
 msgstr "Prethodna verzija :"
 
-#: adrotate.php:935
+#: adrotate.php:939
 msgid "Current database version:"
 msgstr "Trenutna verzija baze podataka :"
 
-#: adrotate.php:936
+#: adrotate.php:940
 msgid "Previous database version:"
 msgstr "Prethodna verzija baze podataka :"
 
-#: adrotate.php:939
+#: adrotate.php:943
 msgid "Clean Trackerdata next run:"
 msgstr "Očistite Trackerdata u sledećem pokušaju :"
 
-#: adrotate.php:940
+#: adrotate.php:944
 msgid "Not scheduled!"
 msgstr "Nije planirano:"
 
-#: adrotate.php:943
+#: adrotate.php:947
 #, fuzzy
 msgid "Current status of adverts"
-msgstr "Trenutna verzija baze podataka :"
+msgstr "Trenutna verzija :"
 
-#: adrotate.php:944
+#: adrotate.php:948
+#, fuzzy
 msgid "Normal"
 msgstr ""
+"NAPOMENA : Slede opcije nisu namenjene za normalnu upotrebu , a tu su samo "
+"za programere da pregledaju sačuvane postavke ili kako se oglasi izabrani . "
+"To se može koristiti kao mera za rešavanje problema na zahtev , ali za "
+"normalnu upotrebu oni treba da budu levo neprovereni "
 
-#: adrotate.php:944
+#: adrotate.php:948
 #, fuzzy
 msgid "Error"
-msgstr "Error, oglas"
+msgstr "Nepoznati error se ukazao."
 
-#: adrotate.php:944
+#: adrotate.php:948
 #, fuzzy
 msgid "Expired"
-msgstr "Isteklo je."
+msgstr "( Skoro ) Isteklo"
 
-#: adrotate.php:944
+#: adrotate.php:948
 #, fuzzy
 msgid "Expires Soon"
 msgstr "Ističe uskoro."
 
-#: adrotate.php:944
+#: adrotate.php:948
+#, fuzzy
 msgid "Unknown Status"
-msgstr ""
+msgstr "Nepoznati error se ukazao."
 
-#: adrotate.php:947
+#: adrotate.php:951
 msgid ""
 "NOTE: The below options are not meant for normal use and are only there for "
 "developers to review saved settings or how ads are selected. These can be "
@@ -1309,47 +1362,47 @@ msgstr ""
 "To se može koristiti kao mera za rešavanje problema na zahtev , ali za "
 "normalnu upotrebu oni treba da budu levo neprovereni "
 
-#: adrotate.php:951
+#: adrotate.php:955
 msgid "Developer Debug"
 msgstr "Debug za programera"
 
-#: adrotate.php:953
+#: adrotate.php:957
 msgid "Troubleshoot ads and how (if) they are selected, has front-end output."
 msgstr ""
 "Rešavanje problema sa oglasima i kako ( ako ) su odabrani,  ima prednji kraj "
 "izlaza ."
 
-#: adrotate.php:954
+#: adrotate.php:958
 msgid "Show all settings, dashboard routines and related values."
 msgstr "Pokaži sve parametre , Dashboard rutine i srodnih vrednosti ."
 
-#: adrotate.php:955
+#: adrotate.php:959
 msgid "Show array of all userroles and capabilities."
 msgstr "Prikaži niz svih uloga korisnika i mogućnosti."
 
-#: adrotate.php:956
+#: adrotate.php:960
 msgid "Review saved advertisers! Visible to advertisers."
 msgstr "Pregled sačuvanih oglašivača ! Vidljivo oglašivačima"
 
-#: adrotate.php:957
+#: adrotate.php:961
 msgid ""
 "Review global stats, per ad/group/block stats. Visible only to publishers."
 msgstr ""
 "Pregled globalna statistike , po oglasu / grupa / blok statistika . Vidljivo "
 "samo izdavačima ."
 
-#: adrotate.php:958
+#: adrotate.php:962
 #, fuzzy
 msgid ""
 "Disable timers for clicks and impressions and enable a alert window for "
 "clicktracking."
-msgstr "Onemogućite tajmer za klikove i prikaze ."
+msgstr "Pratite klikove i prikaze ."
 
-#: adrotate.php:959
+#: adrotate.php:963
 msgid "Temporarily disable encryption on the redirect url."
 msgstr "Privremeno onemogući šifrovanje na URL adresu za preusmeravanje ."
 
-#: adrotate.php:965
+#: adrotate.php:969
 msgid "Update Options"
 msgstr "Update opcije"
 
@@ -1533,18 +1586,20 @@ msgstr "Ovaj oglas je onemogućen i ne rotira na vašem sajtu !"
 #: dashboard/publisher/adrotate-ads-edit.php:100
 #, fuzzy
 msgid "New Advert"
-msgstr "Sačuvaj oglas"
+msgstr ""
+"Ubacite novu reklamu u ovom intervalu , bez ponovnog učitavanja stranice."
+"Default: 6."
 
 #: dashboard/publisher/adrotate-ads-edit.php:102
 #, fuzzy
 msgid "Edit Advert"
-msgstr "Izmeni oglas"
+msgstr "Edituj"
 
 #: dashboard/publisher/adrotate-ads-edit.php:105
 #: dashboard/publisher/adrotate-groups-edit.php:42
 #, fuzzy
 msgid "These are required."
-msgstr "Osnove (neophodno)"
+msgstr "Oglasi procenjuju i statusi su ispravljene kada je to potrebno"
 
 #: dashboard/publisher/adrotate-ads-edit.php:109
 msgid "Title:"
@@ -1560,18 +1615,20 @@ msgid "Options:"
 msgstr "Opcije :"
 
 #: dashboard/publisher/adrotate-ads-edit.php:122
+#, fuzzy
 msgid ""
 "Place the cursor where you want to add a tag and click to add it to your "
 "AdCode."
-msgstr ""
+msgstr "Kliknite na poruke kategorije koje želite da se prikažu oglasi."
 
 #: dashboard/publisher/adrotate-ads-edit.php:124
 msgid "Basic Examples:"
 msgstr "Osnovni Primeri :"
 
 #: dashboard/publisher/adrotate-ads-edit.php:128
+#, fuzzy
 msgid "Click an example to add it to your AdCode."
-msgstr ""
+msgstr "Primer"
 
 #: dashboard/publisher/adrotate-ads-edit.php:132
 msgid "Activate:"
@@ -1630,10 +1687,11 @@ msgstr "upotreba"
 #: dashboard/publisher/adrotate-ads-edit.php:166
 #: dashboard/publisher/adrotate-ads-edit.php:310
 #: dashboard/publisher/adrotate-groups-edit.php:232
+#, fuzzy
 msgid ""
 "Copy the shortcode in a post or page. The PHP code goes in a theme file "
 "where you want the advert to show up."
-msgstr ""
+msgstr "U post ili stranicu:"
 
 #: dashboard/publisher/adrotate-ads-edit.php:170
 #: dashboard/publisher/adrotate-ads-edit.php:314
@@ -1651,7 +1709,7 @@ msgstr "Direktno na temu :"
 #: dashboard/publisher/adrotate-ads-edit.php:320
 #, fuzzy
 msgid "Email or Remote page:"
-msgstr "Globalni izveštaj stranica"
+msgstr "Stranica oglašivača"
 
 #: dashboard/publisher/adrotate-ads-edit.php:182
 #: dashboard/publisher/adrotate-groups-edit.php:131
@@ -1661,7 +1719,7 @@ msgstr ""
 #: dashboard/publisher/adrotate-ads-edit.php:183
 #, fuzzy
 msgid "Everything below is optional."
-msgstr "Napredno ( Sve ispod je opciono )"
+msgstr "Naslov (opcionalno):"
 
 #: dashboard/publisher/adrotate-ads-edit.php:188
 msgid "Clicktracking:"
@@ -1670,27 +1728,34 @@ msgstr "Praćenje klikom:"
 #: dashboard/publisher/adrotate-ads-edit.php:190
 #, fuzzy
 msgid "Enable click tracking for this advert."
-msgstr "Omogući GeoLocation za reklame."
+msgstr "Nema efekta ako se klik i utisak praćenja onemogući ."
 
 #: dashboard/publisher/adrotate-ads-edit.php:191
+#, fuzzy
 msgid ""
 "The URL field is no longer required. Placing the URL in your adcode and "
 "enabling click tracking is sufficient."
 msgstr ""
+"WordPress nije bio u mogućnosti da verifikuje autentičnost url-a na koji ste "
+"kliknuli. Verifikuj ak je url korišćen kao validan ili login via vašeg "
+"pretraživača."
 
 #: dashboard/publisher/adrotate-ads-edit.php:192
+#, fuzzy
 msgid "jQuery must be active on your site for clicktracking to work."
-msgstr ""
+msgstr "Praćenje klikom:"
 
 #: dashboard/publisher/adrotate-ads-edit.php:196
+#, fuzzy
 msgid "Remote usage:"
-msgstr ""
+msgstr "upotreba"
 
 #: dashboard/publisher/adrotate-ads-edit.php:199
+#, fuzzy
 msgid ""
 "Enter the target url here if you intent to use this advert in mailings or on "
 "remote pages."
-msgstr ""
+msgstr "Izaberite stranice koje želite da reklama pokaže"
 
 #: dashboard/publisher/adrotate-ads-edit.php:204
 msgid "Banner image:"
@@ -1703,7 +1768,7 @@ msgstr "Media:"
 #: dashboard/publisher/adrotate-ads-edit.php:207
 #, fuzzy
 msgid "Select Banner"
-msgstr "Izaberi slike"
+msgstr "Baner Folder"
 
 #: dashboard/publisher/adrotate-ads-edit.php:209
 msgid "- OR -"
@@ -1734,20 +1799,28 @@ msgid "Weight:"
 msgstr "Težina:"
 
 #: dashboard/publisher/adrotate-ads-edit.php:223
+#, fuzzy
 msgid "Barely visible"
-msgstr ""
+msgstr "Vidljivo do"
 
 #: dashboard/publisher/adrotate-ads-edit.php:224
+#, fuzzy
 msgid "Less than average"
-msgstr ""
+msgstr "Oglas ističe za manje od 2 dana !"
 
 #: dashboard/publisher/adrotate-ads-edit.php:225
+#, fuzzy
 msgid "Normal coverage"
 msgstr ""
+"NAPOMENA : Slede opcije nisu namenjene za normalnu upotrebu , a tu su samo "
+"za programere da pregledaju sačuvane postavke ili kako se oglasi izabrani . "
+"To se može koristiti kao mera za rešavanje problema na zahtev , ali za "
+"normalnu upotrebu oni treba da budu levo neprovereni "
 
 #: dashboard/publisher/adrotate-ads-edit.php:226
+#, fuzzy
 msgid "More than average"
-msgstr ""
+msgstr "Više informacija"
 
 #: dashboard/publisher/adrotate-ads-edit.php:227
 msgid "Best visibility"
@@ -1770,13 +1843,14 @@ msgstr "Ostavite prazno ili 0 da preskočite ovo . Će podrazumevano ID oglasa .
 #: dashboard/publisher/adrotate-ads-edit.php:248
 #, fuzzy
 msgid "Geo Location"
-msgstr "GeoLocation"
+msgstr "Ili nema banera, onemogućeni su ili nije kvalifikovan za ovu lokaciju!"
 
 #: dashboard/publisher/adrotate-ads-edit.php:249
+#, fuzzy
 msgid ""
 "This works if you assign the advert to a group and enable that group to use "
 "Geo Targeting."
-msgstr ""
+msgstr "Gupni oglasi - Koristite grupni ID"
 
 #: dashboard/publisher/adrotate-ads-edit.php:254
 msgid "Cities:"
@@ -1791,16 +1865,17 @@ msgstr "Oglašivača i budžet"
 msgid ""
 "Link your ad to an Advertiser and optionally set a budget for clicks and "
 "impressions."
-msgstr "Onemogućite tajmer za klikove i prikaze ."
+msgstr "Oglašivača i budžet"
 
 #: dashboard/publisher/adrotate-ads-edit.php:331
 #, fuzzy
 msgid "Schedule"
-msgstr "Rasporedi"
+msgstr "Nema vremena da se stvari urade ? Hajde da napravimo raspored !"
 
 #: dashboard/publisher/adrotate-ads-edit.php:332
+#, fuzzy
 msgid "From when to when is the advert visible?"
-msgstr ""
+msgstr "Nema efekta ako se klik i utisak praćenja onemogući ."
 
 #: dashboard/publisher/adrotate-ads-edit.php:336
 msgid "Start date (day/month/year):"
@@ -1854,23 +1929,25 @@ msgid "Current Schedules"
 msgstr "Trenutni raspored"
 
 #: dashboard/publisher/adrotate-ads-edit.php:417
+#, fuzzy
 msgid "From / Until"
-msgstr ""
+msgstr "Prikazati do"
 
 #: dashboard/publisher/adrotate-ads-edit.php:419
 #, fuzzy
 msgid "Max Clicks"
-msgstr "Maksimum klikovi:"
+msgstr "Klikovi"
 
 #: dashboard/publisher/adrotate-ads-edit.php:420
 #: dashboard/publisher/adrotate-ads-edit.php:422
+#, fuzzy
 msgid "This ad used"
-msgstr ""
+msgstr "Da , ovaj oglas će se koristiti"
 
 #: dashboard/publisher/adrotate-ads-edit.php:421
 #, fuzzy
 msgid "Max Impressions"
-msgstr "Maksimalni utisci:"
+msgstr "Utisci"
 
 #: dashboard/publisher/adrotate-ads-edit.php:458
 #: dashboard/publisher/adrotate-blocks-edit.php:137
@@ -1880,7 +1957,7 @@ msgstr "Izbor grupe"
 #: dashboard/publisher/adrotate-ads-edit.php:459
 #, fuzzy
 msgid "Optionally select the group(s) this ad belongs to."
-msgstr "Izaberite grupu(grupe) kojj  ovaj oglas pripada (opciono)"
+msgstr "aktivni ad-ovi su istekli."
 
 #: dashboard/publisher/adrotate-ads-edit.php:464
 #, fuzzy
@@ -1890,7 +1967,7 @@ msgstr "Ime"
 #: dashboard/publisher/adrotate-ads-edit.php:465
 #, fuzzy
 msgid "Ads in group"
-msgstr "Edituj grupu"
+msgstr "Gupni oglasi - Koristite grupni ID"
 
 #: dashboard/publisher/adrotate-ads-edit.php:478
 #: dashboard/publisher/adrotate-blocks-edit.php:156
@@ -2009,7 +2086,7 @@ msgstr "Aktivni oglasi"
 #: dashboard/publisher/adrotate-ads-main.php:37
 #, fuzzy
 msgid "Shown"
-msgstr "Prikazati do"
+msgstr "Ovaj oglas je istekao i trenutno se ne prikazuje na sajtu!"
 
 #: dashboard/publisher/adrotate-ads-main.php:38
 #: dashboard/publisher/adrotate-ads-main.php:40
@@ -2027,7 +2104,7 @@ msgstr "Nijedan oglas još nje stvoren!"
 #: dashboard/publisher/adrotate-ads-report.php:23
 #, fuzzy
 msgid "Statistics for advert"
-msgstr "Sttistike za"
+msgstr "Statistike"
 
 #: dashboard/publisher/adrotate-ads-report.php:30
 #: dashboard/publisher/adrotate-blocks-report.php:43
@@ -2258,7 +2335,7 @@ msgstr "Izlazne opcije za"
 #: dashboard/publisher/adrotate-groups-edit.php:37
 #, fuzzy
 msgid "New Group"
-msgstr "Nova grupa"
+msgstr "Dodati novi"
 
 #: dashboard/publisher/adrotate-groups-edit.php:39
 msgid "Edit Group"
@@ -2285,27 +2362,31 @@ msgid "Block Mode - Show a block of ads"
 msgstr "Blok mod - Prikaži blokove oglasa"
 
 #: dashboard/publisher/adrotate-groups-edit.php:65
+#, fuzzy
 msgid ""
 "'Dynamic' and 'Block' mode require 'jQuery' and 'jQuery Showoff' to be "
 "loaded. You can enable this in AdRotate Settings."
-msgstr ""
+msgstr "AdRotate postavke"
 
 #: dashboard/publisher/adrotate-groups-edit.php:71
+#, fuzzy
 msgid "Dynamic and Block Mode"
-msgstr ""
+msgstr "Blok mod - Prikaži blokove oglasa"
 
 #: dashboard/publisher/adrotate-groups-edit.php:72
+#, fuzzy
 msgid "Only required if your group is in Dynamic or Block mode."
-msgstr ""
+msgstr "Blok mod - Prikaži blokove oglasa"
 
 #: dashboard/publisher/adrotate-groups-edit.php:76
+#, fuzzy
 msgid "Block shape and border"
-msgstr ""
+msgstr "Blok oblik i granicu (Obavezno ) - Definišite oblik i veličinu bloka"
 
 #: dashboard/publisher/adrotate-groups-edit.php:81
 #, fuzzy
 msgid "Block Mode"
-msgstr "Update-ovanje blokiranja"
+msgstr "Blok mod - Prikaži blokove oglasa"
 
 #: dashboard/publisher/adrotate-groups-edit.php:81
 msgid ""
@@ -2316,16 +2397,20 @@ msgstr ""
 "pokazuju maksimalno 6 oglasa.  Default: 2x2."
 
 #: dashboard/publisher/adrotate-groups-edit.php:85
+#, fuzzy
 msgid "Automated refresh"
 msgstr ""
+"To može potrajati dok oglas počne da se rotira . Hvatanje plugina mora da "
+"osveži cache. To može da potraje i do nedelju dana, ako ne radi ručno "
 
 #: dashboard/publisher/adrotate-groups-edit.php:104
 msgid "seconds."
 msgstr "sekundi."
 
 #: dashboard/publisher/adrotate-groups-edit.php:107
+#, fuzzy
 msgid "Dynamic Mode"
-msgstr ""
+msgstr "Dinamični mod-Prikaži drugačiji oglas svakih par sekundi"
 
 #: dashboard/publisher/adrotate-groups-edit.php:107
 msgid ""
@@ -2350,21 +2435,22 @@ msgstr ""
 #: dashboard/publisher/adrotate-groups-edit.php:125
 #, fuzzy
 msgid "A transparant border outside the advert in pixels. Default: 1."
-msgstr "Nevidljiva granica van oglasa u pikselima.  Default: 1."
+msgstr "Nevidljiva granica van oglasa u pikselima.  (Default: 1)"
 
 #: dashboard/publisher/adrotate-groups-edit.php:137
 #, fuzzy
 msgid "Enable."
-msgstr "Omogućiti?"
+msgstr "Omogući oglašivače"
 
 #: dashboard/publisher/adrotate-groups-edit.php:138
+#, fuzzy
 msgid "Do not forget to tell the adverts for which areas they should show."
-msgstr ""
+msgstr "Ne , ne pokazuju nigde ovaj oglas"
 
 #: dashboard/publisher/adrotate-groups-edit.php:141
 #, fuzzy
 msgid "Fallback group"
-msgstr "Rezervna grupa?"
+msgstr "Rezervna"
 
 #: dashboard/publisher/adrotate-groups-edit.php:144
 #, fuzzy
@@ -2384,8 +2470,9 @@ msgid "Leave empty or 0 to skip this. Will default to group id."
 msgstr "Ostavite prazno ili 0 da preskočite ovo . Biće default  ID grupe ."
 
 #: dashboard/publisher/adrotate-groups-edit.php:157
+#, fuzzy
 msgid "Post Injection"
-msgstr ""
+msgstr "U post ili stranicu:"
 
 #: dashboard/publisher/adrotate-groups-edit.php:161
 msgid "Include ads in categories?"
@@ -2438,12 +2525,14 @@ msgid "Click the pages you want the adverts to show in."
 msgstr "Izaberite stranice koje želite da reklama pokaže"
 
 #: dashboard/publisher/adrotate-groups-edit.php:208
+#, fuzzy
 msgid "Wrapper code"
-msgstr ""
+msgstr "Kod omotača (Opcionalno) - Obmotava se oko svakog posebnog oglasa"
 
 #: dashboard/publisher/adrotate-groups-edit.php:209
+#, fuzzy
 msgid "Wraps around each ad."
-msgstr ""
+msgstr "Kod omotača (Opcionalno) - Obmotava se oko svakog posebnog oglasa"
 
 #: dashboard/publisher/adrotate-groups-edit.php:218
 msgid "HTML/JavaScript allowed, use with care!"
@@ -2491,17 +2580,19 @@ msgid "Fallback"
 msgstr "Rezervna"
 
 #: dashboard/publisher/adrotate-groups-main.php:52
+#, fuzzy
 msgid "Default"
-msgstr ""
+msgstr "Default - Prikazati po jedan oglas"
 
 #: dashboard/publisher/adrotate-groups-main.php:53
+#, fuzzy
 msgid "Dynamic"
-msgstr ""
+msgstr "Dinamični mod-Prikaži drugačiji oglas svakih par sekundi"
 
 #: dashboard/publisher/adrotate-groups-main.php:54
 #, fuzzy
 msgid "Block"
-msgstr "Blokovi"
+msgstr "Menadžmet blokiranih"
 
 #: dashboard/publisher/adrotate-groups-main.php:55
 #, fuzzy
@@ -2511,7 +2602,7 @@ msgstr "GeoLocation"
 #: dashboard/publisher/adrotate-groups-report.php:29
 #, fuzzy
 msgid "Statistics for group"
-msgstr "Sttistike za"
+msgstr "Statistike"
 
 #~ msgid "Track visitors"
 #~ msgstr "Pratite posetioce"
