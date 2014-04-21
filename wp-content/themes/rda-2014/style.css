@@ -9,7 +9,11 @@ Template:       fruitful
 
 @import url("../fruitful/style.css");
 
-/* START Change Hightlights to use RDA color orange */
+.clear {
+  clear: both;
+}
+
+/* START Change Hightlights to use RDA color orange 
 body a:hover, 
 body a:focus, 
 body a:active {
@@ -32,6 +36,23 @@ body #page .container #secondary .widget h3.widget-title,
 body #page .container #secondary .widget h1.widget-title {
   border-bottom: 2px solid #d55f31;
 }
+*/
+
+/* Tagline */
+/*.header-tagline p {
+  margin: 0px;
+}*/
+
+/* Remove News Hightlight on Calendar Page */
+.events-list .main-navigation ul li.current_page_parent.menu-item-12490 a {
+  background-color: #ffffff;
+  color: #333333;
+}
+
+.events-list .main-navigation ul li.current_page_parent.menu-item-12490:hover>a {
+  background-color: #d55f31;
+  color: #ffffff;
+}
 
 /* The Calendar Events page */
 body #tribe-events-content a {
@@ -42,3 +63,26 @@ body #page input[type="submit"]:hover {
   background: none repeat scroll 0 0 #d55f31 !important;
 }
 /* END Change Hightlights to use RDA color orange */
+
+.home a {
+	text-decoration: none;
+}
+
+#colophon .site-info {
+  width: 500px;
+}
+
+.site-header img.header-logos {
+  float: right;
+  width: auto;
+  height: 30px;
+  margin-left: 10px;
+}
+
+.main-navigation {
+  margin: 37px 0 0 0;
+}
+
+ol.hfeed.vcalendar {
+  margin: 0px;
+}
