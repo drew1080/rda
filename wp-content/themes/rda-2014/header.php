@@ -55,6 +55,7 @@
 						
 						<div data-originalstyle="<?php echo $logo_pos_class; ?>" class="header-hgroup <?php echo $logo_pos_class; ?>">  
 							<?php echo fruitful_get_logo(); ?>
+              <!-- <div class="header-tagline"><p>Placeholder for tagline.</p></div> -->
 						</div>	
 							
 						<div data-originalstyle="<?php echo $menu_pos_class; ?>" class="menu-wrapper <?php echo $menu_pos_class; ?>">
