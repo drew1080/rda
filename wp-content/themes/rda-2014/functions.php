@@ -1,5 +1,10 @@
 <?php
 
+ // echo "ADMIN:" . is_super_admin(36);
+ // echo "GRANT:" . grant_super_admin(36);
+ // $super_admins = get_site_option( 'site_admins' );
+ // print_r($super_admins);
+
 // OPTIONAL: Can be used to create metaboxes on the edit post page.
 // function ep_eventposts_metaboxes() {
 //     add_meta_box( 'ept_event_date_start', 'Start Date and Time', 'ept_event_date', 'post', 'side', 'default', array( 'id' => '_start') );

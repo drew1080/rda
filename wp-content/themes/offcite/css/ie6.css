@@ -1,0 +1,25 @@
+div#header h1#logo a { background: url(../images/header_bg.png) bottom left no-repeat; display: block; height: 98px; text-indent: -9999px; width: 538px; }
+div#header ul#headernavigation li a { color: #a29285; display: block; float: right; font-family: "Times New Roman", Times, serif; font-size: 1.25em; height: 20px; padding: 3px 16px 6px 16px; }
+div#right div#ads ul li { line-height: 0.5; }
+div#right div#ads ul { padding-top: 9px; }
+div#left ul#sidebar li ul.dotted li a { border-bottom: 1px dotted #766760; display: block; padding: 0 0 7px 0; line-height: 1; margin: 0 0 7px 0; width: 162px; }
+div#left ul#sidebar li ul.dottedreads li { line-height: 0.5;}
+div#left ul#sidebar li ul.dottedreads li a { line-height: 1; padding-bottom: 1px; }
+
+div#content div.entry ol.commentlist {  border-top: none; border-right: none; margin: 0 0 0 -100px; padding: 0 0 1.5em 0; width: 515px; overflow: hidden; position: relative; }
+div#content div.entry ol.commentlist li ul li, div#content div.entry ol.commentlist li ol li, div#content div.entry ol.commentlist li li { padding: 0; border: none; }
+div#content div.entry ol.commentlist li ol li { list-style-type: decimal; }
+div#content div.entry ol.commentlist li ul li, div#content div.entry ol.commentlist li li { list-style-type: disc; }
+div#content div.entry ol.commentlist li ul, div#content div.entry ol.commentlist li ol { padding: 1.5em 0; }
+div#content div.entry ol.commentlist p { padding: 1.5em 30px 0 0; }
+div#content div.entry ol.commentlist img { display: inline; float: none; margin: 0; padding: 0; } 
+div#content div.entry h4#comments { color: #8a7965; font-size: 1em; border-bottom: 1px solid #cdc6be; margin: 0; padding: 0; }
+div#content div.entry h4#comments span { color: a18700; font-size: 2em; }
+div#content div.entry span.citewrite { color: #b39a35; }
+div#content div.entry span.commentcount { display: block; clear: both; color: #f5f1ee; font-size: 5em; height: 80px; margin: 0 0 -65px 0; }
+div#content div.entry span.commentmetadata, div#content div.entry ol.commentlist a { color: #b8aea5; }
+div#content div.entry ol.commentlist li p a { color: #38afd1; }
+div#content div.entry ol.commentlist li p.leftmetadata, div#content div.entry ol.commentlist li p.leftmetadata a { color: #b8aea5; margin: 0; padding: 0;}
+div#content div.entry ol.commentlist li p.leftmetadata { float: left; font-size: 0.83em; display: inline; margin-left: -4em; overflow: hidden; text-align: right; width: 85px; margin-top: 2em; }
+div#content div.entry div.commentcontent { float: left; margin: 0 0 0 5px; width: 410px; }
+div#footer ul.barefooter li#foothome a { margin-left: 105px; display: inline; }

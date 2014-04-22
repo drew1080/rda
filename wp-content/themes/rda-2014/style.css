@@ -86,3 +86,13 @@ body #page input[type="submit"]:hover {
 ol.hfeed.vcalendar {
   margin: 0px;
 }
+
+/* Left Sidebar Page */
+.container .left-sidebar-page-content {
+  float: right;
+  margin: 0px;
+}
+
+.container .left-sidebar-page-sidebar {
+  margin-right: 10px;
+}
