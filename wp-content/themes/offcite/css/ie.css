@@ -1,0 +1,32 @@
+/* -----------------------------------------------------------------------
+
+
+ Blueprint CSS Framework 0.7.1
+ http://blueprintcss.googlecode.com
+
+   * Copyright (c) 2007-2008. See LICENSE for more info.
+   * See README for instructions on how to use Blueprint.
+   * For credits and origins, see AUTHORS.
+   * This is a compressed file. See the sources in the 'src' directory.
+
+----------------------------------------------------------------------- */
+
+/* ie.css */
+body {text-align:center;}
+.container {text-align:left;}
+* html .column {overflow-x:hidden;}
+* html legend {margin:-18px -8px 16px 0;padding:0;}
+ol {margin-left:2em;}
+sup {vertical-align:text-top;}
+sub {vertical-align:text-bottom;}
+html>body p code {*white-space:normal;}
+hr {margin:-8px auto 11px;}
+.clearfix, .container {display:inline-block;}
+* html .clearfix, * html .container {height:1%;}
+div#content div.excerpt ul.excerptmeta li span { color: #fff; font-size: 8px; display: inline-block; font-weight: bold; height: 12px; margin: 0; padding: 0 0 0 2px; width: 19px; }
+div#content div.excerpt ul.excerptmeta li span a { background: url(../images/content_comments_bg.png) top left no-repeat; color: #fff; margin: 0 0 0 2px; padding: 0; }
+div#content div.excerpt ul.excerptmeta { padding-top: 1px; height: 18px; margin-top: 0; }
+div#right div#ads img { border-bottom: 1px solid #cdc6be; padding: 10px 0 24px 0; }
+div#content h2.singlesearchheader { background: #998b7e; color: #fff; display: block; font-family: "Times New Roman", Times, serif; font-size: 1.3em; margin: 0 7px; padding: 3px 10px 0 10px; width: 90px; }
+div#content h2.singlecatheader { background: #998b7e; color: #fff; display: block; font-family: "Times New Roman", Times, serif; font-size: 1.3em; margin: 0 7px; padding: 3px 10px 0 10px; width: 107px; }
+div#content div.entry ol.commentlist li { list-style-position: inside; list-style-type: none; border-bottom: 4px solid #e9e7ce; padding-left: 4em; padding-bottom: 0; }
