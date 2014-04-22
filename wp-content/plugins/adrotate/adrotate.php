@@ -4,7 +4,7 @@ Plugin Name: AdRotate
 Plugin URI: http://www.adrotateplugin.com
 Description: The very best and most convenient way to publish your ads.
 Author: Arnan de Gans of AJdG Solutions
-Version: 3.9.8
+Version: 3.9.9
 Author URI: http://www.ajdg.net
 License: GPLv3
 */
@@ -15,9 +15,9 @@ Copyright 2010-2014 Arnan de Gans - AJdG Solutions (email : info@ajdg.net)
 
 /*--- AdRotate values ---------------------------------------*/
 define("ADROTATE_BETA", '');
-define("ADROTATE_DISPLAY", '3.9.8');
-define("ADROTATE_VERSION", 370);
-define("ADROTATE_DB_VERSION", 39);
+define("ADROTATE_DISPLAY", '3.9.9');
+define("ADROTATE_VERSION", 371);
+define("ADROTATE_DB_VERSION", 40);
 define("ADROTATE_FOLDER", 'adrotate');
 /*-----------------------------------------------------------*/
 
@@ -91,7 +91,7 @@ if(isset($_POST['adrotate_evaluate_submit'])) 			add_action('init', 'adrotate_pr
  Return:    -none-
 -------------------------------------------------------------*/
 function adrotate_dashboard() {
-	add_object_page('AdRotate', 'AdRotate', 'adrotate_ad_manage', 'adrotate', 'adrotate_info');
+	add_menu_page('AdRotate', 'AdRotate', 'adrotate_ad_manage', 'adrotate', 'adrotate_info', '', '25.9');
 	add_submenu_page('adrotate', 'AdRotate > '.__('General Info', 'adrotate'), __('General Info', 'adrotate'), 'adrotate_ad_manage', 'adrotate', 'adrotate_info');
 	add_submenu_page('adrotate', 'AdRotate > '.__('Manage Ads', 'adrotate'), __('Manage Ads', 'adrotate'), 'adrotate_ad_manage', 'adrotate-ads', 'adrotate_manage');
 	add_submenu_page('adrotate', 'AdRotate > '.__('Manage Groups', 'adrotate'), __('Manage Groups', 'adrotate'), 'adrotate_group_manage', 'adrotate-groups', 'adrotate_manage_group');
@@ -870,11 +870,15 @@ function adrotate_options() {
 			<table class="form-table">			
 				<tr>
 					<th valign="top"><?php _e('Load jQuery', 'adrotate'); ?></th>
-					<td><input type="checkbox" name="adrotate_jquery" <?php if($adrotate_config['jquery'] == 'Y') { ?>checked="checked" <?php } ?> /> <span class="description"><?php _e('jQuery is required for Dynamic Groups. Enable if your theme does not load jQuery already.', 'adrotate'); ?></span></td>
+					<td><input type="checkbox" name="adrotate_jquery" <?php if($adrotate_config['jquery'] == 'Y') { ?>checked="checked" <?php } ?> /> <span class="description"><?php _e('jQuery is required for Dynamic Groups and Clicktracking. Enable if your theme does not load jQuery already.', 'adrotate'); ?></span></td>
 				</tr>
 				<tr>
 					<th valign="top"><?php _e('Load jQuery ShowOff', 'adrotate'); ?></th>
-					<td><input type="checkbox" name="adrotate_jshowoff" <?php if($adrotate_config['jshowoff'] == 'Y') { ?>checked="checked" <?php } ?> /> <span class="description"><?php _e('The jQuery Showoff Library (0.1.2+) is required for Dynamic Groups. Disable if other plugins or themes already load this.', 'adrotate'); ?></span></td>
+					<td><input type="checkbox" name="adrotate_jshowoff" <?php if($adrotate_config['jshowoff'] == 'Y') { ?>checked="checked" <?php } ?> /> <span class="description"><?php _e('The jQuery.jshowoff.adrotate library is required for Dynamic Groups. This library depends on jQuery.', 'adrotate'); ?></span></td>
+				</tr>
+				<tr>
+					<th valign="top"><?php _e('Load jQuery Clicktracking', 'adrotate'); ?></th>
+					<td><input type="checkbox" name="adrotate_clicktracking" <?php if($adrotate_config['clicktracking'] == 'Y') { ?>checked="checked" <?php } ?> /> <span class="description"><?php _e('The jQuery.clicktracker library is required for Clicktracking. This library depends on jQuery.', 'adrotate'); ?></span></td>
 				</tr>
 				<tr>
 					<th valign="top"><?php _e('Load in footer?', 'adrotate'); ?></th>

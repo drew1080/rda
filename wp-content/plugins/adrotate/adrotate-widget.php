@@ -30,28 +30,30 @@ class adrotate_widgets extends WP_Widget {
 
 		extract($args);
         $title = apply_filters('widget_title', $instance['title']);
+		if(empty($instance['id'])) $instance['id'] = 0;
 
 		echo $before_widget;
-		if($title)
+		if($title) {
 			echo $before_title . $title . $after_title;
+		}
 		
 		if($adrotate_config['widgetalign'] == 'Y') echo '<ul><li>';
 		if($adrotate_config['w3caching'] == 'Y') echo '<!-- mfunc -->';
 		
 		if($instance['type'] == "single") {
-			if($adrotate_config['supercache'] == "Y") echo '<!--mfunc echo adrotate_ad( ' . $instance['id'] . ' ) -->';
-			echo adrotate_ad($instance['id']);
+			if($adrotate_config['supercache'] == "Y") echo '<!--mfunc echo adrotate_ad('.$instance['id'].', true, 0, 0) -->';
+			echo adrotate_ad($instance['id'], true, 0, 0);
 			if($adrotate_config['supercache'] == "Y") echo '<!--/mfunc-->';
 		}
 
 		if($instance['type'] == "group") {
-			if($adrotate_config['supercache'] == "Y") echo '<!--mfunc echo adrotate_group( ' . $instance['id'] . ' ) -->';
-			echo adrotate_group($instance['id']);
+			if($adrotate_config['supercache'] == "Y") echo '<!--mfunc echo adrotate_group('.$instance['id'].', 0, 0) -->';
+			echo adrotate_group($instance['id'], 0, 0);
 			if($adrotate_config['supercache'] == "Y") echo '<!--/mfunc-->';
 		}
 		
 		if($instance['type'] == "block") {
-			if($adrotate_config['supercache'] == "Y") echo '<!--mfunc echo adrotate_block( ' . $instance['id'] . ' ) -->';
+			if($adrotate_config['supercache'] == "Y") echo '<!--mfunc echo adrotate_block('.$instance['id'].') -->';
 			echo adrotate_block($instance['id']);
 			if($adrotate_config['supercache'] == "Y") echo '<!--/mfunc-->';
 		}
@@ -71,8 +73,9 @@ class adrotate_widgets extends WP_Widget {
 		$new_instance['description'] = strip_tags($new_instance['description']);
 		$new_instance['type'] = strip_tags($new_instance['type']);	
 		$new_instance['id'] = strip_tags($new_instance['id']);
+		$new_instance['siteid'] = 0;
 
-		$instance = wp_parse_args($new_instance,$old_instance);
+		$instance = wp_parse_args($new_instance, $old_instance);
 
 		return $instance;
 
@@ -86,12 +89,13 @@ class adrotate_widgets extends WP_Widget {
 		$defaults = array();
 		$instance = wp_parse_args( (array) $instance, $defaults );
 		
-		$title = $description = $type = $id = '';
+		$title = $description = $type = $id = $siteid = '';
 		extract($instance);
 		$title = esc_attr( $title );
 		$description = esc_attr( $description );
 		$type = esc_attr( $type );
 		$id = esc_attr( $id );
+		$siteid = esc_attr( $siteid );
 ?>
 		<p>
 			<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e( 'Title (optional):', 'adrotate' ); ?></label>
