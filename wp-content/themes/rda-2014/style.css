@@ -68,6 +68,22 @@ body #page input[type="submit"]:hover {
 	text-decoration: none;
 }
 
+.home #page .description div.text {
+  font-size: 20px !important;
+  line-height: 24px;
+  border-top: 1px solid #d6d6d6;
+  border-bottom: 1px solid #d6d6d6;
+  padding: 10px;
+}
+
+.home #page .description .top_line {
+  background: none;
+}
+
+.home #page .description .btm_line {
+  background: none;
+}
+
 #colophon .site-info {
   width: 500px;
 }
@@ -88,11 +104,24 @@ ol.hfeed.vcalendar {
 }
 
 /* Left Sidebar Page */
-.container .left-sidebar-page-content {
+.container .eleven {
+  float: right;
+  margin: 0px;
+}
+
+.container .five {
+  margin-right: 10px;
+}
+
+/*.container .left-sidebar-page-content {
   float: right;
   margin: 0px;
 }
 
 .container .left-sidebar-page-sidebar {
   margin-right: 10px;
+}*/
+
+#colophon .social-icon a {
+  background-image: url(images/social.png);
 }

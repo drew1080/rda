@@ -17,7 +17,7 @@ get_header(); ?>
 		<div class="eleven columns alpha">
 		<div id="primary" class="content-area">
 			<div id="content" class="site-content" role="main">
-		<?php if ( have_posts() ) : ?>
+		<?php  if ( have_posts() ) : ?>
 			
 			<?php //fruitful_content_nav( 'nav-above' ); ?>
 			<?php /* The loop */ ?>

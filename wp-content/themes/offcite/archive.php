@@ -49,7 +49,7 @@
                     
             <div class="authormeta">
             <ul>
-                <li class="authorname"><?php the_author(); ?></li>
+                <li class="authorname"><?php the_author_posts_link(); ?></li>
                 <li><?php the_time( 'M. j, Y' ); ?></li>
                 <li><?php the_time( 'g:i A' ); ?></li>
             </ul>

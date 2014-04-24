@@ -62,11 +62,11 @@
 							<?php fruitful_get_languages_list(); ?>
               
               
-              <a href="http://rda.test.hioweb.com/rdatv"><img class="header-logos" src="<?php echo get_stylesheet_directory_uri() . "/img/rdatv.jpg"; ?>" alt="Videos from Rice Design Alliance Events."></a>
+              <!-- <a href="<?php //echo get_site_url(); ?>/blog/category/rdatv/"><img class="header-logos" src="<?php //echo get_stylesheet_directory_uri() . "/img/rdatv.jpg"; ?>" alt="Videos from Rice Design Alliance Events."></a>
               
-              <a href="http://rda.test.hioweb.com/what-we-do/rdagents"><img class="header-logos" src="<?php echo get_stylesheet_directory_uri() . "/img/rdagents.jpg"; ?>" alt="Young professionals for Rice Design Alliance."></a>
+              <a href="<?php //echo get_site_url(); ?>/what-we-do/rdagents"><img class="header-logos" src="<?php //echo get_stylesheet_directory_uri() . "/img/rdagents.jpg"; ?>" alt="Young professionals for Rice Design Alliance."></a>
               
-              <a href="http://offcite.org/" target="_blank"><img class="header-logos" src="<?php echo get_stylesheet_directory_uri() . "/img/offcite.jpg"; ?>" alt="Blog for Rice Design Alliance."></a>
+              <a href="http://offcite.org/" target="_blank"><img class="header-logos" src="<?php //echo get_stylesheet_directory_uri() . "/img/offcite.jpg"; ?>" alt="Blog for Rice Design Alliance."></a> -->
               
 							<div class="clear"></div>
               

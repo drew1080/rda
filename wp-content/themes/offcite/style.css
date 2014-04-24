@@ -639,7 +639,7 @@ div#header ul#headernavigation li#about a {
 }
 
 div#header ul#headernavigation li#contact a,
-div#header ul#headernavigation li#menu-item-4789 a {
+div#header ul#headernavigation li#menu-item-9537 a {
 	/*background: url( 'images/nav_contact.png' ) no-repeat 13px 9px;*/
 	border-left: 1px solid #988b83;
 	border-right: 1px solid #988b83;
@@ -1980,4 +1980,16 @@ div#content div#post-5789 div.pagecontent {
 	width: 200px;
 	display: block;
 	margin: 0 0 18px;
+}
+
+
+
+/* START HIOWEB CUSTOMIZATIONS */
+
+body {
+  color: #000000;
+}
+
+div#content div.authormeta {
+  margin-top: 30px;
 }

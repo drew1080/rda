@@ -49,18 +49,21 @@
 
             
 
-        <?php if ( $numpics > 0 ) { ?> 
-
+        <?php if ( has_post_thumbnail() ) { // check if the post has a Post Thumbnail assigned to it.
+         the_post_thumbnail();
+        } else if ( $numpics > 0 ) { ?> 
         <div class="featuredphoto"> 
-
-		<?php for ( $i=0; $i < $numpics ; $i++ ) { echo $fpics[0][$i]; }; ?>
-
-		</div><!--end featuredphoto div-->
-
-		<?php } else { ?>
-
+  		  <?php 
+        // Check for featured image, if not there, use the old featured comment method
+        // This will allow for legacy posts to function properly
+        for ( $i=0; $i < $numpics ; $i++ ) { 
+          echo $fpics[0][$i]; 
+        }; 
+    
+        ?>
+    		</div><!--end featuredphoto div-->
+    		<?php } else { ?>
         <div class="nofeatured"></div>
-
         <?php }; ?>
 
                     
@@ -70,7 +73,7 @@
 
             <ul>
 
-                <li class="authorname"><a href="http://offcite.org/about" title="About OffCite"><?php the_author(); ?></a></li>
+                <li class="authorname"><a href="http://offcite.org/about" title="About OffCite"><?php the_author_posts_link(); ?></a></li>
 
                 <li><?php the_time( 'M. j, Y' ); ?></li>
 

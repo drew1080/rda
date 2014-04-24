@@ -6,7 +6,7 @@
 	
     
 	<?php //Prepare to check if this is the topmost Post on the page
-		  $firstpost = 'true'; ?>
+      $firstpost = 'true'; ?>
 
 		<?php while (have_posts()) : the_post(); 
 		$allpostcontent = $post ->post_content;
@@ -23,17 +23,26 @@
         <?php } ?>
             
             
-        <?php if ( $numpics > 0 ) { ?> 
+        <?php if ( has_post_thumbnail() ) { // check if the post has a Post Thumbnail assigned to it.
+         the_post_thumbnail();
+        } else if ( $numpics > 0 ) { ?> 
         <div class="featuredphoto"> 
-		<?php for ( $i=0; $i < $numpics ; $i++ ) { echo $fpics[0][$i]; }; ?>
-		</div><!--end featuredphoto div-->
-		<?php } else { ?>
+  		  <?php 
+        // Check for featured image, if not there, use the old featured comment method
+        // This will allow for legacy posts to function properly
+        for ( $i=0; $i < $numpics ; $i++ ) { 
+          echo $fpics[0][$i]; 
+        }; 
+    
+        ?>
+    		</div><!--end featuredphoto div-->
+    		<?php } else { ?>
         <div class="nofeatured"></div>
         <?php }; ?>
                     
             <div class="authormeta">
             <ul>
-                <li class="authorname"><a href="http://offcite.org/about" title="About OffCite"><?php the_author(); ?></a></li>
+                <li class="authorname"><a href="http://offcite.org/about" title="About OffCite"><?php the_author_posts_link(); ?></a></li>
                 <li><?php the_time( 'M. j, Y' ); ?></li>
                 <li><?php the_time( 'g:i A' ); ?></li>
             </ul>

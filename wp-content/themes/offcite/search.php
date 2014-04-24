@@ -28,7 +28,7 @@
                 
 
   <tr>
-    <td class="first"><h2><a href="<?php the_permalink(); ?>" rel="bookmark" title="Permanent Link to <?php the_title_attribute(); ?>"><?php the_title(); ?></a></h2><?php the_excerpt();?></td>
+    <td class="first"><h2><a href="<?php the_permalink(); ?>" rel="bookmark" title="Permanent Link to <?php the_title_attribute(); ?>"><?php the_title(); ?></a></h2> By: <?php the_author_posts_link(); ?><?php the_excerpt();?></td>
     <td class="second"><?php the_time( 'm.d.y' ); ?></td>
     <td class="third"><?php the_category( '<br />' ); ?></td>
   </tr>
