@@ -1,13 +1,7 @@
 <div id="right"> 
-  <form method="get" id="l_searchform" action="http://offcite.org/">
-    <p>
-      <input type="text" name="s" id="l_s" />
-      <input type="image" src="http://offcite.org/wp-content/themes/offcite/images/left_search.png" id="l_searchsubmit" value="Go" />
-    </p>
-  </form>
+  
   <a href="<?php get_site_url(); ?>/citemagazine">
-    <h2>Cite 93</h2>
-    <img src="http://offcite.org/wp-content/uploads/2014/02/93-cover-thumb.jpg">
+       <img src="http://offcite.org/wp-content/uploads/2014/02/93-cover-thumb.jpg">
   </a>
 	<div id="description">
 		<p><strong>Cite Magazine</strong>, the architecture and design review of Houston, has been published quarterly<br />
@@ -16,14 +10,23 @@
 		<h3>Current Issue: Cite 93</h3>
 		<ul>
 			<!-- <li><a href="http://citemag.org/" title="go to Cite Magazine">go to <strong>Cite Magazine</strong> &gt;</a></li> -->
-			<li><a href="https://securews.rice.edu/rda.rice.edu/cite/index.cfm" title="subscribe to Cite Magazine">subscribe to <strong>Cite Magazine</strong> &gt;</a></li>
-			<li><a href="<?php get_site_url(); ?>/advertise/" title="advertise in Cite Magazine">advertise in <strong>Cite Magazine</strong> &gt;</a></li>
-      <li><a href="<?php get_site_url(); ?>/buy-cite/" title="buy Cite Magazine">buy <strong>Cite Magazine</strong> &gt;</a></li>
-      <li><a href="<?php get_site_url(); ?>/past-issues/" title="past issues of Cite Magazine">past issues of <strong>Cite Magazine</strong> &gt;</a></li>
-      <li><a href="<?php get_site_url(); ?>/write-for-cite/" title="write for Cite Magazine">write for <strong>Cite Magazine</strong> &gt;</a></li>
-      <li><a href="<?php get_site_url(); ?>/citemagazine/" title="about Cite Magazine">about <strong>Cite Magazine</strong> &gt;</a></li>
+			 <li><a href="<?php get_site_url(); ?>/citemagazine/" title="about Cite Magazine"><strong>About</strong> &gt;</a></li>
+		  <li><a href="https://securews.rice.edu/rda.rice.edu/cite/index.cfm" title="subscribe to Cite Magazine"><strong>Subscribe</strong> &gt;</a></li>
+			<li><a href="<?php get_site_url(); ?>/advertise/" title="advertise in Cite Magazine"><strong>Advertise</strong> &gt;</a></li>
+      <li><a href="<?php get_site_url(); ?>/buy-cite/" title="buy Cite Magazine"><strong>Find in Bookstores</strong> &gt;</a></li>
+      <li><a href="<?php get_site_url(); ?>/past-issues/" title="past issues of Cite Magazine"><strong>Past Issues Archive</strong> &gt;</a></li>
+      <li><a href="<?php get_site_url(); ?>/write-for-cite/" title="write for Cite Magazine"><strong>Write</strong> &gt;</a></li>
+     
 		</ul>
 	</div>
+
+<form method="get" id="l_searchform" action="http://offcite.org/">
+    <p>
+      <input type="text" name="s" id="l_s" />
+      <input type="image" src="http://offcite.org/wp-content/themes/offcite/images/left_search.png" id="l_searchsubmit" value="Go" />
+    </p>
+  </form>
+  
 </div>
 <!--<div id="left">
   <form method="get" id="l_searchform" action="http://offcite.org/">
@@ -91,7 +94,8 @@
 </div>-->
 </div>
 <script type="text/javascript" src="http://offcite.org/wp-content/themes/offcite/js/jquery.example.min.js"></script>
-<script type="text/javascript" src="http://offcite.org/wp-content/themes/offcite/js/jquery.cycle.all"></script> 
+<!-- HioWeb removed on April 29th, 2014 because it was missing and no one seemed to miss it.  
+<script type="text/javascript" src="http://offcite.org/wp-content/themes/offcite/js/jquery.cycle.all"></script>  -->
 <script type="text/javascript" src="http://offcite.org/wp-content/themes/offcite/js/scripts.js"></script>
 <?php wp_footer(); ?>
 </body>

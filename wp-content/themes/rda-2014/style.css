@@ -125,3 +125,14 @@ ol.hfeed.vcalendar {
 #colophon .social-icon a {
   background-image: url(images/social.png);
 }
+
+div.middle-footer {
+  float: right;
+  margin-right: 20px;
+}
+
+div.header-search {
+  display: inline-block;
+  float: right;
+  margin-top: 5px;
+}

@@ -2059,3 +2059,8 @@ div#right form input#l_s {
 	padding: 3px 0 0 4px;
 	width: 127px;
 }
+
+div#header h3#rdalink {
+  float: right;
+  margin: -8px 15px 0 0;
+}

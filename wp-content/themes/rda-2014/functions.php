@@ -1,5 +1,32 @@
 <?php
 
+//Custom Theme Settings
+add_action('admin_menu', 'add_gcf_interface');
+
+function add_gcf_interface() {
+	add_options_page('Global Custom Fields', 'Global Custom Fields', '8', 'functions', 'editglobalcustomfields');
+}
+
+function editglobalcustomfields() {
+	?>
+	<div class='wrap'>
+	<h2>Global Custom Fields</h2>
+	<form method="post" action="options.php">
+	<?php wp_nonce_field('update-options') ?>
+
+	<p><strong>Middle Footer</strong><br />
+	<textarea class="form-control" rows="4" cols="50" name="rda_middle_footer" id="middle-footer" placeholder="Enter content for the middle of the footer"><?php echo get_option('rda_middle_footer') ? get_option('rda_middle_footer') : ""; ?></textarea></p>
+
+	<p><input type="submit" name="Submit" value="Update Options" /></p>
+
+	<input type="hidden" name="action" value="update" />
+	<input type="hidden" name="page_options" value="rda_middle_footer" />
+
+	</form>
+	</div>
+	<?php
+}
+
  // echo "ADMIN:" . is_super_admin(36);
  // echo "GRANT:" . grant_super_admin(36);
  // $super_admins = get_site_option( 'site_admins' );
