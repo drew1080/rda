@@ -39,11 +39,21 @@
         <?php } ?>
             
             
-        <?php if ( $numpics > 0 ) { ?> 
         <div class="featuredphoto"> 
-		<?php for ( $i=0; $i < $numpics ; $i++ ) { echo $fpics[0][$i]; }; ?>
-		</div><!--end featuredphoto div-->
-		<?php } else { ?>
+        <?php if ( has_post_thumbnail() ) { // check if the post has a Post Thumbnail assigned to it.
+         the_post_thumbnail();
+        ?></div><!--end featuredphoto div-->
+        <?php } else if ( $numpics > 0 ) { ?> 
+  		  <?php 
+        // Check for featured image, if not there, use the old featured comment method
+        // This will allow for legacy posts to function properly
+        for ( $i=0; $i < $numpics ; $i++ ) { 
+          echo $fpics[0][$i]; 
+        }; 
+    
+        ?>
+    		</div><!--end featuredphoto div-->
+    		<?php } else { ?>
         <div class="nofeatured"></div>
         <?php }; ?>
                     

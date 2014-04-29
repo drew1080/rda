@@ -23,10 +23,11 @@
         <?php } ?>
             
             
+        <div class="featuredphoto"> 
         <?php if ( has_post_thumbnail() ) { // check if the post has a Post Thumbnail assigned to it.
          the_post_thumbnail();
-        } else if ( $numpics > 0 ) { ?> 
-        <div class="featuredphoto"> 
+        ?></div><!--end featuredphoto div-->
+        <?php } else if ( $numpics > 0 ) { ?> 
   		  <?php 
         // Check for featured image, if not there, use the old featured comment method
         // This will allow for legacy posts to function properly
@@ -42,7 +43,7 @@
                     
             <div class="authormeta">
             <ul>
-                <li class="authorname"><a href="http://offcite.org/about" title="About OffCite"><?php the_author_posts_link(); ?></a></li>
+                <li class="authorname"><?php the_author_posts_link(); ?></li>
                 <li><?php the_time( 'M. j, Y' ); ?></li>
                 <li><?php the_time( 'g:i A' ); ?></li>
             </ul>
@@ -91,7 +92,7 @@ if( $page_num == 1 && $max_num_pages==$page_num ){ ?>
 <div id="footer">
     <ul>
         <li id="olderposts"><a class="disabled" href="#">Older Posts</a></li>
-        <li id="foothome"><a href="http://offcite.org/" title="Home">Home</a></li>
+        <li id="foothome"><a href="<?php echo get_site_url(); ?>" title="Home">Home</a></li>
         <li id="newerposts"><a class="disabled" href="#">Newer Posts</a></li>
     </ul>
 <?php get_footer(); ?>
@@ -103,7 +104,7 @@ if( $page_num == 1 && $max_num_pages>$page_num ){ ?>
 <div id="footer">
     <ul>
         <li id="olderposts"><?php next_posts_link( 'Older Posts' ); ?></li>
-        <li id="foothome"><a href="http://offcite.org/" title="Home">Home</a></li>
+        <li id="foothome"><a href="<?php echo get_site_url(); ?>" title="Home">Home</a></li>
         <li id="newerposts"><a class="disabled" href="#">Newer Posts</a></li>
     </ul>
 <?php get_footer(); ?>
@@ -116,7 +117,7 @@ if( $page_num > 1 && $max_num_pages>$page_num ){ ?>
 <div id="footer">
     <ul>
         <li id="olderposts"><?php next_posts_link( 'Older Posts' ); ?></li>
-        <li id="foothome"><a href="http://offcite.org/" title="Home">Home</a></li>
+        <li id="foothome"><a href="<?php echo get_site_url(); ?>" title="Home">Home</a></li>
         <li id="newerposts"><?php previous_posts_link( 'Newer Posts' ); ?></li>
     </ul>
 <?php get_footer(); ?>
@@ -128,7 +129,7 @@ if( $page_num == $max_num_pages && $max_num_pages > 1 ){ ?>
 <div id="footer">
     <ul>
         <li id="olderposts"><a class="disabled" href="#">Older Posts</a></li>
-        <li id="foothome"><a href="http://offcite.org/" title="Home">Home</a></li>
+        <li id="foothome"><a href="<?php echo get_site_url(); ?>" title="Home">Home</a></li>
         <li id="newerposts"><?php previous_posts_link( 'Newer Posts' ); ?></li>
     </ul>
 

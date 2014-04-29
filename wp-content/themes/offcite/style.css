@@ -1987,9 +1987,75 @@ div#content div#post-5789 div.pagecontent {
 /* START HIOWEB CUSTOMIZATIONS */
 
 body {
+  background: none;
   color: #000000;
+}
+
+div.container {
+  background: none;
 }
 
 div#content div.authormeta {
   margin-top: 30px;
+}
+
+div#right h2 {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  color: #a08a01;
+  margin: 0 0 5px 16px;
+}
+
+div#right a:hover {
+  text-decoration: none;
+}
+
+div#header ul#headernavigation {
+  width: 403px;
+  margin: 5px 0 0 0;
+  height: 11px;
+}
+
+div#header ul#headernavigation li#menu-item-9537 a,
+div#header ul#headernavigation li#menu-item-10036 a {
+  border-left: 1px solid #988b83;
+  border-right: 1px solid #988b83;
+}
+
+#past-issues, #past-issues li {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#past-issues a {
+  color: #f78f1e;
+  text-decoration: none;
+}
+
+div#right form {
+	height: 21px;
+	margin: 0;
+	padding-bottom: 13px;
+	padding-top: 52px;
+	width: 165px;
+}
+
+div#right form input {
+	float: left;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+div#right form input {
+	margin: 0;
+	padding: 0;
+}
+
+div#right form input#l_s {
+	border: 1px solid #e3dcd6;
+	color: #968d7e;
+	font-size: 0.92em;
+	height: 15px;
+	margin-left: 13px;
+	padding: 3px 0 0 4px;
+	width: 127px;
 }

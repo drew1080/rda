@@ -1,16 +1,31 @@
 <?php get_header(); ?>
 
-    <div id="content">       
+    <div id="content">   
 		<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-            <div class="post page" id="post-<?php the_ID(); ?>">  
-                <h2 class="title"><?php the_title(); ?></h2>
-                <div class="pagecontent">
-                <?php the_content(); ?>
-                <?php edit_post_link( 'edit', '<p>', '</p>' ); ?>
-                </div>
-                <hr class="space"/>
-            </div><!--end page div-->
-            <?php endwhile; ?>
+      <div class="post page" id="post-<?php the_ID(); ?>">  
+          <h2 class="title"><?php the_title(); ?></h2>
+          <div class="pagecontent">
+          <?php the_content(); ?>
+          <ul id="past-issues">
+            <?php
+            $args = array(
+                'numberposts' => -1,
+                'category' => 233
+            );
+
+            $myposts = get_posts( $args );
+            foreach ( $myposts as $post ) : setup_postdata( $post ); ?>
+              <li <?php post_class() ?> id="post-<?php the_ID(); ?>">
+                <a href="<?php the_permalink() ?>" rel="bookmark" title="Permanent Link to <?php the_title_attribute(); ?>"><?php the_title(); ?></a> <span class="issue-season"><?php $values = get_post_custom_values('Season'); if (isset($values)) { foreach ( $values as $key => $value ) { $company = $value; echo "$value"; } } ?></span>
+              </li>
+            <?php endforeach; 
+            wp_reset_postdata();?>
+          </ul>
+          <?php edit_post_link( 'edit', '<p>', '</p>' ); ?>
+          </div>
+          <hr class="space"/>
+      </div><!--end page div-->
+      <?php endwhile; ?>
     </div><!--end content div-->
 
 <div id="footer">
