@@ -1,33 +1,24 @@
 <div id="right"> 
-  
-  <a href="<?php get_site_url(); ?>/citemagazine">
-       <img src="http://offcite.org/wp-content/uploads/2014/02/93-cover-thumb.jpg">
-  </a>
-	<div id="description">
-		<p><strong>Cite Magazine</strong>, the architecture and design review of Houston, has been published quarterly<br />
-			by the <strong>Rice Design Alliance</strong><br />
-			since 1982.</p>
-		<h3>Current Issue: Cite 93</h3>
+  	<div id="description">
+		<a href="<?php get_site_url(); ?>/citemagazine">
+       <img src="http://offcite.org/wp-content/uploads/2014/02/93-cover-thumb.jpg"></a>
+	  <p>OffCite is the digital home of <strong>Cite Magazine</strong>, the architecture and design review of Houston, published quarterly by the Rice Design Alliance since 1982.</p>
 		<ul>
-			<!-- <li><a href="http://citemag.org/" title="go to Cite Magazine">go to <strong>Cite Magazine</strong> &gt;</a></li> -->
-			 <li><a href="<?php get_site_url(); ?>/citemagazine/" title="about Cite Magazine"><strong>About</strong> &gt;</a></li>
-		  <li><a href="https://securews.rice.edu/rda.rice.edu/cite/index.cfm" title="subscribe to Cite Magazine"><strong>Subscribe</strong> &gt;</a></li>
+			<li><a href="<?php get_site_url(); ?>/citemagazine/" title="about Cite Magazine"><strong>About</strong> &gt;</a></li>
+		  	<li><a href="https://securews.rice.edu/rda.rice.edu/cite/index.cfm" title="subscribe to Cite Magazine"><strong>Subscribe</strong> &gt;</a></li>
 			<li><a href="<?php get_site_url(); ?>/advertise/" title="advertise in Cite Magazine"><strong>Advertise</strong> &gt;</a></li>
-      <li><a href="<?php get_site_url(); ?>/buy-cite/" title="buy Cite Magazine"><strong>Find in Bookstores</strong> &gt;</a></li>
-      <li><a href="<?php get_site_url(); ?>/past-issues/" title="past issues of Cite Magazine"><strong>Past Issues Archive</strong> &gt;</a></li>
-      <li><a href="<?php get_site_url(); ?>/write-for-cite/" title="write for Cite Magazine"><strong>Write</strong> &gt;</a></li>
-     
-		</ul>
-	</div>
-
-<form method="get" id="l_searchform" action="http://offcite.org/">
-    <p>
+      		<li><a href="<?php get_site_url(); ?>/buy-cite/" title="buy Cite Magazine"><strong>Find in Bookstores</strong> &gt;</a></li>
+      		<li><a href="<?php get_site_url(); ?>/past-issues/" title="past issues of Cite Magazine"><strong>Past Issues Archive</strong> &gt;</a></li>
+      		<li><a href="<?php get_site_url(); ?>/write-for-cite/" title="write for Cite Magazine"><strong>Write</strong> &gt;</a></li>
+     	</ul>
+	<form method="get" id="l_searchform" action="http://offcite.org/">
       <input type="text" name="s" id="l_s" />
       <input type="image" src="http://offcite.org/wp-content/themes/offcite/images/left_search.png" id="l_searchsubmit" value="Go" />
-    </p>
-  </form>
-  
+    </form>
+	  </div>
 </div>
+
+
 <!--<div id="left">
   <form method="get" id="l_searchform" action="http://offcite.org/">
     <p>

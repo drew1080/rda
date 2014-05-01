@@ -136,3 +136,51 @@ div.header-search {
   float: right;
   margin-top: 5px;
 }
+
+#colophon .social-icon a.youtube {
+  background-position: -211px 0;
+}
+
+#colophon .social-icon a.facebook {
+  background-position: -243px 0;
+}
+
+#colophon .social-icon a.twitter {
+  background-position: -273px 0;
+}
+
+#colophon .social-icon a.instagram {
+  background-position: -405px 0;
+}
+
+@media only screen and (max-width: 767px) {  
+  input#s {
+    width: 382px;
+  }
+  
+  div.middle-footer {
+    margin-right: 0px;
+    width: 100%;
+    text-align: center;
+  }
+  
+  #colophon {
+    text-align: center;
+  }
+  
+  #colophon .site-info {
+    width: 100%;
+  }
+  
+  #colophon .social-icon {
+    float: none;
+    width: 120px;
+    margin: 0 auto;
+  }
+}
+
+@media only screen and (max-width: 479px) {
+  input#s {
+    width: 260px;
+  }
+}
