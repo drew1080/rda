@@ -6,6 +6,7 @@
 	On this page you can customize each of these two features.','SearchEverything') ?></p>
 	</div>
 	<form method="post">
+		<?php wp_nonce_field('se-everything-nonce'); ?>
 		<table id="se-research-settings" class="widefat">
 				<tr class="title">
 					<th scope="col" class="manage-column se-col"><?php _e('Research Everything compose-screen widget', 'SearchEverything'); ?></th>
@@ -15,7 +16,7 @@
 				<td><input type="checkbox" id="research_metabox" name="research_metabox" value="yes" <?php checked($options['se_research_metabox']['visible_on_compose']); ?> /></td>
 				</tr>
 				<tr scope="row"><td><?php _e('Enable search results from the web on compose screen','SearchEverything')?><br>
-				<small>(This will help you research similar posts. <a href="http://www.zemanta.com/blog/research-everything/" target="_blank">Learn more.</a>)</small></td>
+				<small>(This will help you research similar posts. <a href="http://zem.si/1l7q5KS" target="_blank">Learn more.</a>)</small></td>
 	 <td><input type="checkbox" id="research_external_results" name="research_external_results" value="yes" <?php checked($options['se_research_metabox']['external_search_enabled']); ?> /><span class="se-zem-color">&lArr; Try me. ;)</span></td>
 				</tr>
 				<tr scope="row"><td><?php _e('Zemanta api key','SearchEverything')?><br>

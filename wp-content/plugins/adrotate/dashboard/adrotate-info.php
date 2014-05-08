@@ -43,17 +43,11 @@ Copyright 2010-2014 Arnan de Gans - AJdG Solutions (email : info@ajdg.net)
 </style>
 
 <?php
-$banners = $groups = $blocks = $queued = $data['expiressoon'] = $data['error'] = 0;
+$banners = $groups = $queued = 0;
 $banners = $wpdb->get_var("SELECT COUNT(*) FROM `".$wpdb->prefix."adrotate` WHERE `type` != 'empty' AND `type` != 'a_empty';");
 $groups = $wpdb->get_var("SELECT COUNT(*) FROM `".$wpdb->prefix."adrotate_groups` WHERE `name` != '';");
-$blocks = $wpdb->get_var("SELECT COUNT(*) FROM `".$wpdb->prefix."adrotate_blocks` WHERE `name` != '';");
 $queued = $wpdb->get_var("SELECT COUNT(*) FROM `".$wpdb->prefix."adrotate` WHERE `type` = 'queue';");
-
-if(!is_array($adrotate_advert_status)) {
-	$data = unserialize($adrotate_advert_status);
-} else {
-	$data = $adrotate_advert_status;
-}
+$data = get_option("adrotate_advert_status");
 ?>
 
 <div id="dashboard-widgets-wrap">
@@ -83,7 +77,7 @@ if(!is_array($adrotate_advert_status)) {
 								<td class="b"><a href="admin.php?page=adrotate-ads"><?php echo $data['error']; ?> <?php _e('Have errors', 'adrotate'); ?></a></td>
 							</tr>
 							<tr>
-								<td class="first b"><a href="admin.php?page=adrotate-blocks"><?php echo $blocks; ?> <?php _e('Blocks', 'adrotate'); ?></a></td>
+								<td class="first b">&nbsp;</td>
 								<td class="b"><a href="admin.php?page=adrotate-moderate"><?php echo $queued; ?> <?php _e('Queued', 'adrotate'); ?></a></td>
 							</tr>
 							</tbody>
@@ -159,14 +153,13 @@ if(!is_array($adrotate_advert_status)) {
 				<div class="postbox-adrotate">
 					<div class="inside">
 						<p><h4><?php _e('AdRotate Pro', 'adrotate'); ?></h4> <?php _e('Get more features! Get AdRotate Pro.', 'adrotate'); ?> <a href="http://www.adrotateplugin.com/adrotate-pro/"><?php _e('More info', 'adrotate'); ?> &raquo;</a></p>
-						<p><h4><?php _e('Installations', 'adrotate'); ?></h4> <?php _e('Not sure how to set up AdRotate? Get me to do it!', 'adrotate'); ?> <a href="http://www.adrotateplugin.com/installations/"><?php _e('More info', 'adrotate'); ?> &raquo;</a></p>
+						<p><h4><?php _e('Get help with installations', 'adrotate'); ?></h4> <?php _e('Not sure how to set up AdRotate? Get me to do it!', 'adrotate'); ?> <a href="http://www.adrotateplugin.com/installations/"><?php _e('More info', 'adrotate'); ?> &raquo;</a></p>
 						<p><h4><?php _e('Premium Support', 'adrotate'); ?></h4> <?php _e("Stuck with AdRotate? I'll help!", 'adrotate'); ?> <a href="http://www.adrotateplugin.com/shop/category/premium-support/"><?php _e('More info', 'adrotate'); ?> &raquo;</a></p>
-						<p><h4><?php _e('Periodic Maintenance', 'adrotate'); ?></h4> <?php _e("No time to get things done? Let's make a schedule!", 'adrotate'); ?> <a href="http://www.adrotateplugin.com/shop/category/service-and-maintenance/"><?php _e('More info', 'adrotate'); ?> &raquo;</a></p>
 						<p><a href="http://www.adrotateplugin.com/shop/"><?php _e('Visit store to see all services and products', 'adrotate'); ?> &raquo;</a></p>
 					</div>
 				</div>
 
-				<h3><?php _e('AdRotate Promotions', 'adrotate'); ?></h3>
+				<h3><?php _e('AdRotate Promotions & Highlighted blog posts', 'adrotate'); ?></h3>
 				<div class="postbox-adrotate">
 					<div class="inside">
 						<?php wp_widget_rss_output(array(

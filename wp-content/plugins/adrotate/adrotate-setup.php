@@ -71,8 +71,6 @@ function adrotate_activate_setup() {
 		$role->add_cap("adrotate_ad_delete");
 		$role->add_cap("adrotate_group_manage");
 		$role->add_cap("adrotate_group_delete");
-		$role->add_cap("adrotate_block_manage");
-		$role->add_cap("adrotate_block_delete");
 		$role->add_cap("adrotate_moderate");
 		$role->add_cap("adrotate_moderate_approve");
 
@@ -137,7 +135,7 @@ function adrotate_check_activated() {
  Since:		3.7.3
 -------------------------------------------------------------*/
 function adrotate_check_upgrade() {
-	global $wpdb;
+	global $wpdb, $current_user, $userdata;
 	
 	if(version_compare(PHP_VERSION, '5.2.0', '<') == -1) { 
 		deactivate_plugins(plugin_basename('adrotate.php'));
@@ -162,7 +160,7 @@ function adrotate_check_upgrade() {
 			$in84days 		= $now + 7257600;
 	
 			// Demo ad 1
-		    $wpdb->insert($wpdb->prefix."adrotate", array('title' => 'Demo ad 468x60', 'bannercode' => '&lt;a href=\&quot;http:\/\/www.adrotateforwordpress.com\&quot;&gt;&lt;img src=\&quot;http://cdn.adrotateplugin.com/b/adrotate-468x60.jpg\&quot; /&gt;&lt;/a&gt;', 'thetime' => $now, 'updated' => $now, 'author' => $current_user->user_login, 'imagetype' => '', 'image' => '', 'link' => '', 'tracker' => 'N', 'timeframe' => '', 'timeframelength' => 0, 'timeframeclicks' => 0, 'timeframeimpressions' => 0, 'type' => 'active', 'weight' => 6, 'sortorder' => 0, 'cbudget' => 0, 'ibudget' => 0, 'crate' => 0, 'irate' => 0, 'cities' => serialize(array()), 'countries' => serialize(array())));
+		    $wpdb->insert($wpdb->prefix."adrotate", array('title' => 'Demo ad 468x60', 'bannercode' => '&lt;a href=\&quot;http:\/\/www.adrotateforwordpress.com\&quot;&gt;&lt;img src=\&quot;http://cdn.adrotateplugin.com/b/adrotate-468x60.jpg\&quot; /&gt;&lt;/a&gt;', 'thetime' => $now, 'updated' => $now, 'author' => $current_user->user_login, 'imagetype' => '', 'image' => '', 'link' => '', 'tracker' => 'N', 'responsive' => 'N', 'timeframe' => '', 'timeframelength' => 0, 'timeframeclicks' => 0, 'timeframeimpressions' => 0, 'type' => 'active', 'weight' => 6, 'sortorder' => 0, 'cbudget' => 0, 'ibudget' => 0, 'crate' => 0, 'irate' => 0, 'cities' => serialize(array()), 'countries' => serialize(array())));
 		    $ad_id = $wpdb->insert_id;
 			$wpdb->insert($wpdb->prefix.'adrotate_schedule', array('name' => 'Schedule for ad '.$ad_id, 'starttime' => $now, 'stoptime' => $in84days, 'maxclicks' => 0, 'maximpressions' => 0));
 		    $schedule_id = $wpdb->insert_id;
@@ -170,7 +168,7 @@ function adrotate_check_upgrade() {
 			unset($ad_id, $schedule_id);
 	
 			// Demo ad 2
-		    $wpdb->insert($wpdb->prefix."adrotate", array('title' => 'Demo ad 200x200', 'bannercode' => '&lt;a href=\&quot;http:\/\/www.adrotateforwordpress.com\&quot;&gt;&lt;img src=\&quot;http://cdn.adrotateplugin.com/b/adrotate-200x200.jpg\&quot; /&gt;&lt;/a&gt;', 'thetime' => $now, 'updated' => $now, 'author' => $current_user->user_login, 'imagetype' => '', 'image' => '', 'link' => '', 'tracker' => 'N', 'timeframe' => '', 'timeframelength' => 0, 'timeframeclicks' => 0, 'timeframeimpressions' => 0, 'type' => 'active', 'weight' => 6, 'sortorder' => 0, 'cbudget' => 0, 'ibudget' => 0, 'crate' => 0, 'irate' => 0, 'cities' => serialize(array()), 'countries' => serialize(array())));
+		    $wpdb->insert($wpdb->prefix."adrotate", array('title' => 'Demo ad 200x200', 'bannercode' => '&lt;a href=\&quot;http:\/\/www.adrotateforwordpress.com\&quot;&gt;&lt;img src=\&quot;http://cdn.adrotateplugin.com/b/adrotate-200x200.jpg\&quot; /&gt;&lt;/a&gt;', 'thetime' => $now, 'updated' => $now, 'author' => $current_user->user_login, 'imagetype' => '', 'image' => '', 'link' => '', 'tracker' => 'N', 'responsive' => 'N', 'timeframe' => '', 'timeframelength' => 0, 'timeframeclicks' => 0, 'timeframeimpressions' => 0, 'type' => 'active', 'weight' => 6, 'sortorder' => 0, 'cbudget' => 0, 'ibudget' => 0, 'crate' => 0, 'irate' => 0, 'cities' => serialize(array()), 'countries' => serialize(array())));
 		    $ad_id = $wpdb->insert_id;
 			$wpdb->insert($wpdb->prefix.'adrotate_schedule', array('name' => 'Schedule for ad '.$ad_id, 'starttime' => $now, 'stoptime' => $in84days, 'maxclicks' => 0, 'maximpressions' => 0));
 		    $schedule_id = $wpdb->insert_id;
@@ -196,6 +194,7 @@ function adrotate_check_upgrade() {
 function adrotate_check_config() {
 	
 	$config 	= get_option('adrotate_config');
+	$notifications = get_option('adrotate_notifications');
 	$crawlers 	= get_option('adrotate_crawlers');
 	$debug 		= get_option('adrotate_debug');
 
@@ -209,34 +208,39 @@ function adrotate_check_config() {
 	if(empty($config['ad_delete'])) $config['ad_delete'] = 'switch_themes'; // Admin
 	if(empty($config['group_manage'])) $config['group_manage'] = 'switch_themes'; // Admin
 	if(empty($config['group_delete'])) $config['group_delete'] = 'switch_themes'; // Admin
-	if(empty($config['block_manage'])) $config['block_manage'] = 'switch_themes'; // Admin
-	if(empty($config['block_delete'])) $config['block_delete'] = 'switch_themes'; // Admin
 	if(empty($config['moderate'])) $config['moderate'] = 'switch_themes'; // Admin
 	if(empty($config['moderate_approve'])) $config['moderate_approve'] = 'switch_themes'; // Admin
 
-	if(empty($config['enable_advertisers'])) $config['enable_advertisers'] = 'N';
-	if(empty($config['enable_editing'])) $config['enable_editing'] = 'N';
-	if(empty($config['enable_stats'])) $config['enable_stats'] = 'Y';
-	if(empty($config['enable_loggedin_impressions'])) $config['enable_loggedin_impressions'] = 'Y';
-	if(empty($config['enable_loggedin_clicks'])) $config['enable_loggedin_clicks'] = 'Y';
+	if(empty($config['enable_advertisers']) OR ($config['enable_advertisers'] != 'Y' AND $config['enable_advertisers'] != 'N')) $config['enable_advertisers'] = 'N';
+	if(empty($config['enable_editing']) OR ($config['enable_editing'] != 'Y' AND $config['enable_editing'] != 'N')) $config['enable_editing'] = 'N';
+	if(empty($config['enable_stats']) OR ($config['enable_stats'] != 'Y' AND $config['enable_stats'] != 'N')) $config['enable_stats'] = 'Y';
+	if(empty($config['enable_loggedin_impressions']) OR ($config['enable_loggedin_impressions'] != 'Y' AND $config['enable_loggedin_impressions'] != 'N')) $config['enable_loggedin_impressions'] = 'Y';
+	if(empty($config['enable_loggedin_clicks']) OR ($config['enable_loggedin_clicks'] != 'Y' AND $config['enable_loggedin_clicks'] != 'N')) $config['enable_loggedin_clicks'] = 'Y';
 
 	if(empty($config['banner_folder'])) $config['banner_folder'] = "wp-content/banners/";
-	if(empty($config['notification_email_switch']))	$config['notification_email_switch'] = 'Y';
-	if((empty($config['notification_email']) OR !is_array($config['notification_email'])) AND $config['notification_email_switch'] == 'Y') $config['notification_email'] = array(get_option('admin_email'));
-	if(empty($config['advertiser_email']) OR !is_array($config['advertiser_email'])) $config['advertiser_email'] = array(get_option('admin_email'));
-	if(empty($config['adminbar'])) $config['adminbar'] = 'Y';
-	if(empty($config['dashboard_notifications'])) $config['dashboard_notifications'] = 'Y';
-	if(empty($config['hide_schedules'])) $config['hide_schedules'] = 'N';
-	if(empty($config['widgetalign'])) $config['widgetalign'] = 'N';
-	if(empty($config['widgetpadding'])) $config['widgetpadding'] = 'N';
-	if(empty($config['w3caching'])) $config['w3caching'] = 'N';
-	if(empty($config['supercache'])) $config['supercache'] = 'N';
-	if(empty($config['jquery'])) $config['jquery'] = 'N';
-	if(empty($config['jshowoff'])) $config['jshowoff'] = 'N';
-	if(empty($config['clicktracking'])) $config['clicktracking'] = 'Y';
-	if(empty($config['jsfooter'])) $config['jsfooter'] = 'Y';
-	if(empty($config['impression_timer'])) $config['impression_timer'] = 10;
+	if(empty($config['adminbar']) OR ($config['adminbar'] != 'Y' AND $config['adminbar'] != 'N')) $config['adminbar'] = 'Y';
+	if(empty($config['dashboard_notifications']) OR ($config['dashboard_notifications'] != 'Y' AND $config['dashboard_notifications'] != 'N')) $config['dashboard_notifications'] = 'Y';
+	if(empty($config['hide_schedules']) OR ($config['hide_schedules'] != 'Y' AND $config['hide_schedules'] != 'N')) $config['hide_schedules'] = 'N';
+	if(empty($config['widgetalign']) OR ($config['widgetalign'] != 'Y' AND $config['widgetalign'] != 'N')) $config['widgetalign'] = 'N';
+	if(empty($config['widgetpadding']) OR ($config['widgetpadding'] != 'Y' AND $config['widgetpadding'] != 'N')) $config['widgetpadding'] = 'N';
+
+	if(empty($config['w3caching']) OR ($config['w3caching'] != 'Y' AND $config['w3caching'] != 'N')) $config['w3caching'] = 'N';
+	if(empty($config['supercache']) OR ($config['supercache'] != 'Y' AND $config['supercache'] != 'N')) $config['supercache'] = 'N';
+
+	if(empty($config['jquery']) OR ($config['jquery'] != 'Y' AND $config['jquery'] != 'N')) $config['jquery'] = 'N';
+	if(empty($config['jshowoff']) OR ($config['jshowoff'] != 'Y' AND $config['jshowoff'] != 'N')) $config['jshowoff'] = 'N';
+	if(empty($config['clicktracking']) OR ($config['clicktracking'] != 'Y' AND $config['clicktracking'] != 'N')) $config['clicktracking'] = 'Y';
+	if(empty($config['jsfooter']) OR ($config['jsfooter'] != 'Y' AND $config['jsfooter'] != 'N')) $config['jsfooter'] = 'Y';
+	if(empty($config['impression_timer']) OR ($config['impression_timer'] < 0 AND $config['impression_timer'] > 3600)) $config['impression_timer'] = 10;
+
+	if(empty($config['adblock']) OR ($config['adblock'] != 'Y' AND $config['adblock'] != 'N')) $config['adblock'] = 'N';
+	if(empty($config['adblock_timer']) OR $config['adblock_timer'] < 0 OR $config['adblock_timer'] > 20) $config['adblock_timer'] = 5;
+	if(empty($config['adblock_message'])) $config['adblock_message'] = "";
 	update_option('adrotate_config', $config);
+
+	if(empty($notifications['notification_push']) OR ($notifications['notification_push'] != 'Y' AND $notifications['notification_push'] != 'N')) $notifications['notification_push'] = 'N';
+	if(empty($notifications['notification_email']) OR ($notifications['notification_email'] != 'Y' AND $notifications['notification_email'] != 'N')) $notifications['notification_email'] = 'Y';
+	update_option('adrotate_notifications', $notifications);
 
 	if(empty($crawlers)) $crawlers = array("008", "ABACHOBot", "Accoona-AI-Agent", "AddSugarSpiderBot", "alexa", "AnyApexBot", "Arachmo", "B-l-i-t-z-B-O-T", "Baiduspider", "BecomeBot", "BeslistBot","BillyBobBot", "Bimbot", "Bingbot", "BlitzBOT", "boitho.com-dc", "boitho.com-robot", "btbot", "CatchBot", "Cerberian Drtrs","Charlotte", "ConveraCrawler", "cosmos", "Covario IDS", "DataparkSearch", "DiamondBot", "Discobot", "Dotbot", "EmeraldShield.com WebBot", "envolk[ITS]spider", "EsperanzaBot", "Exabot", "FAST Enterprise Crawler", "FAST-WebCrawler", "FDSE robot","FindLinks", "FurlBot", "FyberSpider", "g2crawler", "Gaisbot", "GalaxyBot", "genieBot", "Gigabot", "Girafabot", "Googlebot", "Googlebot-Image", "GurujiBot", "HappyFunBot", "hl_ftien_spider", "Holmes", "htdig", "iaskspider", "ia_archiver", "iCCrawler", "ichiro", "inktomi", "igdeSpyder", "IRLbot", "IssueCrawler", "Jaxified Bot", "Jyxobot", "KoepaBot", "L.webis", "LapozzBot", "Larbin", "LDSpider", "LexxeBot", "Linguee Bot", "LinkWalker", "lmspider", "lwp-trivial", "mabontland", "magpie-crawler", "Mediapartners-Google", "MJ12bot", "Mnogosearch", "mogimogi", "MojeekBot", "Moreoverbot", "Morning Paper", "msnbot", "MSRBot", "MVAClient", "mxbot", "NetResearchServer", "NetSeer Crawler", "NewsGator", "NG-Search", "nicebot", "noxtrumbot", "Nusearch Spider", "NutchCVS", "Nymesis", "obot", "oegp", "omgilibot", "OmniExplorer_Bot", "OOZBOT", "Orbiter", "PageBitesHyperBot", "Peew", "polybot", "Pompos", "PostPost", "Psbot", "PycURL", "Qseero", "Radian6", "RAMPyBot", "RufusBot", "SandCrawler", "SBIder", "ScoutJet", "Scrubby", "SearchSight", "Seekbot", "semanticdiscovery", "Sensis Web Crawler", "SEOChat::Bot", "SeznamBot", "Shim-Crawler", "ShopWiki", "Shoula robot", "silk", "Sitebot", "Snappy", "sogou spider", "Sosospider", "Speedy Spider", "Sqworm", "StackRambler", "suggybot", "SurveyBot", "SynooBot", "Teoma", "TerrawizBot", "TheSuBot", "Thumbnail.CZ robot", "TinEye", "truwoGPS", "TurnitinBot", "TweetedTimes Bot", "TwengaBot", "updated", "Urlfilebot", "Vagabondo", "VoilaBot", "Vortex", "voyager", "VYU2", "webcollage", "Websquash.com", "wf84", "WoFindeIch Robot", "WomlpeFactory", "Xaldon_WebSpider", "yacy", "Yahoo! Slurp", "Yahoo! Slurp China", "YahooSeeker", "YahooSeeker-Testing", "YandexBot", "YandexImages", "Yasaklibot", "Yeti", "YodaoBot", "yoogliFetchAgent", "YoudaoBot", "Zao", "Zealbot", "zspider", "ZyBorg", "crawler", "bot", "froogle","looksmart", "URL_Spider_SQL", "Firefly", "NationalDirectory", "Ask Jeeves", "TECNOSEEK", "InfoSeek", "WebFindBot", "Googlebot", "Scooter", "appie", "WebBug", "Spade", "rabaz", "Feedfetcher-Google", "TechnoratiSnoop", "Rankivabot", "Mediapartners-Google", "Sogou web spider", "WebAlta Crawler");
 	update_option('adrotate_crawlers', $crawlers);
@@ -307,23 +311,6 @@ function adrotate_database_install() {
 			`countries` text NOT NULL,
   		PRIMARY KEY  (`id`)
 		) ".$charset_collate.$engine.";");
-
-	dbDelta("CREATE TABLE IF NOT EXISTS `".$tables['adrotate_blocks']."` (
-			  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-			  `name` varchar(255) NOT NULL DEFAULT '',
-			  `rows` int(3) NOT NULL DEFAULT '2',
-			  `columns` int(3) NOT NULL DEFAULT '2',
-			  `gridfloat` varchar(7) NOT NULL DEFAULT 'none',
-			  `gridpadding` int(2) NOT NULL DEFAULT '0',
-			  `adwidth` varchar(6) NOT NULL DEFAULT '125',
-			  `adheight` varchar(6) NOT NULL DEFAULT '125',
-			  `admargin` int(2) NOT NULL DEFAULT '1',
-			  `adborder` varchar(20) NOT NULL DEFAULT '0',
-			  `wrapper_before` longtext NOT NULL,
-			  `wrapper_after` longtext NOT NULL,
-			  `sortorder` int(5) NOT NULL DEFAULT '0',
-			  PRIMARY KEY (`id`)
-			) ".$charset_collate.$engine.";");
 
 	dbDelta("CREATE TABLE IF NOT EXISTS `".$tables['adrotate_groups']."` (
 			`id` mediumint(8) unsigned NOT NULL auto_increment,
@@ -413,56 +400,6 @@ function adrotate_database_upgrade() {
 	$tables = adrotate_list_tables();
 
 	$adrotate_db_version = get_option("adrotate_db_version");
-	// Legacy compatibility (Support 3.7.4 and older)
-	if(!is_array($adrotate_db_version)) $adrotate_db_version = array('current' => $adrotate_db_version, 'previous' => 0);
-
-	// Database: 	12
-	// AdRotate: 	3.6.5
-	if($adrotate_db_version['current'] < 12) {
-		adrotate_add_column($tables['adrotate_tracker'], 'useragent', 'mediumtext NOT NULL AFTER `stat`');
-	}
-
-	// Database: 	13
-	// AdRotate:	3.7a1
-	if($adrotate_db_version['current'] < 13) {
-		if(!$wpdb->get_var("SHOW TABLES LIKE '".$tables['adrotate_schedule']."'")) { // wp_adrotate_schedule
-			$sql = "CREATE TABLE `".$tables['adrotate_schedule']."` (
-					`id` mediumint(8) unsigned NOT NULL auto_increment,
-					`ad` mediumint(8) NOT NULL default '0',
-					`starttime` int(15) NOT NULL default '0',
-					`stoptime` int(15) NOT NULL default '0',
-					PRIMARY KEY  (`id`),
-					INDEX `ad` (`ad`)
-				) ".$charset_collate.";";
-			dbDelta($sql);
-		}
-
-		// Upgrade tables with Indexes for faster processing
-		$wpdb->query("CREATE INDEX `ad` ON `".$tables['adrotate_stats']."` (`ad`);");
-		$wpdb->query("CREATE INDEX `ipaddress` ON `".$tables['adrotate_tracker']."` (`ipaddress`);");
-
-		// Migrate existing start / end times to new table
-		$times = $wpdb->get_results("SELECT `id`, `startshow`, `endshow` FROM ".$tables['adrotate']." ORDER BY `id` ASC;");
-		foreach($times as $time) {
-			$wpdb->query("INSERT INTO `".$tables['adrotate_schedule']."` (`ad`, `starttime`, `stoptime`) VALUES (".$time->id.", ".$time->startshow.", ".$time->endshow.");");
-		}
-
-		// Migrate existing statuses to new field
-		$states = $wpdb->get_results("SELECT `id`, `active`, `type` FROM ".$tables['adrotate']." ORDER BY `id` ASC;");
-		foreach($states as $state) {
-			if($state->active == 'yes' AND $state->type == 'manual') {
-				$wpdb->query("UPDATE `".$tables['adrotate']."` SET `type` = 'active' WHERE `active` = 'yes' AND `id` = '".$state->id."';");
-			}
-			if($state->active == 'no' AND $state->type == 'manual') {
-				$wpdb->query("UPDATE `".$tables['adrotate']."` SET `type` = 'disabled' WHERE `active` = 'no' AND `id` = '".$state->id."';");
-			}
-		}
-
-		// Remove now obsolete fields from table
-		adrotate_del_column($tables['adrotate'], 'startshow');
-		adrotate_del_column($tables['adrotate'], 'endshow');
-		adrotate_del_column($tables['adrotate'], 'active');
-	}
 
 	// Database: 	24
 	// AdRotate:	3.8b412
@@ -721,8 +658,6 @@ function adrotate_deactivate($network_wide) {
 	adrotate_remove_capability("adrotate_ad_delete");
 	adrotate_remove_capability("adrotate_group_manage");
 	adrotate_remove_capability("adrotate_group_delete");
-	adrotate_remove_capability("adrotate_block_manage");
-	adrotate_remove_capability("adrotate_block_delete");
 	adrotate_remove_capability("adrotate_moderate");
 	adrotate_remove_capability("adrotate_moderate_approve");
 
@@ -747,7 +682,7 @@ function adrotate_uninstall() {
 	$wpdb->query("DROP TABLE IF EXISTS `".$wpdb->prefix."adrotate`");
 	$wpdb->query("DROP TABLE IF EXISTS `".$wpdb->prefix."adrotate_groups`");
 	$wpdb->query("DROP TABLE IF EXISTS `".$wpdb->prefix."adrotate_tracker`");
-	$wpdb->query("DROP TABLE IF EXISTS `".$wpdb->prefix."adrotate_blocks`");
+	$wpdb->query("DROP TABLE IF EXISTS `".$wpdb->prefix."adrotate_blocks`"); // Obsolete in 3.9.10
 	$wpdb->query("DROP TABLE IF EXISTS `".$wpdb->prefix."adrotate_linkmeta`");
 	$wpdb->query("DROP TABLE IF EXISTS `".$wpdb->prefix."adrotate_stats`");
 	$wpdb->query("DROP TABLE IF EXISTS `".$wpdb->prefix."adrotate_schedule`");
@@ -772,8 +707,6 @@ function adrotate_uninstall() {
 	adrotate_remove_capability("adrotate_ad_delete");
 	adrotate_remove_capability("adrotate_group_manage");
 	adrotate_remove_capability("adrotate_group_delete");
-	adrotate_remove_capability("adrotate_block_manage");
-	adrotate_remove_capability("adrotate_block_delete");
 	adrotate_remove_capability("adrotate_moderate");
 	adrotate_remove_capability("adrotate_moderate_approve");
 	adrotate_remove_capability("adrotate_moderate_reply");
@@ -829,10 +762,9 @@ function adrotate_cleanup_database() {
 		$wpdb->query("DELETE FROM `".$wpdb->prefix."adrotate_schedule` WHERE `stoptime` < $now;");
 	}
 
-	// Delete empty ads, groups, blocks and schedules
+	// Delete empty ads, groups and schedules
 	$wpdb->query("DELETE FROM `".$wpdb->prefix."adrotate` WHERE `type` = 'empty' OR `type` = 'a_empty';");
 	$wpdb->query("DELETE FROM `".$wpdb->prefix."adrotate_groups` WHERE `name` = '';");
-	$wpdb->query("DELETE FROM `".$wpdb->prefix."adrotate_blocks` WHERE `name` = '';");
 	
 	// Clean up meta data
 	$ads = $wpdb->get_results("SELECT `id` FROM `".$wpdb->prefix."adrotate` ORDER BY `id`;");
@@ -938,7 +870,6 @@ function adrotate_list_tables() {
 		'adrotate' 					=> $wpdb->prefix . "adrotate",					// Since 0.1
 		'adrotate_groups' 			=> $wpdb->prefix . "adrotate_groups",			// Since 0.2
 		'adrotate_tracker' 			=> $wpdb->prefix . "adrotate_tracker",			// Since 2.0
-		'adrotate_blocks' 			=> $wpdb->prefix . "adrotate_blocks",			// Since 3.0
 		'adrotate_linkmeta' 		=> $wpdb->prefix . "adrotate_linkmeta",			// Since 3.0
 		'adrotate_stats' 			=> $wpdb->prefix . "adrotate_stats",			// Since 3.5 (renamed in 3.8)
 		'adrotate_schedule'		 	=> $wpdb->prefix . "adrotate_schedule",			// Since 3.6.11a1

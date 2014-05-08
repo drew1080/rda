@@ -41,14 +41,14 @@ class adrotate_widgets extends WP_Widget {
 		if($adrotate_config['w3caching'] == 'Y') echo '<!-- mfunc -->';
 		
 		if($instance['type'] == "single") {
-			if($adrotate_config['supercache'] == "Y") echo '<!--mfunc echo adrotate_ad('.$instance['id'].', true, 0, 0) -->';
-			echo adrotate_ad($instance['id'], true, 0, 0);
+			if($adrotate_config['supercache'] == "Y") echo '<!--mfunc echo adrotate_ad('.$instance['id'].', true, 0, 0, 0) -->';
+			echo adrotate_ad($instance['id'], true, 0, 0, 0);
 			if($adrotate_config['supercache'] == "Y") echo '<!--/mfunc-->';
 		}
 
 		if($instance['type'] == "group") {
-			if($adrotate_config['supercache'] == "Y") echo '<!--mfunc echo adrotate_group('.$instance['id'].', 0, 0) -->';
-			echo adrotate_group($instance['id'], 0, 0);
+			if($adrotate_config['supercache'] == "Y") echo '<!--mfunc echo adrotate_group('.$instance['id'].', 0, 0, 0) -->';
+			echo adrotate_group($instance['id'], 0, 0, 0);
 			if($adrotate_config['supercache'] == "Y") echo '<!--/mfunc-->';
 		}
 		
@@ -114,7 +114,7 @@ class adrotate_widgets extends WP_Widget {
 			<select class="widefat" id="<?php echo $this->get_field_id('type'); ?>" name="<?php echo $this->get_field_name('type'); ?>" class="postform">
 			    <option value="single" <?php if($type == "single") { echo 'selected'; } ?>><?php _e( 'Single Ad - Use Ad ID', 'adrotate' ); ?></option>
 		        <option value="group" <?php if($type == "group") { echo 'selected'; } ?>><?php _e( 'Group of Ads - Use group ID', 'adrotate' ); ?></option>
-			    <option value="block" <?php if($type == "block") { echo 'selected'; } ?>><?php _e( 'Block of Ads - Use Block ID', 'adrotate' ); ?></option>
+			    <option value="block" <?php if($type == "block") { echo 'selected'; } ?>><?php _e( 'Block of Ads (Obsolete)', 'adrotate' ); ?></option>
 			</select>
 			<br />
 			<small><?php _e( 'Choose what you want to use this widget for', 'adrotate' ); ?></small>

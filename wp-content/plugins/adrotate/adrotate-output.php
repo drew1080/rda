@@ -7,11 +7,11 @@ Copyright 2010-2014 Arnan de Gans - AJdG Solutions (email : info@ajdg.net)
  Name:      adrotate_ad
 
  Purpose:   Show requested ad
- Receive:   $banner_id, $individual, $group, $block (deprecated)
+ Receive:   $banner_id, $individual, $group, $block (obsolete), $site
  Return:    $output
  Since:		3.0
 -------------------------------------------------------------*/
-function adrotate_ad($banner_id, $individual = true, $group = 0, $block = 0) {
+function adrotate_ad($banner_id, $individual = true, $group = 0, $block = 0, $site = 0) {
 	global $wpdb, $adrotate_config, $adrotate_crawlers, $adrotate_debug;
 
 	$now 				= adrotate_now();
@@ -51,7 +51,7 @@ function adrotate_ad($banner_id, $individual = true, $group = 0, $block = 0) {
 			}
 		
 			$image = str_replace('%folder%', '/wp-content/banners/', $banner->image);		
-			$output .= adrotate_ad_output($banner->id, $group, $block, $banner->bannercode, $banner->tracker, $banner->link, $image);
+			$output .= adrotate_ad_output($banner->id, $group, $banner->bannercode, $banner->tracker, $banner->link, $image);
 
 			if($adrotate_config['enable_stats'] == 'Y') {
 				$remote_ip 	= adrotate_get_remote_ip();
@@ -93,7 +93,7 @@ function adrotate_ad($banner_id, $individual = true, $group = 0, $block = 0) {
  Return:    $output
  Since:		3.0
 -------------------------------------------------------------*/
-function adrotate_group($group_ids, $fallback = 0, $weight = 0) {
+function adrotate_group($group_ids, $fallback = 0, $weight = 0, $site = 0) {
 	global $wpdb, $adrotate_config, $adrotate_debug;
 
 	$output = $group_select = $weightoverride = '';
@@ -254,19 +254,13 @@ function adrotate_block($block_id, $weight = 0) {
 	global $wpdb, $adrotate_debug;
 
 	$output = '';
-	if($block_id) {
+	if($block_id AND $wpdb->get_var("SHOW TABLES LIKE '".$wpdb->prefix."adrotate_blocks';")) {
 		$now = adrotate_now();
 		$prefix = $wpdb->prefix;
 		
 		// Get block specs
 		$block = $wpdb->get_row($wpdb->prepare("SELECT * FROM `".$prefix."adrotate_blocks` WHERE `id` = %d;", $block_id));
 		if($block) {
-			if($adrotate_debug['general'] == true) {
-				echo "<p><strong>[DEBUG][adrotate_block()] Selected block</strong><pre>"; 
-				print_r($block); 
-				echo "</pre></p>"; 
-			}			
-
 			// Get groups in block
 			$groups = $wpdb->get_results($wpdb->prepare("SELECT `group` FROM `".$prefix."adrotate_linkmeta` WHERE `ad` = 0 AND `block` = %d AND `user` = 0;", $block->id));
 			if($groups) {
@@ -293,15 +287,6 @@ function adrotate_block($block_id, $weight = 0) {
 					unset($ads);
 				}
 
-				if($adrotate_debug['general'] == true) {
-					echo "<p><strong>[DEBUG][adrotate_block()] Groups in block</strong><pre>"; 
-					print_r($groups); 
-					echo "</pre></p>"; 
-					echo "<p><strong>[DEBUG][adrotate_block()] All ads in block</strong><pre>"; 
-					print_r($results); 
-					echo "</pre></p>"; 
-				}			
-
 				if($results) {
 					$i = 0;
 					foreach($results as $result) {
@@ -312,12 +297,6 @@ function adrotate_block($block_id, $weight = 0) {
 					}
 				}
 				
-				if($adrotate_debug['general'] == true) {
-					echo "<p><strong>[DEBUG][adrotate_block()] Reduced array based on schedule and timeframe restrictions</strong><pre>"; 
-					print_r($selected); 
-					echo "</pre></p>"; 
-				}			
-
 				$array_count = count($selected);
 
 				if($array_count > 0) {
@@ -345,17 +324,11 @@ function adrotate_block($block_id, $weight = 0) {
 						$output .= '">';
 
 						if($block->wrapper_before != '') {$output .= stripslashes(html_entity_decode($block->wrapper_before, ENT_QUOTES)); }
-						$output .= adrotate_ad($banner_id, false, 0, $block_id);
+						$output .= adrotate_ad($banner_id, false, 0, 0);
 						if($block->wrapper_after != '') { $output .= stripslashes(html_entity_decode($block->wrapper_after, ENT_QUOTES)); }
 						$output .= '</div>';
 	
 						$selected = array_diff_key($selected, array($banner_id => 0));
-
-						if($adrotate_debug['general'] == true) {
-							echo "<p><strong>[DEBUG][adrotate_block()] Selected ad (Cycle ".$i.")</strong><pre>"; 
-							echo "Selected ad: ".$banner_id."<br />";
-							echo "</pre></p>"; 
-						}			
 					}
 					$output .= '</div>';
 				} else {
@@ -367,10 +340,10 @@ function adrotate_block($block_id, $weight = 0) {
 			unset($groups, $results, $selected, $block);
 			
 		} else {
-			$output .= adrotate_error('block_not_found', array($block_id));
+			$output .= '<!-- BLOCKS ARE MERGED WITH GROUPS, SET UP A GROUP INSTEAD! -->';
 		}
 	} else {
-		$output .= adrotate_error('block_no_id');
+		$output .= '<!-- BLOCKS ARE MERGED WITH GROUPS, SET UP A GROUP INSTEAD! -->';
 	}
 
 	return $output;
@@ -400,7 +373,7 @@ function adrotate_preview($banner_id) {
 
 		if($banner) {
 			$image = str_replace('%folder%', '/wp-content/banners/', $banner->image);		
-			$output = adrotate_ad_output($banner->id, 0, 0, $banner->bannercode, $banner->tracker, $banner->link, $image);
+			$output = adrotate_ad_output($banner->id, 0, $banner->bannercode, $banner->tracker, $banner->link, $image);
 		} else {
 			$output = adrotate_error('ad_expired');
 		}
@@ -415,11 +388,11 @@ function adrotate_preview($banner_id) {
  Name:      adrotate_ad_output
 
  Purpose:   Prepare the output for viewing
- Receive:   $id, $bannercode, $tracker, $link, $image
+ Receive:   $id, $group, $bannercode, $tracker, $link, $image
  Return:    $banner_output
  Since:		3.0
 -------------------------------------------------------------*/
-function adrotate_ad_output($id, $group = 0, $block = 0, $bannercode, $tracker, $link, $image) {
+function adrotate_ad_output($id, $group = 0, $bannercode, $tracker, $link, $image) {
 	global $blog_id, $adrotate_debug, $adrotate_config;
 
 	$banner_output = $bannercode;
@@ -430,9 +403,9 @@ function adrotate_ad_output($id, $group = 0, $block = 0, $bannercode, $tracker, 
 		}
 		
 		if($adrotate_debug['track'] == true) {
-			$meta = "$id,$group,$block,0,$blog_id";
+			$meta = "$id,$group,0,$blog_id";
 		} else {
-			$meta = base64_encode("$id,$group,$block,0,$blog_id");
+			$meta = base64_encode("$id,$group,0,$blog_id");
 		}
 
 		$banner_output = str_replace('%link%', $link, $banner_output);
@@ -500,27 +473,21 @@ function adrotate_custom_head() {
 	
 	$output = "\n<!-- This site is using AdRotate v".ADROTATE_DISPLAY." to display their advertisements - http://www.adrotateplugin.com/ -->\n";
 
+	// Deprecated blocks
 	$blocks = $wpdb->get_results("SELECT `id`, `adwidth`, `adheight`, `gridpadding`, `admargin`, `adborder` FROM `".$wpdb->prefix . "adrotate_blocks` WHERE `name` != '' ORDER BY `id` ASC;");
 	if($blocks) {
-		$output .= "<!-- AdRotate CSS (Deprecated) -->\n";
-		$output .= "<style type=\"text/css\" media=\"screen\">\n";
+		$output_css = "\t/* -- (Depreciated) -- */\n";
 		foreach($blocks as $block) {
 			($block->adwidth == 'auto') ? $adwidth = 'auto' : $adwidth = $block->adwidth.'px';	
 			($block->adheight == 'auto') ? $adheight = 'auto' : $adheight = $block->adheight.'px';	
-			$output .= ".bl-".$block->id." { overflow:auto;margin:0;padding:".$block->gridpadding."px;clear:none;width:auto;height:auto; }\n";
-			$output .= ".al-".$block->id." { margin:".$block->admargin."px;clear:none;float:left;width:".$adwidth.";height:".$adheight.";border:".$block->adborder."; }\n";
+			$output_css .= "\t.bl-".$block->id." { overflow:auto;margin:0;padding:".$block->gridpadding."px;clear:none;width:auto;height:auto; }\n";
+			$output_css .= "\t.al-".$block->id." { margin:".$block->admargin."px;clear:none;float:left;width:".$adwidth.";height:".$adheight.";border:".$block->adborder."; }\n";
 			unset($block, $adwidth, $adheight);
 		}
-		$output .= ".block_left { clear:left; }\n";
-		$output .= ".block_right { clear:right; }\n";
-		$output .= ".block_both { clear:both; }\n";
-		if($adrotate_config['widgetpadding'] == "Y") { 
-			$output .= ".widget_adrotate_widgets { overflow:hidden; padding:0; }\n"; 
-		}
-		$output .= "</style>\n";
-		$output .= "<!-- /AdRotate CSS (Deprecated) -->\n\n";
+		$output_css .= "\t/* -- */\n";
 		unset($blocks);
 	}
+	// --
 
 	$groups = $wpdb->get_results("SELECT `id`, `modus`, `gridrows`, `gridcolumns`, `adwidth`, `adheight`, `admargin`, `adspeed` FROM `".$wpdb->prefix."adrotate_groups` WHERE `name` != '' AND `modus` > 0 ORDER BY `id` ASC;");
 	if($groups) {
@@ -578,34 +545,43 @@ function adrotate_custom_head() {
 		}
 
 		if($array_css) {
-			$output_css = "<!-- AdRotate CSS -->\n";
-			$output_css .= "<style type=\"text/css\" media=\"screen\">\n";
 			$output_css .= "\t.g { padding:0; position:aboslute; overflow:hidden; }\n";
 			$output_css .= "\t.b { padding:0; margin:0; overflow:hidden; clear:none; }\n";
 			$output_css .= "\t.a { clear:none; float:left; }\n";
 			foreach($array_css as $css) {
 				$output_css .= $css;
 			}
-			$output_css .= "\t.clear { clear:both; }\n";
-			$output_css .= "\t.clear_l { clear:left; }\n";
-			$output_css .= "\t.clear_r { clear:right; }\n";
-			$output_css .= "</style>\n";
-			$output_css .= "<!-- /AdRotate CSS -->\n\n";
+			$output_css .= "\t.clear, .block_both { clear:both; }\n";
+			$output_css .= "\t.clear_l, .block_left { clear:left; }\n";
+			$output_css .= "\t.clear_r, .block_right { clear:right; }\n";
 			unset($array_css);
 		}
 	}
 
-	$output .= "<!-- AdRotate JS -->\n";
-	$output .= "<script type=\"text/javascript\">\n";
-	$output .= "var tracker_url = '".plugins_url()."/".ADROTATE_FOLDER."/library/clicktracker.php';\n";
-	if(isset($output_js)) {
-		$output .= $output_js;
+	if($adrotate_config['clicktracking'] == 'Y' OR isset($output_js)) {
+		$output .= "<!-- AdRotate JS -->\n";
+		$output .= "<script type=\"text/javascript\">\n";
+		if($adrotate_config['clicktracking'] == 'Y') $output .= "var tracker_url = '".plugins_url()."/".ADROTATE_FOLDER."/library/clicktracker.php';\n";
+		if(isset($output_js)) {
+			$output .= $output_js;
+		}
+		$output .= "</script>\n";
+		$output .= "<!-- /AdRotate JS -->\n\n";
 	}
-	$output .= "</script>\n";
-	$output .= "<!-- /AdRotate JS -->\n\n";
-	if(isset($output_css)) {
-		$output .= $output_css;
+
+	if(isset($output_css) OR $adrotate_config['widgetpadding'] == "Y") {
+		$output .= "<!-- AdRotate CSS -->\n";
+		$output .= "<style type=\"text/css\" media=\"screen\">\n";
+		if(isset($output_css)) {
+			$output .= $output_css;
+		}
+		if($adrotate_config['widgetpadding'] == "Y") { 
+			$output .= ".widget_adrotate_widgets { overflow:hidden; padding:0; }\n"; 
+		}
+		$output .= "</style>\n";
+		$output .= "<!-- /AdRotate CSS -->\n\n";
 	}
+	unset($output_css, $output_js);
 
 	echo $output;
 }

@@ -25,9 +25,9 @@ if(isset($_POST['track']) OR isset($_GET['track'])) {
 	}
 	
 	$meta = esc_attr($meta);
-	list($ad, $group, $block, $remote, $blog_id) = explode(",", $meta, 5);
+	list($ad, $group, $remote, $blog_id) = explode(",", $meta, 5);
 
-	if(is_numeric($ad) AND is_numeric($group) AND is_numeric($block) AND is_numeric($remote)) {
+	if(is_numeric($ad) AND is_numeric($group) AND is_numeric($remote) AND is_numeric($blog_id)) {
 		$useragent 	= trim($_SERVER['HTTP_USER_AGENT'], ' \t\r\n\0\x0B');
 		$prefix 	= $wpdb->get_blog_prefix($blog_id);
 		$remote_ip 	= adrotate_get_remote_ip();
@@ -71,7 +71,7 @@ if(isset($_POST['track']) OR isset($_GET['track'])) {
 			$bannerurl = $wpdb->get_var("SELECT `link` FROM `".$prefix."adrotate` WHERE `id` = $ad;");
 			wp_redirect(htmlspecialchars_decode($bannerurl), 302);		
 		}
-		unset($nocrawler, $crawlers, $ip, $remote_ip, $useragent, $track, $meta, $ad, $group, $block, $remote, $bannerurl);
+		unset($nocrawler, $crawlers, $ip, $remote_ip, $useragent, $track, $meta, $ad, $group, $remote, $bannerurl);
 	}
 }
 exit();

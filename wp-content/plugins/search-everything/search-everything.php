@@ -3,12 +3,12 @@
 Plugin Name: Search Everything
 Plugin URI: http://wordpress.org/plugins/search-everything/
 Description: Adds search functionality without modifying any template pages: Activate, Configure and Search. Options Include: search highlight, search pages, excerpts, attachments, drafts, comments, tags and custom fields (metadata). Also offers the ability to exclude specific pages and posts. Does not search password-protected content.
-Version: 8.1
+Version: 8.1.1
 Author: Zemanta
 Author URI: http://www.zemanta.com
 */
 
-define('SE_VERSION', '8.1');
+define('SE_VERSION', '8.1.1');
 
 if (!defined('SE_PLUGIN_FILE'))
 	define('SE_PLUGIN_FILE', plugin_basename(__FILE__));
@@ -675,7 +675,11 @@ class SearchEverything {
 		if ( !empty( $this->query_instance->query_vars['s'] ) ) {
 			$excludedPostList = trim( $this->options['se_exclude_posts_list'] );
 			if ( $excludedPostList != '' ) {
-				$excl_list = implode( ',', explode( ',', $excludedPostList ) );
+				$excluded_post_list = array();
+				foreach(explode( ',', $excludedPostList ) as $post_id) {
+					$excluded_post_list[] = (int)$post_id;
+				}
+				$excl_list = implode( ',', $excluded_post_list);
 				$excludeQuery = ' AND ('.$wpdb->posts.'.ID NOT IN ( '.$excl_list.' ))';
 			}
 			$this->se_log( "ex posts where: ".$excludeQuery );
@@ -690,7 +694,11 @@ class SearchEverything {
 		if ( !empty( $this->query_instance->query_vars['s'] ) ) {
 			$excludedCatList = trim( $this->options['se_exclude_categories_list'] );
 			if ( $excludedCatList != '' ) {
-				$excl_list = implode( ',', explode( ',', $excludedCatList ) );
+				$excluded_cat_list = array();
+				foreach(explode( ',', $excludedCatList ) as $cat_id) {
+					$excluded_cat_list[] = (int)$cat_id;
+				}
+				$excl_list = implode( ',', $excluded_cat_list);
 				if ( $this->wp_ver23 ) {
 					$excludeQuery = " AND ( ctax.term_id NOT IN ( ".$excl_list." ))";
 				}

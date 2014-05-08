@@ -212,7 +212,6 @@ function adrotate_stats_nav($type, $id, $month, $year) {
 	
 	if($type == 'ads') $page = '&view=report&ad='.$id;
 	if($type == 'groups') $page = '&view=report&group='.$id;
-	if($type == 'blocks') $page = '&view=report&block='.$id;
 	if($type == 'global-report' OR $type == 'advertiser-report') $page = '';
 	
 	$nav = '<a href="admin.php?page=adrotate-'.$type.$page.'&month='.$lastmonth.'&year='.$lastyear.'">&lt;&lt; '.__('Previous', 'adrotate').'</a> - ';
@@ -242,10 +241,6 @@ function adrotate_stats_graph($type, $id, $chartid, $start, $end) {
 		$stats = $wpdb->get_results($wpdb->prepare("SELECT `thetime`, SUM(`clicks`) as `clicks`, SUM(`impressions`) as `impressions` FROM `".$wpdb->prefix."adrotate_stats` WHERE `group` = %d AND `thetime` >= %d AND `thetime` <= %d GROUP BY `thetime` ASC;", $id, $start, $end), ARRAY_A);
 	}
 
-	if($type == 'blocks') {
-		$stats = $wpdb->get_results($wpdb->prepare("SELECT `thetime`, SUM(`clicks`) as `clicks`, SUM(`impressions`) as `impressions` FROM `".$wpdb->prefix."adrotate_stats` WHERE `block` = %d AND `thetime` >= %d AND `thetime` <= %d GROUP BY `thetime` ASC;", $id, $start, $end), ARRAY_A);
-	}
-	
 	if($type == 'global-report') {
 		$stats = $wpdb->get_results($wpdb->prepare("SELECT `thetime`, SUM(`clicks`) as `clicks`, SUM(`impressions`) as `impressions` FROM `".$wpdb->prefix."adrotate_stats` WHERE `thetime` >= %d AND `thetime` <= %d GROUP BY `thetime` ASC;", $start, $end), ARRAY_A);
 	}

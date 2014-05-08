@@ -18,14 +18,14 @@ Copyright 2010-2014 Arnan de Gans - AJdG Solutions (email : info@ajdg.net)
 
 $edit_banner = $wpdb->get_row("SELECT * FROM `".$wpdb->prefix."adrotate` WHERE `id` = '$ad_edit_id';");
 $groups	= $wpdb->get_results("SELECT * FROM `".$wpdb->prefix."adrotate_groups` WHERE `name` != '' ORDER BY `id` ASC;"); 
-$schedules = $wpdb->get_results("SELECT `starttime`, `stoptime`, `maxclicks`, `maximpressions` FROM `".$wpdb->prefix."adrotate_schedule`, `".$wpdb->prefix."adrotate_linkmeta` WHERE `ad` = '$ad_edit_id' AND `schedule` = `".$wpdb->prefix."adrotate_schedule`.`id` ORDER BY `".$wpdb->prefix."adrotate_schedule`.`id` ASC LIMIT 1;");
-$linkmeta = $wpdb->get_results("SELECT `group` FROM `".$wpdb->prefix."adrotate_linkmeta` WHERE `ad` = '$edit_banner->id' AND `block` = 0 AND `user` = 0;");
+$schedules = $wpdb->get_row("SELECT `".$wpdb->prefix."adrotate_schedule`.`id`, `starttime`, `stoptime`, `maxclicks`, `maximpressions` FROM `".$wpdb->prefix."adrotate_schedule`, `".$wpdb->prefix."adrotate_linkmeta` WHERE `ad` = $edit_banner->id AND `group` = 0 AND `block` = 0 AND `user` = 0 AND `schedule` = `".$wpdb->prefix."adrotate_schedule`.`id` ORDER BY `".$wpdb->prefix."adrotate_schedule`.`id` ASC LIMIT 1;");
+$linkmeta = $wpdb->get_results("SELECT `group` FROM `".$wpdb->prefix."adrotate_linkmeta` WHERE `ad` = '$edit_banner->id' AND `block` = 0 AND `user` = 0 AND `schedule` = 0;");
 
 wp_enqueue_media();
 wp_enqueue_script('uploader-hook', WP_PLUGIN_URL.'/'.ADROTATE_FOLDER.'/library/uploader-hook.js', array('jquery'));
 
-list($sday, $smonth, $syear, $shour, $sminute) = explode(" ", date("d m Y H i", $schedules[0]->starttime));
-list($eday, $emonth, $eyear, $ehour, $eminute) = explode(" ", date("d m Y H i", $schedules[0]->stoptime));
+list($sday, $smonth, $syear, $shour, $sminute) = explode(" ", date("d m Y H i", $schedules->starttime));
+list($eday, $emonth, $eyear, $ehour, $eminute) = explode(" ", date("d m Y H i", $schedules->stoptime));
 
 $meta_array = '';
 foreach($linkmeta as $meta) {
@@ -35,9 +35,9 @@ foreach($linkmeta as $meta) {
 if(!is_array($meta_array)) $meta_array = array();
 
 if($adrotate_debug['track'] == true) {
-	$trackmeta = "$edit_banner->id,0,0,1";
+	$trackmeta = "$edit_banner->id,0,1,0";
 } else {
-	$trackmeta = base64_encode("$edit_banner->id,0,0,1");
+	$trackmeta = base64_encode("$edit_banner->id,0,1,0");
 }
 
 if($ad_edit_id) {
@@ -54,10 +54,10 @@ if($ad_edit_id) {
 		
 		if((($edit_banner->imagetype != '' AND $edit_banner->image == '') OR ($edit_banner->imagetype == '' AND $edit_banner->image != ''))) 
 			echo '<div class="error"><p>'. __('There is a problem saving the image specification. Please reset your image and re-save the ad!', 'adrotate').'</p></div>';
-		
-		if((($edit_banner->crate > 0 AND $edit_banner->cbudget < 1) OR ($edit_banner->irate > 0 AND $edit_banner->ibudget < 1))) 
-			echo '<div class="error"><p>'. __('This advert has run out of budget. Add more budget to the advert or reset the rate to zero!', 'adrotate').'</p></div>';
-		
+
+		if(!preg_match_all('/<a[^>](.*?)>/i', stripslashes(htmlspecialchars_decode($edit_banner->bannercode, ENT_QUOTES)), $things) AND $edit_banner->tracker == 'Y')
+			echo '<div class="error"><p>'. __("Click tracking is enabled but no valid link was found in the adcode!", 'adrotate').'</p></div>';
+
 		// Ad Notices
 		$adstate = adrotate_evaluate_ad($edit_banner->id);
 		if($edit_banner->type == 'error' AND $adstate == 'normal')
@@ -95,6 +95,7 @@ if($edit_banner->imagetype == "field") {
 	<input type="hidden" name="adrotate_username" value="<?php echo $userdata->user_login;?>" />
 	<input type="hidden" name="adrotate_id" value="<?php echo $edit_banner->id;?>" />
 	<input type="hidden" name="adrotate_type" value="<?php echo $edit_banner->type;?>" />
+	<input type="hidden" name="adrotate_schedule" value="<?php echo $schedules->id;?>" />
 
 	<?php if($edit_banner->type == 'empty') { ?>
 		<h3><?php _e('New Advert', 'adrotate'); ?></h3>
@@ -291,18 +292,6 @@ if($edit_banner->imagetype == "field") {
 		        </label>
 			</td>
       	</tr>
-      	<tr>
-	        <th width="15%">Ad Click Rate:</th>
-	        <td><label for="adrotate_crate"><input tabindex="16" name="adrotate_crate" type="text" size="5" class="search-input" autocomplete="off" value="0.5" disabled="disabled"> <em>Cost per click</em></label></td>
-	        <th width="15%">Ad Impression Rate:</th>
-	        <td><label for="adrotate_irate"><input tabindex="17" name="adrotate_irate" type="text" size="5" class="search-input" autocomplete="off" value="0.001" disabled="disabled"> <em>Cost per impression</em></label></td>
-      	</tr>
-      	<tr>
-	        <th width="15%">Ad Click Budget:</th>
-	        <td><label for="adrotate_cbudget"><input tabindex="18" name="adrotate_cbudget" type="text" size="5" class="search-input" autocomplete="off" value="4095" disabled="disabled"></label></td>
-	        <th width="15%">Ad Impression Budget:</th>
-	        <td><label for="adrotate_ibudget"><input tabindex="19" name="adrotate_ibudget" type="text" size="5" class="search-input" autocomplete="off" value="3032" disabled="disabled"></label></td>
-      	</tr>
       	</tbody>
 	</table>
 
@@ -395,9 +384,9 @@ if($edit_banner->imagetype == "field") {
 		<?php if($adrotate_config['enable_stats'] == 'Y') { ?>
       	<tr>
       		<th><?php _e('Maximum Clicks:', 'adrotate'); ?></th>
-	        <td><input tabindex="21" name="adrotate_maxclicks" type="text" size="5" class="search-input" autocomplete="off" value="<?php echo $schedules[0]->maxclicks;?>" /> <em><?php _e('Leave empty or 0 to skip this.', 'adrotate'); ?></em></td>
+	        <td><input tabindex="21" name="adrotate_maxclicks" type="text" size="5" class="search-input" autocomplete="off" value="<?php echo $schedules->maxclicks;?>" /> <em><?php _e('Leave empty or 0 to skip this.', 'adrotate'); ?></em></td>
 		    <th><?php _e('Maximum Impressions:', 'adrotate'); ?></th>
-	        <td><input tabindex="22" name="adrotate_maxshown" type="text" size="5" class="search-input" autocomplete="off" value="<?php echo $schedules[0]->maximpressions;?>" /> <em><?php _e('Leave empty or 0 to skip this.', 'adrotate'); ?></em></td>
+	        <td><input tabindex="22" name="adrotate_maxshown" type="text" size="5" class="search-input" autocomplete="off" value="<?php echo $schedules->maximpressions;?>" /> <em><?php _e('Leave empty or 0 to skip this.', 'adrotate'); ?></em></td>
 		</tr>
 		<?php } ?>
       	<tr>

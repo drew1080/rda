@@ -88,27 +88,27 @@ function adrotate_filter_schedule($selected, $banner) {
 	// Get schedules for advert
 	$schedules = $wpdb->get_results("SELECT `".$prefix."adrotate_schedule`.`id`, `starttime`, `stoptime`, `maxclicks`, `maximpressions` FROM `".$prefix."adrotate_schedule`, `".$prefix."adrotate_linkmeta` WHERE `schedule` = `".$prefix."adrotate_schedule`.`id` AND `ad` = '".$banner->id."' ORDER BY `starttime` ASC LIMIT 1;");
 
+	$schedule = $schedules[0];
+	
 	$current = array();
-	foreach($schedules as $schedule) {	
-		if($schedule->starttime > $now OR $schedule->stoptime < $now) {
-			$current[] = 0;
-		} else {
-			$current[] = 1;
-			if($adrotate_config['enable_stats'] == 'Y') {
-				$stat = adrotate_stats($banner->id, $schedule->starttime, $schedule->stoptime);
-	
-				if($adrotate_debug['general'] == true) {
-					echo "<p><strong>[DEBUG][adrotate_filter_schedule] Ad ".$banner->id." - Schedule (id: ".$schedule->id.")</strong><pre>";
-					echo "<br />Start: ".$schedule->starttime." (".date("F j, Y, g:i a", $schedule->starttime).")";
-					echo "<br />End: ".$schedule->stoptime." (".date("F j, Y, g:i a", $schedule->stoptime).")";
-					echo "<br />Clicks this period: ".$stat['clicks'];
-					echo "<br />Impressions this period: ".$stat['impressions'];
-					echo "</pre></p>";
-				}
-	
-				if($stat['clicks'] >= $schedule->maxclicks AND $schedule->maxclicks > 0 AND $banner->tracker == "Y") $selected = array_diff_key($selected, array($banner->id => 0));
-				if($stat['impressions'] >= $schedule->maximpressions AND $schedule->maximpressions > 0) $selected = array_diff_key($selected, array($banner->id => 0));
+	if($schedule->starttime > $now OR $schedule->stoptime < $now) {
+		$current[] = 0;
+	} else {
+		$current[] = 1;
+		if($adrotate_config['enable_stats'] == 'Y') {
+			$stat = adrotate_stats($banner->id, $schedule->starttime, $schedule->stoptime);
+
+			if($adrotate_debug['general'] == true) {
+				echo "<p><strong>[DEBUG][adrotate_filter_schedule] Ad ".$banner->id." - Schedule (id: ".$schedule->id.")</strong><pre>";
+				echo "<br />Start: ".$schedule->starttime." (".date("F j, Y, g:i a", $schedule->starttime).")";
+				echo "<br />End: ".$schedule->stoptime." (".date("F j, Y, g:i a", $schedule->stoptime).")";
+				echo "<br />Clicks this period: ".$stat['clicks'];
+				echo "<br />Impressions this period: ".$stat['impressions'];
+				echo "</pre></p>";
 			}
+
+			if($stat['clicks'] >= $schedule->maxclicks AND $schedule->maxclicks > 0 AND $banner->tracker == "Y") $selected = array_diff_key($selected, array($banner->id => 0));
+			if($stat['impressions'] >= $schedule->maximpressions AND $schedule->maximpressions > 0) $selected = array_diff_key($selected, array($banner->id => 0));
 		}
 	}
 	
@@ -353,22 +353,25 @@ function adrotate_evaluate_ad($ad_id) {
 
 	// Determine error states
 	if(
-		strlen($ad->bannercode) < 1 																	// AdCode empty
-		OR ($ad->tracker == 'N' AND strlen($ad->link) < 1 AND $advertiser > 0) 							// Didn't enable click-tracking, didn't provide a link, DID set a advertiser
-		OR (!preg_match("/%image%/i", $ad->bannercode) AND $ad->image != '' AND $ad->imagetype != '')	// Didn't use %image% but selected an image
-		OR (preg_match("/%image%/i", $ad->bannercode) AND $ad->image == '' AND $ad->imagetype == '')	// Did use %image% but didn't select an image
-		OR ($ad->image == '' AND $ad->imagetype != '')													// Image and Imagetype mismatch
+		strlen($ad->bannercode) < 1 // AdCode empty
+		OR ($ad->tracker == 'N' AND $advertiser > 0) // Didn't enable click-tracking, didn't provide a link, DID set a advertiser
+		OR (!preg_match_all('/<a[^>](.*?)>/i', stripslashes(htmlspecialchars_decode($ad->bannercode, ENT_QUOTES)), $things) AND $ad->tracker == 'Y') // Clicktracking active but no valid link present
+		OR (!preg_match("/%image%/i", $ad->bannercode) AND $ad->image != '' AND $ad->imagetype != '') // Didn't use %image% but selected an image
+		OR (preg_match("/%image%/i", $ad->bannercode) AND $ad->image == '' AND $ad->imagetype == '') // Did use %image% but didn't select an image
+		OR ($ad->image == '' AND $ad->imagetype != '') // Image and Imagetype mismatch
 	) {
 		return 'error';
 	} else if(
-		$stoptime <= $now 																				// Past the enddate
-		OR ($ad->crate > 0 AND $ad->cbudget < 1)														// Ad ran out of of click budget
-		OR ($ad->irate > 0 AND $ad->ibudget < 1)														// Ad ran out of of impression budget
+		$stoptime <= $now // Past the enddate
 	){
 		return 'expired';
-	} else if($stoptime <= $in2days AND $stoptime >= $now){												// Expires in 2 days
+	} else if(
+		$stoptime <= $in2days AND $stoptime >= $now // Expires in 2 days
+	){
 		return '2days';
-	} else if($stoptime <= $in7days AND $stoptime >= $now){												// Expires in 7 days
+	} else if(
+		$stoptime <= $in7days AND $stoptime >= $now	// Expires in 7 days
+	){
 		return '7days';
 	} else {
 		return 'active';
@@ -679,31 +682,6 @@ function adrotate_return($action, $arg = null) {
 
 		case "group_delete_banners" :
 			wp_redirect('admin.php?page=adrotate-groups&message=deleted_banners');
-		break;
-
-		// Blocks
-		case "block_new" :
-			wp_redirect('admin.php?page=adrotate-blocks&message=created');
-		break;
-
-		case "block_edit" :
-			wp_redirect('admin.php?page=adrotate-blocks&view=edit&message=updated&block='.$arg[0]);
-		break;
-
-		case "block_delete" :
-			wp_redirect('admin.php?page=adrotate-blocks&message=deleted');
-		break;
-
-		case "block_template_new" :
-			wp_redirect('admin.php?page=adrotate-blocks&view=templates&message=created_template');
-		break;
-
-		case "block_template_edit" :
-			wp_redirect('admin.php?page=adrotate-blocks&view=templates&message=edit_template');
-		break;
-
-		case "block_template_delete" :
-			wp_redirect('admin.php?page=adrotate-blocks&view=templates&message=deleted_template');
 		break;
 
 		// Settings
