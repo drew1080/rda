@@ -13,36 +13,6 @@ Template:       fruitful
   clear: both;
 }
 
-/* START Change Hightlights to use RDA color orange 
-body a:hover, 
-body a:focus, 
-body a:active {
-  color: #d55f31;
-}
-
-body .main-navigation ul li.current_page_item a,
-body .main-navigation ul li.current-menu-item a,
-body .main-navigation ul li.current-menu-parent a,
-body .main-navigation ul li.current_page_parent a,
-body .main-navigation ul li.current-menu-ancestor a {
-    background:none repeat scroll 0 0 #d55f31;
-}
-
-body .main-navigation ul li:hover > a {
-  background: none repeat scroll 0 0 #d55f31;
-}
-
-body #page .container #secondary .widget h3.widget-title, 
-body #page .container #secondary .widget h1.widget-title {
-  border-bottom: 2px solid #d55f31;
-}
-*/
-
-/* Tagline */
-/*.header-tagline p {
-  margin: 0px;
-}*/
-
 /* Remove News Hightlight on Calendar Page */
 .events-list .main-navigation ul li.current_page_parent.menu-item-12490 a {
   background-color: #ffffff;
@@ -99,6 +69,10 @@ body #page input[type="submit"]:hover {
   margin: 37px 0 0 0;
 }
 
+.main-navigation li {
+  margin: 0 0 0 5px;
+}
+
 ol.hfeed.vcalendar {
   margin: 0px;
 }
@@ -153,6 +127,36 @@ div.header-search {
   background-position: -405px 0;
 }
 
+.tribe-events-sub-nav li a {
+  background: none; 
+}
+
+#commentform .comment-form-subscriptions label {
+  width: 100%;
+}
+
+#page .info_box_area .four.columns.info_box img.icon {
+  max-width: 220px;
+}
+
+.container .one-third.column:hover {
+  background: #d55f31;
+  color: #fff;
+}
+
+.container .four.columns:hover {
+  background: #d55f31;
+  color: #fff;
+}
+
+.container .one-third.column:hover .infobox_title {
+  color: #fff;
+}
+
+#page .info_box_area .four.columns.info_box .infobox_title {
+  font-size: 17px !important;
+}
+
 @media only screen and (max-width: 767px) {  
   input#s {
     width: 382px;
@@ -177,10 +181,42 @@ div.header-search {
     width: 120px;
     margin: 0 auto;
   }
+  
+  .home img.aligncenter.wp-image-12656 {
+    width: 100%;
+  }
+  
+  input#s {
+    width: 374px;
+  }
+  
+  #page .container #secondary .widget a {
+    font-size: 22px;
+    line-height: 34px;
+    text-align: center;
+  }
+  
+  #page .container #secondary .widget {
+    text-align: center;
+  }
+  
+  aside#text-6 {
+    display: none;
+  }
+  
+  #page .container #secondary .widget ul li.cat-item {
+    background: none; 
+    padding: 0;
+  }
+  
+  #page .container #secondary .widget ul li.cat-item:hover {
+    background: none;
+    padding: 0;
+  }
 }
 
 @media only screen and (max-width: 479px) {
   input#s {
-    width: 260px;
+    width: 254px;
   }
 }
