@@ -1,5 +1,12 @@
 <?php
 
+//SHORTCODES
+
+function full_width_content_shortcode( $atts, $content = null ) {
+	return '<div class="full-width-content">' . $content . '</span>';
+}
+add_shortcode( 'full_width_content', 'full_width_content_shortcode' );
+
 //Custom Theme Settings
 add_action('admin_menu', 'add_gcf_interface');
 
@@ -26,6 +33,131 @@ function editglobalcustomfields() {
 	</div>
 	<?php
 }
+
+
+// Add, ADD USER Capacility for Editors
+// function add_theme_caps() {
+//   // let editor manage users
+//   $edit_editor = get_role('editor');
+//   $edit_editor->add_cap('edit_user');
+//   // 
+//   // $edit_editor = get_role('editor'); // Get the user role
+//   // $edit_editor->add_cap('list_users'); 
+//   // $edit_editor->add_cap('create_users');
+//   // $edit_editor->add_cap('delete_users');
+// }
+// add_action( 'admin_init', 'add_theme_caps');
+// 
+function mc_admin_users_caps( $caps, $cap, $user_id, $args ){
+
+  foreach( $caps as $key => $capability ){
+
+    if( $capability != 'do_not_allow' )
+      continue;
+
+    switch( $cap ) {
+      case 'edit_user':
+      case 'edit_users':
+        $caps[$key] = 'edit_users';
+        break;
+      case 'delete_user':
+      case 'delete_users':
+        $caps[$key] = 'delete_users';
+        break;
+      case 'create_users':
+        $caps[$key] = $cap;
+        break;
+    }
+  }
+
+  return $caps;
+}
+add_filter( 'map_meta_cap', 'mc_admin_users_caps', 1, 4 );
+remove_all_filters( 'enable_edit_any_user_configuration' );
+add_filter( 'enable_edit_any_user_configuration', '__return_true');
+
+/**
+ * Checks that both the editing user and the user being edited are
+ * members of the blog and prevents the super admin being edited.
+ */
+function mc_edit_permission_check() {
+  global $current_user, $profileuser;
+
+  $screen = get_current_screen();
+
+  get_currentuserinfo();
+
+  if( $screen->base == 'user-edit' || $screen->base == 'user-edit-network' ) { // editing a user profile
+    if ( ! is_super_admin( $current_user->ID ) && is_super_admin( $profileuser->ID ) ) { // trying to edit a superadmin while less than a superadmin
+      wp_die( __( 'You do not have permission to edit this user.' ) );
+    } elseif ( ! ( is_user_member_of_blog( $profileuser->ID, get_current_blog_id() ) && is_user_member_of_blog( $current_user->ID, get_current_blog_id() ) )) { // editing user and edited user aren't members of the same blog
+      wp_die( __( 'You do not have permission to edit this user.' ) );
+    }
+  }
+
+}
+add_filter( 'admin_head', 'mc_edit_permission_check', 1, 4 );
+
+// PREVENT EDITORS FROM ADDING ADMIN's
+class JPB_User_Caps {
+
+  // Add our filters
+  function JPB_User_Caps(){
+    add_filter( 'editable_roles', array(&$this, 'editable_roles'));
+    add_filter( 'map_meta_cap', array(&$this, 'map_meta_cap'),10,4);
+  }
+
+  // Remove 'Administrator' from the list of roles if the current user is not an admin
+  function editable_roles( $roles ){
+    if( isset( $roles['administrator'] ) && !current_user_can('administrator') ){
+      unset( $roles['administrator']);
+    }
+    return $roles;
+  }
+
+  // If someone is trying to edit or delete and admin and that user isn't an admin, don't allow it
+  function map_meta_cap( $caps, $cap, $user_id, $args ){
+
+    switch( $cap ){
+        case 'edit_user':
+        case 'remove_user':
+        case 'promote_user':
+            if( isset($args[0]) && $args[0] == $user_id )
+                break;
+            elseif( !isset($args[0]) )
+                $caps[] = 'do_not_allow';
+            $other = new WP_User( absint($args[0]) );
+            if( $other->has_cap( 'administrator' ) ){
+                if(!current_user_can('administrator')){
+                    $caps[] = 'do_not_allow';
+                }
+            }
+            break;
+        case 'delete_user':
+        case 'delete_users':
+            if( !isset($args[0]) )
+                break;
+            $other = new WP_User( absint($args[0]) );
+            if( $other->has_cap( 'administrator' ) ){
+                if(!current_user_can('administrator')){
+                    $caps[] = 'do_not_allow';
+                }
+            }
+            break;
+        default:
+            break;
+    }
+    return $caps;
+  }
+
+}
+
+$jpb_user_caps = new JPB_User_Caps();
+
+// $edit_editor = get_role('editor'); // Get the user role
+// $edit_editor->add_cap('list_users'); 
+// $edit_editor->add_cap('create_users');
+// $edit_editor->add_cap('delete_users');
 
  // echo "ADMIN:" . is_super_admin(36);
  // echo "GRANT:" . grant_super_admin(36);

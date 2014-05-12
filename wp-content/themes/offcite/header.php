@@ -21,6 +21,12 @@ try {
 </head>
 <body <?php body_class(); ?>>
 <div class="container">
+<div id="right"> 
+    <ul id="sidebar">
+    <?php if ( ! dynamic_sidebar('Left Offcite Sidebar') ) : ?>
+    <?php endif; ?>
+    </ul>
+</div>
 <div id="center">
     <div id="header">
             <h3 id="rdalink"><a href="http://ricedesignalliance.org" title="Rice Design Alliance">Rice Design Alliance</a></h3>
