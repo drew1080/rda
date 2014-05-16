@@ -29,7 +29,7 @@ try {
 </div>
 <div id="center">
     <div id="header">
-            <h3 id="rdalink"><a href="http://ricedesignalliance.org" title="Rice Design Alliance">Rice Design Alliance</a></h3>
+            <!-- <h3 id="rdalink"><a href="http://ricedesignalliance.org" title="Rice Design Alliance">Rice Design Alliance</a></h3> -->
 			<?php 
 				if ( function_exists( 'wp_nav_menu' ) ) {
 					wp_nav_menu( 'theme_location=primary&container=false&menu_id=headernavigation' );

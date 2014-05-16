@@ -2121,7 +2121,20 @@ ul#sidebar {
   height: 480px;
 }
 
-/* TODO: TESTING WIDTH */
-/*img.attachment-post-thumbnail.wp-post-image {
+div#content div.page div.pagecontent {
+  padding: 0 0 0 27px;
   width: 640px;
-}*/
+}
+
+div#content div.page div.pagecontent p {
+  font-size: 13px;
+  line-height: 20px;
+}
+
+div#header h1#logo a {
+	width: 100%;
+}
+
+div#header {
+  height: 102px;
+}

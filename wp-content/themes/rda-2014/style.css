@@ -127,11 +127,19 @@ div.header-search {
   background-position: -405px 0;
 }
 
+#colophon .social-icon a.rss {
+  background-position: -156px 0;
+}
+
 .tribe-events-sub-nav li a {
   background: none; 
 }
 
 #commentform .comment-form-subscriptions label {
+  width: 100%;
+}
+
+#commentform #mc4wp-checkbox label {
   width: 100%;
 }
 
@@ -162,10 +170,33 @@ div.header-search {
   max-width: inherit;
 }
 
+#page .container header .header-hgroup.left-pos {
+  margin: 0 8px 0 0;
+}
+
+.gallery .gallery-item .gallery-icon a {
+  width: 150px;
+}
+
 @media only screen and (max-width: 960px) {  
   .full-width-content {
     margin-left: 0px;
     max-width: inherit;
+  }
+  
+  #page .container header .header-hgroup.left-pos a {
+    text-align: center;
+    display: block;
+    float: none;
+  }
+  
+  #page .container header .header-hgroup.left-pos {
+    float: none;
+    margin: 0px;
+  }
+  
+  #page .container header .menu-wrapper.right-pos {
+    float: none;
   }
 }
 

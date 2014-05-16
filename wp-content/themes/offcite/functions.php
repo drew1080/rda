@@ -12,7 +12,7 @@ $offcite_includes_path = TEMPLATEPATH . '/includes/';
  * is designed for, generally via the style.css stylesheet.
  */
 if ( ! isset( $content_width ) )
-	$content_width = 522;
+	$content_width = 640;
 	
 /*
 	Tell WordPress to run offcite_theme_setup() when the 'after_setup_theme' hook is run.
