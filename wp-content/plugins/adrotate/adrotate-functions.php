@@ -449,6 +449,24 @@ function adrotate_head() {
 }   
 
 /*-------------------------------------------------------------
+ Name:      adrotate_clicktrack_hash
+
+ Purpose:   Generate the adverts clicktracking hash
+ Receive:   $ad, $group, $remote, $blog_id
+ Return:    $result
+ Since:		3.9.12
+-------------------------------------------------------------*/
+function adrotate_clicktrack_hash($ad, $group = 0, $remote = 0, $blog_id = 0) {
+	global $adrotate_debug;
+	
+	if($adrotate_debug['track'] == true) {
+		return "$ad,$group,$remote,$blog_id";
+	} else {
+		return base64_encode("$ad,$group,$remote,$blog_id");
+	}
+}
+
+/*-------------------------------------------------------------
  Name:      adrotate_get_remote_ip
 
  Purpose:   Get the remote IP from the visitor

@@ -109,7 +109,7 @@ function adrotate_insert_input() {
 				else $tracker = 'N';
 	
 			// Format the URL (assume http://)
-			if((strlen($link) > 0 OR $link != "") AND stristr($link, "http://") === false AND stristr($link, "https://") === false) $link = "http://".$link;
+			if((strlen($link) > 0 OR $link != "") AND stristr($link, "http://") === false AND stristr($link, "https://") === false) $link = "//".$link;
 			
 			// Determine image settings ($image_field has priority!)
 			if(strlen($image_field) > 1) {
@@ -217,11 +217,13 @@ function adrotate_insert_group() {
 		if(isset($_POST['adselect'])) $ads = $_POST['adselect'];
 		if(isset($_POST['adrotate_sortorder'])) $sortorder = strip_tags(htmlspecialchars(trim($_POST['adrotate_sortorder'], "\t\n "), ENT_QUOTES));
 
-		$categories = $category_loc = $pages = $page_loc = '';
+		$categories = $category_loc = $category_par = $pages = $page_loc = $page_par = '';
 		if(isset($_POST['adrotate_categories'])) $categories = $_POST['adrotate_categories'];
 		if(isset($_POST['adrotate_cat_location'])) $category_loc = $_POST['adrotate_cat_location'];
+		if(isset($_POST['adrotate_cat_paragraph'])) $category_par = $_POST['adrotate_cat_paragraph'];
 		if(isset($_POST['adrotate_pages'])) $pages = $_POST['adrotate_pages'];
 		if(isset($_POST['adrotate_page_location'])) $page_loc = $_POST['adrotate_page_location'];
+		if(isset($_POST['adrotate_page_paragraph'])) $page_par = $_POST['adrotate_page_paragraph'];
 
 		$wrapper_before = $wrapper_after = '';
 		if(isset($_POST['adrotate_wrapper_before'])) $wrapper_before = trim($_POST['adrotate_wrapper_before'], "\t\n ");
@@ -251,7 +253,8 @@ function adrotate_insert_group() {
 			}
 			$category = trim($category, ',');
 			if(strlen($category) < 1) $category = '';
-			if($category_loc < 0 OR $category_loc > 3) $category_loc = 0;
+			if($category_loc < 0 OR $category_loc > 3 OR $category_par > 0) $category_loc = 0;
+			if($category_par < 0 OR $category_par > 4 OR $category_loc != 4) $category_par = 0;
 	
 			// Pages
 			if(!is_array($pages)) $pages = array();
@@ -261,7 +264,8 @@ function adrotate_insert_group() {
 			}
 			$page = trim($page, ',');
 			if(strlen($page) < 1) $page = '';
-			if($page_loc < 0 OR $page_loc > 3) $page_loc = 0;
+			if($page_loc < 0 OR $page_loc > 3 OR $page_par > 0) $page_loc = 0;
+			if($page_par < 0 OR $page_par > 4 OR $page_loc != 4) $page_par = 0;
 	
 			if(empty($meta_array)) $meta_array = array();
 			if(empty($ads)) $ads = array();
@@ -287,7 +291,7 @@ function adrotate_insert_group() {
 			unset($value);
 	
 			// Update the group itself
-			$wpdb->update($wpdb->prefix.'adrotate_groups', array('name' => $name, 'modus' => $modus, 'fallback' => $fallback, 'sortorder' => $sortorder, 'cat' => $category, 'cat_loc' => $category_loc, 'page' => $page, 'page_loc' => $page_loc, 'wrapper_before' => $wrapper_before, 'wrapper_after' => $wrapper_after, 'gridrows' => $rows, 'gridcolumns' => $columns, 'admargin' => $admargin, 'adwidth' => $adwidth, 'adheight' => $adheight, 'adspeed' => $adspeed), array('id' => $id));
+			$wpdb->update($wpdb->prefix.'adrotate_groups', array('name' => $name, 'modus' => $modus, 'fallback' => $fallback, 'sortorder' => $sortorder, 'cat' => $category, 'cat_loc' => $category_loc, 'cat_par' => $category_par, 'page' => $page, 'page_loc' => $page_loc, 'page_par' => $page_par, 'wrapper_before' => $wrapper_before, 'wrapper_after' => $wrapper_after, 'gridrows' => $rows, 'gridcolumns' => $columns, 'admargin' => $admargin, 'adwidth' => $adwidth, 'adheight' => $adheight, 'adspeed' => $adspeed), array('id' => $id));
 			adrotate_return($action, array($id));
 			exit;
 		} else {
@@ -559,12 +563,20 @@ function adrotate_options_submit() {
 		$config['notification_email'] = array();
 		$config['advertiser_email'] = array();
 	
-		// Set up impression tracker timer
+		// Set up impression timer
 		$impression_timer = trim($_POST['adrotate_impression_timer']);
 		if(strlen($impression_timer) > 0 AND (is_numeric($impression_timer) AND $impression_timer >= 0 AND $impression_timer <= 3600)) {
 			$config['impression_timer'] = $impression_timer;
 		} else {
 			$config['impression_timer'] = 10;
+		}
+	
+		// Set up click timer
+		$click_timer = trim($_POST['adrotate_click_timer']);
+		if(strlen($click_timer) > 0 AND (is_numeric($click_timer) AND $click_timer >= 0 AND $click_timer <= 86400)) {
+			$config['click_timer'] = $click_timer;
+		} else {
+			$config['click_timer'] = 86400;
 		}
 	
 		// Miscellaneous Options

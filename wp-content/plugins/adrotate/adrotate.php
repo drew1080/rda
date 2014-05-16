@@ -4,7 +4,7 @@ Plugin Name: AdRotate
 Plugin URI: http://www.adrotateplugin.com
 Description: The very best and most convenient way to publish your ads.
 Author: Arnan de Gans of AJdG Solutions
-Version: 3.9.11
+Version: 3.9.13
 Author URI: http://www.ajdg.net
 License: GPLv3
 */
@@ -14,10 +14,9 @@ Copyright 2010-2014 Arnan de Gans - AJdG Solutions (email : info@ajdg.net)
 */
 
 /*--- AdRotate values ---------------------------------------*/
-define("ADROTATE_BETA", '');
-define("ADROTATE_DISPLAY", '3.9.11');
+define("ADROTATE_DISPLAY", '3.9.13');
 define("ADROTATE_VERSION", 371);
-define("ADROTATE_DB_VERSION", 40);
+define("ADROTATE_DB_VERSION", 41);
 define("ADROTATE_FOLDER", 'adrotate');
 /*-----------------------------------------------------------*/
 
@@ -95,7 +94,6 @@ function adrotate_dashboard() {
 	add_submenu_page('adrotate', 'AdRotate > '.__('General Info', 'adrotate'), __('General Info', 'adrotate'), 'adrotate_ad_manage', 'adrotate', 'adrotate_info');
 	add_submenu_page('adrotate', 'AdRotate > '.__('Manage Ads', 'adrotate'), __('Manage Ads', 'adrotate'), 'adrotate_ad_manage', 'adrotate-ads', 'adrotate_manage');
 	add_submenu_page('adrotate', 'AdRotate > '.__('Manage Groups', 'adrotate'), __('Manage Groups', 'adrotate'), 'adrotate_group_manage', 'adrotate-groups', 'adrotate_manage_group');
-	add_submenu_page('adrotate', 'AdRotate > '.__('Moderate', 'adrotate'), __('Moderate Adverts', 'adrotate'), 'manage_options', 'adrotate-moderate', 'adrotate_moderate');
 	add_submenu_page('adrotate', 'AdRotate > '.__('Global Reports', 'adrotate'), __('Global Reports', 'adrotate'), 'manage_options', 'adrotate-global-report', 'adrotate_global_report');
 	add_submenu_page('adrotate', 'AdRotate > '.__('Settings', 'adrotate'), __('Settings', 'adrotate'), 'manage_options', 'adrotate-settings', 'adrotate_options');
 }
@@ -371,63 +369,6 @@ function adrotate_manage_group() {
 }
 
 /*-------------------------------------------------------------
- Name:      adrotate_moderate
-
- Purpose:   Moderation queue
- Receive:   -none-
- Return:    -none-
--------------------------------------------------------------*/
-function adrotate_moderate() {
-?>
-	<div class="wrap">
-		<h2><?php _e('Moderation queue', 'adrotate'); ?></h2>
-
-		<div class="tablenav">
-			<div class="alignleft actions">
-				<select name="adrotate_action" id="cat" class="postform" disabled>
-			        <option value=""><?php _e('Bulk Actions', 'adrotate'); ?></option>
-			        <option value="approve"><?php _e('Approve', 'adrotate'); ?></option>
-			        <option value="update"><?php _e('Update', 'adrotate'); ?></option>
-			        <option value="delete"><?php _e('Delete', 'adrotate'); ?></option>
-			        <option value="reject"><?php _e('Reject', 'adrotate'); ?></option>
-				</select>
-				<input type="submit" id="post-action-submit" name="adrotate_action_submit" value="Go" class="button-secondary" disabled />
-			</div>
-		
-			<br class="clear" />
-		</div>
-	
-		<table class="widefat" style="margin-top: .5em">
-			<thead>
-			<tr>
-				<th scope="col" class="manage-column column-cb check-column" style=""><input type="checkbox" disabled /></th>
-				<th width="2%"><center><?php _e('ID', 'adrotate'); ?></center></th>
-				<th width="12%"><?php _e('Show from', 'adrotate'); ?></th>
-				<th width="12%"><?php _e('Show until', 'adrotate'); ?></th>
-				<th><?php _e('Title', 'adrotate'); ?></th>
-				<th width="20%"><center><?php _e('Advertiser', 'adrotate'); ?></center></th>
-				<th width="5%"><center><?php _e('Weight', 'adrotate'); ?></center></th>
-				<th width="15%"><center><?php _e('Options', 'adrotate'); ?></center></th>
-			</tr>
-			</thead>
-	
-			<tbody>
-		    <tr>
-				<td colspan="8">
-					<p><?php adrotate_pro_notice(); ?></p>
-					<p><?php _e('Couple adverts to advertisers and allow them to create and upload their own advertisements for you to moderate and approve or reject!', 'adrotate'); ?></p>
-				</td>
-			</tr>
-			</tbody>
-		</table>
-
-		<br class="clear" />
-
-	</div>
-<?php
-}
-
-/*-------------------------------------------------------------
  Name:      adrotate_global_report
 
  Purpose:   Admin statistics page
@@ -466,17 +407,13 @@ function adrotate_options() {
 	$adrotate_version			= get_option('adrotate_version');
 	$adrotate_db_version		= get_option('adrotate_db_version');
 	$adrotate_advert_status		= get_option("adrotate_advert_status");
-	$adrotate_notifications		= get_option("adrotate_notifications");
 
-	$crawlers 			= implode(', ', $adrotate_crawlers);
-	$notification_mails	= implode(', ', $adrotate_notifications['notification_email_publisher']);
-	$advertiser_mails	= implode(', ', $adrotate_notifications['notification_email_advertiser']);
+	$crawlers = implode(', ', $adrotate_crawlers);
 
 	$message = $corrected = $converted = '';
 	if(isset($_GET['message'])) $message = esc_attr($_GET['message']);
 
 	$converted = base64_decode($converted);
-	$adschedule = wp_next_scheduled('adrotate_ad_notification');
 	$adtracker = wp_next_scheduled('adrotate_clean_trackerdata');
 ?>
 	<div class="wrap">
@@ -653,7 +590,7 @@ function adrotate_options() {
 				<tr>
 					<th valign="top"><?php _e('Publishers', 'adrotate'); ?></th>
 					<td>
-						<textarea name="adrotate_notification_email_publisher" cols="90" rows="2" disabled><?php echo $notification_mails; ?></textarea><br />
+						<textarea name="adrotate_notification_email_publisher" cols="90" rows="2" disabled>youremail@example.com</textarea><br />
 						<span class="description"><?php _e('A comma separated list of email addresses. Maximum of 5 addresses. Keep this list to a minimum!', 'adrotate'); ?><br />
 						<?php _e('Messages are sent once every 24 hours when needed. If this field is empty no email notifications will be send.', 'adrotate'); ?></span>
 					</td>
@@ -661,7 +598,7 @@ function adrotate_options() {
 				<tr>
 					<th valign="top"><?php _e('Advertisers', 'adrotate'); ?></th>
 					<td>
-						<textarea name="adrotate_notification_email_advertiser" cols="90" rows="2" disabled><?php echo $advertiser_mails; ?></textarea><br />
+						<textarea name="adrotate_notification_email_advertiser" cols="90" rows="2" disabled>youremail@example.com</textarea><br />
 						<span class="description"><?php _e('Who gets email from advertisers. Maximum of 2 addresses. Comma seperated. This field may not be empty!', 'adrotate'); ?></span>
 					</td>
 				</tr>
@@ -692,6 +629,13 @@ function adrotate_options() {
 					<td>
 						<input name="adrotate_impression_timer" type="text" class="search-input" size="5" value="<?php echo $adrotate_config['impression_timer']; ?>" autocomplete="off" /> <?php _e('Seconds.', 'adrotate'); ?><br />
 						<span class="description"><?php _e('Default: 10. Set to 0 to disable this timer.', 'adrotate'); ?><br /><?php _e('This number may not be empty, negative or exceed 3600 (1 hour).', 'adrotate'); ?></span>
+					</td>
+				</tr>
+				<tr>
+					<th valign="top"><?php _e('Clicks timer', 'adrotate'); ?></th>
+					<td>
+						<input name="adrotate_click_timer" type="text" class="search-input" size="5" value="<?php echo $adrotate_config['click_timer']; ?>" autocomplete="off" /> <?php _e('Seconds.', 'adrotate'); ?><br />
+						<span class="description"><?php _e('Default: 86400. Set to 0 to disable this timer.', 'adrotate'); ?><br /><?php _e('This number may not be empty, negative or exceed 86400 (24 hours).', 'adrotate'); ?></span>
 					</td>
 				</tr>
 			</table>

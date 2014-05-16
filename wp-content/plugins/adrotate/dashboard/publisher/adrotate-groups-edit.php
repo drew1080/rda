@@ -7,7 +7,7 @@ Copyright 2010-2014 Arnan de Gans - AJdG Solutions (email : info@ajdg.net)
 	$action = "group_new";
 	$edit_id = $wpdb->get_var("SELECT `id` FROM `".$wpdb->prefix."adrotate_groups` WHERE `name` = '' ORDER BY `id` DESC LIMIT 1;");
 	if($edit_id == 0) {
-		$wpdb->insert($wpdb->prefix.'adrotate_groups', array('name' => '', 'modus' => 0, 'fallback' => '0', 'sortorder' => 0, 'cat' => '', 'cat_loc' => 0, 'page' => '', 'page_loc' => 0, 'geo' => 0, 'wrapper_before' => '', 'wrapper_after' => '', 'gridrows' => 2, 'gridcolumns' => 2, 'admargin' => 1, 'admargin_bottom' => 1, 'admargin_left' => 1, 'admargin_right' => 1, 'adwidth' => '125', 'adheight' => '125', 'adspeed' => 6000));
+		$wpdb->insert($wpdb->prefix.'adrotate_groups', array('name' => '', 'modus' => 0, 'fallback' => '0', 'sortorder' => 0, 'cat' => '', 'cat_loc' => 0, 'cat_par' => 0, 'page' => '', 'page_loc' => 0, 'page_par' => 0, 'geo' => 0, 'wrapper_before' => '', 'wrapper_after' => '', 'gridrows' => 2, 'gridcolumns' => 2, 'admargin' => 1, 'admargin_bottom' => 1, 'admargin_left' => 1, 'admargin_right' => 1, 'adwidth' => '125', 'adheight' => '125', 'adspeed' => 6000));
 	    $edit_id = $wpdb->insert_id;
 	}
 	$group_edit_id = $edit_id;
@@ -161,12 +161,27 @@ if(!is_array($meta_array)) $meta_array = array();
 	        <th width="15%"><?php _e('Include ads in categories?', 'adrotate'); ?></th>
 	        <td>
 	        <label for="adrotate_cat_location">
-		        <select tabindex="9" name="adrotate_cat_location">
-		        	<option value="0" <?php if($edit_group->cat_loc == 0) { echo 'selected'; } ?>><?php _e('Do not use this feature', 'adrotate'); ?></option>
-		        	<option value="1" <?php if($edit_group->cat_loc == 1) { echo 'selected'; } ?>><?php _e('Before the post content', 'adrotate'); ?></option>
-		        	<option value="2" <?php if($edit_group->cat_loc == 2) { echo 'selected'; } ?>><?php _e('After the post content', 'adrotate'); ?></option>
-		        	<option value="3" <?php if($edit_group->cat_loc == 3) { echo 'selected'; } ?>><?php _e('Before and after the content', 'adrotate'); ?></option>
-		        </select> 
+		        <select tabindex="11" name="adrotate_cat_location">
+		        	<option value="0" <?php if($edit_group->cat_loc == 0) { echo 'selected'; } ?>><?php _e('Disabled', 'adrotate'); ?></option>
+		        	<option value="1" <?php if($edit_group->cat_loc == 1) { echo 'selected'; } ?>><?php _e('Before content', 'adrotate'); ?></option>
+		        	<option value="2" <?php if($edit_group->cat_loc == 2) { echo 'selected'; } ?>><?php _e('After content', 'adrotate'); ?></option>
+		        	<option value="3" <?php if($edit_group->cat_loc == 3) { echo 'selected'; } ?>><?php _e('Before and after content', 'adrotate'); ?></option>
+		        	<option value="4" <?php if($edit_group->cat_loc == 4) { echo 'selected'; } ?>><?php _e('After', 'adrotate'); ?></option>
+		        </select>
+			</label>
+	        <label for="adrotate_cat_paragraph">
+		        <select tabindex="12" name="adrotate_cat_paragraph">
+		        	<option value="0" <?php if($edit_group->cat_par == 0) { echo 'selected'; } ?>>...</option>
+		        	<option value="1" <?php if($edit_group->cat_par == 1) { echo 'selected'; } ?>><?php _e('the first paragraph', 'adrotate'); ?></option>
+		        	<option value="2" <?php if($edit_group->cat_par == 2) { echo 'selected'; } ?>><?php _e('every 2nd paragraph', 'adrotate'); ?></option>
+		        	<option value="3" <?php if($edit_group->cat_par == 3) { echo 'selected'; } ?>><?php _e('every 3rd paragraph', 'adrotate'); ?></option>
+		        	<option value="4" <?php if($edit_group->cat_par == 4) { echo 'selected'; } ?>><?php _e('every 4th paragraph', 'adrotate'); ?></option>
+		        	<option value="4" <?php if($edit_group->cat_par == 5) { echo 'selected'; } ?>><?php _e('every 5th paragraph', 'adrotate'); ?></option>
+		        	<option value="4" <?php if($edit_group->cat_par == 6) { echo 'selected'; } ?>><?php _e('every 6th paragraph', 'adrotate'); ?></option>
+		        	<option value="4" <?php if($edit_group->cat_par == 7) { echo 'selected'; } ?>><?php _e('every 7th paragraph', 'adrotate'); ?></option>
+		        	<option value="4" <?php if($edit_group->cat_par == 8) { echo 'selected'; } ?>><?php _e('every 8th paragraph', 'adrotate'); ?></option>
+		        </select>
+			</label>
 	        </td>
       	</tr>
       	<tr>
@@ -183,11 +198,25 @@ if(!is_array($meta_array)) $meta_array = array();
 	        <th valign="top"><?php _e('Include ads in pages?', 'adrotate'); ?></th>
 	        <td>
 	        <label for="adrotate_page_location">
-		        <select tabindex="10" name="adrotate_page_location">
-		        	<option value="0" <?php if($edit_group->page_loc == 0) { echo 'selected'; } ?>><?php _e('Do not use this feature', 'adrotate'); ?></option>
-		        	<option value="1" <?php if($edit_group->page_loc == 1) { echo 'selected'; } ?>><?php _e('Before the page content', 'adrotate'); ?></option>
-		        	<option value="2" <?php if($edit_group->page_loc == 2) { echo 'selected'; } ?>><?php _e('After the page content', 'adrotate'); ?></option>
-		        	<option value="3" <?php if($edit_group->page_loc == 3) { echo 'selected'; } ?>><?php _e('Before and after the content', 'adrotate'); ?></option>
+		        <select tabindex="12" name="adrotate_page_location">
+		        	<option value="0" <?php if($edit_group->page_loc == 0) { echo 'selected'; } ?>><?php _e('Disabled', 'adrotate'); ?></option>
+		        	<option value="1" <?php if($edit_group->page_loc == 1) { echo 'selected'; } ?>><?php _e('Before content', 'adrotate'); ?></option>
+		        	<option value="2" <?php if($edit_group->page_loc == 2) { echo 'selected'; } ?>><?php _e('After content', 'adrotate'); ?></option>
+		        	<option value="3" <?php if($edit_group->page_loc == 3) { echo 'selected'; } ?>><?php _e('Before and after content', 'adrotate'); ?></option>
+		        	<option value="4" <?php if($edit_group->page_loc == 4) { echo 'selected'; } ?>><?php _e('After', 'adrotate'); ?></option>
+		        </select>
+			</label>
+	        <label for="adrotate_page_paragraph">
+		        <select tabindex="12" name="adrotate_page_paragraph">
+		        	<option value="0" <?php if($edit_group->page_par == 0) { echo 'selected'; } ?>>...</option>
+		        	<option value="1" <?php if($edit_group->page_par == 1) { echo 'selected'; } ?>><?php _e('the first paragraph', 'adrotate'); ?></option>
+		        	<option value="2" <?php if($edit_group->page_par == 2) { echo 'selected'; } ?>><?php _e('every 2nd paragraph', 'adrotate'); ?></option>
+		        	<option value="3" <?php if($edit_group->page_par == 3) { echo 'selected'; } ?>><?php _e('every 3rd paragraph', 'adrotate'); ?></option>
+		        	<option value="4" <?php if($edit_group->page_par == 4) { echo 'selected'; } ?>><?php _e('every 4th paragraph', 'adrotate'); ?></option>
+		        	<option value="4" <?php if($edit_group->page_par == 5) { echo 'selected'; } ?>><?php _e('every 5th paragraph', 'adrotate'); ?></option>
+		        	<option value="4" <?php if($edit_group->page_par == 6) { echo 'selected'; } ?>><?php _e('every 6th paragraph', 'adrotate'); ?></option>
+		        	<option value="4" <?php if($edit_group->page_par == 7) { echo 'selected'; } ?>><?php _e('every 7th paragraph', 'adrotate'); ?></option>
+		        	<option value="4" <?php if($edit_group->page_par == 8) { echo 'selected'; } ?>><?php _e('every 8th paragraph', 'adrotate'); ?></option>
 		        </select>
 			</label>
 	        </td>

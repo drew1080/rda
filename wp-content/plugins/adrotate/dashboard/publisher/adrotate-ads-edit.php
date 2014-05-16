@@ -34,12 +34,6 @@ foreach($linkmeta as $meta) {
 
 if(!is_array($meta_array)) $meta_array = array();
 
-if($adrotate_debug['track'] == true) {
-	$trackmeta = "$edit_banner->id,0,1,0";
-} else {
-	$trackmeta = base64_encode("$edit_banner->id,0,1,0");
-}
-
 if($ad_edit_id) {
 	if($edit_banner->type != 'empty') {
 		// Errors
@@ -119,14 +113,14 @@ if($edit_banner->imagetype == "field") {
 	        </td>
 	        <td width="40%">
 		        <p><strong><?php _e('Options:', 'adrotate'); ?></strong></p>
-		        <p><em><a href="#" onclick="textatcursor('adrotate_bannercode','%id%');return false;">%id%</a>, <a href="#" onclick="textatcursor('adrotate_bannercode','%image%');return false;">%image%</a>, <a href="#" onclick="textatcursor('adrotate_bannercode','%random%');return false;">%random%</a>, <a href="#" onclick="textatcursor('adrotate_bannercode','target=&quot;_blank&quot;');return false;">target="_blank"</a>, <a href="#" onclick="textatcursor('adrotate_bannercode','rel=&quot;nofollow&quot;');return false;">rel="nofollow"</a></em><br />
-		        <?php _e('Place the cursor where you want to add a tag and click to add it to your AdCode.', 'adrotate'); ?></p>
+		        <p><em><a href="#" onclick="textatcursor('adrotate_bannercode','%id%');return false;">%id%</a>, <a href="#" onclick="textatcursor('adrotate_bannercode','%link%');return false;">%link%</a>, <a href="#" onclick="textatcursor('adrotate_bannercode','%image%');return false;">%image%</a>, <a href="#" onclick="textatcursor('adrotate_bannercode','%random%');return false;">%random%</a>, <a href="#" onclick="textatcursor('adrotate_bannercode','target=&quot;_blank&quot;');return false;">target="_blank"</a>, <a href="#" onclick="textatcursor('adrotate_bannercode','rel=&quot;nofollow&quot;');return false;">rel="nofollow"</a></em><br />
 		        
 		        <p><strong><?php _e('Basic Examples:', 'adrotate'); ?></strong></p>
 		        <p>1. <em><a href="#" onclick="textatcursor('adrotate_bannercode','&lt;a href=&quot;http://www.ajdg.net&quot;&gt;This ad is great!&lt;/a&gt;');return false;">&lt;a href="http://www.ajdg.net"&gt;This ad is great!&lt;/a&gt;</a></em></p>
-		        <p>2. <em><a href="#" onclick="textatcursor('adrotate_bannercode','&lt;a href=&quot;http://www.ajdg.net&quot;&gt;&lt;img src=&quot;%image%&quot; /&gt;&lt;/a&gt;');return false;">&lt;a href="http://www.ajdg.net"&gt;&lt;img src="%image%" /&gt;&lt;/a&gt;</a></em></p>
-		        <p>3. <em><a href="#" onclick="textatcursor('adrotate_bannercode','&lt;span class=&quot;ad-%id%&quot;&gt;&lt;a href=&quot;http://www.ajdg.net&quot;&gt;Text Link Ad!&lt;/a&gt;&lt;/span&gt;');return false;">&lt;span class="ad-%id%"&gt;&lt;a href="http://www.ajdg.net"&gt;Text Link Ad!&lt;/a&gt;&lt;/span&gt;</a></em></p>
-		        <p><?php _e('Click an example to add it to your AdCode.', 'adrotate'); ?></p>
+		        <p>2. <em><a href="#" onclick="textatcursor('adrotate_bannercode','&lt;a href=&quot;%link%&quot;&gt;This ad is great!&lt;/a&gt;');return false;">&lt;a href="%link%"&gt;This ad is great!&lt;/a&gt;</a></em></p>
+		        <p>3. <em><a href="#" onclick="textatcursor('adrotate_bannercode','&lt;a href=&quot;http://www.ajdg.net&quot;&gt;&lt;img src=&quot;%image%&quot; /&gt;&lt;/a&gt;');return false;">&lt;a href="http://www.ajdg.net"&gt;&lt;img src="%image%" /&gt;&lt;/a&gt;</a></em></p>
+		        <p>4. <em><a href="#" onclick="textatcursor('adrotate_bannercode','&lt;span class=&quot;ad-%id%&quot;&gt;&lt;a href=&quot;http://www.ajdg.net&quot;&gt;Text Link Ad!&lt;/a&gt;&lt;/span&gt;');return false;">&lt;span class="ad-%id%"&gt;&lt;a href="http://www.ajdg.net"&gt;Text Link Ad!&lt;/a&gt;&lt;/span&gt;</a></em></p>
+		        <p><?php _e('Place the cursor where you want to add a tag and click to add it to your AdCode.', 'adrotate'); ?></p>
 	        </td>
       	</tr>
       	<tr>
@@ -175,7 +169,7 @@ if($edit_banner->imagetype == "field") {
       	</tr>
       	<tr>
 	        <th width="15%"><?php _e('Email or Remote page:', 'adrotate'); ?></th>
-	        <td colspan="3"><?php echo plugins_url(); ?>/adrotate/library/clicktracker.php?track=<?php echo $trackmeta; ?></td>
+	        <td colspan="3"><?php echo plugins_url(); ?>/<?php echo ADROTATE_FOLDER; ?>/library/clicktracker.php?track=<?php echo adrotate_clicktrack_hash($edit_banner->id, 0, 1); ?></td>
       	</tr>
       	</tbody>
 	</table>
@@ -188,16 +182,21 @@ if($edit_banner->imagetype == "field") {
       	<tr>
 	        <th width="15%" valign="top"><?php _e('Clicktracking:', 'adrotate'); ?></th>
 	        <td colspan="3">
-	        	<label for="adrotate_tracker"><input tabindex="4" type="checkbox" name="adrotate_tracker" <?php if($edit_banner->tracker == 'Y') { ?>checked="checked" <?php } ?> /> <?php _e('Enable click tracking for this advert.', 'adrotate'); ?></label> <br />
-		        <em><?php _e('The URL field is no longer required. Placing the URL in your adcode and enabling click tracking is sufficient.', 'adrotate'); ?></em><br />
-		        <em><?php _e('jQuery must be active on your site for clicktracking to work.', 'adrotate'); ?></em></label>
+	        	<label for="adrotate_tracker"><input tabindex="4" type="checkbox" name="adrotate_tracker" <?php if($edit_banner->tracker == 'Y') { ?>checked="checked" <?php } ?> /> <?php _e('Enable click tracking for this advert.', 'adrotate'); ?> <br />
+	        	<em><?php _e('Note: Clicktracking does generally not work for Javascript adverts such as those provided by Google AdSense.', 'adrotate'); ?></em><br />
+		        <?php if($adrotate_config['clicktracking'] == 'Y') { ?>
+		        <em><?php _e('Place the target URL in your adcode and enable clicktracking.', 'adrotate'); ?></em>
+		        <?php } else { ?>
+		        <em><?php _e('Place the target URL in the field below, use %link% in the adcode instead of the target URL and enable clicktracking.', 'adrotate'); ?></em>
+		        <?php } ?>
+		        </label>
 	        </td>
       	</tr>
       	<tr>
-	        <th valign="top"><?php _e('Remote usage:', 'adrotate'); ?></th>
+	        <th valign="top"><?php _e('Target URL:', 'adrotate'); ?></th>
 	        <td colspan="3">
 	        	<label for="adrotate_link"><input tabindex="5" name="adrotate_link" type="text" size="60" class="search-input" value="<?php echo $edit_banner->link;?>" /><br />
-		        <em><?php _e('Enter the target url here if you intent to use this advert in mailings or on remote pages.', 'adrotate'); ?></label>
+		        <em><?php _e('Enter the target URL for your advert here.', 'adrotate'); ?></label>
 	        </td>
       	</tr>
 		<?php } ?>
@@ -307,7 +306,7 @@ if($edit_banner->imagetype == "field") {
       	</tr>
       	<tr>
 	        <th width="15%"><?php _e('Email or Remote page:', 'adrotate'); ?></th>
-	        <td colspan="3"><?php echo plugins_url(); ?>/adrotate/library/clicktracker.php?track=<?php echo $trackmeta; ?></td>
+	        <td colspan="3"><?php echo plugins_url(); ?>/<?php echo ADROTATE_FOLDER; ?>/library/clicktracker.php?track=<?php echo adrotate_clicktrack_hash($edit_banner->id, 0, 1); ?></td>
       	</tr>
       	</tbody>
 	</table>

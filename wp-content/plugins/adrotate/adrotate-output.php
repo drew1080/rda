@@ -222,8 +222,8 @@ function adrotate_group($group_ids, $fallback = 0, $weight = 0, $site = 0) {
 					} else { // Default (single ad)
 						$banner_id = array_rand($selected, 1);
 						if($wrapper_before != '') $output .= stripslashes(html_entity_decode($wrapper_before, ENT_QUOTES));
-						$output .= adrotate_ad($banner_id, 0, $selected[$banner_id]['group']);
-						if($wrapper_after != '') $output .= stripslashes(html_entity_decode($wrapper_after, ENT_QUOTES));
+						$output .= adrotate_ad($banner_id, 0, $group->id);
+						if($wrapper_after != '') $output .= stripslashes(html_entity_decode($wrapper_after, ENT_QUOTES));							
 					}
 					unset($selected);
 				} else {
@@ -301,15 +301,17 @@ function adrotate_block($block_id, $weight = 0) {
 
 				if($array_count > 0) {
 					$block_count = $block->columns * $block->rows;
+					($block->adwidth == 'auto') ? $adwidth = 'auto' : $adwidth = $block->adwidth.'px';	
+					($block->adheight == 'auto') ? $adheight = 'auto' : $adheight = $block->adheight.'px';	
 					if($array_count < $block_count) $block_count = $array_count;
 				
-					$output .= '<div id="bl-'.$block->id.'" class="block_outer bl-'.$block->id.'">';
+					$output .= '<div id="bl-'.$block->id.'" class="block_outer" style="overflow:auto;margin:0;padding:'.$block->gridpadding.'px;clear:none;width:auto;height:auto;">';
 					
 					$j = 1;
 					for($i=0;$i<$block_count;$i++) {
 						$banner_id = array_rand($selected);
 
-						$output .= '<div id="al-'.$banner_id.'" class="block_inner al-'.$block->id;
+						$output .= '<div id="al-'.$banner_id.'" class="block_inner';
 						if($block->columns == 1) {
 							$output .= ' block_both ';						
 						} else if($j == $block->columns) {
@@ -321,7 +323,7 @@ function adrotate_block($block_id, $weight = 0) {
 						} else {
 							$j++;
 						}
-						$output .= '">';
+						$output .= '" class="margin:'.$block->admargin.'px;clear:none;float:left;width:'.$adwidth.';height:'.$adheight.';border:'.$block->adborder.';">';
 
 						if($block->wrapper_before != '') {$output .= stripslashes(html_entity_decode($block->wrapper_before, ENT_QUOTES)); }
 						$output .= adrotate_ad($banner_id, false, 0, 0);
@@ -331,6 +333,7 @@ function adrotate_block($block_id, $weight = 0) {
 						$selected = array_diff_key($selected, array($banner_id => 0));
 					}
 					$output .= '</div>';
+					unset($block, $adwidth, $adheight);
 				} else {
 					$output .= adrotate_error('ad_unqualified');
 				}
@@ -402,32 +405,32 @@ function adrotate_ad_output($id, $group = 0, $bannercode, $tracker, $link, $imag
 			$blog_id = 0;
 		}
 		
-		if($adrotate_debug['track'] == true) {
-			$meta = "$id,$group,0,$blog_id";
-		} else {
-			$meta = base64_encode("$id,$group,0,$blog_id");
-		}
-
-		$banner_output = str_replace('%link%', $link, $banner_output);
-		preg_match_all('/<a[^>](.*?)>/i', $banner_output, $matches, PREG_SET_ORDER);
-		if(count($matches) > 0) {
-			foreach($matches as &$value) {
-				if(preg_match('/<a[^>]+class=\"(.+?)\"[^>]*>/i', $value[0], $regs)) {
-				    $result = $regs[1]." gofollow";
-					$str = str_replace('class="'.$regs[1].'"', 'class="'.$result.'"', $value[0]);	    
-				} else {
-					$str = str_replace('<a ', '<a class="gofollow" ', $value[0]);
+		if($adrotate_config['clicktracking'] == 'Y') {
+			// Fancy Clicktracking
+			$banner_output = str_replace('%link%', $link, $banner_output);
+			preg_match_all('/<a[^>](.*?)>/i', $banner_output, $matches, PREG_SET_ORDER);
+			if(count($matches) > 0) {
+				foreach($matches as &$value) {
+					if(preg_match('/<a[^>]+class=\"(.+?)\"[^>]*>/i', $value[0], $regs)) {
+					    $result = $regs[1]." gofollow";
+						$str = str_replace('class="'.$regs[1].'"', 'class="'.$result.'"', $value[0]);	    
+					} else {
+						$str = str_replace('<a ', '<a class="gofollow" ', $value[0]);
+					}
+					$banner_output = str_replace($value[0], $str, $banner_output);
+					unset($value, $regs, $result, $str);
 				}
-				$banner_output = str_replace($value[0], $str, $banner_output);
-				unset($value, $regs, $result, $str);
 			}
+			$banner_output = str_replace('<a ', '<a data-track="'.adrotate_clicktrack_hash($id, $group, 0, $blog_id).'" ', $banner_output);
+			if($adrotate_debug['timers'] == true) {
+				$banner_output = str_replace('<a ', '<a data-debug="1" ', $banner_output);
+			}
+			unset($matches);
+		} else {
+			// Default clicktracking		
+			$url = add_query_arg('track', adrotate_clicktrack_hash($id, $group, 1, $blog_id), plugins_url().'/'.ADROTATE_FOLDER.'/library/clicktracker.php');
+			$banner_output = str_replace('%link%', $url, $banner_output);
 		}
-		$banner_output = str_replace('<a ', '<a data-track="'.$meta.'" ', $banner_output);
-
-		if($adrotate_debug['timers'] == true) {
-			$banner_output = str_replace('<a ', '<a data-debug="1" ', $banner_output);
-		}
-
 	} else {
 		$banner_output = str_replace('%link%', $link, $banner_output);
 	}
@@ -472,22 +475,6 @@ function adrotate_custom_head() {
 	global $wpdb, $adrotate_config;
 	
 	$output = "\n<!-- This site is using AdRotate v".ADROTATE_DISPLAY." to display their advertisements - http://www.adrotateplugin.com/ -->\n";
-
-	// Deprecated blocks
-	$blocks = $wpdb->get_results("SELECT `id`, `adwidth`, `adheight`, `gridpadding`, `admargin`, `adborder` FROM `".$wpdb->prefix . "adrotate_blocks` WHERE `name` != '' ORDER BY `id` ASC;");
-	if($blocks) {
-		$output_css = "\t/* -- (Depreciated) -- */\n";
-		foreach($blocks as $block) {
-			($block->adwidth == 'auto') ? $adwidth = 'auto' : $adwidth = $block->adwidth.'px';	
-			($block->adheight == 'auto') ? $adheight = 'auto' : $adheight = $block->adheight.'px';	
-			$output_css .= "\t.bl-".$block->id." { overflow:auto;margin:0;padding:".$block->gridpadding."px;clear:none;width:auto;height:auto; }\n";
-			$output_css .= "\t.al-".$block->id." { margin:".$block->admargin."px;clear:none;float:left;width:".$adwidth.";height:".$adheight.";border:".$block->adborder."; }\n";
-			unset($block, $adwidth, $adheight);
-		}
-		$output_css .= "\t/* -- */\n";
-		unset($blocks);
-	}
-	// --
 
 	$groups = $wpdb->get_results("SELECT `id`, `modus`, `gridrows`, `gridcolumns`, `adwidth`, `adheight`, `admargin`, `adspeed` FROM `".$wpdb->prefix."adrotate_groups` WHERE `name` != '' AND `modus` > 0 ORDER BY `id` ASC;");
 	if($groups) {
@@ -537,15 +524,17 @@ function adrotate_custom_head() {
 
 		if($array_js) {
 			$output_js = "jQuery(document).ready(function(){\n";
+			$output_js .= "if(jQuery.fn.gslider) {\n";
 			foreach($array_js as $js) {
 				$output_js .= $js;
 			}
+			$output_js .= "}\n";
 			$output_js .= "});\n";
 			unset($array_js);
 		}
 
 		if($array_css) {
-			$output_css .= "\t.g { padding:0; position:aboslute; overflow:hidden; }\n";
+			$output_css = "\t.g { padding:0; overflow:hidden; }\n";
 			$output_css .= "\t.b { padding:0; margin:0; overflow:hidden; clear:none; }\n";
 			$output_css .= "\t.a { clear:none; float:left; }\n";
 			foreach($array_css as $css) {
@@ -599,14 +588,14 @@ function adrotate_inject_posts($post_content) {
 
 	// Inject ads into page
 	if(is_page()) {
-		$ids = $wpdb->get_results("SELECT `id`, `page`, `page_loc` FROM `".$wpdb->prefix."adrotate_groups` WHERE `page_loc` > 0;");
+		$ids = $wpdb->get_results("SELECT `id`, `page`, `page_loc`, `page_par` FROM `".$wpdb->prefix."adrotate_groups` WHERE `page_loc` > 0;");
 		
 		$page_array = array();
 		foreach($ids as $id) {
 			$pages = explode(",", $id->page);
 			// Build array of groups for pages
 			if(in_array($post->ID, $pages)) {
-				$page_array[] = array('id' => $id->id, 'loc' => $id->page_loc, 'pages' => $pages);
+				$page_array[] = array('id' => $id->id, 'loc' => $id->page_loc, 'par' => $id->page_par, 'pages' => $pages);
 			}
 		}
 
@@ -622,7 +611,12 @@ function adrotate_inject_posts($post_content) {
 
 		if(count($page_array) > 0) {
 			if(count($page_array) > 1) {
-				$page_choice = array_rand($page_array, 2);
+				// Try to prevent the same ad from showing when there are multiple ads to show
+				$choice_amount = substr_count($post_content, '<p>');
+				if($choice_amount == 0 OR count($page_array) < $choice_amount) {
+					$choice_amount = 2;
+				}
+				$page_choice = array_rand($page_array, $choice_amount);
 			} else {
 				$page_choice = array(0,0);
 			}
@@ -647,8 +641,34 @@ function adrotate_inject_posts($post_content) {
 			   		$post_content = $post_content.$advert_after;
 				}
 			}
+
+			// Adverts inside the content
+			if($page_array[$page_choice[0]]['loc'] == 4) {
+				if(is_page($page_array[$page_choice[0]]['pages'])) {
+					if(substr_count($post_content, '<p>') > $page_array[$page_choice[0]]['par']) {
+						$contents = explode("</p>", $post_content);
+						$paragraph = 1;
+						$advert = 0;
+						$post_content = '';
+						foreach($contents as $content) {
+							if($paragraph == $page_array[$page_choice[$advert]]['par']) {
+								$content = $content.adrotate_group($page_array[$page_choice[$advert]]['id']);
+								if($page_array[$page_choice[$advert]]['par'] > 0) {
+									$paragraph = 1;
+								} else {
+									$paragraph++;
+								}
+							} else {
+								$paragraph++;
+							}
+							$post_content .= $content.'</p>';
+							if(count($page_choice)-1 > $advert) $advert++;
+						}
+					}
+				}
+			}
 		}
-		unset($page_choice, $page_array);
+		unset($page_choice, $page_array, $paragraph, $advert);
 	}
 	
 	// Inject ads into posts in specified category
@@ -677,11 +697,15 @@ function adrotate_inject_posts($post_content) {
 
 		if(count($cat_array) > 0) {
 			if(count($cat_array) > 1) {
-				$cat_choice = array_rand($cat_array, 2);
+				// Try to prevent the same ad from showing when there are multiple ads to show
+				$choice_amount = substr_count($post_content, '<p>');
+				if($choice_amount == 0 OR count($cat_array) < $choice_amount) {
+					$choice_amount = 2;
+				}
+				$cat_choice = array_rand($cat_array, $choice_amount);
 			} else {
 				$cat_choice = array(0,0);
 			}
-
 
 			if($adrotate_debug['general'] == true) {
 				echo "<p><strong>[DEBUG][adrotate_inject_posts()] Arrays</strong><pre>"; 
@@ -703,8 +727,34 @@ function adrotate_inject_posts($post_content) {
 			   		$post_content = $post_content.$advert_after;
 				}
 			}
+
+			// Adverts inside the content
+			if($cat_array[$cat_choice[0]]['loc'] == 4) {
+				if(in_category($cat_array[$cat_choice[0]]['pages'])) {
+					if(substr_count($post_content, '<p>') > $cat_array[$cat_choice[0]]['par']) {
+						$contents = explode("</p>", $post_content);
+						$paragraph = 1;
+						$advert = 0;
+						$post_content = '';
+						foreach($contents as $content) {
+							if($paragraph == $cat_array[$cat_choice[$advert]]['par']) {
+								$content = $content.adrotate_group($cat_array[$cat_choice[$advert]]['id']);
+								if($cat_array[$cat_choice[$advert]]['par'] > 0) {
+									$paragraph = 1;
+								} else {
+									$paragraph++;
+								}
+							} else {
+								$paragraph++;
+							}
+							$post_content .= $content.'</p>';
+							if(count($cat_choice)-1 > $advert) $advert++;
+						}
+					}
+				}
+			}
 		}
-		unset($cat_choice, $cat_array);
+		unset($cat_choice, $cat_array, $paragraph, $advert);
 	}
 
 	return $post_content;
