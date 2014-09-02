@@ -911,6 +911,3 @@ class UpdraftPlus_ftp_wrapper {
 		if ($this->conn_id) ftp_close($this->conn_id);
 	}
 }
-
-
-?>

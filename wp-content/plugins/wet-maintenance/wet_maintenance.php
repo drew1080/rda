@@ -32,8 +32,9 @@ body {
 }
 </style>
 </head>
-<body>
-<h1>Service unavailable.</h1>
+<body style="text-align:center">
+<a href="http://rda2014prod.hioweb.com/" title="A nonprofit organization dedicated to the advancement of architecture, urban design, and the built environment in the Houston region." rel="home"><img class="logo" src="http://rda2014prod.hioweb.com/wp-content/uploads/2014/04/rda-logo-11.jpg" alt="A nonprofit organization dedicated to the advancement of architecture, urban design, and the built environment in the Houston region."></a>
+<h1>RDA and OffCite are getting upgraded!</h1>
 <p>Please check back later&hellip;</p>
 </body>
 </html>

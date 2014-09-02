@@ -25,7 +25,7 @@ if(isset($_POST['track']) OR isset($_GET['track'])) {
 	}
 	
 	$meta = esc_attr($meta);
-	list($ad, $group, $remote, $blog_id) = explode(",", $meta, 5);
+	list($ad, $group, $remote, $blog_id) = explode(",", $meta, 4);
 
 	if(is_numeric($ad) AND is_numeric($group) AND is_numeric($remote) AND is_numeric($blog_id)) {
 		$useragent 	= trim($_SERVER['HTTP_USER_AGENT'], ' \t\r\n\0\x0B');
@@ -33,10 +33,10 @@ if(isset($_POST['track']) OR isset($_GET['track'])) {
 		$remote_ip 	= adrotate_get_remote_ip();
 		$now 		= adrotate_now();
 	
-		if($adrotate_debug['timers'] == true) {
+		if($adrotate_debug['timers'] == true OR $adrotate_config['click_timer'] == 0) {
 			$ip = 0;
 		} else {
-			$ip = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM `".$prefix."adrotate_tracker` WHERE `ipaddress` = '%s' AND `stat` = 'c' AND `timer` < $now + 86400 AND `bannerid` = %d LIMIT 1;", $remote_ip, $ad));
+			$ip = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM `".$prefix."adrotate_tracker` WHERE `ipaddress` = '%s' AND `stat` = 'c' AND `timer` < $now + ".$adrotate_config['click_timer']." AND `bannerid` = %d LIMIT 1;", $remote_ip, $ad));
 		}
 
 		if(($adrotate_config['enable_loggedin_clicks'] == 'Y' AND is_user_logged_in()) OR !is_user_logged_in()) {

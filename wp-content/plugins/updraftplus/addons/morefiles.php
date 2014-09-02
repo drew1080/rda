@@ -2,18 +2,12 @@
 /*
 UpdraftPlus Addon: morefiles:Back up more files, including WordPress core
 Description: Creates a backup of WordPress core (including everything in that directory WordPress is in), and any other directory you specify too.
-Version: 1.7
+Version: 1.8
 Shop: /shop/more-files/
-Latest Change: 1.8.9
+Latest Change: 1.9.16
 */
 
 if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
-
-/* In progress: allowing multiple more directories.
-TODO:
-- Allow deletion
-- Test all scenarios (incl.: one dir exists and another doesn't; split limits)
-*/
 
 $updraftplus_addons_morefiles = new UpdraftPlus_Addons_MoreFiles;
 
@@ -47,7 +41,7 @@ class UpdraftPlus_Addons_MoreFiles {
 		add_filter('updraftplus_include_wpcore_exclude', array($this, 'include_wpcore_exclude'));
 	}
 
-	public function return_false() {
+	public function return_false($ret) {
 		return false;
 	}
 
@@ -269,7 +263,7 @@ ENDHERE;
 
 		foreach ($whichdirs as $whichdir) {
 
-			if (!empty($whichdir) && is_dir($whichdir)) {
+			if (!empty($whichdir) && (is_dir($whichdir) || is_file($whichdir))) {
 				// Removing the slash is important (though ought to be redundant by here); otherwise path matching does not work
 				$dirlist[] = $updraftplus->compile_folder_list_for_backup(untrailingslashit($whichdir), $possible_backups_dirs, array());
 			} else {

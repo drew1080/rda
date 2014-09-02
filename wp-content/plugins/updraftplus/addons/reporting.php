@@ -2,9 +2,9 @@
 /*
 UpdraftPlus Addon: reporting:Sophisticated reporting options
 Description: Provides various new reporting capabilities
-Version: 1.2
+Version: 1.5
 Shop: /shop/reporting/
-Latest Change: 1.8.9
+Latest Change: 1.9.16
 */
 
 # Future possibility: more reporting options; e.g. HTTP ping; tweet, etc.
@@ -27,7 +27,7 @@ class UpdraftPlus_Addon_Reporting {
 		add_filter('updraftplus_email_whichaddresses', array($this, 'email_whichaddresses'));
 		add_filter('updraftplus_email_wholebackup', array($this, 'email_wholebackup'), 10, 3);
 		add_filter('updraft_report_subject', array($this, 'updraft_report_subject'), 10, 3);
-		add_filter('updraft_report_body', array($this, 'updraft_report_body'), 10, 5);
+		add_filter('updraft_report_body', array($this, 'updraft_report_body'), 10, 6);
 		add_filter('updraft_report_attachments', array($this, 'updraft_report_attachments'));
 		add_action('updraft_final_backup_history', array($this, 'final_backup_history'));
 		add_action('updraft_report_finished', array($this, 'report_finished'));
@@ -64,7 +64,8 @@ class UpdraftPlus_Addon_Reporting {
 		return $attachments;
 	}
 
-	public function updraft_report_body($report, $final_message, $contains, $errors, $warning_count) {
+	# Jobdata is passed in, rather than live, because the live jobdata may have moved on from the time which the point should reflectg (e.g. an incremental backup was subsequently started)
+	public function updraft_report_body($report, $final_message, $contains, $errors, $warnings, $jobdata) {
 
 		global $updraftplus;
 
@@ -74,8 +75,8 @@ class UpdraftPlus_Addon_Reporting {
 		foreach ($errors as $err) {
 			if ((is_string($err) || is_wp_error($err)) || (is_array($err) && 'error' == $err['level']) ) { $error_count++; }
 		}
+		$warning_count = count($warnings);
 
-		$jobdata = $updraftplus->jobdata_getarray($updraftplus->nonce);
 		$history = $this->history;
 		$debug = UpdraftPlus_Options::get_updraft_option('updraft_debug_mode');
 
@@ -108,8 +109,17 @@ class UpdraftPlus_Addon_Reporting {
 <div class="rowlabel"><?php echo __('Latest status:', 'updraftplus');?></div> <div class="rowvalue"><?php echo $final_message; ?></div>
 <div class="rowlabel"><?php echo __('Backup began:', 'updraftplus');?></div> <div class="rowvalue"><?php echo $date; ?></div>
 <div class="rowlabel"><?php echo __('Contains:', 'updraftplus');?></div> <div class="rowvalue"><?php echo $contains; ?></div>
+<?php
+	$extra_messages = apply_filters('updraftplus_report_extramessages', array());
+	$extra_msg = '';
+	if (is_array($extra_messages)) {
+		foreach ($extra_messages as $msg) {
+			$extra_msg .= '<div class="rowlabel">'.htmlspecialchars($msg['key']).'</div> <div class="rowvalue">'.htmlspecialchars($msg['val']).'</div>';
+		}
+	}
+	echo $extra_msg;
+?>
 <div class="rowlabel"><?php echo __('Errors / warnings:', 'updraftplus');?></div> <div class="rowvalue"><?php echo $errors_and_warns; ?></div>
-
 <?php
 		if ($updraftplus->error_count() > 0) {
 			echo '<h2>'.__('Errors', 'updraftplus')."</h2>\n<ul>";
@@ -126,14 +136,13 @@ class UpdraftPlus_Addon_Reporting {
 			}
 			echo "</ul>\n";
 		}
-		$warnings = $jobdata['warnings'];
 		if (is_array($warnings) && count($warnings) >0) {
 			echo '<h2>'.__('Warnings', 'updraftplus')."</h2>\n<ul>";
 			foreach ($warnings as $err) {
 				echo "<li>".rtrim($err)."</li>\n";
 			}
 			echo "</ul>\n";
-			echo '<p><em>'.__('Note that warning messages are advisory - the backup process does not stop for them. Instead, they provide information that you might find useful, or that may indicate the source of a problem if the backup did not succeed.', '').'</em></p>';
+			echo '<p><em>'.__('Note that warning messages are advisory - the backup process does not stop for them. Instead, they provide information that you might find useful, or that may indicate the source of a problem if the backup did not succeed.', 'updraftplus').'</em></p>';
 		}
 		?>
 <p>
@@ -157,12 +166,12 @@ class UpdraftPlus_Addon_Reporting {
 			$checksums = array('sha1');
 
 			foreach ($file_entities as $entity => $info) {
-				echo $this->printfile($info['description'], $history, $entity, $checksums);
+				echo $this->printfile($info['description'], $history, $entity, $checksums, $jobdata);
 			}
 
 			foreach ($history as $key => $val) {
 				if ('db' == strtolower(substr($key, 0, 2)) && '-size' != substr($key, -5, 5)) {
-					echo $this->printfile(__('Database', 'updraftplus'), $history, $key, $checksums);
+					echo $this->printfile(__('Database', 'updraftplus'), $history, $key, $checksums, $jobdata);
 				}
 			}
 
@@ -261,7 +270,7 @@ class UpdraftPlus_Addon_Reporting {
 		<?php
 	}
 
-	private function printfile($description, $history, $entity, $checksums) {
+	private function printfile($description, $history, $entity, $checksums, $jobdata) {
 
 		if (empty($history[$entity])) return;
 
@@ -276,6 +285,13 @@ class UpdraftPlus_Addon_Reporting {
 			$op = htmlspecialchars($file)."\n";
 			$skey = $entity.((0 == $ind) ? '' : $ind+1).'-size';
 			$meta = '';
+			if ('db' == substr($entity, 0, 2) && 'db' != $entity) {
+				$dind = substr($entity, 2);
+				if (is_array($jobdata) && !empty($jobdata['backup_database']) && is_array($jobdata['backup_database']) && !empty($jobdata['backup_database'][$dind]) && is_array($jobdata['backup_database'][$dind]['dbinfo']) && !empty($jobdata['backup_database'][$dind]['dbinfo']['host'])) {
+					$dbinfo = $jobdata['backup_database'][$dind]['dbinfo'];
+					$meta .= sprintf(__('External database (%s)', 'updraftplus'), $dbinfo['user'].'@'.$dbinfo['host'].'/'.$dbinfo['name'])."<br>";
+				}
+			}
 			if (isset($history[$skey])) $meta .= sprintf(__('Size: %s Mb', 'updraftplus'), round($history[$skey]/1048576, 1));
 			$ckey = $entity.$ind;
 			foreach ($checksums as $ck) {

@@ -2,9 +2,9 @@
 /*
 UpdraftPlus Addon: importer:Import a WordPress backup made by another backup plugin
 Description: Import a backup made by other supported WordPress backup plugins (see shop page for a list of supported plugins)
-Version: 2.1
+Version: 2.2
 Shop: /shop/importer/
-Latest Change: 1.9.2
+Latest Change: 1.9.16
 */
 
 if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
@@ -17,9 +17,21 @@ class UpdraftPlus_Addons_Importer {
 		add_filter('updraftplus_accept_archivename', array($this, 'accept_archivename'));
 		add_filter('updraftplus_accept_archivename_js', array($this, 'accept_archivename_js'));
 		add_filter('updraftplus_accept_foreign', array($this, 'accept_foreign'), 10, 2);
-		add_filter('updraftplus_importforeign_backupable_plus_db', array($this, 'importforeign_backupable_plus_db'), 10, 5);
+		add_filter('updraftplus_importforeign_backupable_plus_db', array($this, 'importforeign_backupable_plus_db'), 10, 2);
 		add_filter('updraftplus_foreign_gettime', array($this, 'foreign_gettime'), 10, 3);
 		add_filter('updraftplus_foreign_separatedbname', array($this, 'foreign_separatedbname'), 10, 4);
+		add_filter('updraftplus_if_foreign_then_premium_message', array($this, 'if_foreign_then_premium_message'));
+	}
+
+	public function if_foreign_then_premium_message($msg) {
+
+		$plugins = $this->accept_archivename(array());
+		$supported = '';
+		foreach ($plugins as $plug) {
+			if (!empty($plug['desc'])) $supported .= ($supported) ? ', '.$plug['desc'] : $plug['desc'];
+		}
+
+		return '<p><a href="http://updraftplus.com/support/using-third-party-backups/">'.__('Was this a backup created by a different backup plugin? If so, then you might first need to rename it so that it can be recognised - please follow this link.', 'updraftplus').'</a></p><p>'.sprintf(__('Supported backup plugins: %s', 'updraftplus'), $supported).'</p>';
 	}
 
 	# Given a backup type and filename, get the time
@@ -47,6 +59,38 @@ class UpdraftPlus_Addons_Importer {
 			if (preg_match('/^backwpup_[0-9a-f]+_([0-9]{4})-([0-9]{2})-([0-9]{2})_([0-9]{2})-([0-9]{2})-([0-9]{2})\.(zip|tar|tar\.gz|tar\.bz2)/i', $entry, $tmatch)) {
 				return mktime($tmatch[4], $tmatch[5], $tmatch[6], $tmatch[2], $tmatch[3], $tmatch[1]);
 			}
+			case 'wpb2d':
+
+				if (!class_exists('UpdraftPlus_PclZip') && file_exists(UPDRAFTPLUS_DIR.'/class-zip.php')) require_once(UPDRAFTPLUS_DIR.'/class-zip.php');
+				global $updraftplus;
+				$updraft_dir = trailingslashit($updraftplus->backups_dir_location());
+				if (file_exists($updraft_dir.$entry) && class_exists('UpdraftPlus_PclZip')) {
+
+					$transkey = 'ud_forgt_'.md5($entry.filesize($updraft_dir.$entry));
+					$trans = get_transient($transkey);
+					if ($trans > 0) return $trans;
+
+					$zip = new UpdraftPlus_PclZip();
+					$zip->ud_include_mtime();
+					if (!$zip->open($updraft_dir.$entry)) {
+						$updraftplus->log("Could not open zip file to examine (".$zip->last_error."); will remove: ".$entry);
+						$btime = time();
+					} else {
+						# Don't put this in the for loop, or the magic __get() method gets called and opens the zip file every time the loop goes round
+						$numfiles = $zip->numFiles;
+						for ($i=0; $i < $numfiles; $i++) {
+							$si = $zip->statIndex($i);
+							if ('wp-content/backups/wordpress-db-backup.sql' == $si['name']) {
+								@$zip->close();
+								$btime = $si['mtime'];
+							}
+						}
+						@$zip->close();
+					}
+					set_transient($transkey, $btime, 86400*365);
+					return $btime;
+				}
+				return time();
 			break;
 		}
 		return $btime;
@@ -65,6 +109,8 @@ class UpdraftPlus_Addons_Importer {
 				}
 			}
 			return false;
+		} elseif ('wpb2d' == $fsource) {
+			$db_basename = 'wp-content/backups/wordpress-db-backup.sql';
 		} else {
 			$db_basename = $this->ud_backup_info['wpcore'];
 			if (is_array($db_basename)) $db_basename = array_shift($db_basename);
@@ -73,9 +119,12 @@ class UpdraftPlus_Addons_Importer {
 		return $db_basename;
 	}
 
-	public function importforeign_backupable_plus_db($backupable_plus_db, $foinfo, $mess, $warn, $err) {
+	#public function importforeign_backupable_plus_db($backupable_plus_db, $foinfo, $mess, $warn, $err) {
+	public function importforeign_backupable_plus_db($backupable_plus_db, $args) {
+		$foinfo = $args[0];
+		$mess = &$args[1];
 		$mess[] = sprintf(__('Backup created by: %s.', 'updraftplus'), $foinfo['desc']);
-		return array('wpcore');
+		return array('wpcore' => $backupable_plus_db['wpcore']);
 	}
 
 	# Scan filename and see if we recognise its pattern
@@ -106,6 +155,12 @@ class UpdraftPlus_Addons_Importer {
 		$x['backwpup'] = array(
 			'desc' => 'BackWPup',
 			'pattern' => '^backwpup_[0-9a-f]+_([0-9]{4})-([0-9]{2})-([0-9]{2})_([0-9]{2})-([0-9]{2})-([0-9]{2})\\.(zip|tar(\\.(gz|bz2))?)$',
+			'separatedb' => false
+		);
+
+		$x['wpb2d'] = array(
+			'desc' => 'WordPress Backup To Dropbox',
+			'pattern' => 'wpb2d.*\\.zip$',
 			'separatedb' => false
 		);
 

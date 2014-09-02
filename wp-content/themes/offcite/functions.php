@@ -67,7 +67,14 @@ if ( function_exists( 'add_theme_support' ) ) {
 add_filter( 'post_thumbnail_html', 'my_post_image_html', 10, 3 );
 
 function my_post_image_html( $html, $post_id, $post_image_id ) {
-  $html = '<a href="' . get_permalink( $post_id ) . '" title="' . esc_attr( get_the_title( $post_id ) ) . '">' . $html .   '</a>' . the_post_thumbnail_caption();
+  
+  if ( is_single() ) {
+    $large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full');
+    $html = '<a href="' . $large_image_url[0] . '" title="' . esc_attr( get_the_title( $post_id ) ) . '" rel="lightbox">' . $html .   '</a>' . the_post_thumbnail_caption();
+  } else {
+    $html = '<a href="' . get_permalink( $post_id ) . '" title="' . esc_attr( get_the_title( $post_id ) ) . '">' . $html .   '</a>' . the_post_thumbnail_caption();
+  }
+  
   return $html;
 }
 

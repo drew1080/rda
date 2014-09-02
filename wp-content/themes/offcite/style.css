@@ -2009,7 +2009,7 @@ div#header {
 }
 
 div#content div.authormeta {
-  margin-top: 30px;
+  margin: 30px 0 0 8px;
 }
 
 div#right {
@@ -2059,6 +2059,12 @@ div#content div.post .featuredphoto img {
   height: 480px;
 }
 
+div#content div.entry p.wp-caption-text {
+  font-size: 10px;
+  line-height: 1em;
+  margin: -36px 0 10px -85px;
+}
+
 div#center {
   margin-left: 15px;
   width: 686px;
@@ -2066,6 +2072,7 @@ div#center {
 
 div#content div.excerpt {
   width: 550px;
+  padding-left: 19px;
 }
 
 div#right form {
@@ -2137,4 +2144,59 @@ div#header h1#logo a {
 
 div#header {
   height: 102px;
+}
+
+div#content div.entry div.sociable div.sociable_tagline {
+  width: 100px;
+}
+
+.pagebar-custom {
+  font-size: 0.83em;
+  padding: 0.2em 0.5em;
+  margin-right: 0.1em;
+  margin-bottom: 1.0em;
+  border: 1px solid #fff;
+  background: #fff;
+  float: right;
+  overflow: hidden;
+  width: 340px;
+  text-align: right;
+  text-decoration: none;
+  color: #988c7e;
+}
+
+.pagebar-custom a,.pageList .this-page {
+	text-decoration: none;
+	padding: 0.2em 0.5em;
+}
+.pagebar-custom a {
+	color: #988c7e; 
+}
+.pagebar-custom a:visited {
+	text-decoration: none;
+	padding: 0.2em 0.5em;
+}
+.pagebar-custom .break {
+	padding: 2px 6px 2px 6px;
+	border: none;
+	background: #fff;
+	text-decoration: none;
+}
+.pagebar-custom .current {
+	padding: 0.2em 0.5em;
+	font-weight: bold;
+	background: #a38700;
+	color: #fff;
+}
+.pagebar-custom a:hover {
+	border-color: #2E6AB1;
+}
+.pagebar-custom .inactive {
+   color: #ccc;
+   text-decoration: none;
+   padding: 0.2em 0.5em;
+}
+
+body.single div.wp-caption {
+  width: 585px !important;
 }

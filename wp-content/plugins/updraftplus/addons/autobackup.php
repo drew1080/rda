@@ -2,9 +2,9 @@
 /*
 UpdraftPlus Addon: autobackup:Automatic Backups
 Description: Save time and worry by automatically create backups before updating WordPress components
-Version: 1.2
+Version: 1.4
 Shop: /shop/autobackup/
-Latest Change: 1.7.11
+Latest Change: 1.9.17
 */
 
 if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
@@ -13,7 +13,7 @@ $updraftplus_addon_autobackup = new UpdraftPlus_Addon_Autobackup;
 
 class UpdraftPlus_Addon_Autobackup {
 
-	function __construct() {
+	public function __construct() {
 		add_filter('updraftplus_autobackup_blurb', array($this, 'updraftplus_autobackup_blurb'));
 		add_action('admin_action_update-selected',  array($this, 'admin_action_update_selected'));
 		add_action('admin_action_update-selected-themes',  array($this, 'admin_action_update_selected_themes'));
@@ -27,13 +27,13 @@ class UpdraftPlus_Addon_Autobackup {
 	}
 
 	# This appears on the page listing several updates
-	function updraftplus_autobackup_blurb() {
+	public function updraftplus_autobackup_blurb() {
 		$ret = '<input '.((UpdraftPlus_Options::get_updraft_option('updraft_autobackup_default', true)) ? 'checked="checked"' : '').' type="checkbox" id="updraft_autobackup" value="doit" name="updraft_autobackup"> <label for="updraft_autobackup">'.__('Automatically backup (where relevant) plugins, themes and the WordPress database with UpdraftPlus before updating', 'updraftplus').'</label><br><input checked="checked" type="checkbox" value="set" name="updraft_autobackup_setdefault" id="updraft_autobackup_sdefault"> <label for="updraft_autobackup_sdefault">'.__('Remember this choice for next time (you will still have the chance to change it)', 'updraftplus').'</label><br><em><a href="http://updraftplus.com/automatic-backups/">'.__('Read more about how this works...','updraftplus').'</a></em>';
 		add_action('admin_footer', array($this, 'admin_footer_insertintoform'));
 		return $ret;
 	}
 
-	function admin_footer_insertintoform() {
+	public function admin_footer_insertintoform() {
 		$def = UpdraftPlus_Options::get_updraft_option('updraft_autobackup_default', true);
 		$godef = ($def) ? 'yes' : 'no';
 		echo <<<ENDHERE
@@ -62,7 +62,7 @@ class UpdraftPlus_Addon_Autobackup {
 ENDHERE;
 	}
 
-	function admin_footer() {
+	public function admin_footer() {
 		$creating = esc_js(sprintf(__('Creating %s and database backup with UpdraftPlus...', 'updraftplus'), $this->type).' '.__('(logs can be found in the UpdraftPlus settings page as normal)...', 'updraftplus'));
 		$lastlog = esc_js(__('Last log message', 'updraftplus')).':';
 		$updraft_credentialtest_nonce = wp_create_nonce('updraftplus-credentialtest-nonce');
@@ -102,7 +102,7 @@ ENDHERE;
 ENDHERE;
 	}
 
-	function process_form() {
+	private function process_form() {
 		$autobackup = (isset($_POST['updraft_autobackup']) && $_POST['updraft_autobackup'] == 'yes') ? true : false;
 		UpdraftPlus_Options::update_updraft_option('updraft_autobackup_go', $autobackup);
 		if ($autobackup) add_action('admin_footer', array($this, 'admin_footer'));
@@ -110,30 +110,30 @@ ENDHERE;
 	}
 
 	# The initial form submission from the updates page
-	function admin_action_do_plugin_upgrade() {
+	public function admin_action_do_plugin_upgrade() {
 		$this->process_form();
 		$this->type = __('plugins', 'updraftplus');
 	}
 
-	function admin_action_do_theme_upgrade() {
+	public function admin_action_do_theme_upgrade() {
 		$this->process_form();
 		$this->type = __('themes', 'updraftplus');
 	}
 
 	# Into the updating iframe...
-	function admin_action_update_selected() {
+	public function admin_action_update_selected() {
 		if ( ! current_user_can('update_plugins') ) return;
 		$autobackup = UpdraftPlus_Options::get_updraft_option('updraft_autobackup_go');
 		if ($autobackup) $this->autobackup_go('plugins');
 	}
 
-	function admin_action_update_selected_themes() {
+	public function admin_action_update_selected_themes() {
 		if ( ! current_user_can('update_themes') ) return;
 		$autobackup = UpdraftPlus_Options::get_updraft_option('updraft_autobackup_go');
 		if ($autobackup) $this->autobackup_go('themes');
 	}
 
-	function admin_action_do_core_upgrade() {
+	public function admin_action_do_core_upgrade() {
 
 		if (!isset($_POST['upgrade'])) return;
 
@@ -196,7 +196,7 @@ ENDHERE;
 
 	}
 
-	function autobackup_go($entity, $jquery = false) {
+	private function autobackup_go($entity, $jquery = false) {
 		define('UPDRAFTPLUS_BROWSERLOG', true);
 		echo '<p style="clear:left; padding-top:6px;">'.__('Creating backup with UpdraftPlus...', 'updraftplus')."</p>";
 		@ob_end_flush();
@@ -213,19 +213,25 @@ ENDHERE;
 		$this->autobackup_finish($jquery);
 	}
 
-	function autobackup_finish($jquery = false) {
+	private function autobackup_finish($jquery = false) {
+
+		global $wpdb;
+		if (method_exists($wpdb, 'check_connection') && !$wpdb->check_connection(false)) {
+			$updraftplus->log("It seems the database went away, and could not be reconnected to");
+			die;
+		}
 
 		echo "<script>var h = document.getElementById('updraftplus-autobackup-log'); h.style.display='none';</script>";
 
 		if ($jquery) {
-			echo '<p>'.__('Backup succeeded <a href="#updraftplus-autobackup-log" onclick="jQuery(\'#updraftplus-autobackup-log\').slideToggle();">(view log...)</a> - now proceeding with the updates...', 'updraftplus').'</p>';
+			echo '<p>'.__('Backup succeeded', 'updraftplus').' <a href="#updraftplus-autobackup-log" onclick="jQuery(\'#updraftplus-autobackup-log\').slideToggle();">'.__('(view log...)', 'updraftplus').'</a> - '.__('now proceeding with the updates...', 'updraftplus').'</p>';
 		} else {
-			echo '<p>'.__('Backup succeeded <a href="#updraftplus-autobackup-log" onclick="var s = document.getElementById(\'updraftplus-autobackup-log\'); s.style.display = \'block\';">(view log...)</a> - now proceeding with the updates...', 'updraftplus').'</p>';
+			echo '<p>'.__('Backup succeeded', 'updraftplus').' <a href="#updraftplus-autobackup-log" onclick="var s = document.getElementById(\'updraftplus-autobackup-log\'); s.style.display = \'block\';">'.__('(view log...)', 'updraftplus').'</a> - '.__('now proceeding with the updates...', 'updraftplus').'</p>';
 		}
 
 	}
 
-	function admin_action_upgrade_plugin() {
+	public function admin_action_upgrade_plugin() {
 		if ( ! current_user_can('update_plugins') ) return;
 
 		if (!empty($_REQUEST['updraftplus_noautobackup'])) return;
@@ -256,7 +262,7 @@ ENDHERE;
 
 	}
 
-	function request_filesystem_credentials($input) {
+	public function request_filesystem_credentials($input) {
 		echo <<<ENDHERE
 <script>
 	jQuery(document).ready(function(){
@@ -267,7 +273,7 @@ ENDHERE;
 		return $input;
 	}
 
-	function admin_action_upgrade_theme() {
+	public function admin_action_upgrade_theme() {
 
 		if ( ! current_user_can('update_themes') ) return;
 		$theme = isset($_REQUEST['theme']) ? urldecode($_REQUEST['theme']) : '';
@@ -295,7 +301,7 @@ ENDHERE;
 
 	}
 
-	function auto_backup_form_and_die() {
+	private function auto_backup_form_and_die() {
 		?>
 		<h2><?php echo __('UpdraftPlus Automatic Backups', 'updraftplus');?></h2>
 		<form method="post">

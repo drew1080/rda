@@ -37,7 +37,7 @@ class UpdraftPlus_Options {
 	public static function options_form_begin($settings_fields = 'updraft-options-group', $allow_autocomplete = true) {
 		global $pagenow;
 		echo '<form method="post" ';
-		if ($pagenow == 'options-general.php') echo 'action="options.php"';
+		if ('options-general.php' == $pagenow) echo 'action="options.php"';
 		if (!$allow_autocomplete) echo ' autocomplete="off"';
 		echo '>';
 		if ($settings_fields) settings_fields('updraft-options-group');
@@ -48,25 +48,24 @@ class UpdraftPlus_Options {
 		global $updraftplus, $updraftplus_admin;
 		register_setting('updraft-options-group', 'updraft_interval', array($updraftplus, 'schedule_backup') );
 		register_setting('updraft-options-group', 'updraft_interval_database', array($updraftplus, 'schedule_backup_database') );
+		register_setting('updraft-options-group', 'updraft_interval_increments');
 		register_setting('updraft-options-group', 'updraft_retain', array($updraftplus, 'retain_range') );
 		register_setting('updraft-options-group', 'updraft_retain_db', array($updraftplus, 'retain_range') );
 		register_setting('updraft-options-group', 'updraft_encryptionphrase');
 		register_setting('updraft-options-group', 'updraft_service', array($updraftplus, 'just_one'));
 
 		register_setting('updraft-options-group', 'updraft_s3');
+		register_setting('updraft-options-group', 'updraft_ftp', array($updraftplus, 'ftp_sanitise'));
 		register_setting('updraft-options-group', 'updraft_dreamobjects');
 		register_setting('updraft-options-group', 'updraft_s3generic');
 		register_setting('updraft-options-group', 'updraft_cloudfiles');
 		register_setting('updraft-options-group', 'updraft_bitcasa', array($updraftplus, 'bitcasa_checkchange'));
 		register_setting('updraft-options-group', 'updraft_openstack');
+		register_setting('updraft-options-group', 'updraft_dropbox', array($updraftplus, 'dropbox_checkchange'));
 		register_setting('updraft-options-group', 'updraft_googledrive', array($updraftplus, 'googledrive_checkchange'));
 
 		register_setting('updraft-options-group', 'updraft_sftp_settings');
 		register_setting('updraft-options-group', 'updraft_webdav_settings', array($updraftplus, 'replace_http_with_webdav'));
-
-		register_setting('updraft-options-group', 'updraft_dropbox_appkey');
-		register_setting('updraft-options-group', 'updraft_dropbox_secret');
-		register_setting('updraft-options-group', 'updraft_dropbox_folder');
 
 		register_setting('updraft-options-group', 'updraft_ssl_nossl', 'absint');
 		register_setting('updraft-options-group', 'updraft_log_syslog', 'absint');
@@ -75,11 +74,6 @@ class UpdraftPlus_Options {
 
 		register_setting('updraft-options-group', 'updraft_split_every', array($updraftplus_admin, 'optionfilter_split_every') );
 
-		register_setting('updraft-options-group', 'updraft_ftp_login' );
-		register_setting('updraft-options-group', 'updraft_ftp_pass' );
-		register_setting('updraft-options-group', 'updraft_ftp_remote_path' );
-
-		register_setting('updraft-options-group', 'updraft_server_address' );
 		register_setting('updraft-options-group', 'updraft_dir', array($updraftplus_admin, 'prune_updraft_dir_prefix') );
 		register_setting('updraft-options-group', 'updraft_email', array($updraftplus, 'just_one_email'));
 
@@ -88,6 +82,8 @@ class UpdraftPlus_Options {
 
 		register_setting('updraft-options-group', 'updraft_delete_local', 'absint' );
 		register_setting('updraft-options-group', 'updraft_debug_mode', 'absint' );
+		register_setting('updraft-options-group', 'updraft_extradbs');
+		register_setting('updraft-options-group', 'updraft_backupdb_nonwp', 'absint');
 
 		register_setting('updraft-options-group', 'updraft_include_plugins', 'absint' );
 		register_setting('updraft-options-group', 'updraft_include_themes', 'absint' );

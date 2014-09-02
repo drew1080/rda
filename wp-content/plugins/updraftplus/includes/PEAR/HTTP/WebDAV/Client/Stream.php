@@ -156,7 +156,7 @@ class HTTP_WebDAV_Client_Stream
 
         // now get the file metadata
         // we only need type, size, creation and modification date
-        $req = &$this->_startRequest(HTTP_REQUEST_METHOD_PROPFIND);
+        $req = $this->_startRequest(HTTP_REQUEST_METHOD_PROPFIND);
         if (is_string($this->user)) {
             $req->setBasicAuth($this->user, @$this->pass);          
         }
@@ -343,7 +343,7 @@ class HTTP_WebDAV_Client_Stream
         }
 
         // create a partial PUT request
-        $req = &$this->_startRequest(HTTP_REQUEST_METHOD_PUT);
+        $req = $this->_startRequest(HTTP_REQUEST_METHOD_PUT);
         if (is_string($this->user)) {
             $req->setBasicAuth($this->user, @$this->pass);          
         }
@@ -744,7 +744,7 @@ class HTTP_WebDAV_Client_Stream
             return false;
         }       
 
-        $req = &$this->_startRequest(HTTP_REQUEST_METHOD_DELETE);
+        $req = $this->_startRequest(HTTP_REQUEST_METHOD_DELETE);
         if (is_string($this->user)) {
             $req->setBasicAuth($this->user, @$this->pass);          
         }
@@ -768,7 +768,7 @@ class HTTP_WebDAV_Client_Stream
      * @access public, static
      * @return bool   true on success (even if SSL doesn't work)
      */
-    function register() 
+    static function register() 
     {
         // check that we have the required feature
         if (!function_exists("stream_register_wrapper")) {
@@ -865,7 +865,7 @@ class HTTP_WebDAV_Client_Stream
     function _check_options() 
     {
         // now check OPTIONS reply for WebDAV response headers
-        $req = &$this->_startRequest(HTTP_REQUEST_METHOD_OPTIONS);
+        $req = $this->_startRequest(HTTP_REQUEST_METHOD_OPTIONS);
         if (is_string($this->user)) {
             $req->setBasicAuth($this->user, @$this->pass);          
         }

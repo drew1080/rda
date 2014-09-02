@@ -240,18 +240,14 @@ class BitcasaClient_WP extends BitcasaClient {
 
 		$full_url .= $this->encodeArray($args, true);
 
-		$ch = curl_init();
+		$ch = curl_init($full_url);
 
 		curl_setopt($ch, CURLOPT_POST, 1);
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($ch, CURLOPT_URL, $full_url);
 		curl_setopt($ch, CURLOPT_HEADER, true);
 
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-type: multipart/form-data"));
-
-		$postdata = $fields;
-		$postdata['file'] = "@/".realpath($filepath).";type=application/".(('.zip' == substr($filepath, -4, 4)) ? 'zip' : 'octet-stream');
 
 		if (!UpdraftPlus_Options::get_updraft_option('updraft_ssl_useservercerts')) {
 			curl_setopt($ch, CURLOPT_CAINFO, UPDRAFTPLUS_DIR.'/includes/cacert.pem');
@@ -260,6 +256,15 @@ class BitcasaClient_WP extends BitcasaClient {
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 		} else {
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+		}
+
+		if (version_compare(PHP_VERSION, '5.5.0', '>=') && class_exists('CURLFile')) {
+			$curlfile = new CURLFile(realpath($filepath), 'application/'.(('.zip' == substr($filepath, -4, 4)) ? 'zip' : 'octet-stream'));
+			$postdata = $fields;
+			$postdata['file'] = $curlfile;
+		} else {
+			$postdata = $fields;
+			$postdata['file'] = "@".realpath($filepath).";type=application/".(('.zip' == substr($filepath, -4, 4)) ? 'zip' : 'octet-stream');
 		}
 
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);

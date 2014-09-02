@@ -232,6 +232,7 @@ function adrotate_check_config() {
 	if(empty($config['clicktracking']) OR ($config['clicktracking'] != 'Y' AND $config['clicktracking'] != 'N')) $config['clicktracking'] = 'Y';
 	if(empty($config['jsfooter']) OR ($config['jsfooter'] != 'Y' AND $config['jsfooter'] != 'N')) $config['jsfooter'] = 'Y';
 	if(empty($config['impression_timer']) OR ($config['impression_timer'] < 0 AND $config['impression_timer'] > 3600)) $config['impression_timer'] = 10;
+	if(empty($config['click_timer']) OR $config['click_timer'] < 0 OR $config['click_timer'] > 86400) $config['click_timer'] = 86400;
 
 	if(empty($config['adblock']) OR ($config['adblock'] != 'Y' AND $config['adblock'] != 'N')) $config['adblock'] = 'N';
 	if(empty($config['adblock_timer']) OR $config['adblock_timer'] < 0 OR $config['adblock_timer'] > 20) $config['adblock_timer'] = 5;
@@ -320,8 +321,10 @@ function adrotate_database_install() {
 			`sortorder` int(5) NOT NULL default '0',
 			`cat` longtext NOT NULL,
 			`cat_loc` tinyint(1) NOT NULL default '0',
+			`cat_par` tinyint(1) NOT NULL default '0',
 			`page` longtext NOT NULL,
 			`page_loc` tinyint(1) NOT NULL default '0',
+			`page_par` tinyint(1) NOT NULL default '0',
 			`geo` tinyint(1) NOT NULL default '0',
 			`wrapper_before` longtext NOT NULL,
 			`wrapper_after` longtext NOT NULL,
@@ -515,6 +518,13 @@ function adrotate_database_upgrade() {
 	// AdRotate:	3.9.9
 	if($adrotate_db_version['current'] < 40) {
 		adrotate_add_column($tables['adrotate'], 'responsive', 'varchar(5) NOT NULL default \'N\' AFTER `tracker`');
+	}
+
+	// Database: 	41
+	// AdRotate:	3.9.12
+	if($adrotate_db_version['current'] < 41) {
+		adrotate_add_column($tables['adrotate_groups'], 'page_par', 'tinyint(1) NOT NULL default \'0\' AFTER `page_loc`');
+		adrotate_add_column($tables['adrotate_groups'], 'cat_par', 'tinyint(1) NOT NULL default \'0\' AFTER `cat_loc`');
 	}
 
 	update_option("adrotate_db_version", array('current' => ADROTATE_DB_VERSION, 'previous' => $adrotate_db_version['current']));
