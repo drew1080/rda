@@ -90,6 +90,10 @@ ol.hfeed.vcalendar {
   margin: 0 10px 0 0;
 }
 
+.blog_post .post-content footer.entry-meta .clear {
+  margin-top: 10px;
+}
+
 /* Left Sidebar Page */
 .container .eleven {
   float: right;

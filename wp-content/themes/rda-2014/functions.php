@@ -178,7 +178,7 @@ function fruitful_entry_meta_child() {
 		</span>
 		<?php endif; // End if $tags_list ?>
   <div class="clear"></div>
-  <span class="posted-date">Published: <?php the_date(); ?></span>
+  <span class="posted-date">Published on <?php the_date(); ?></span>
 	<?php endif; // End if 'post' == get_post_type() ?>
 	<?php //edit_post_link( __( 'Edit', 'fruitful' ), '<span class="edit-link">', '</span>' ); ?>
 <?php
