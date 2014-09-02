@@ -77,6 +77,19 @@ ol.hfeed.vcalendar {
   margin: 0px;
 }
 
+
+.blog_post .post-content footer.entry-meta .clear {
+  margin-top: 5px;
+}
+
+.blog_post .post-content footer.entry-meta .posted-date {
+/*  background: url(images/category.png) no-repeat 0 0 transparent;*/
+  height: 22px;
+  width: auto;
+/*  padding: 3px 0 2px 26px;*/
+  margin: 0 10px 0 0;
+}
+
 /* Left Sidebar Page */
 .container .eleven {
   float: right;

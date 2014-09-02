@@ -154,6 +154,36 @@ class JPB_User_Caps {
 
 $jpb_user_caps = new JPB_User_Caps();
 
+
+function fruitful_entry_meta_child() {
+?>
+	<span class="author-link"><a href="<?php print esc_url( get_author_posts_url( get_the_author_meta( 'ID' ))); ?>"><?php print get_the_author(); ?></a></span>
+	<?php if ( 'post' == get_post_type() ) : // Hide category and tag text for pages on Search ?>
+	<?php
+		/* translators: used between list items, there is a space after the comma */
+		 $categories_list = get_the_category_list( __( ', ', 'fruitful' ) );
+	if ( $categories_list && fruitful_categorized_blog() ) : ?>
+		<span class="cat-links">
+			<?php printf( __( 'Posted in %1$s', 'fruitful' ), $categories_list ); ?>
+		</span>
+	<?php endif; // End if categories ?>
+
+	<?php
+		/* translators: used between list items, there is a space after the comma */
+		$tags_list = get_the_tag_list( '', __( ', ', 'fruitful' ) );
+		if ( $tags_list ) :
+	?>
+		<span class="tag-links">
+			<?php printf( __( 'Tagged %1$s', 'fruitful' ), $tags_list ); ?>
+		</span>
+		<?php endif; // End if $tags_list ?>
+  <div class="clear"></div>
+  <span class="posted-date">Published: <?php the_date(); ?></span>
+	<?php endif; // End if 'post' == get_post_type() ?>
+	<?php //edit_post_link( __( 'Edit', 'fruitful' ), '<span class="edit-link">', '</span>' ); ?>
+<?php
+}
+
 // $edit_editor = get_role('editor'); // Get the user role
 // $edit_editor->add_cap('list_users'); 
 // $edit_editor->add_cap('create_users');
