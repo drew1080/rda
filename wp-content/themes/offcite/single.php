@@ -49,9 +49,11 @@
 
             
 
-        <div class="featuredphoto"> 
+        <div class="featuredphoto test2"> 
         <?php if ( has_post_thumbnail() ) { // check if the post has a Post Thumbnail assigned to it.
          the_post_thumbnail('large');
+         //echo get_the_post_thumbnail( $post->ID, 'large' );
+         //echo '<div style="display:none">TEST</div>'
         ?></div><!--end featuredphoto div-->
         <?php } else if ( $numpics > 0 ) { ?> 
   		  <?php 

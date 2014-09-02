@@ -43,7 +43,7 @@ class UpdraftPlusAddons2 {
 
 	private $admin_notices = array();
 
-	function __construct($slug, $url) {
+	public function __construct($slug, $url) {
 		$this->slug = $slug;
 		$this->url = $url;
 
@@ -124,7 +124,7 @@ class UpdraftPlusAddons2 {
 
 		if (is_object($oval) && !empty($oval->update) && is_object($oval->update) && !empty($oval->update->$yourversionkey) && UpdraftPlus_Options::user_can_manage() && (!defined('UPDRAFTPLUS_DISABLECOMPATNOTICE') || true != UPDRAFTPLUS_DISABLECOMPATNOTICE)) {
 			global $wp_version;
-			include(ABSPATH.'wp-includes/version.php');
+			include(ABSPATH.WPINC.'/version.php');
 			$compare_wp_version = (preg_match('/^(\d+\.\d+)\..*$/', $wp_version, $wmatches)) ? $wmatches[1] : $wp_version;
 			$compare_tested_version = $oval->update->$yourversionkey;
 			#$compare_tested_version = (preg_match('/^(\d+\.\d+)\.*$/', $oval->update->$yourversionkey, $wmatches)) ? $wmatches[1] : $oval->update->$yourversionkey;
@@ -317,7 +317,7 @@ class UpdraftPlusAddons2 {
 		if (defined('UPDRAFTPLUS_ADDONS_SSL') && UPDRAFTPLUS_ADDONS_SSL == true) $args['ssl']=1;
 
 		// Some information on the server calling. This can be used - e.g. if they have an old version of PHP/WordPress, then this may affect what update version they should be offered
-		include(ABSPATH.'wp-includes/version.php');
+		include(ABSPATH.WPINC.'/version.php');
 		global $wp_version;
 		$sinfo = array(
 			'wp' => $wp_version,

@@ -64,13 +64,22 @@ class UpdraftPlus_Addon_CloudFilesEnhanced {
 		if (empty($_POST['location'])) $_POST['location'] = 'us';
 		if (empty($_POST['region'])) $_POST['region'] = 'DFW';
 
+
 		require_once(UPDRAFTPLUS_DIR.'/methods/cloudfiles.php');
+		require_once(UPDRAFTPLUS_DIR.'/oc/autoload.php');
 		$method = new UpdraftPlus_BackupModule_cloudfiles;
 		$useservercerts = !empty($_POST['useservercerts']);
 		$disableverify = !empty($_POST['disableverify']);
+		$auth_url = ('uk' == $_POST['location']) ? Rackspace::UK_IDENTITY_ENDPOINT : Rackspace::US_IDENTITY_ENDPOINT;
 
 		try {
-			$service = $method->get_service($_POST['adminuser'], $_POST['adminapikey'], $_POST['location'], $useservercerts, $disableverify, $_POST['region']);
+			$service = $method->get_service(array(
+				'user' => $_POST['adminuser'],
+				'apikey' => $_POST['adminapikey'],
+				'authurl' => $auth_url,
+				'region' => $_POST['region']
+			),
+			$useservercerts, $disableverify);
 		} catch(AuthenticationError $e) {
 			$updraftplus->log('Cloud Files authentication failed ('.$e->getMessage().')');
 			$updraftplus->log(__('Cloud Files authentication failed', 'updraftplus').' ('.$e->getMessage().')', 'error');
@@ -79,8 +88,6 @@ class UpdraftPlus_Addon_CloudFilesEnhanced {
 			echo json_encode(array('e' => 1, 'm' => __('Error:', 'updraftplus').' '.$e->getMessage()));
 			return false;
 		}
-
-		$auth_url = ('uk' == $_POST['location']) ? Rackspace::UK_IDENTITY_ENDPOINT : Rackspace::US_IDENTITY_ENDPOINT;
 
 		# Get the roles
 // 		try {
@@ -128,10 +135,10 @@ class UpdraftPlus_Addon_CloudFilesEnhanced {
 			'enabled' => true
 		)));
 
-		$client = $method->client;
+		$client = $method->get_client();
 
 		try {
-			$response = $client->post($auth_url.'users', array(), $json)->send()->json();
+			$response = $client->post($auth_url.'users', array('Content-Type' => 'application/json', 'Accept' => 'application/json'), $json)->send()->json();
 		} catch (Guzzle\Http\Exception\ClientErrorResponseException $e) {
 			$response = $e->getResponse();
 			$code = $response->getStatusCode();

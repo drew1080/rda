@@ -71,16 +71,14 @@ if (is_multisite()) {
 					'updraftplus_dismissedexpiry' => 0,
 
 					'updraft_s3' => array(),
+					'updraft_ftp' => array(),
 					'updraft_s3generic' => array(),
 					'updraft_dreamobjects' => array(),
 					'updraft_cloudfiles' => array(),
 					'updraft_bitcasa' => array(),
 					'updraft_openstack' => array(),
 					'updraft_googledrive' => array(),
-
-					'updraft_dropbox_appkey' => '',
-					'updraft_dropbox_secret' => '',
-					'updraft_dropbox_folder' => '',
+					'updraft_dropbox' => array(),
 
 					'updraft_log_syslog' => 0,
 					'updraft_ssl_nossl' => 0,
@@ -91,15 +89,13 @@ if (is_multisite()) {
 					'updraft_sftp_settings' => array(),
 					'updraft_webdav_settings' => array(),
 
-					'updraft_ftp_login' => '',
-					'updraft_ftp_pass' => '',
-					'updraft_ftp_remote_path' => '',
-					'updraft_server_address' => '',
 					'updraft_dir' => '',
-
 					'updraft_email' => '',
 					'updraft_report_warningsonly' => array(),
 					'updraft_report_wholebackup' => array(),
+
+					'updraft_databases' => array(),
+					'updraft_backupdb_nonwp' => 0,
 
 					'updraft_delete_local' => 1,
 					'updraft_debug_mode' => 1,
@@ -116,6 +112,7 @@ if (is_multisite()) {
 					'updraft_include_others_exclude' => UPDRAFT_DEFAULT_OTHERS_EXCLUDE,
 					'updraft_include_uploads_exclude' => UPDRAFT_DEFAULT_UPLOADS_EXCLUDE,
 					'updraft_interval' => 'manual',
+					'updraft_interval_increments' => 'none',
 					'updraft_interval_database' => 'manual',
 					'updraft_retain' => 1,
 					'updraft_retain_db' => 1,
@@ -136,7 +133,6 @@ if (is_multisite()) {
 
 		public static function admin_init() {
 			global $updraftplus, $updraftplus_admin;
-			#add_filter('wpmu_options', array($updraftplus_admin, 'settings_formcontents'));
 			$updraftplus->plugin_title .= " - ".__('Multisite Install','updraftplus');
 		}
 
@@ -180,6 +176,10 @@ if (is_multisite()) {
 					$options[$key] = absint($value);
 				} elseif ('updraft_googledrive' == $key && is_array($value)) {
 					$options[$key] = $updraftplus->googledrive_checkchange($value);
+				} elseif ('updraft_dropbox' == $key && is_array($value)) {
+					$options[$key] = $updraftplus->dropbox_checkchange($value);
+				} elseif ('updraft_ftp' == $key && is_array($value)) {
+					$options[$key] = $updraftplus->ftp_sanitise($value);
 				} elseif ('updraft_bitcasa' == $key && is_array($value)) {
 					$options[$key] = $updraftplus->bitcasa_checkchange($value);
 				} elseif ('updraft_split_every' == $key) {
@@ -237,7 +237,7 @@ if (is_multisite()) {
 	}
 
 	register_activation_hook('updraftplus', array('UpdraftPlus_Options', 'setdefaults'));
-	#add_filter('update_wpmu_options', array('UpdraftPlus_Options', 'update_wpmu_options'));
+
 	add_action('network_admin_menu', array('UpdraftPlus_Options', 'add_admin_pages'));
 	add_action('admin_init', array('UpdraftPlus_Options', 'admin_init'), 15);
 

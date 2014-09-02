@@ -97,7 +97,24 @@
     
     <ul id="prevnextlinks">
     <li id="backtotop"><a href="#" title="back to the top">back to the top</a></li>
-    <li><?php if (function_exists( 'wp_pagebar' )) wp_pagebar(); ?></li>
+    <li>
+    <?php
+    global $wp_query;
+
+    $big = 999999999; // need an unlikely integer
+    echo "<div class='pagebar-custom'><span>Pages: </span>";
+    echo paginate_links( array(
+    	'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+    	'format' => '?paged=%#%',
+    	'current' => max( 1, get_query_var('paged') ),
+    	'total' => $wp_query->max_num_pages,
+      'prev_text'    => __('Prev'),
+      'next_text'    => __('Next')
+    ) );
+    echo "</div>";
+      
+    ?>
+    </li>
     </ul>
     
     

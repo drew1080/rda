@@ -2,9 +2,9 @@
 /*
 UpdraftPlus Addon: migrator:Migrate a WordPress site to a different location.
 Description: Import a backup into a different site, including database search-and-replace. Ideal for development and testing and cloning of sites.
-Version: 2.0
+Version: 2.2
 Shop: /shop/migrator/
-Latest Change: 1.8.14
+Latest Change: 1.9.14
 */
 
 if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
@@ -44,6 +44,8 @@ class UpdraftPlus_Addons_Migrator {
 		add_action('updraftplus_restore_db_record_old_content', array($this, 'updraftplus_restore_db_record_old_content'));
 		add_action('updraftplus_restored_plugins_one', array($this, 'restored_plugins_one'));
 		add_action('updraftplus_restored_themes_one', array($this, 'restored_themes_one'));
+		add_action('updraftplus_debugtools_dashboard', array($this, 'debugtools_dashboard'));
+		add_action('updraftplus_adminaction_searchreplace', array($this, 'adminaction_searchreplace'));
 		add_filter('updraftplus_restore_set_table_prefix', array($this, 'restore_set_table_prefix'), 10, 2);
 		add_filter('updraftplus_dbscan_urlchange', array($this, 'dbscan_urlchange'), 10, 3);
 		add_filter('updraftplus_restorecachefiles', array($this, 'restorecachefiles'), 10, 2);
@@ -84,6 +86,45 @@ class UpdraftPlus_Addons_Migrator {
 			$updraftplus->log_e("%s: Skipping cache file (does not already exist)", $file);
 		}
 		return $val;
+	}
+
+	public function adminaction_searchreplace() {
+		echo '<h2>'.__('Search / replace database','updraftplus').'</h2>';
+		echo '<strong>'.__('Search for', 'updraftplus').':</strong> '.htmlspecialchars($_POST['search'])."<br>";
+		echo '<strong>'.__('Replace with', 'updraftplus').':</strong> '.htmlspecialchars($_POST['replace'])."<br>";
+		if (empty($_POST['search'])) {
+			echo sprintf(__("Failure: No %s was given.",'updraftplus'), __('search term','updraftplus'))."<br>";
+			echo '<a href="'.UpdraftPlus_Options::admin_page_url().'?page=updraftplus">'.__('Return to UpdraftPlus Configuration','updraftplus').'</a>';
+			return;
+		}
+		global $updraftplus_restorer;
+		if (empty($updraftplus_restorer) || !is_a($updraftplus_restorer, '')) {
+			# Needed for the UpdraftPlus_WPDB class and Updraft_Restorer::sql_exec() method
+			require_once(UPDRAFTPLUS_DIR.'/restorer.php');
+			$updraftplus_restorer = new Updraft_Restorer(null, null, true);
+		}
+		$this->updraftplus_restore_db_pre();
+		$this->tables_replaced = array();
+		$this->updraftplus_restored_db_dosearchreplace($_POST['search'], $_POST['replace'], $this->base_prefix, false);
+		echo '<a href="'.UpdraftPlus_Options::admin_page_url().'?page=updraftplus">'.__('Return to UpdraftPlus Configuration','updraftplus').'</a>';
+	}
+
+	public function debugtools_dashboard() {
+		global $updraftplus_admin;
+	?>
+		<h3><?php echo __('Search / replace database','updraftplus'); ?></h3>
+		<p><em><?php echo __('This can easily destroy your site; so, use it with care!', 'updraftplus');?></em></p>
+		<form method="post" onsubmit="return(confirm('<?php echo htmlspecialchars(__('A search/replace cannot be undone - are you sure you want to do this?'));?>'))">
+		<input type="hidden" name="nonce" value="<?php echo wp_create_nonce('updraftplus-credentialtest-nonce');?>">
+		<input type="hidden" name="action" value="updraftplus_broadcastaction">
+		<input type="hidden" name="subaction" value="updraftplus_adminaction_searchreplace">
+		<table>
+		<?php echo $updraftplus_admin->settings_debugrow(__('Search for', 'updraftplus').':', '<input type="text" name="search" value="" style="width:380px;">'); ?>
+		<?php echo $updraftplus_admin->settings_debugrow(__('Replace with', 'updraftplus').':', '<input type="text" name="replace" value="" style="width:380px;">'); ?>
+		<?php echo $updraftplus_admin->settings_debugrow('', '<input class="button-primary" type="submit" value="'.esc_attr(__('Go', 'updraftplus')).'">'); ?>
+		</table>
+		</form>
+	<?php
 	}
 
 	public function dbscan_urlchange($output, $old_siteurl, $res) {
@@ -219,31 +260,31 @@ class UpdraftPlus_Addons_Migrator {
 		}
 	}
 
-	function updraftplus_restore_form_db() {
+	public function updraftplus_restore_form_db() {
 
 		echo '<input name="updraft_restorer_replacesiteurl" id="updraft_restorer_replacesiteurl" type="checkbox" value="1"><label for="updraft_restorer_replacesiteurl" title="'.sprintf(__('All references to the site location in the database will be replaced with your current site URL, which is: %s', 'updraftplus'), htmlspecialchars(untrailingslashit(site_url()))).'"> '.__('Search and replace site location in the database (migrate)','updraftplus').'</label> <a href="http://updraftplus.com/faqs/tell-me-more-about-the-search-and-replace-site-location-in-the-database-option/">'.__('(learn more)','updraftplus').'</a>';
 
 	}
 
-	function updraftplus_restore_db_record_old_siteurl($old_siteurl) {
+	public function updraftplus_restore_db_record_old_siteurl($old_siteurl) {
 		// Only record once
 		if (!empty($this->old_siteurl)) return;
 		$this->old_siteurl = $old_siteurl;
 	}
 
-	function updraftplus_restore_db_record_old_home($old_home) {
+	public function updraftplus_restore_db_record_old_home($old_home) {
 		// Only record once
 		if (!empty($this->old_home)) return;
 		$this->old_home = $old_home;
 	}
 
-	function updraftplus_restore_db_record_old_content($old_content) {
+	public function updraftplus_restore_db_record_old_content($old_content) {
 		// Only record once
 		if (!empty($this->old_content)) return;
 		$this->old_content = $old_content;
 	}
 
-	function updraftplus_restore_db_pre() {
+	public function updraftplus_restore_db_pre() {
 
 		global $wpdb, $updraftplus;
 
@@ -311,19 +352,18 @@ class UpdraftPlus_Addons_Migrator {
 		if (empty($this->tables_replaced)) $this->tables_replaced = array();
 
 		// Already done?
-		if (isset($this->tables_replaced[$table]) && $this->tables_replaced[$table]) return;
+		if (!empty($this->tables_replaced[$table])) return;
 
 		# If not done already, then search & replace this table, + record that it is done
 		@set_time_limit(1800);
-
-		# The term_relationships table contains 3 columns, all integers. Therefore, we can skip it. It can easily get big, so this is a good time-saver.
 
 		$stripped_table = substr($table, strlen($import_table_prefix));
 		# Remove multisite site number prefix, if relevant
 		if (is_multisite() && preg_match('/^(\d+)_(.*)$/', $stripped_table, $matches)) $stripped_table = $matches[2];
 
 		# This array is for tables that a) we know don't need URL search/replacing and b) are likely to be sufficiently big that they could significantly delay the progress of the migrate (and increase the risk of timeouts on hosts that enforce them)
-		$skip_tables = array('slim_stats', 'term_relationships', 'icl_languages_translations', 'icl_string_positions', 'icl_string_translations', 'icl_strings', 'redirection_logs');
+		# The term_relationships table contains 3 columns, all integers. Therefore, we can skip it. It can easily get big, so this is a good time-saver.
+		$skip_tables = array('slim_stats', 'statpress', 'term_relationships', 'icl_languages_translations', 'icl_string_positions', 'icl_string_translations', 'icl_strings', 'redirection_logs', 'Counterize', 'Counterize_UserAgents', 'Counterize_Referers', 'adrotate_stats', 'login_security_solution_fail', 'wfHits', 'wbz404_logs', 'wbz404_redirects', 'wp_wfFileMods', 'tts_trafficstats', 'tts_referrer_stats', 'dmsguestbook', 'relevanssi');
 
 		if (in_array($stripped_table, $skip_tables)) {
 			$this->tables_replaced[$table] = true;
@@ -335,13 +375,13 @@ class UpdraftPlus_Addons_Migrator {
 		if (is_multisite() && ($table == $this->base_prefix.'blogs' || $table == $this->base_prefix.'site') && (preg_match('#^https?://([^/]+)#i', $this->home, $matches) || preg_match('#^https?://([^/]+)#i', $this->siteurl, $matches)) && (preg_match('#^https?://([^/]+)#i', $old_home, $omatches) || preg_match('#^https?://([^/]+)#i', $old_siteurl, $omatches))) {
 			$from_array = strtolower($omatches[1]);
 			$to_array = strtolower($matches[1]);
-			$updraftplus->log_e("Replacing in blogs/site table: from: %s to: %s", htmlspecialchars($to_array), $from_array, $to_array);
+			$updraftplus->log_e("Replacing in blogs/site table: from: %s to: %s", htmlspecialchars($from_array),htmlspecialchars( $to_array));
 			$try_site_blog_replace = true;
 		} else {
 
 			list($from_array, $to_array) = $this->build_searchreplace_array($old_siteurl, $old_home, $old_content);
 
-			# This block is for multisite installs, to do the search/replace of each site's URL individually. We want to try to do it here for effeciency - i.e. so that we don't have to double-pass tables
+			# This block is for multisite installs, to do the search/replace of each site's URL individually. We want to try to do it here for efficiency - i.e. so that we don't have to double-pass tables
 			if (!empty($this->restored_blogs) && preg_match('/^(\d+)_(.*)$/', substr($table, strlen($import_table_prefix)), $tmatches) && (preg_match('#^((https?://)([^/]+))#i', $this->home, $matches) || preg_match('#^((https?://)([^/]+))#i', $this->siteurl, $matches)) && (preg_match('#^((https?://)([^/]+))#i', $old_home, $omatches) || preg_match('#^((https?://)([^/]+))#i', $old_siteurl, $omatches))) {
 				$nfrom = strtolower($omatches[3]);
 				$nto = strtolower($matches[3]);
@@ -422,9 +462,9 @@ class UpdraftPlus_Addons_Migrator {
 		}
 
 		if ($report == false) {
-			echo sprintf(__('Failed: the %s operation was not able to start.', 'updraftplus'),'search and replace');
+			echo sprintf(__('Failed: the %s operation was not able to start.', 'updraftplus'), __('search and replace', 'updraftplus'));
 		} elseif (!is_array($report)) {
-			echo sprintf(__('Failed: we did not understand the result returned by the %s operation.', 'updraftplus'),'search and replace');
+			echo sprintf(__('Failed: we did not understand the result returned by the %s operation.', 'updraftplus'), __('search and replace', 'updraftplus'));
 		} else {
 
 			$this->tables_replaced[$table] = true;
@@ -494,10 +534,13 @@ class UpdraftPlus_Addons_Migrator {
 		$replace_this_siteurl = isset($this->old_siteurl) ? $this->old_siteurl : '';
 
 		// Don't call site_url() - the result may/will have been cached
-		if (isset($this->new_blogid)) switch_to_blog($this->new_blogid);
-		$db_siteurl = $wpdb->get_row("SELECT option_value FROM $wpdb->options WHERE option_name='siteurl'")->option_value;
-		$db_home = $wpdb->get_row("SELECT option_value FROM $wpdb->options WHERE option_name='home'")->option_value;
-		if (isset($this->new_blogid)) restore_current_blog();
+// 		if (isset($this->new_blogid)) switch_to_blog($this->new_blogid);
+// 		$db_siteurl = $wpdb->get_row("SELECT option_value FROM $wpdb->options WHERE option_name='siteurl'")->option_value;
+// 		$db_home = $wpdb->get_row("SELECT option_value FROM $wpdb->options WHERE option_name='home'")->option_value;
+// 		if (isset($this->new_blogid)) restore_current_blog();
+
+		$db_siteurl = $wpdb->get_row("SELECT option_value FROM ".esc_sql($this->base_prefix)."options WHERE option_name='siteurl'")->option_value;
+		$db_home = $wpdb->get_row("SELECT option_value FROM ".esc_sql($this->base_prefix)."options WHERE option_name='home'")->option_value;
 
 		if (!$replace_this_siteurl) {
 			$replace_this_siteurl = $db_siteurl;
@@ -548,12 +591,16 @@ class UpdraftPlus_Addons_Migrator {
 
 		$this->is_migration = true;
 
+		# Detect situation where the database's siteurl in the header differs from that actual row data in the options table. This can occur if the options table was being over-ridden by a constant. In that case, the search/replace will have failed to set the option table's siteurl; and the result will be that that siteurl is hence wrong, leading to site breakage. The solution is to re-set it.
 		# $info['expected_oldsiteurl'] is from the db.gz file header
 		if (isset($info['expected_oldsiteurl']) && $info['expected_oldsiteurl'] != $db_siteurl && $db_siteurl != $this->siteurl) {
 			$updraftplus->log_e(sprintf(__('Warning: the database\'s site URL (%s) is different to what we expected (%s)', 'updraftplus'), $db_siteurl, $info['expected_oldsiteurl']));
+			# Here, we change only the site URL entry; we don't run a full search/replace based on it. In theory, if someone developed using two different URLs, then this might be needed.
+			if (!empty($this->base_prefix) && !empty($this->siteurl)) $wpdb->query("UPDATE ".esc_sql($this->base_prefix)."options SET option_value='".esc_sql($this->siteurl)."' WHERE option_name='siteurl'");
 		}
 		if (isset($info['expected_oldhome']) && $info['expected_oldhome'] != $db_home && $db_home != $this->home) {
 			$updraftplus->log_e(sprintf(__('Warning: the database\'s home URL (%s) is different to what we expected (%s)', 'updraftplus'), $db_home, $info['expected_oldhome']));
+			if (!empty($this->base_prefix) && !empty($this->home)) $wpdb->query("UPDATE ".esc_sql($this->base_prefix)."options SET option_value='".esc_sql($this->home)."' WHERE option_name='home'");
 		}
 
 		@set_time_limit(1800);
@@ -566,7 +613,16 @@ class UpdraftPlus_Addons_Migrator {
 			$updraftplus->log_e('Database search and replace: replace %s in backup dump with %s', $from_url, $to_array[$ind]);
 		}
 
-		echo '</p><p>';
+		echo '</p>';
+
+		return $this->updraftplus_restored_db_dosearchreplace($from_array, $to_array, $import_table_prefix);
+	}
+
+	private function updraftplus_restored_db_dosearchreplace($from_array, $to_array, $import_table_prefix, $examine_siteurls = true) {
+
+		echo '<p>';
+
+		global $updraftplus, $wpdb;
 
 		// Now, get an array of tables and then send it off to _migrator_icit_srdb_replacer()
 		// Code from searchreplacedb2.php version 2.1.0 from http://www.davidcoveney.com
@@ -578,7 +634,7 @@ class UpdraftPlus_Addons_Migrator {
 		$tables_mysql = $wpdb->get_results('SHOW TABLES', ARRAY_N);
 
 		$is_multisite = is_multisite();
-		if ($is_multisite) {
+		if ($examine_siteurls && $is_multisite) {
 			$blogs = $wpdb->get_results('SELECT blog_id, domain, path FROM '.esc_sql($import_table_prefix).'blogs', ARRAY_N);
 			$nblogs = array();
 			foreach ($blogs as $blog) $nblogs[$blog[0]] = array($blog[1], $blog[2]);
@@ -586,12 +642,14 @@ class UpdraftPlus_Addons_Migrator {
 
 		if ( !$tables_mysql) {
 			echo __('Error:','updraftplus').' '.__('Could not get list of tables','updraftplus');
+			echo '</p>';
 			$updraftplus->log('Could not get list of tables');
 			$this->_migrator_print_error('SHOW TABLES');
 			return false;
 		} else {
 			// Run through the array - each element a numerically-indexed array
 			foreach ( $tables_mysql as $table) {
+
 				// Type equality is necessary, as we don't want to match false
 				// "Warning: strpos(): Empty delimiter" means that the second parameter is a zero-length string
 				if (strpos($table[0], $import_table_prefix) === 0) {
@@ -600,7 +658,7 @@ class UpdraftPlus_Addons_Migrator {
 					$still_needs_doing = empty($this->tables_replaced[$tablename]);
 
 					# Looking for site tables on multisite
-					if ($is_multisite && !empty($this->restored_blogs) && preg_match('/^(\d+)_(.*)$/', substr($tablename, strlen($import_table_prefix)), $tmatches) && is_numeric($tmatches[1]) && !empty($this->restored_blogs[$tmatches[1]]) && !empty($nblogs[$tmatches[1]]) && (preg_match('#^((https?://)([^/]+))#i', $this->home, $matches) || preg_match('#^((https?://)([^/]+))#i', $this->siteurl, $matches))) {
+					if ($examine_siteurls && $is_multisite && !empty($this->restored_blogs) && preg_match('/^(\d+)_(.*)$/', substr($tablename, strlen($import_table_prefix)), $tmatches) && is_numeric($tmatches[1]) && !empty($this->restored_blogs[$tmatches[1]]) && !empty($nblogs[$tmatches[1]]) && (preg_match('#^((https?://)([^/]+))#i', $this->home, $matches) || preg_match('#^((https?://)([^/]+))#i', $this->siteurl, $matches))) {
 						# If the database file was not created by UD, then it may be out of order. Specifically, the 'blogs' table might have come *after* the tables for the individual sites. As a result, the tables for those sites may not have been fully searched + replaced... so we need to check that.
 						# What are we expecting the site_url to be?
 						$blognum = $tmatches[1];
@@ -670,7 +728,7 @@ class UpdraftPlus_Addons_Migrator {
 
 	}
 
-	// Returns either an array of results, or false - we abstract away what the wpdb class does compared to plain mysql_query
+// Returns either an array of results, or false - we abstract away what the wpdb class does compared to plain mysql_query
 // 	private function query($sql_line, $sql_type = 5) {
 // 		global $wpdb, $updraftplus;
 // 		if ($this->use_wpdb) {
@@ -700,7 +758,7 @@ class UpdraftPlus_Addons_Migrator {
 	}
 
 	// The raw engine
-	function _migrator_icit_srdb_replacer($search, $replace, $tables) {
+	private function _migrator_icit_srdb_replacer($search, $replace, $tables) {
 
 		if (!is_array($tables)) return false;
 
@@ -824,7 +882,7 @@ class UpdraftPlus_Addons_Migrator {
 		return $report;
 	}
 
-	function process_row($table, $row, $search, $replace) {
+	private function process_row($table, $row, $search, $replace) {
 
 		global $updraftplus, $wpdb, $updraftplus_restorer;
 
@@ -891,7 +949,7 @@ class UpdraftPlus_Addons_Migrator {
 	* @return array	The original array with all elements replaced as needed.
 	*/
 	// N.B. $from and $to can be arrays - they get passed only to str_replace(), which can take an array
-	function _migrator_recursive_unserialize_replace($from = '', $to = '', $data = '', $serialised = false) {
+	private function _migrator_recursive_unserialize_replace($from = '', $to = '', $data = '', $serialised = false) {
 
 		// some unserialised data cannot be re-serialised eg. SimpleXMLElements
 		try {
@@ -921,7 +979,6 @@ class UpdraftPlus_Addons_Migrator {
 				$data = $_tmp;
 				unset( $_tmp );
 			}
-
 			elseif ( is_string($data) && (null !== ($_tmp = json_decode($data, true)) )) {
 
 				if (is_array($_tmp)) {

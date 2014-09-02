@@ -2,12 +2,12 @@
 /*
 UpdraftPlus Addon: bitcasa:Bitcasa Support
 Description: Allows UpdraftPlus to back up to Bitcasa cloud storage
-Version: 1.0
+Version: 1.3
 Shop: /shop/bitcasa/
 Include: includes/PEAR
 IncludePHP: methods/addon-base.php
 RequiresPHP: 5.3.3
-Latest Change: 1.9.1
+Latest Change: 1.9.16
 */
 
 # TODO: Test on PHP 5.2, and remove the RequiresPHP if it works (can't see why it wouldn't)
@@ -27,7 +27,6 @@ do_credentials_test($testfile) - return true/false
 do_credentials_test_deletefile($testfile)
 */
 
-
 if (!class_exists('UpdraftPlus_RemoteStorage_Addons_Base')) require_once(UPDRAFTPLUS_DIR.'/methods/addon-base.php');
 
 class UpdraftPlus_Addons_RemoteStorage_bitcasa extends UpdraftPlus_RemoteStorage_Addons_Base {
@@ -41,6 +40,37 @@ class UpdraftPlus_Addons_RemoteStorage_bitcasa extends UpdraftPlus_RemoteStorage
 	}
 
 	public function do_upload($file, $from) {
+
+		global $updraftplus;
+		$message = "Bitcasa user/profile did not return the expected data";
+		
+		try {
+			# BITCASA_BASE_URL is defined in the SDK
+			$profile = wp_remote_get(BITCASA_BASE_URL.'/user/profile?access_token='.$this->options['token'], array('timeout' => 8));
+			if (!is_array($profile) || empty($profile['response']) || empty($profile['response']['code']) || $profile['response']['code'] >= 300 || $profile['response']['code'] < 200 || empty($profile['body']) || (null === ($prof = json_decode($profile['body'])))) {
+				# Not as expected
+			} else {
+				$res = $prof->result;
+				if (!empty($res->display_name)) {
+					$quota_info = $res->storage;
+					$total_quota = max($quota_info->total, 0);
+					$normal_quota = $quota_info->used;
+					$available_quota = ($total_quota > 0 ) ? $total_quota - $normal_quota : PHP_INT_MAX;
+					$used_perc = ($total_quota > 0) ? round($normal_quota*100/$total_quota, 1) : 0;
+					$message = sprintf('Your %s quota usage: %s %% used, %s available', 'Bitcasa', $used_perc, round($available_quota/1048576, 1).' Mb');
+				}
+				// We don't actually abort now - there's no harm in letting it try and then fail
+				$filesize = filesize($from);
+				$offset = 0;
+				if (isset($available_quota) && $available_quota != -1 && $available_quota < $filesize) {
+					$updraftplus->log("File upload expected to fail: file data remaining to upload ($file) size is ".($filesize-$offset)." b (overall file size; $filesize b), whereas available quota is only $available_quota b");
+					$updraftplus->log(sprintf(__("Account full: your %s account has only %d bytes left, but the file to be uploaded has %d bytes remaining (total size: %d bytes)",'updraftplus'),'Bitcasa', $available_quota, $filesize-$offset, $filesize), 'error');
+				}
+			}
+		} catch (Exception $e) {
+			$message .= " ".get_class($e).": ".$e->getMessage();
+		}
+		$updraftplus->log($message);
 
 		$folder = (empty($this->options['folder'])) ? '' : $this->options['folder'];
 
@@ -266,7 +296,6 @@ class UpdraftPlus_Addons_RemoteStorage_bitcasa extends UpdraftPlus_RemoteStorage
 		} elseif (is_object($prof) && is_object($prof->result)) {
 			
 			try {
-
 				$res = $prof->result;
 				$opts = $this->get_opts();
 				if (!empty($res->display_name)) {
@@ -276,15 +305,13 @@ class UpdraftPlus_Addons_RemoteStorage_bitcasa extends UpdraftPlus_RemoteStorage
 					$message .= ". <br>".sprintf(__('Your %s account name: %s','updraftplus'), 'Bitcasa', htmlspecialchars($res->display_name));
 
 					$quota_info = $res->storage;
-					$total_quota = max($quota_info->total, 1);
+					$total_quota = max($quota_info->total, 0);
 					$normal_quota = $quota_info->used;
-					$available_quota =$total_quota - $normal_quota;
-					$used_perc = round($normal_quota*100/$total_quota, 1);
+					$available_quota = ($total_quota > 0 ) ? $total_quota - $normal_quota : PHP_INT_MAX;
+					$used_perc = ($total_quota > 0) ? round($normal_quota*100/$total_quota, 1) : 0;
 					$message .= ' <br>'.sprintf(__('Your %s quota usage: %s %% used, %s available','updraftplus'), 'Bitcasa', $used_perc, round($available_quota/1048576, 1).' Mb');
 
 				}
-
-
 			} catch (Exception $e) {
 			}
 
