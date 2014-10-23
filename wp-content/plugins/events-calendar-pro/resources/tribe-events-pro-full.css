@@ -9,6 +9,8 @@
  * To replace our stylsheet altogether, you can use the 'tribe_events_pro_stylesheet_url' filter.
  *
  * @package TribeEventsCalendarPro
+ * @since  1.0
+ * @author Modern Tribe Inc.
  *
  */
  
@@ -860,14 +862,6 @@ h3.tribe-events-related-events-title {
 	display: inline;
 	font-weight: bold;
 }
-
-.tribe-events-adv-list-widget .event-is-recurring .tribe-events-divider {
-	display:none;
-}
-
-.tribe-events-adv-list-widget .event-is-recurring {
-	color:inherit;
-}
  
 /* = Events Countdown Widget
    @ Template: widgets/countdown-widget.php
@@ -945,15 +939,6 @@ div.tribe-countdown-text {
 	max-width: 100%;
 	height: auto;
 }
-
-.tribe-venue-widget-list .entry-title {
-	margin:0 0 5px;
-}
-
-.tribe-venue-widget-list .hentry {
-	margin-bottom:20px;
-}
-
 /* = Events Calendar Tribe Bar Styles
 =============================================*/
 .tribe-events-uses-geolocation .tribe-bar-date-filter,

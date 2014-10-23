@@ -24,20 +24,23 @@ class TribeEventsMiniCalendar {
 	/**
 	 * Return the month to show in the widget
 	 *
-	 * @param string $format
 	 * @return string
-	 */
-	public function get_month( $format = TribeDateUtils::DBDATETIMEFORMAT )	{
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX )
-			return isset( $_POST["eventDate"] ) ? $_POST["eventDate"] : date_i18n( $format );
-
-		return date_i18n( $format );
+	 * @since 3.0
+	 * @author Jessica Yazbek
+	 **/
+	public function get_month()	{
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+			return isset( $_POST["eventDate"] ) ? $_POST["eventDate"] : date_i18n( TribeDateUtils::DBDATETIMEFORMAT );
+		}
+		return date_i18n( TribeDateUtils::DBDATETIMEFORMAT );
 	}
 
 	/**
 	 * Get the args passed to the mini calendar
 	 *
 	 * @return array
+	 * @since 3.0
+	 * @author Jessica Yazbek
 	 **/
 	public function get_args() {
 		return $this->args;
@@ -233,8 +236,7 @@ class TribeEventsMiniCalendar {
 
 				// set end date if initial load, or ajax month switch
 				if ( ! defined( 'DOING_AJAX' ) || ( defined( 'DOING_AJAX' ) && $_POST['action'] == 'tribe-mini-cal' ) ) {
-					$query_args['end_date']	= substr_replace($this->get_month( TribeDateUtils::DBDATEFORMAT ), TribeDateUtils::getLastDayOfMonth( strtotime( $this->get_month() ) ), -2 );
-					// @todo use tribe_events_end_of_day() ?
+					$query_args['end_date']	= substr_replace($this->get_month(), TribeDateUtils::getLastDayOfMonth( strtotime( $this->get_month() ) ), -11);
 					$query_args['end_date'] = TribeDateUtils::endOfDay($query_args['end_date']);
 				}
 
@@ -276,6 +278,8 @@ class TribeEventsMiniCalendar {
 	public function ajax_change_month_set_date( $query ) {
 
 		if ( isset( $_POST["eventDate"] ) && $_POST["eventDate"] ) {
+			// $query->set( 'eventDate', $_POST["eventDate"] . '-01' );
+			// $query->set( 'start_date', $_POST["eventDate"] . '-01' );
 			$query->set( 'end_date', date( 'Y-m-d', strtotime( TribeEvents::instance()->nextMonth( $_POST["eventDate"] . '-01' ) ) - ( 24 * 3600 ) ) );
 			$query->set( 'eventDisplay', 'month' );
 		}

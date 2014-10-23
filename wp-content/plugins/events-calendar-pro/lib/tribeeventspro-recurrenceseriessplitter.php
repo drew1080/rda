@@ -79,7 +79,6 @@ class TribeEventsPro_RecurrenceSeriesSplitter {
 			'orderby' => 'meta_key',
 			'order' => 'ASC',
 			'fields' => 'ids',
-			'posts_per_page' => -1,
 		));
 
 		if ( empty($children) ) {
@@ -144,7 +143,7 @@ class TribeEventsPro_RecurrenceSeriesSplitter {
 	}
 
 	private function copy_post_meta( $original_post, $destination_post ) {
-		require_once( dirname( __FILE__ ) . '/tribeeventspro-postmetacopier.php');
+		require_once('tribeeventspro-postmetacopier.php');
 		$copier = new TribeEventsPro_PostMetaCopier();
 		$copier->copy_meta($original_post, $destination_post);
 	}

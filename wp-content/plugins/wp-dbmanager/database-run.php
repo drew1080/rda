@@ -37,30 +37,27 @@ if(!empty($_POST['do'])) {
 					}
 				}
 				if($sql_queries) {
-					foreach( $sql_queries as $sql_query ) {
-						if ( preg_match( "/LOAD_FILE/i", $sql_query ) ) {
-							$text .= "<p style=\"color: red;\">$sql_query</p>";
-							$totalquerycount++;
-						} elseif( preg_match( "/^\\s*(select|drop|show|grant) /i", $sql_query ) ) {
-							$text .= "<p style=\"color: red;\">$sql_query</p>";
-							$totalquerycount++;
-						} else if ( preg_match( "/^\\s*(insert|update|replace|delete|create|alter) /i", $sql_query ) ) {
-							$run_query = $wpdb->query( $sql_query );
-							if( ! $run_query ) {
-								$text .= "<p style=\"color: red;\">$sql_query</p>";
+					foreach($sql_queries as $sql_query) {
+						if (preg_match("/^\\s*(insert|update|replace|delete|create|alter) /i",$sql_query)) {
+							$run_query = $wpdb->query($sql_query);
+							if(!$run_query) {
+								$text .= "<span dir=\"ltr\"><font color=\"red\">$sql_query</font></span><br />";
 							} else {
 								$successquery++;
-								$text .= "<p style=\"color: green;\">$sql_query</p>";
+								$text .= "<span dir=\"ltr\"><font color=\"green\">$sql_query</font></span><br />";
 							}
+							$totalquerycount++;
+						} elseif (preg_match("/^\\s*(select|drop|show|grant) /i",$sql_query)) {
+							$text .= "<span dir=\"ltr\"><font color=\"red\">$sql_query</font></span><br />";
 							$totalquerycount++;
 						}
 					}
-					$text .= '<p style="color: blue;">'.number_format_i18n($successquery).'/'.number_format_i18n($totalquerycount).' '.__('Query(s) Executed Successfully', 'wp-dbmanager').'</p>';
+					$text .= '<font color="blue">'.number_format_i18n($successquery).'/'.number_format_i18n($totalquerycount).' '.__('Query(s) Executed Successfully', 'wp-dbmanager').'</font>';
 				} else {
-					$text = '<p style="color: red;">'.__('Empty Query', 'wp-dbmanager').'</p>';
+					$text = '<font color="red">'.__('Empty Query', 'wp-dbmanager').'</font>';
 				}
 			} else {
-				$text = '<p style="color: red;">'.__('Empty Query', 'wp-dbmanager').'</p>';
+				$text = '<font color="red">'.__('Empty Query', 'wp-dbmanager').'</font>';
 			}
 			break;
 	}
@@ -75,7 +72,7 @@ if(!empty($_POST['do'])) {
 		<br style="clear" />
 		<div>
 			<strong><?php _e('Seperate Multiple Queries With A New Line', 'wp-dbmanager'); ?></strong><br />
-			<p style="color: green;"><?php _e('Use Only INSERT, UPDATE, REPLACE, DELETE, CREATE and ALTER statements.', 'wp-dbmanager'); ?></p>
+			<font color="green"><?php _e('Use Only INSERT, UPDATE, REPLACE, DELETE, CREATE and ALTER statements.', 'wp-dbmanager'); ?></font>
 		</div>
 		<table class="form-table">
 			<tr>

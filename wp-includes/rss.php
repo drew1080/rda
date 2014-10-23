@@ -247,7 +247,7 @@ class MagpieRSS {
 		}
 		elseif ($this->feed_type == ATOM and $this->incontent  ) {
 			// balance tags properly
-			// note: This may not actually be necessary
+			// note:  i don't think this is actually neccessary
 			if ( $this->stack[0] == $el )
 			{
 				$this->append_content("</$el>");
@@ -724,7 +724,7 @@ class RSSCache {
 	Function:	set
 	Purpose:	add an item to the cache, keyed on url
 	Input:		url from wich the rss file was fetched
-	Output:		true on success
+	Output:		true on sucess
 \*=======================================================================*/
 	function set ($url, $rss) {
 		$cache_option = 'rss_' . $this->file_name( $url );

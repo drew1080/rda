@@ -23,8 +23,8 @@ class Mixin_NggLegacy_GalleryStorage_Driver extends Mixin
 		if ($gallery) $retval = $this->get_gallery_abspath($gallery);
 
 		// We need to make this an absolute path
-		if (strpos($retval, $fs->get_document_root('gallery')) !== 0)
-            $retval = rtrim($fs->join_paths($fs->get_document_root('gallery'), $retval), "/\\");
+		if (strpos($retval, $fs->get_document_root()) !== 0)
+            $retval = rtrim($fs->join_paths($fs->get_document_root(), $retval), "/\\");
 
         // Convert slashes
         return $this->object->convert_slashes($retval);
@@ -60,29 +60,9 @@ class Mixin_NggLegacy_GalleryStorage_Driver extends Mixin
             }
         }
 
-        $root_type = defined('NGG_GALLERY_ROOT_TYPE') ? NGG_GALLERY_ROOT_TYPE : 'site';
-        if ($root_type == 'content')
-        {
-            // This requires explanation: in case our content root ends with the same directory name
-            // that the gallery path begins with we remove the duplicate name from $retval. This is
-            // necessary because the default WP_CONTENT_DIR setting ends in /wp-content/ and
-            // NextGEN's default gallery path begins with /wp-content/. This also allows gallery
-            // paths to also be expressed as simply "/gallery-name/"
-            $exploded_root = explode(DIRECTORY_SEPARATOR, trim($fs->get_document_root('content'), '/\\'));
-            $exploded_gallery = explode(DIRECTORY_SEPARATOR, trim($retval, '/\\'));
-            $exploded_gallery = array_values($exploded_gallery);
-            $last_gallery_dirname = $exploded_gallery[0];
-            $last_root_dirname = end($exploded_root);
-            if ($last_root_dirname === $last_gallery_dirname)
-            {
-                unset($exploded_gallery[0]);
-                $retval = implode(DIRECTORY_SEPARATOR, $exploded_gallery);
-            }
-        }
-
         // Ensure that the path is absolute
-        if (strpos($retval, $fs->get_document_root('gallery')) !== 0)
-            $retval = rtrim($fs->join_paths($fs->get_document_root('gallery'), $retval), "/\\");
+        if (strpos($retval, $fs->get_document_root()) !== 0)
+            $retval = rtrim($fs->join_paths($fs->get_document_root(), $retval), "/\\");
 
         return $this->object->convert_slashes(rtrim($retval, "/\\"));
 	}
@@ -179,7 +159,7 @@ class Mixin_NggLegacy_GalleryStorage_Driver extends Mixin
 		$router	 = $this->get_registry()->get_utility('I_Router');
 		$abspath = $this->object->get_image_abspath($image, $size, $check_existance);
 		if ($abspath) {
-			$doc_root = $fs->get_document_root('gallery');
+			$doc_root = $fs->get_document_root();
 			
 			if ($doc_root != null) {
                 $doc_root = rtrim($doc_root, "/\\").DIRECTORY_SEPARATOR;
@@ -192,7 +172,8 @@ class Mixin_NggLegacy_GalleryStorage_Driver extends Mixin
 			);
 
             $request_uri = '/'.ltrim(str_replace("\\", '/', $request_uri), "/");
-			$retval = $router->remove_url_segment('/index.php', $router->get_url($request_uri, FALSE, 'gallery'));
+			
+			$retval = $router->remove_url_segment('/index.php', $router->get_url($request_uri, FALSE, TRUE));
 		}
 
 		return $retval;
@@ -634,125 +615,117 @@ class Mixin_NggLegacy_GalleryStorage_Driver extends Mixin
      */
     function copy_images($images, $gallery, $db = TRUE, $move = FALSE)
     {
-        $new_image_pids = array(); // the return value
+        // return values
+        $message        = '';
+        $new_image_pids = array();
 
-        // legacy requires passing just a numeric ID
-        if (is_numeric($gallery))
-            $gallery = $this->object->_gallery_mapper->find($gallery);
+        $settings = C_NextGen_Settings::get_instance();
+        $fs = $this->get_registry()->get_utility('I_Fs');
 
         // move_images() is a wrapper to this function so we implement both features here
         $func = $move ? 'rename' : 'copy';
 
-        // legacy allows for arrays of just the ID
+        // ngg-legacy allows for arrays of just the ID
         if (!is_array($images))
+        {
             $images = array($images);
+        }
 
         // Ensure we have a valid gallery
         $gallery_id = $this->object->_get_gallery_id($gallery);
         if (!$gallery_id)
-            return array();
+        {
+            return;
+        }
 
         $image_key = $this->object->_image_mapper->get_primary_key_column();
-        $gallery_abspath = $this->object->get_gallery_abspath($gallery);
+        $gallery_abspath = $fs->join_paths($fs->get_document_root(), $gallery->path);
 
         // Check for folder permission
         if (!is_dir($gallery_abspath) && !wp_mkdir_p($gallery_abspath))
         {
-            echo sprintf(__('Unable to create directory %s.', 'nggallery'), esc_html($gallery_abspath));
-            return $new_image_pids;
+            $message .= sprintf(__('Unable to create directory %s.', 'nggallery'), esc_html($gallery_abspath));
+            return;
         }
         if (!is_writable($gallery_abspath))
         {
-            echo sprintf(__('Unable to write to directory %s. Is this directory writable by the server?', 'nggallery'), esc_html($gallery_abspath));
-            return $new_image_pids;
+            $message .= sprintf(__('Unable to write to directory %s. Is this directory writable by the server?', 'nggallery'), esc_html($gallery_abspath));
+            return;
         }
 
         foreach ($images as $image) {
-			if ($this->object->is_current_user_over_quota())
-            {
-				throw new E_NoSpaceAvailableException(
-                    __('Sorry, you have used your space allocation. Please delete some files to upload more files.', 'nggallery')
-                );
+			if ($this->object->is_current_user_over_quota()) {
+				$message = sprintf(__('Sorry, you have used your space allocation. Please delete some files to upload more files.', 'nggallery'));
+				throw new E_NoSpaceAvailableException($message);
 			}
 
-            // again legacy requires that it be able to pass just a numeric ID
+            // Copy the db entry
             if (is_numeric($image))
+            {
                 $image = $this->object->_image_mapper->find($image);
+            }
             $old_pid = $image->$image_key;
 
-            // update the DB if requested
-            $new_image = clone $image;
-            $new_pid   = $old_pid;
             if ($db)
             {
-                unset ($new_image->extras_post_id);
-                $new_image->galleryid  = $gallery_id;
-                if (!$move)
-                {
-                    $new_image->image_slug = nggdb::get_unique_slug(sanitize_title_with_dashes($image->alttext), 'image');
-                    unset($new_image->{$image_key});
-                }
+                $new_image = clone $image;
+                unset($new_image->$image_key);
+                $new_image->galleryid = $gallery_id;
                 $new_pid = $this->object->_image_mapper->save($new_image);
+                $new_image = $this->object->_image_mapper->find($new_image);
+            } else {
+                $new_pid = $old_pid;
             }
 
-            if (!$new_pid)
-            {
-                echo sprintf(__('Failed to copy database row for picture %s', 'nggallery'), $old_pid) . '<br />';
+            if (!$new_pid) {
+                $message .= sprintf(__('Failed to copy database row for picture %s', 'nggallery'), $old_pid) . '<br />';
                 continue;
             }
+
+            $new_image_pids[] = $new_pid;
 
             // Copy each image size
             foreach ($this->object->get_image_sizes() as $size) {
 
-                // if backups are off there's no backup file to copy
-                if (!C_NextGen_Settings::get_instance()->imgBackup && $size == 'backup')
-                    continue;
-
                 $orig_path = $this->object->get_image_abspath($image, $size, TRUE);
-                if (!$orig_path || !@file_exists($orig_path))
+                if (!$orig_path)
                 {
-                    echo sprintf(__('Failed to get image path for %s', 'nggallery'), esc_html(basename($orig_path))) . '<br/>';
+                    $message .= sprintf(__('Failed to get image path for %s', 'nggallery'), esc_html($image->filename)) . '<br/>';
                     continue;
                 }
 
-                $new_path = $this->object->get_image_abspath($new_image, $size, FALSE);
+                $new_path = basename($orig_path);
 
-                // Prevent duplicate filenames: check if the filename exists and begin appending '-#'
-                if (!ini_get('safe_mode') && @file_exists($new_path))
+                $prefix       = '';
+                $prefix_count = 0;
+                while (@file_exists($gallery->path . DIRECTORY_SEPARATOR . $new_path))
                 {
-                    // prevent get_image_abspath() from using the thumbnail filename in metadata
-                    unset($new_image->meta_data['thumbnail']['filename']);
-                    $file_exists = TRUE;
-                    $i = 0;
-                    do {
-                        $i++;
-                        $parts = explode('.', $image->filename);
-                        $extension = array_pop($parts);
-                        $tmp_filename = implode('.', $parts) . '-' . $i . '.' . $extension;
-                        $new_image->filename = $tmp_filename;
-                        $tmp_path = $this->object->get_image_abspath($new_image, $size, FALSE);
-                        if (!@file_exists($tmp_path))
-                        {
-                            $file_exists = FALSE;
-                            $new_path = $tmp_path;
-                            if ($db)
-                                $this->object->_image_mapper->save($new_image);
-                        }
-                    } while ($file_exists == TRUE);
+                    $prefix = 'copy_' . ($prefix_count++) . '_';
+                    $new_path = $prefix . $new_path;
                 }
+                $new_path = $fs->join_paths($gallery->path, $new_path);
 
                 // Copy files
                 if (!@$func($orig_path, $new_path))
                 {
-                    echo sprintf(__('Failed to copy image %1$s to %2$s', 'nggallery'), esc_html($orig_path), esc_html($new_path)) . '<br/>';
+                    $message .= sprintf(__('Failed to copy image %1$s to %2$s', 'nggallery'), esc_html($orig_path), esc_html($new_path)) . '<br/>';
                     continue;
                 }
+                else {
+                    $message .= sprintf(__('Copied image %1$s to %2$s', 'nggallery'), esc_html($orig_path), esc_html($new_path)) . '<br/>';
+                }
 
-                // disabling: this is a bit too verbose
-                // if (!empty($tmp_path))
-                //     echo sprintf(__('Image %1$s (%2$s) copied as image %3$s (%4$s) &raquo; The file already existed in the destination gallery.', 'nggallery'), $old_pid, esc_html($orig_path), $new_pid, esc_html($new_path)) . '<br />';
-                // else
-                //     echo sprintf(__('Image %1$s (%2$s) copied as image %3$s (%4$s)', 'nggallery'), $old_pid, esc_html($orig_path), $new_pid, esc_html($new_path)) . '<br />';
+                // Copy backup file, if possible
+                @$func($orig_path . '_backup', $new_path . '_backup');
+
+                if ($prefix != '')
+                {
+                    $message .= sprintf(__('Image %1$s (%2$s) copied as image %3$s (%4$s) &raquo; The file already existed in the destination gallery.', 'nggallery'), $old_pid, esc_html($orig_path), $new_pid, esc_html($new_path)) . '<br />';
+                }
+                else
+                {
+                    $message .= sprintf(__('Image %1$s (%2$s) copied as image %3$s (%4$s)', 'nggallery'), $old_pid, esc_html($orig_path), $new_pid, esc_html($new_path)) . '<br />';
+                }
 
                 // Copy tags
                 if ($db)
@@ -762,13 +735,9 @@ class Mixin_NggLegacy_GalleryStorage_Driver extends Mixin
                     wp_set_object_terms($new_pid, $tags, 'ngg_tag', true);
                 }
             }
-            $new_image_pids[] = $new_pid;
         }
 
-        $title = '<a href="' . admin_url() . 'admin.php?page=nggallery-manage-gallery&mode=edit&gid=' . $gallery_id . '" >';
-        $title .= $gallery->title;
-        $title .= '</a>';
-        echo '<hr/>' . sprintf(__('Copied %1$s picture(s) to gallery %2$s .', 'nggallery'), count($new_image_pids), $title);
+        $message .= '<hr />' . sprintf(__('Copied %1$s picture(s) to gallery %2$s .', 'nggallery'), count($new_image_pids), $gallery->title);
 
         return $new_image_pids;
     }

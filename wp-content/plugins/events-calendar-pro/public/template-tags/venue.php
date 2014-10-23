@@ -15,6 +15,7 @@ if( class_exists('TribeEventsPro')) {
 	 * Output the upcoming events associated with a venue
 	 *
 	 * @return void
+	 * @since 3.0
 	 */
 	function tribe_venue_upcoming_events( $post_id = false ) {
 
@@ -26,7 +27,7 @@ if( class_exists('TribeEventsPro')) {
 
 			$args = array(
 				'venue' => $post_id,
-				'eventDisplay' => 'list' );
+				'eventDisplay' => 'upcoming' );
 
 			$html = tribe_include_view_list( $args );
 

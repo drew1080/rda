@@ -38,10 +38,6 @@ class TribeEventsPro_SingleEventMeta {
 	 * @return string
 	 */
 	public function link_venue( $name ) {
-		// Ordinarily we only need this to happen once
-		remove_filter( 'tribe_get_venue', array( $this, 'link_venue' ) );
-
-		// If this already contains a link do not double wrap it!
 		$contains_link = ( false !== strpos( $name, 'href="' ) );
 		return $contains_link ? '' : '<a href="' . tribe_get_venue_link( null, false ) . '">' . $name . '</a>';
 	}
@@ -61,6 +57,8 @@ class TribeEventsPro_SingleEventMeta {
 	 * @deprecated since 3.6
 	 * @param string $meta_id The meta group this is in.
 	 * @return string The custom description.
+	 * @author Timothy Wood
+	 * @since 3.0
 	 */
 	public static function custom_recurrence_description( $meta_id ){
 		global $_tribe_meta_factory;
@@ -81,6 +79,8 @@ class TribeEventsPro_SingleEventMeta {
 	 * @param string $html The current venue name.
 	 * @param string $meta_id The meta group this is in.
 	 * @return string The modified/linked venue name.
+	 * @author Timothy Wood
+	 * @since 3.0
 	 */
 	public static function venue_name( $html, $meta_id ){
 		global $_tribe_meta_factory;
@@ -101,6 +101,8 @@ class TribeEventsPro_SingleEventMeta {
 	 * @param string $html The current organizer name.
 	 * @param string $meta_id The meta group this is in.
 	 * @return string The modified/linked organizer name.
+	 * @author Timothy Wood
+	 * @since 3.0
 	 */
 	public static function organizer_name( $html, $meta_id ){
 		global $_tribe_meta_factory;
@@ -119,6 +121,8 @@ class TribeEventsPro_SingleEventMeta {
 	 * @deprecated since 3.6
 	 * @param string $meta_id The meta group this is in.
 	 * @return string The custom meta.
+	 * @author Timothy Wood
+	 * @since 3.0
 	 */
 	public static function custom_meta( $meta_id ){
 		global $_tribe_meta_factory;

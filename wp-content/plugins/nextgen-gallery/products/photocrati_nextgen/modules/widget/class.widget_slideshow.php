@@ -22,8 +22,7 @@ class C_Widget_Slideshow extends WP_Widget
                 'galleryid' => '0',
                 'height' => '120',
                 'title' => 'Slideshow',
-                'width' => '160',
-                'limit' => '10'
+                'width' => '160'
             )
         );
 
@@ -35,7 +34,6 @@ class C_Widget_Slideshow extends WP_Widget
                 'title'    => esc_attr($instance['title']),
                 'height'   => esc_attr($instance['height']),
                 'width'    => esc_attr($instance['width']),
-                'limit'    => esc_attr($instance['limit']),
                 'tables'   => $wpdb->get_results("SELECT * FROM {$wpdb->nggallery} ORDER BY 'name' ASC")
             )
         );
@@ -49,15 +47,12 @@ class C_Widget_Slideshow extends WP_Widget
             $new_instance['height'] = 120;
         if (empty($nw) || (int)$nw === 0)
             $new_instance['width'] = 160;
-        if (empty($new_instance['limit']))
-            $new_instance['limit'] = 10;
 
         $instance = $old_instance;
         $instance['title'] = strip_tags($new_instance['title']);
         $instance['galleryid'] = (int) $new_instance['galleryid'];
         $instance['height'] = (int) $new_instance['height'];
         $instance['width'] = (int) $new_instance['width'];
-        $instance['limit'] = (int) $new_instance['limit'];
         return $instance;
     }
 
@@ -79,10 +74,8 @@ class C_Widget_Slideshow extends WP_Widget
         $parent = C_Component_Registry::get_instance()->get_utility('I_Widget');
 
         $title = apply_filters('widget_title', empty($instance['title']) ? __('Slideshow', 'nggallery') : $instance['title'], $instance, $this->id_base);
-        if (empty($instance['limit']))
-            $instance['limit'] = 10;
 
-        $out = $this->render_slideshow($instance['galleryid'], $instance['width'], $instance['height'], $instance['limit'], $args);
+        $out = $this->render_slideshow($instance['galleryid'], $instance['width'], $instance['height'], $args);
 
         $parent->render_partial(
             'photocrati-widget#display_slideshow',
@@ -100,7 +93,7 @@ class C_Widget_Slideshow extends WP_Widget
         );
     }
 
-    function render_slideshow($galleryID, $irWidth = '', $irHeight = '', $limit = 10, $args)
+    function render_slideshow($galleryID, $irWidth = '', $irHeight = '', $args)
     {
         $registry = C_Component_Registry::get_instance();
         $renderer = $registry->get_utility('I_Displayed_Gallery_Renderer');
@@ -120,7 +113,6 @@ class C_Widget_Slideshow extends WP_Widget
         if (0 === $galleryID)
         {
             $params['source'] = 'random_images';
-            $params['maximum_entity_count'] = $limit;
             unset($params['container_ids']);
         }
 

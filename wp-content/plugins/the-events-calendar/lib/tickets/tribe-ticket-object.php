@@ -4,12 +4,6 @@ if ( ! class_exists( 'TribeEventsTicketObject' ) ) {
 	 *    Generic object to hold information about a single ticket
 	 */
 	class TribeEventsTicketObject {
-		/**
-		 * This value - an empty string - should be used to populate the stock
-		 * property in situations where no limit has been placed on stock
-		 * levels.
-		 */
-		const UNLIMITED_STOCK = '';
 
 		/**
 		 * Unique identifier
@@ -56,7 +50,7 @@ if ( ! class_exists( 'TribeEventsTicketObject' ) ) {
 
 		/**
 		 * Amount of tickets of this kind in stock
-		 * @var mixed
+		 * @var int
 		 */
 		public $stock;
 
@@ -65,13 +59,6 @@ if ( ! class_exists( 'TribeEventsTicketObject' ) ) {
 		 * @var int
 		 */
 		public $qty_sold;
-
-		/**
-		 * Number of tickets for which an order has been placed but not confirmed or "completed".
-		 *
-		 * @var int
-		 */
-		public $qty_pending = 0;
 
 		/**
 		 * When the ticket should be put on sale

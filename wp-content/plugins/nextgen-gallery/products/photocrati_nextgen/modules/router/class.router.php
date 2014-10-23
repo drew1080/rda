@@ -85,8 +85,7 @@ class Mixin_Router extends Mixin
 	function get_relative_url($uri='/', $with_qs=TRUE)
 	{
 		$url = $this->object->get_url($uri, $with_qs=TRUE);
-        if ($url !== '/')
-		    $retval = str_replace($this->object->get_base_url(), '', $url);
+		$retval = str_replace($this->object->get_base_url(), '', $url);
         return '/'.lrtim($retval, '/');
 	}
 
@@ -106,7 +105,7 @@ class Mixin_Router extends Mixin
 		$base_url = $this->object->remove_url_segment('/index.php', $base_url);
 
 		$path = str_replace(
-			$fs->get_document_root('plugins'),
+			$fs->get_document_root(),
 			$base_url,
 			$path
 		);

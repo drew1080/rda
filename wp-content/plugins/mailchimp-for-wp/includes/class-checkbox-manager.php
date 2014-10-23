@@ -8,16 +8,13 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 
 class MC4WP_Lite_Checkbox_Manager
 {
-	/**
-	 * @var array Array holding all integration instances
-	 */
-	public $integrations = array();
-
+	
 	/**
 	* Constructor
 	*/
 	public function __construct()
 	{
+
         $opts = mc4wp_get_options( 'checkbox' );
 
         // load checkbox css if necessary
@@ -26,41 +23,37 @@ class MC4WP_Lite_Checkbox_Manager
 
         // Load WP Comment Form Integration
         if ( $opts['show_at_comment_form'] ) {
-            $this->integrations['comment_form'] = new MC4WP_Comment_Form_Integration();
+            new MC4WP_Comment_Form_Integration();
         }
 
         // Load WordPress Registration Form Integration
         if ( $opts['show_at_registration_form'] ) {
-            $this->integrations['registration_form'] = new MC4WP_Registration_Form_Integration();
+            new MC4WP_Registration_Form_Integration();
         }
 
         // Load BuddyPress Integration
         if ( $opts['show_at_buddypress_form'] ) {
-            $this->integrations['buddypress_form'] = new MC4WP_BuddyPress_Integration();
+            new MC4WP_BuddyPress_Integration();
         }
 
         // Load MultiSite Integration
         if ( $opts['show_at_multisite_form'] ) {
-            $this->integrations['multisite_form'] = new MC4WP_MultiSite_Integration();
+            new MC4WP_MultiSite_Integration();
         }
 
         // Load bbPress Integration
         if ( $opts['show_at_bbpress_forms'] ) {
-            $this->integrations['bbpress_forms'] = new MC4WP_bbPress_Integration();
+            new MC4WP_bbPress_Integration();
         }
 
         // Load CF7 Integration
         if( function_exists( 'wpcf7_add_shortcode' ) ) {
-            $this->integrations['contact_form_7'] = new MC4WP_CF7_Integration();
+            new MC4WP_CF7_Integration();
         }
 
-		// Load Events Manager integration
-		if( defined( 'EM_VERSION' ) ) {
-			$this->integrations['events_manager'] = new MC4WP_Events_Manager_Integration();
-		}
-
         // Always load General Integration
-		$this->integrations['general'] = new MC4WP_General_Integration();
+        new MC4WP_General_Integration();
+
 	}
 
 	/**
@@ -68,15 +61,13 @@ class MC4WP_Lite_Checkbox_Manager
 	*/
 	public function load_stylesheet( ) {
 
-        $opts = mc4wp_get_options( 'checkbox' );
+        $opts = mc4wp_get_options('checkbox');
 
         if( $opts['css'] == false ) {
             return false;
         }
 
-		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
-
-		wp_enqueue_style( 'mailchimp-for-wp-checkbox', MC4WP_LITE_PLUGIN_URL . 'assets/css/checkbox' . $suffix . '.css', array(), MC4WP_LITE_VERSION, 'all' );
+        wp_enqueue_style( 'mailchimp-for-wp-checkbox', MC4WP_LITE_PLUGIN_URL . 'assets/css/checkbox.css', array(), MC4WP_LITE_VERSION, 'all' );
         return true;
 	}
 

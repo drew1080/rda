@@ -27,21 +27,16 @@
  * @return int|bool The meta ID on success, false on failure.
  */
 function add_metadata($meta_type, $object_id, $meta_key, $meta_value, $unique = false) {
+	if ( !$meta_type || !$meta_key )
+		return false;
+
+	if ( !$object_id = absint($object_id) )
+		return false;
+
+	if ( ! $table = _get_meta_table($meta_type) )
+		return false;
+
 	global $wpdb;
-
-	if ( ! $meta_type || ! $meta_key || ! is_numeric( $object_id ) ) {
-		return false;
-	}
-
-	$object_id = absint( $object_id );
-	if ( ! $object_id ) {
-		return false;
-	}
-
-	$table = _get_meta_table( $meta_type );
-	if ( ! $table ) {
-		return false;
-	}
 
 	$column = sanitize_key($meta_type . '_id');
 
@@ -139,21 +134,16 @@ function add_metadata($meta_type, $object_id, $meta_key, $meta_value, $unique = 
  * @return int|bool Meta ID if the key didn't exist, true on successful update, false on failure.
  */
 function update_metadata($meta_type, $object_id, $meta_key, $meta_value, $prev_value = '') {
+	if ( !$meta_type || !$meta_key )
+		return false;
+
+	if ( !$object_id = absint($object_id) )
+		return false;
+
+	if ( ! $table = _get_meta_table($meta_type) )
+		return false;
+
 	global $wpdb;
-
-	if ( ! $meta_type || ! $meta_key || ! is_numeric( $object_id ) ) {
-		return false;
-	}
-
-	$object_id = absint( $object_id );
-	if ( ! $object_id ) {
-		return false;
-	}
-
-	$table = _get_meta_table( $meta_type );
-	if ( ! $table ) {
-		return false;
-	}
 
 	$column = sanitize_key($meta_type . '_id');
 	$id_column = 'user' == $meta_type ? 'umeta_id' : 'meta_id';
@@ -291,21 +281,16 @@ function update_metadata($meta_type, $object_id, $meta_key, $meta_value, $prev_v
  * @return bool True on successful delete, false on failure.
  */
 function delete_metadata($meta_type, $object_id, $meta_key, $meta_value = '', $delete_all = false) {
+	if ( !$meta_type || !$meta_key )
+		return false;
+
+	if ( (!$object_id = absint($object_id)) && !$delete_all )
+		return false;
+
+	if ( ! $table = _get_meta_table($meta_type) )
+		return false;
+
 	global $wpdb;
-
-	if ( ! $meta_type || ! $meta_key || ! is_numeric( $object_id ) && ! $delete_all ) {
-		return false;
-	}
-
-	$object_id = absint( $object_id );
-	if ( ! $object_id && ! $delete_all ) {
-		return false;
-	}
-
-	$table = _get_meta_table( $meta_type );
-	if ( ! $table ) {
-		return false;
-	}
 
 	$type_column = sanitize_key($meta_type . '_id');
 	$id_column = 'user' == $meta_type ? 'umeta_id' : 'meta_id';
@@ -438,14 +423,11 @@ function delete_metadata($meta_type, $object_id, $meta_key, $meta_value = '', $d
  * @return string|array Single metadata value, or array of values
  */
 function get_metadata($meta_type, $object_id, $meta_key = '', $single = false) {
-	if ( ! $meta_type || ! is_numeric( $object_id ) ) {
+	if ( !$meta_type )
 		return false;
-	}
 
-	$object_id = absint( $object_id );
-	if ( ! $object_id ) {
+	if ( !$object_id = absint($object_id) )
 		return false;
-	}
 
 	/**
 	 * Filter whether to retrieve metadata of a specific type.
@@ -505,14 +487,11 @@ function get_metadata($meta_type, $object_id, $meta_key = '', $single = false) {
  * @return boolean true of the key is set, false if not.
  */
 function metadata_exists( $meta_type, $object_id, $meta_key ) {
-	if ( ! $meta_type || ! is_numeric( $object_id ) ) {
+	if ( ! $meta_type )
 		return false;
-	}
 
-	$object_id = absint( $object_id );
-	if ( ! $object_id ) {
+	if ( ! $object_id = absint( $object_id ) )
 		return false;
-	}
 
 	/** This filter is documented in wp-includes/meta.php */
 	$check = apply_filters( "get_{$meta_type}_metadata", null, $object_id, $meta_key, true );
@@ -544,19 +523,14 @@ function metadata_exists( $meta_type, $object_id, $meta_key ) {
 function get_metadata_by_mid( $meta_type, $meta_id ) {
 	global $wpdb;
 
-	if ( ! $meta_type || ! is_numeric( $meta_id ) ) {
+	if ( ! $meta_type )
 		return false;
-	}
 
-	$meta_id = absint( $meta_id );
-	if ( ! $meta_id ) {
+	if ( !$meta_id = absint( $meta_id ) )
 		return false;
-	}
 
-	$table = _get_meta_table( $meta_type );
-	if ( ! $table ) {
+	if ( ! $table = _get_meta_table($meta_type) )
 		return false;
-	}
 
 	$id_column = ( 'user' == $meta_type ) ? 'umeta_id' : 'meta_id';
 
@@ -589,19 +563,14 @@ function update_metadata_by_mid( $meta_type, $meta_id, $meta_value, $meta_key = 
 	global $wpdb;
 
 	// Make sure everything is valid.
-	if ( ! $meta_type || ! is_numeric( $meta_id ) ) {
+	if ( ! $meta_type )
 		return false;
-	}
 
-	$meta_id = absint( $meta_id );
-	if ( ! $meta_id ) {
+	if ( ! $meta_id = absint( $meta_id ) )
 		return false;
-	}
 
-	$table = _get_meta_table( $meta_type );
-	if ( ! $table ) {
+	if ( ! $table = _get_meta_table( $meta_type ) )
 		return false;
-	}
 
 	$column = sanitize_key($meta_type . '_id');
 	$id_column = 'user' == $meta_type ? 'umeta_id' : 'meta_id';
@@ -609,6 +578,7 @@ function update_metadata_by_mid( $meta_type, $meta_id, $meta_value, $meta_key = 
 	// Fetch the meta and go on if it's found.
 	if ( $meta = get_metadata_by_mid( $meta_type, $meta_id ) ) {
 		$original_key = $meta->meta_key;
+		$original_value = $meta->meta_value;
 		$object_id = $meta->{$column};
 
 		// If a new meta_key (last parameter) was specified, change the meta key,
@@ -681,19 +651,14 @@ function delete_metadata_by_mid( $meta_type, $meta_id ) {
 	global $wpdb;
 
 	// Make sure everything is valid.
-	if ( ! $meta_type || ! is_numeric( $meta_id ) ) {
+	if ( ! $meta_type )
 		return false;
-	}
 
-	$meta_id = absint( $meta_id );
-	if ( ! $meta_id ) {
+	if ( ! $meta_id = absint( $meta_id ) )
 		return false;
-	}
 
-	$table = _get_meta_table( $meta_type );
-	if ( ! $table ) {
+	if ( ! $table = _get_meta_table( $meta_type ) )
 		return false;
-	}
 
 	// object and id columns
 	$column = sanitize_key($meta_type . '_id');
@@ -764,18 +729,15 @@ function delete_metadata_by_mid( $meta_type, $meta_id ) {
  * @return mixed Metadata cache for the specified objects, or false on failure.
  */
 function update_meta_cache($meta_type, $object_ids) {
-	global $wpdb;
-
-	if ( ! $meta_type || ! $object_ids ) {
+	if ( empty( $meta_type ) || empty( $object_ids ) )
 		return false;
-	}
 
-	$table = _get_meta_table( $meta_type );
-	if ( ! $table ) {
+	if ( ! $table = _get_meta_table($meta_type) )
 		return false;
-	}
 
 	$column = sanitize_key($meta_type . '_id');
+
+	global $wpdb;
 
 	if ( !is_array($object_ids) ) {
 		$object_ids = preg_replace('|[^0-9,]|', '', $object_ids);
@@ -886,7 +848,7 @@ class WP_Meta_Query {
 	 *
 	 * @param array $meta_query (optional) A meta query
 	 */
-	public function __construct( $meta_query = false ) {
+	function __construct( $meta_query = false ) {
 		if ( !$meta_query )
 			return;
 
@@ -914,7 +876,7 @@ class WP_Meta_Query {
 	 *
 	 * @param array $qv The query variables
 	 */
-	public function parse_query_vars( $qv ) {
+	function parse_query_vars( $qv ) {
 		$meta_query = array();
 
 		// Simple query needs to be first for orderby=meta_value to work correctly
@@ -942,7 +904,7 @@ class WP_Meta_Query {
 	 * @param string $type MySQL type to cast meta_value
 	 * @return string MySQL type
 	 */
-	public function get_cast_for_type( $type = '' ) {
+	function get_cast_for_type( $type = '' ) {
 		if ( empty( $type ) )
 			return 'CHAR';
 
@@ -969,7 +931,7 @@ class WP_Meta_Query {
 	 * @param object $context (optional) The main query object
 	 * @return array( 'join' => $join_sql, 'where' => $where_sql )
 	 */
-	public function get_sql( $type, $primary_table, $primary_id_column, $context = null ) {
+	function get_sql( $type, $primary_table, $primary_id_column, $context = null ) {
 		global $wpdb;
 
 		if ( ! $meta_table = _get_meta_table( $type ) )
@@ -1079,8 +1041,8 @@ class WP_Meta_Query {
 			} elseif ( 'BETWEEN' == substr( $meta_compare, -7) ) {
 				$meta_value = array_slice( $meta_value, 0, 2 );
 				$meta_compare_string = '%s AND %s';
-			} elseif ( 'LIKE' == $meta_compare || 'NOT LIKE' == $meta_compare ) {
-				$meta_value = '%' . $wpdb->esc_like( $meta_value ) . '%';
+			} elseif ( 'LIKE' == substr( $meta_compare, -4 ) ) {
+				$meta_value = '%' . like_escape( $meta_value ) . '%';
 				$meta_compare_string = '%s';
 			} else {
 				$meta_compare_string = '%s';

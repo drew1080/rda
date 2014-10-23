@@ -67,7 +67,7 @@ class Red_Item {
 	static function get_all_for_module( $module ) {
 		global $wpdb;
 
-		$sql = $wpdb->prepare( "SELECT @redirection_items.*,@redirection_groups.tracking FROM @redirection_items INNER JOIN @redirection_groups ON @redirection_groups.id=@redirection_items.group_id AND @redirection_groups.status='enabled' AND @redirection_groups.module_id=%d WHERE @redirection_items.status='enabled' ORDER BY @redirection_groups.position,@redirection_items.position", $module );
+		$sql = "SELECT @redirection_items.*,@redirection_groups.tracking FROM @redirection_items INNER JOIN @redirection_groups ON @redirection_groups.id=@redirection_items.group_id AND @redirection_groups.status='enabled' AND @redirection_groups.module_id='$module' WHERE @redirection_items.status='enabled' ORDER BY @redirection_groups.position,@redirection_items.position";
 		$sql = str_replace( '@', $wpdb->prefix, $sql );
 
 		$rows  = $wpdb->get_results( $sql );
@@ -131,13 +131,13 @@ class Red_Item {
 	static function get_by_group( $group, &$pager ) {
 		global $wpdb;
 
-		$sql = $wpdb->prepare( "FROM {$wpdb->prefix}redirection_items WHERE group_id=%d", $group );
+		$sql = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}redirection_items WHERE group_id=%d", $group );
 
 		if ( $pager->search )
 			$sql .= $wpdb->prepare( ' AND url LIKE %s', '%'.like_escape( $pager->search ).'%' );
 
-		$pager->set_total( $wpdb->get_var( "SELECT COUNT(*) ".$sql ) );
-		$rows = $wpdb->get_results( "SELECT * ".$sql.' ORDER BY position'.$pager->to_limits() );
+		$rows = $wpdb->get_results( $sql.' ORDER BY position' );
+		$pager->set_total( $wpdb->get_var( $sql ) );
 
 		$items = array();
 		if ( count( $rows ) > 0 ) {
@@ -182,54 +182,48 @@ class Red_Item {
 
 		// Make sure we don't redirect to ourself
 		if ( $details['source'] == $details['target'] )
-			return new WP_Error( 'redirect-add', __( 'Source and target URL must be different', 'redirection' ) );
+			$details['target'] .= '-1';
 
-		$matcher  = Red_Match::create( $details['match'] );
-		$group_id = intval( $details['group'] );
-		$group    = Red_Group::get( $group_id );
+		$matcher = Red_Match::create( $details['match'] );
+		$group_id  = intval( $details['group'] );
 
-		if ( $group_id <= 0 || !$group )
-			return new WP_Error( 'redirect-add', __( 'Invalid group when creating redirect', 'redirection' ) );
+		if ( $group_id > 0 && $matcher ) {
+			$regex    = ( isset( $details['regex']) && $details['regex'] != false) ? 1 : 0;
+			$position = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(id) FROM {$wpdb->prefix}redirection_items WHERE group_id=%d", $group_id ) );
 
-		if ( !$matcher )
-			return new WP_Error( 'redirect-add', __( 'Invalid source URL when creating redirect for given match type', 'redirection' ) );
+			$action = $details['red_action'];
+			$action_code = 0;
+			if ( $action == 'url' || $action == 'random' )
+				$action_code = 301;
+			elseif ( $action == 'error' )
+				$action_code = 404;
 
-		$regex    = ( isset( $details['regex']) && $details['regex'] != false) ? 1 : 0;
-		$position = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}redirection_items WHERE group_id=%d", $group_id ) );
+			if ( isset( $details['action_code'] ) )
+				$action_code = intval( $details['action_code'] );
 
-		$action = $details['red_action'];
-		$action_code = 0;
-		if ( $action == 'url' || $action == 'random' )
-			$action_code = 301;
-		elseif ( $action == 'error' )
-			$action_code = 404;
+			$data = array(
+				'url'         => self::sanitize_url( $details['source'], $regex),
+				'action_type' => $details['red_action'],
+				'regex'       => $regex,
+				'position'    => $position,
+				'match_type'  => $details['match'],
+				'action_data' => $matcher->data( $details ),
+				'action_code' => $action_code,
+				'last_access' => '0000-00-00 00:00:00',
+				'group_id'    => $group_id
+			);
 
-		if ( isset( $details['action_code'] ) )
-			$action_code = intval( $details['action_code'] );
+			$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}redirection_items WHERE url=%s AND action_type=%s AND action_data=%s", $data['action_data'], $data['action_type'], $data['url'] ) );
 
-		$data = array(
-			'url'         => self::sanitize_url( $details['source'], $regex),
-			'action_type' => $details['red_action'],
-			'regex'       => $regex,
-			'position'    => $position,
-			'match_type'  => $details['match'],
-			'action_data' => $matcher->data( $details ),
-			'action_code' => $action_code,
-			'last_access' => '0000-00-00 00:00:00',
-			'group_id'    => $group_id
-		);
+			$wpdb->insert( $wpdb->prefix.'redirection_items', $data );
 
-		$data = apply_filters( 'redirection_create_redirect', $data );
-
-		$wpdb->delete( $wpdb->prefix.'redirection_items', array( 'url' => $data['action_data'], 'action_type' => $data['action_type'], 'action_data' => $data['url'] ) );
-
-		if ( $wpdb->insert( $wpdb->prefix.'redirection_items', $data ) ) {
+			$group = Red_Group::get( $group_id );
 			Red_Module::flush( $group->module_id );
 
 			return self::get_by_id( $wpdb->insert_id );
 		}
 
-		return new WP_Error( 'redirect-add', __( 'Unable to add new redirect - delete Redirection from the options page and re-install' ) );
+		return false;
 	}
 
 	static function delete_by_group( $group ) {
@@ -362,7 +356,7 @@ class Red_Item {
 			  $ip = $_SERVER['REMOTE_ADDR'];
 
 			$options = $redirection->get_options();
-			if ( isset( $options['expire_redirect'] ) && $options['expire_redirect'] >= 0 )
+			if ( $options['log_redirections'])
 				$log = RE_Log::create( $url, $target, $_SERVER['HTTP_USER_AGENT'], $ip, isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '', array( 'redirect_id' => $this->id, 'module_id' => $this->module_id, 'group_id' => $this->group_id) );
 		}
 	}

@@ -5,7 +5,7 @@ Plugin URI: http://www.nsp-code.com
 Description: Posts Order and Post Types Objects Order using a Drag and Drop Sortable javascript capability
 Author: Nsp Code
 Author URI: http://www.nsp-code.com 
-Version: 1.7.4
+Version: 1.6.8
 */
 
 define('CPTPATH',   plugin_dir_path(__FILE__));
@@ -100,12 +100,7 @@ function CPTOrderPosts($orderBy, $query)
                         return($orderBy);
                     
                     if ($options['autosort'] == "1")
-                        {
-                            if(trim($orderBy) == '')
-                                $orderBy = "{$wpdb->posts}.menu_order ";
-                            else
-                                $orderBy = "{$wpdb->posts}.menu_order, " . $orderBy;
-                        }
+                        $orderBy = "{$wpdb->posts}.menu_order, " . $orderBy;
                 }
 
         return($orderBy);
@@ -413,20 +408,14 @@ class CPTO
                             {
 				                foreach( $values as $position => $id ) 
                                     {
-					                    $data = array('menu_order' => $position, 'post_parent' => 0);
-                                        $data = apply_filters('post-types-order_save-ajax-order', $data, $key, $id);
-                                        
-                                        $wpdb->update( $wpdb->posts, $data, array('ID' => $id) );
+					                    $wpdb->update( $wpdb->posts, array('menu_order' => $position, 'post_parent' => 0), array('ID' => $id) );
 				                    } 
 			                } 
                         else 
                             {
 				                foreach( $values as $position => $id ) 
                                     {
-					                    $data = array('menu_order' => $position, 'post_parent' => str_replace('item_', '', $key));
-                                        $data = apply_filters('post-types-order_save-ajax-order', $data, $key, $id);
-                                        
-                                        $wpdb->update( $wpdb->posts, $data, array('ID' => $id) );
+					                    $wpdb->update( $wpdb->posts, array('menu_order' => $position, 'post_parent' => str_replace('item_', '', $key)), array('ID' => $id) );
 				                    }
 			                }
 		            }

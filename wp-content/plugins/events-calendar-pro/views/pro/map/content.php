@@ -7,6 +7,8 @@
  * Override this template in your own theme by creating a file at [your-theme]/tribe-events/map/content.php
  *
  * @package TribeEventsCalendar
+ * @since  3.0
+ * @author Modern Tribe Inc.
  *
  */
 

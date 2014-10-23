@@ -9,6 +9,8 @@
  * To replace our stylsheet altogether, you can use the 'tribe_events_pro_widget_calendar_stylesheet_url' filter.
  *
  * @package TribeEventsCalendar
+ * @since  3.0
+ * @author Modern Tribe Inc.
  *
  */
 
@@ -129,7 +131,7 @@
 	font-size: 11px;
 }
 
-.tribe-mini-calendar-wrapper a.tribe-events-button {
+.tribe_mini_calendar_widget a.tribe-events-button {
 	margin-top: 10px;
 	display: inline-block;
 }

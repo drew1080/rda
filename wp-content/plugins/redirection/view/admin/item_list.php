@@ -1,6 +1,7 @@
 <?php if (!defined ('ABSPATH')) die ('No direct access allowed'); ?>
 <div class="wrap">
 	<?php screen_icon(); ?>
+	<?php $this->render_admin( 'annoy' ); ?>
 
 	<h2>
 		<?php _e ('Redirections for group', 'redirection'); ?>:

@@ -54,7 +54,11 @@ class Mixin_WordPress_GalleryStorage_Driver extends Mixin
 	 */
 	function get_image_abspath($image, $size='full')
 	{
-        return $this->object->get_image_abspath($image, $size);
+		return str_replace(
+			$this->get_registry()->get_utility('I_Router')->get_base_url(TRUE),
+			ABSPATH,
+			$this->object->get_image_abspath($image, $size)
+		);
 	}
 
 

@@ -6,6 +6,7 @@
  * [your-theme]/tribe-events/modules/meta/details.php
  *
  * @package TribeEventsCalendarPro
+ * @since 3.6
  */
 
 if ( ! isset( $fields ) || empty( $fields ) || ! is_array( $fields ) ) return;

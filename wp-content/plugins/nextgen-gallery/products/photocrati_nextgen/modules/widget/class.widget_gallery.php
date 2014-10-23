@@ -23,7 +23,7 @@ class C_Widget_Gallery extends WP_Widget
                 'list'     =>  '',
                 'show'     => 'thumbnail',
                 'title'    => 'Gallery',
-                'type'     => 'recent',
+                'type'     => 'random',
                 'webslice' => TRUE,
                 'width'    => '100'
             )

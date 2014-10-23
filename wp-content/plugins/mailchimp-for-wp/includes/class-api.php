@@ -53,7 +53,6 @@ class MC4WP_Lite_API {
 	* @param string $message
 	*/
 	private function show_error( $message ) {
-
 		if( ! is_admin() || ! current_user_can( 'manage_options' ) ) {
 			return false;
 		}
@@ -115,15 +114,15 @@ class MC4WP_Lite_API {
 		);
 
 		$result = $this->call( 'lists/subscribe', $data );
-
-		if( is_object( $result ) ) {
+		
+		if( $result ) {
 
 			if( ! isset( $result->error ) ) {
 				return true;
 			} else {
 
 				// check error
-				if( (int) $result->code === 214 ) {
+				if( $result->code == 214 ) {  
 					return 'already_subscribed'; 
 				} 
 			
@@ -132,9 +131,9 @@ class MC4WP_Lite_API {
 				return 'error';
 			}
 
+		} else {
+			return 'error';
 		}
-
-		return 'error';
 	}
 
 	/**
@@ -145,12 +144,11 @@ class MC4WP_Lite_API {
 	public function get_list_groupings( $list_id )
 	{
 		$result = $this->call( 'lists/interest-groupings', array( 'id' => $list_id ) );
-
-		if( is_array( $result ) ) {
+		if( $result && is_array( $result ) ) {
 			return $result;
+		} else {
+			return false;
 		}
-
-		return false;
 	}
 
 	/**
@@ -159,17 +157,18 @@ class MC4WP_Lite_API {
 	*/
 	public function get_lists()
 	{
-		$args = array(
-			'limit' => 100
+		$result = $this->call( 
+			'lists/list', 
+			array(
+				'limit' => 100
+			)
 		);
 
-		$result = $this->call( 'lists/list', $args );
-
-		if( is_object( $result ) && isset( $result->data ) ) {
+		if( $result && isset( $result->data ) ) {
 			return $result->data;
+		} else {
+			return false;
 		}
-
-		return false;
 	}
 
 	/**
@@ -181,11 +180,11 @@ class MC4WP_Lite_API {
 	{
 		$result = $this->call( 'lists/merge-vars', array('id' => $list_ids ) );
 		
-		if( is_object( $result ) && isset( $result->data ) ) {
+		if( $result && isset( $result->data ) ) {
 			return $result->data;
+		} else {
+			return false;
 		}
-
-		return false;
 	}
 
 	/**
@@ -197,12 +196,12 @@ class MC4WP_Lite_API {
 	*/
 	public function get_member_info( $list_id, $emails ) {
 		$result = $this->call( 'lists/member-info', array( 'id' => $list_id, 'emails'  => $emails ) );
-
-		if( is_object( $result ) && isset( $result->data ) ) {
+		
+		if( $result && isset( $result->data ) ) {
 			return $result->data;
+		} else {
+			return false;
 		}
-
-		return false;
 	}
 
 	/**
@@ -215,40 +214,8 @@ class MC4WP_Lite_API {
 	public function list_has_subscriber( $list_id, $email ) {
 		$member_info = $this->get_member_info( $list_id, array( array( 'email' => $email ) ) );
 
-		if( is_array( $member_info ) && isset( $member_info[0] ) ) {
+		if( $member_info && is_array( $member_info ) ) {
 			return ( $member_info[0]->status == "subscribed" );
-		}
-
-		return false;
-	}
-
-	/**
-	 * Unsubscribes the given email from the given MailChimp list
-	 *
-	 * @param string $list_id
-	 * @param string $email
-	 *
-	 * @return bool
-	 */
-	public function unsubscribe( $list_id, $email ) {
-
-		$result = $this->call( 'lists/unsubscribe', array(
-				'id' => $list_id,
-				'email' => array(
-					'email' => $email
-				)
-			)
-		);
-
-		if( is_object( $result ) ) {
-
-			if ( isset( $result->complete ) && $result->complete ) {
-				return true;
-			}
-
-			if( isset( $result->error ) ) {
-				$this->error_message = $result->error;
-			}
 		}
 
 		return false;
@@ -276,7 +243,7 @@ class MC4WP_Lite_API {
 
 		$response = wp_remote_post( $url, array( 
 			'body' => $data,
-			'timeout' => 15,
+			'timeout' => 20,
 			'headers' => array('Accept-Encoding' => ''),
 			'sslverify' => false
 			) 
@@ -290,7 +257,7 @@ class MC4WP_Lite_API {
 		}
 
 		// dirty fix for older WP versions
-		if( $method === 'helper/ping' && is_array( $response ) && isset( $response['headers']['content-length'] ) && (int) $response['headers']['content-length'] === 44 ) {
+		if( $method === 'helper/ping' && isset( $response['headers']['content-length'] ) && (int) $response['headers']['content-length'] === 44 ) {
 			return (object) array(
 				'msg' => "Everything's Chimpy!"
 			);

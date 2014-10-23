@@ -5,7 +5,7 @@ window.wp = window.wp || {};
 	var Attachment, Attachments, Query, PostImage, compare, l10n, media;
 
 	/**
-	 * Create and return a media frame.
+	 * wp.media( attributes )
 	 *
 	 * Handles the default media experience. Automatically creates
 	 * and opens a media frame, and returns the result.
@@ -30,16 +30,12 @@ window.wp = window.wp || {};
 			frame = new MediaFrame.Select( attributes );
 		} else if ( 'post' === attributes.frame && MediaFrame.Post ) {
 			frame = new MediaFrame.Post( attributes );
-		} else if ( 'manage' === attributes.frame && MediaFrame.Manage ) {
-			frame = new MediaFrame.Manage( attributes );
 		} else if ( 'image' === attributes.frame && MediaFrame.ImageDetails ) {
 			frame = new MediaFrame.ImageDetails( attributes );
 		} else if ( 'audio' === attributes.frame && MediaFrame.AudioDetails ) {
 			frame = new MediaFrame.AudioDetails( attributes );
 		} else if ( 'video' === attributes.frame && MediaFrame.VideoDetails ) {
 			frame = new MediaFrame.VideoDetails( attributes );
-		} else if ( 'edit-attachments' === attributes.frame && MediaFrame.EditAttachments ) {
-			frame = new MediaFrame.EditAttachments( attributes );
 		}
 
 		delete attributes.frame;
@@ -824,12 +820,9 @@ window.wp = window.wp || {};
 		/**
 		 * @access private
 		 */
-		_requery: function( refresh ) {
-			var props;
+		_requery: function() {
 			if ( this.props.get('query') ) {
-				props = this.props.toJSON();
-				props.cache = ( true !== refresh );
-				this.mirror( Query.get( props ) );
+				this.mirror( Query.get( this.props.toJSON() ) );
 			}
 		},
 		/**
@@ -950,22 +943,6 @@ window.wp = window.wp || {};
 				}
 
 				return uploadedTo === attachment.get('uploadedTo');
-			},
-			/**
-			 * @static
-			 * @param {wp.media.model.Attachment} attachment
-			 *
-			 * @this wp.media.model.Attachments
-			 *
-			 * @returns {Boolean}
-			 */
-			status: function( attachment ) {
-				var status = this.props.get('status');
-				if ( _.isUndefined( status ) ) {
-					return true;
-				}
-
-				return status === attachment.get('status');
 			}
 		}
 	});
@@ -1163,8 +1140,7 @@ window.wp = window.wp || {};
 			'type':      'post_mime_type',
 			'perPage':   'posts_per_page',
 			'menuOrder': 'menu_order',
-			'uploadedTo': 'post_parent',
-			'status':     'post_status'
+			'uploadedTo': 'post_parent'
 		},
 		/**
 		 * @static
@@ -1189,13 +1165,11 @@ window.wp = window.wp || {};
 				var args     = {},
 					orderby  = Query.orderby,
 					defaults = Query.defaultProps,
-					query,
-					cache    = !! props.cache || _.isUndefined( props.cache );
+					query;
 
 				// Remove the `query` property. This isn't linked to a query,
 				// this *is* the query.
 				delete props.query;
-				delete props.cache;
 
 				// Fill default args.
 				_.defaults( props, defaults );
@@ -1229,13 +1203,9 @@ window.wp = window.wp || {};
 				args.orderby = orderby.valuemap[ props.orderby ] || props.orderby;
 
 				// Search the query cache for matches.
-				if ( cache ) {
-					query = _.find( queries, function( query ) {
-						return _.isEqual( query.args, args );
-					});
-				} else {
-					queries = [];
-				}
+				query = _.find( queries, function( query ) {
+					return _.isEqual( query.args, args );
+				});
 
 				// Otherwise, create a new query and add it to the cache.
 				if ( ! query ) {

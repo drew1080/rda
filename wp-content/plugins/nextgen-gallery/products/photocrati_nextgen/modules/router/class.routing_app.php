@@ -583,7 +583,7 @@ class Mixin_Routing_App extends Mixin
 
 		// Is the parameter already part of the request? If so, modify that
 		// parameter
-		if (($segment = $this->object->get_parameter_segment($key, $id, $url)) && is_array($segment)) {
+		if (($segment = $this->object->get_parameter_segment($key, $id, $url))) {
  			extract($segment);
 
 			if ($source == 'querystring') {

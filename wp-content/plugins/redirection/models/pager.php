@@ -92,14 +92,12 @@ class Redirection_Log_Table extends WP_List_Table {
 	}
 
 	function prepare_items( $type = '', $id = 0 ) {
-		global $wpdb, $current_user;
+		global $wpdb;
 
-		$screen = get_current_screen();
-		$per_page = get_user_meta( $current_user->ID, $screen->get_option( 'per_page', 'option' ), true );
-
-		$per_page = $per_page ? $per_page : 25;
-		$columns  = $this->get_columns();
-		$sortable = $this->get_sortable_columns();
+		$per_page     = 25;
+		$columns      = $this->get_columns();
+		$sortable     = $this->get_sortable_columns();
+		$current_page = $this->get_pagenum();
 
 		$this->_column_headers = array( $columns, array(), $sortable );
 
@@ -109,22 +107,30 @@ class Redirection_Log_Table extends WP_List_Table {
 		$orderby = ( ! empty( $_GET['orderby'] ) ) ? $_GET['orderby'] : 'id';
 		$order   = ( ! empty( $_GET['order'] ) ) ? strtolower( $_GET['order'] ) : 'desc';
 
-		if ( !in_array( $orderby, array_keys( $sortable ) ) )
+		if ( !in_array( $orderby, array_keys( $this->get_sortable_columns() ) ) )
 			$orderby = 'id';
 
 		if ( !in_array( $order, array( 'asc', 'desc' ) ) )
 			$order = 'desc';
 
 		$where = array();
-		if ( isset( $_GET['s'] ) )
-			$where[] = $wpdb->prepare( 'url LIKE %s', '%'.like_escape( $_GET['s'] ).'%' );
+		if ( $type == 'module' )
+			$where[] = $wpdb->prepare( 'module_id=%d', $id );
+		elseif ( $type == 'group' )
+			$where[] = $wpdb->prepare( 'group_id=%d AND redirection_id IS NOT NULL', $id );
+		elseif ( $type == 'redirect' )
+			$where[] = $wpdb->prepare( 'redirection_id=%d', $id );
+
+		if ( isset( $_POST['s'] ) )
+			$where[] = $wpdb->prepare( 'url LIKE %s', '%'.like_escape( stripslashes( $_POST['s'] ) ).'%' );
 
 		$where_cond = "";
 		if ( count( $where ) > 0 )
 			$where_cond = " WHERE ".implode( ' AND ', $where );
 
 		$table = $wpdb->prefix.'redirection_logs';
-		$rows        = $wpdb->get_results( "SELECT * FROM {$table} ".$where_cond.$wpdb->prepare( " ORDER BY $orderby $order LIMIT %d,%d", ( $this->get_pagenum() - 1 ) * $per_page, $per_page ) );
+
+		$rows        = $wpdb->get_results( "SELECT * FROM {$table} ".$where_cond.$wpdb->prepare( " ORDER BY $orderby $order LIMIT %d,%d", $this->get_pagenum() - 1, $per_page ) );
 		$total_items = $wpdb->get_var( "SELECT COUNT(*) FROM {$table}".$where_cond );
 
 		$this->items = array();
@@ -135,7 +141,7 @@ class Redirection_Log_Table extends WP_List_Table {
 		$this->set_pagination_args( array(
 			'total_items' => $total_items,
 			'per_page'    => $per_page,
-			'total_pages' => ceil( $total_items / $per_page )
+			'total_pages' => ceil($total_items/$per_page)
 		) );
 	}
 }
@@ -157,7 +163,7 @@ class Redirection_404_Table extends WP_List_Table {
 	function column_created( $item ) {
 		$actions['add'] = '<a href="'.esc_url( $item->url ).'" class="add-log">'.__( 'Add redirect', 'redirection' ).'</a>';
 
-		return sprintf( '%1$s%2$s', date_i18n( get_option( 'date_format' ), $item->created ).'<br/>'.gmdate( get_option( 'time_format' ), $item->created ), $this->row_actions( $actions ) );
+		return sprintf( '%1$s %2$s', date_i18n( get_option( 'date_format' ), $item->created ).' '.gmdate( get_option( 'time_format' ), $item->created ), $this->row_actions( $actions ) );
 	}
 
 	function column_ip( $item ) {
@@ -222,127 +228,9 @@ class Redirection_404_Table extends WP_List_Table {
 	}
 
 	function prepare_items( $restrict_by_ip = false ) {
-		global $wpdb, $current_user;
+		global $wpdb;
 
-		$screen = get_current_screen();
-		$per_page = get_user_meta( $current_user->ID, $screen->get_option( 'per_page', 'option' ), true );
-
-		$per_page = $per_page ? $per_page : 25;
-		$columns  = $this->get_columns();
-		$sortable = $this->get_sortable_columns();
-
-		$this->_column_headers = array( $columns, array(), $sortable );
-
-		// Process any stuff
-		$this->process_bulk_action();
-
-		$orderby = ( ! empty( $_GET['orderby'] ) ) ? $_GET['orderby'] : 'id';
-		$order   = ( ! empty( $_GET['order'] ) ) ? strtolower( $_GET['order'] ) : 'desc';
-
-		if ( !in_array( $orderby, array_keys( $sortable ) ) )
-			$orderby = 'id';
-
-		if ( !in_array( $order, array( 'asc', 'desc' ) ) )
-			$order = 'desc';
-
-		$where = array();
-		if ( isset( $_GET['s'] ) )
-			$where[] = $wpdb->prepare( 'url LIKE %s', '%'.like_escape( $_GET['s'] ).'%' );
-
-		if ( $restrict_by_ip !== false )
-			$where[] = $wpdb->prepare( 'ip=INET_ATON(%s)', $restrict_by_ip );
-
-		$where_cond = "";
-		if ( count( $where ) > 0 )
-			$where_cond = " WHERE ".implode( ' AND ', $where );
-
-		$table = $wpdb->prefix.'redirection_404';
-		$rows        = $wpdb->get_results( "SELECT * FROM {$table} ".$where_cond.$wpdb->prepare( " ORDER BY $orderby $order LIMIT %d,%d", ( $this->get_pagenum() - 1 ) * $per_page, $per_page ) );
-		$total_items = $wpdb->get_var( "SELECT COUNT(*) FROM {$table}".$where_cond );
-
-		$this->items = array();
-		foreach ( (array)$rows AS $row ) {
-			$this->items[] = new RE_Log( $row );
-		}
-
-		$this->set_pagination_args( array(
-			'total_items' => $total_items,
-			'per_page'    => $per_page,
-			'total_pages' => ceil( $total_items / $per_page )
-		) );
-	}
-}
-
-class Redirection_Group_Table extends WP_List_Table {
-	private $lookup;
-
-	function __construct( $options ) {
-		//Set parent defaults
-		parent::__construct( array(
-			'singular'  => 'item',     //singular name of the listed records
-			'plural'    => 'items',    //plural name of the listed records
-			'ajax'      => false        //does this table support ajax?
-		) );
-	}
-
-	function column_name( $item ) {
-		$actions['add'] = '<a href="'.esc_url( $item->url ).'" class="add-log">'.__( 'Name', 'redirection' ).'</a>';
-
-		return 'Name';
-	}
-
-	function column_hits( $item ) {
-		$actions['add'] = '<a href="'.admin_url( 'tools.php?page=redirection.php&sub=404s&ip='.esc_attr( long2ip( $item->ip ) ) ).'">'.__( 'Show only this IP', 'redirection' ).'</a>';
-
-		return 'Hits';
-	}
-
-	function column_cb($item){
-		return sprintf(
-			'<input type="checkbox" name="%1$s[]" value="%2$s" />',
-			/*$1%s*/ $this->_args['singular'],  //Let's simply repurpose the table's singular label ("movie")
-			/*$2%s*/ $item->id                //The value of the checkbox should be the record's id
-		);
-	}
-
-	function get_columns(){
-		$columns = array(
-			'cb'       => '<input type="checkbox" />', //Render a checkbox instead of text
-			'name'  => __( 'Name', 'redirection' ),
-			'hits'      => __( 'Hits', 'redirection' ),
-		);
-		return $columns;
-	}
-
-	function get_sortable_columns() {
-		$sortable_columns = array(
-			'name' => array( 'name', false ),
-		);
-		return $sortable_columns;
-	}
-
-	function get_bulk_actions() {
-		$actions = array(
-			'delete' => __( 'Delete', 'redirection' )
-		);
-		return $actions;
-	}
-
-	function process_bulk_action() {
-		if ( 'delete' === $this->current_action() ) {
-			foreach( $_POST['item'] AS $id ) {
-// XXX				RE_404::delete( intval( $id ) );
-			}
-		}
-	}
-
-	function prepare_items( $restrict_by_ip = false ) {
-		global $wpdb, $current_user;
-
-		$screen   = get_current_screen();
-		$per_page = get_user_meta( $current_user->ID, $screen->get_option( 'per_page', 'option' ), true );
-
-		$per_page     = $per_page ? $per_page : 25;
+		$per_page     = 25;
 		$columns      = $this->get_columns();
 		$sortable     = $this->get_sortable_columns();
 		$current_page = $this->get_pagenum();
@@ -361,7 +249,18 @@ class Redirection_Group_Table extends WP_List_Table {
 		if ( !in_array( $order, array( 'asc', 'desc' ) ) )
 			$order = 'desc';
 
-		$table = $wpdb->prefix.'redirection_groups';
+		$where = array();
+		if ( isset( $_POST['s'] ) )
+			$where[] = $wpdb->prepare( 'url LIKE %s', '%'.$_POST['s'].'%' );
+
+		if ( $restrict_by_ip !== false )
+			$where[] = $wpdb->prepare( 'ip=INET_ATON(%s)', $restrict_by_ip );
+
+		$where_cond = "";
+		if ( count( $where ) > 0 )
+			$where_cond = " WHERE ".implode( ' AND ', $where );
+
+		$table = $wpdb->prefix.'redirection_404';
 
 		$rows        = $wpdb->get_results( "SELECT * FROM {$table} ".$where_cond.$wpdb->prepare( " ORDER BY $orderby $order LIMIT %d,%d", ( $this->get_pagenum() - 1 ) * $per_page, $per_page ) );
 		$total_items = $wpdb->get_var( "SELECT COUNT(*) FROM {$table}".$where_cond );
@@ -411,7 +310,7 @@ class RE_Pager
 		$this->id  = $id;
 		$this->url = $url;
 
-		if (isset ($data['curpage']) && $data['curpage'] > 0)
+		if (isset ($data['curpage']))
 			$this->current_page = intval ($data['curpage']);
 
 		global $user_ID;
@@ -601,15 +500,6 @@ class RE_Pager
 			else
 				$url = $url.'&amp;order='.$dir;
 		}
-
-		if ( isset( $_GET['id'] ) )
-			$url .= '&amp;id='.intval( $_GET['id'] );
-
-		if ( isset( $_GET['perpage'] ) )
-			$url .= '&amp;perpage='.intval( $_GET['perpage'] );
-
-		if ( isset( $_GET['search'] ) )
-			$url .= '&amp;search='.urlencode( $_GET['search'] );
 
 		return str_replace ('&go=go', '', $url);
 	}

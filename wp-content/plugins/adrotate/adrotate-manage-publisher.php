@@ -1,13 +1,7 @@
 <?php
-/* ------------------------------------------------------------------------------------
-*  COPYRIGHT AND TRADEMARK NOTICE
-*  Copyright 2008-2014 AJdG Solutions (Arnan de Gans). All Rights Reserved.
-*  ADROTATE is a trademark (pending registration) of Arnan de Gans.
-
-*  COPYRIGHT NOTICES AND ALL THE COMMENTS SHOULD REMAIN INTACT.
-*  By using this code you agree to indemnify Arnan de Gans from any
-*  liability that might arise from it's use.
------------------------------------------------------------------------------------- */
+/*  
+Copyright 2010-2014 Arnan de Gans - AJdG Solutions (email : info@ajdg.net)
+*/
 
 /*-------------------------------------------------------------
  Name:      adrotate_insert_input
@@ -32,7 +26,7 @@ function adrotate_insert_input() {
 		if(isset($_POST['adrotate_active'])) $active = strip_tags(htmlspecialchars(trim($_POST['adrotate_active'], "\t\n "), ENT_QUOTES));
 		if(isset($_POST['adrotate_sortorder'])) $sortorder = strip_tags(htmlspecialchars(trim($_POST['adrotate_sortorder'], "\t\n "), ENT_QUOTES));
 
-		// Schedules
+		// Schedule and timeframe variables
 		$sday = $smonth = $syear = $shour = $sminute = '';
 		if(isset($_POST['adrotate_sday'])) $sday = strip_tags(trim($_POST['adrotate_sday'], "\t\n "));
 		if(isset($_POST['adrotate_smonth'])) $smonth = strip_tags(trim($_POST['adrotate_smonth'], "\t\n "));
@@ -58,7 +52,6 @@ function adrotate_insert_input() {
 		if(isset($_POST['adrotate_image_dropdown'])) $image_dropdown = strip_tags(trim($_POST['adrotate_image_dropdown'], "\t\n "));
 		if(isset($_POST['adrotate_link'])) $link = strip_tags(trim($_POST['adrotate_link'], "\t\n "));
 		if(isset($_POST['adrotate_tracker'])) $tracker = strip_tags(trim($_POST['adrotate_tracker'], "\t\n "));
-		if(isset($_POST['adrotate_responsive'])) $responsive = strip_tags(trim($_POST['adrotate_responsive'], "\t\n "));
 		
 		// Misc variabled
 		$groups = $type = $group_array = '';
@@ -115,10 +108,6 @@ function adrotate_insert_input() {
 			if(isset($tracker) AND strlen($tracker) != 0) $tracker = 'Y';
 				else $tracker = 'N';
 	
-			// Set responsive value
-			if(isset($responsive) AND strlen($responsive) != 0) $responsive = 'Y';
-				else $responsive = 'N';
-	
 			// Format the URL (assume http://)
 			if((strlen($link) > 0 OR $link != "") AND stristr($link, "http://") === false AND stristr($link, "https://") === false) $link = "//".$link;
 			
@@ -137,26 +126,43 @@ function adrotate_insert_input() {
 			// Save schedule for new ads or update the existing one
 			if($type != 'empty') {
 				$wpdb->query($wpdb->prepare("DELETE FROM `".$wpdb->prefix."adrotate_schedule` WHERE `id` IN (SELECT `schedule` FROM `".$wpdb->prefix."adrotate_linkmeta` WHERE `schedule` != %d AND `schedule` > 0 AND `ad` = %d AND `group` = 0 AND `block` = 0 AND `user` = 0);", $schedule_id, $id)); 
+				$wpdb->update($wpdb->prefix.'adrotate_schedule', array('starttime' => $startdate, 'stoptime' => $enddate, 'maxclicks' => $maxclicks, 'maximpressions' => $maxshown), array('id' => $schedule_id));
 			}
-			$wpdb->update($wpdb->prefix.'adrotate_schedule', array('starttime' => $startdate, 'stoptime' => $enddate, 'maxclicks' => $maxclicks, 'maximpressions' => $maxshown), array('id' => $schedule_id));
 
 			// Save the ad to the DB
-			$wpdb->update($wpdb->prefix.'adrotate', array('title' => $title, 'bannercode' => $bannercode, 'updated' => $thetime, 'author' => $author, 'imagetype' => $imagetype, 'image' => $image, 'link' => $link, 'tracker' => $tracker, 'responsive' => $responsive, 'sortorder' => $sortorder), array('id' => $id));
+			$wpdb->update($wpdb->prefix.'adrotate', array('title' => $title, 'bannercode' => $bannercode, 'updated' => $thetime, 'author' => $author, 'imagetype' => $imagetype, 'image' => $image, 'link' => $link, 'tracker' => $tracker, 'sortorder' => $sortorder), array('id' => $id));
 
-			// Determine Responsive requirement
-			$responsive_count = $wpdb->get_var("SELECT COUNT(*) as `total` FROM `".$wpdb->prefix."adrotate` WHERE `responsive` = 'Y';");
-			update_option('adrotate_responsive_required', $responsive_count);
+			if($active == "active") {
+				// Determine status of ad 
+				$adstate = adrotate_evaluate_ad($id);
+				if($adstate == 'error') {
+					$action = 'field_error';
+					$active = 'error';
+				} else if($adstate == 'expired') {
+					$action = 'field_error';
+					$active = 'expired';
+				} else if($adstate == 'expiring') {
+					$action = 'field_error';
+					$active = 'expiring';
+				} else {
+					if($type == "empty") $action = 'new';
+						else $action = 'update';
+				}
+			} else {
+				if($type == "empty") $action = 'new';
+					else $action = 'update';
+			} 
+		    $wpdb->update($wpdb->prefix."adrotate", array('type' => $active), array('id' => $id));
 	
 			// Fetch group records for the ad
 			$groupmeta = $wpdb->get_results($wpdb->prepare("SELECT `group` FROM `".$wpdb->prefix."adrotate_linkmeta` WHERE `ad` = %d AND `block` = 0 AND `user` = 0 AND `schedule` = 0;", $id));
+			$group_array = array();
 			foreach($groupmeta as $meta) {
 				$group_array[] = $meta->group;
 			}
 			
-			if(empty($group_array)) $group_array = array();
-			if(empty($groups)) $groups = array();
-
 			// Add new groups to this ad
+			if(!is_array($groups)) $groups = array();
 			$insert = array_diff($groups, $group_array);
 			foreach($insert as &$value) {
 				$wpdb->insert($wpdb->prefix.'adrotate_linkmeta', array('ad' => $id, 'group' => $value, 'block' => 0, 'user' => 0, 'schedule' => 0));
@@ -170,23 +176,6 @@ function adrotate_insert_input() {
 			}
 			unset($value);
 	
-			// Verify ad
-			if($type == "empty") {
-				$action = 'new';
-			} else {
-				$action = 'update';
-			}
-			
-			if($active == "active") {
-				// Determine status of ad 
-				$adstate = adrotate_evaluate_ad($id);
-				if($adstate == 'error' OR $adstate == 'expired' OR $adstate == 'expiring') {
-					$action = 'field_error';
-				}
-				$active = $adstate;
-			}
-		    $wpdb->update($wpdb->prefix."adrotate", array('type' => $active), array('id' => $id));
-
 			adrotate_return($action, array($id));
 			exit;
 		} else {
@@ -262,12 +251,11 @@ function adrotate_insert_group() {
 			foreach($categories as $key => $value) {
 				$category = $category.','.$value;
 			}
-			$category = trim($category, ', ');
+			$category = trim($category, ',');
 			if(strlen($category) < 1) $category = '';
-			
-			if($category_par > 0) $category_loc = 4;
-			if($category_loc != 4) $category_par = 0;
-			
+			if($category_loc < 0 OR $category_loc > 3 OR $category_par > 0) $category_loc = 0;
+			if($category_par < 0 OR $category_par > 4 OR $category_loc != 4) $category_par = 0;
+	
 			// Pages
 			if(!is_array($pages)) $pages = array();
 			$page = '';
@@ -276,9 +264,11 @@ function adrotate_insert_group() {
 			}
 			$page = trim($page, ',');
 			if(strlen($page) < 1) $page = '';
-			
-			if($page_par > 0) $page_loc = 4;
-			if($page_loc != 4) $page_par = 0;
+			if($page_loc < 0 OR $page_loc > 3 OR $page_par > 0) $page_loc = 0;
+			if($page_par < 0 OR $page_par > 4 OR $page_loc != 4) $page_par = 0;
+	
+			if(empty($meta_array)) $meta_array = array();
+			if(empty($ads)) $ads = array();
 
 			// Fetch records for the group
 			$linkmeta = $wpdb->get_results($wpdb->prepare("SELECT `ad` FROM `".$wpdb->prefix."adrotate_linkmeta` WHERE `group` = %d AND `block` = 0 AND `user` = 0;", $id));
@@ -286,9 +276,6 @@ function adrotate_insert_group() {
 				$meta_array[] = $meta->ad;
 			}
 			
-			if(empty($meta_array)) $meta_array = array();
-			if(empty($ads)) $ads = array();
-
 			// Add new ads to this group
 			$insert = array_diff($ads,$meta_array);
 			foreach($insert as &$value) {
@@ -305,11 +292,6 @@ function adrotate_insert_group() {
 	
 			// Update the group itself
 			$wpdb->update($wpdb->prefix.'adrotate_groups', array('name' => $name, 'modus' => $modus, 'fallback' => $fallback, 'sortorder' => $sortorder, 'cat' => $category, 'cat_loc' => $category_loc, 'cat_par' => $category_par, 'page' => $page, 'page_loc' => $page_loc, 'page_par' => $page_par, 'wrapper_before' => $wrapper_before, 'wrapper_after' => $wrapper_after, 'gridrows' => $rows, 'gridcolumns' => $columns, 'admargin' => $admargin, 'adwidth' => $adwidth, 'adheight' => $adheight, 'adspeed' => $adspeed), array('id' => $id));
-
-			// Determine Dynamic Library requirement
-			$dynamic_count = $wpdb->get_var("SELECT COUNT(*) as `total` FROM `".$wpdb->prefix."adrotate_groups` WHERE `name` != '' AND `modus` = 1;");
-			update_option('adrotate_dynamic_required', $dynamic_count);
-
 			adrotate_return($action, array($id));
 			exit;
 		} else {
@@ -358,14 +340,6 @@ function adrotate_request_action() {
 		list($action, $specific) = explode("-", $actions);	
 	
 		if($banner_ids != '') {
-			if($action == 'export') {
-				if(current_user_can('adrotate_moderate')) {
-					adrotate_export($banner_ids);
-					$result_id = 215;
-				} else {
-					adrotate_return($return, 500);
-				}
-			}
 			foreach($banner_ids as $banner_id) {
 				if($action == 'deactivate') {
 					if(current_user_can('adrotate_ad_manage')) {
@@ -553,20 +527,6 @@ function adrotate_renew($id, $howlong = 2592000) {
 }
 
 /*-------------------------------------------------------------
- Name:      adrotate_export
-
- Purpose:   Export selected banners
- Receive:   $id
- Return:    -none-
- Since:		3.8.5
--------------------------------------------------------------*/
-function adrotate_export($ids) {
-	if(is_array($ids)) {
-		adrotate_export_ads($ids);
-	}
-}
-
-/*-------------------------------------------------------------
  Name:      adrotate_options_submit
 
  Purpose:   Save options from dashboard
@@ -603,17 +563,17 @@ function adrotate_options_submit() {
 		$config['notification_email'] = array();
 		$config['advertiser_email'] = array();
 	
-		// Set up impression tracker timer
+		// Set up impression timer
 		$impression_timer = trim($_POST['adrotate_impression_timer']);
-		if(is_numeric($impression_timer) AND $impression_timer >= 0 AND $impression_timer <= 3600) {
+		if(strlen($impression_timer) > 0 AND (is_numeric($impression_timer) AND $impression_timer >= 0 AND $impression_timer <= 3600)) {
 			$config['impression_timer'] = $impression_timer;
 		} else {
 			$config['impression_timer'] = 10;
 		}
-
+	
 		// Set up click timer
 		$click_timer = trim($_POST['adrotate_click_timer']);
-		if(is_numeric($click_timer) AND $click_timer >= 0 AND $click_timer <= 86400) {
+		if(strlen($click_timer) > 0 AND (is_numeric($click_timer) AND $click_timer >= 0 AND $click_timer <= 86400)) {
 			$config['click_timer'] = $click_timer;
 		} else {
 			$config['click_timer'] = 86400;
@@ -630,6 +590,8 @@ function adrotate_options_submit() {
 			else 											$config['supercache'] 		= 'N';
 		if(isset($_POST['adrotate_jquery'])) 				$config['jquery'] 			= 'Y';
 			else 											$config['jquery'] 			= 'N';
+		if(isset($_POST['adrotate_jshowoff'])) 				$config['jshowoff'] 		= 'Y';
+			else 											$config['jshowoff'] 		= 'N';
 		if(isset($_POST['adrotate_clicktracking']))			$config['clicktracking'] 	= 'Y';
 			else											$config['clicktracking'] 	= 'N';
 		if(isset($_POST['adrotate_jsfooter'])) 				$config['jsfooter'] 		= 'Y';

@@ -176,15 +176,15 @@ class C_Image_Wrapper
 
             case 'href':
                 return $this->__get('imageHTML');
-
+            
             case 'id':
                 return $this->_orig_image_id;
 
             case 'imageHTML':
                 $tmp  = '<a href="' . $this->__get('imageURL') . '" title="'
-                    . htmlspecialchars(stripslashes($this->__get('description')))
-                    . '" ' . $this->get_thumbcode($this->__get('name')) . '>' . '<img alt="' . $this->__get('alttext')
-                    . '" src="' . $this->__get('imageURL') . '"/>' . '</a>';
+                      . htmlspecialchars(stripslashes($this->__get('description')))
+                      . '" ' . $this->get_thumbcode($this->__get('name')) . '>' . '<img alt="' . $this->__get('alttext')
+                      . '" src="' . $this->__get('imageURL') . '"/>' . '</a>';
                 $this->_cache['href'] = $tmp;
                 $this->_cache['imageHTML'] = $tmp;
                 return $this->_cache['imageHTML'];
@@ -247,8 +247,8 @@ class C_Image_Wrapper
                 return $this->_orig_image_id;
 
             case 'pidlink':
-                $application = C_Router::get_instance()->get_routed_app();
-                $controller = C_Display_Type_Controller::get_instance();
+                $application = C_Component_Registry::get_instance()->get_utility('I_Router')->get_routed_app();
+                $controller = C_Component_Registry::get_instance()->get_utility('I_Display_Type_Controller');
                 $this->_cache['pidlink'] = $controller->set_param_for(
                     $application->get_routed_url(TRUE),
                     'pid',
@@ -269,30 +269,17 @@ class C_Image_Wrapper
                 return $this->_cache['previewpic'];
 
             case 'size':
-                $w = 0;
-                $h = 0;
-
-                if ($this->_displayed_gallery && isset($this->_displayed_gallery->display_settings)) {
-                    $ds = $this->_displayed_gallery->display_settings;
-                    if (isset($ds['override_thumbnail_settings']) && $ds['override_thumbnail_settings'])
-                    {
-                        $w = $ds['thumbnail_width'];
-                        $h = $ds['thumbnail_height'];
-                    }
-                }
-                if (!$w || !$h) {
-                    if (is_string($this->_orig_image->meta_data)) {
-                        $this->_orig_image = C_Image_Mapper::get_instance()->unserialize(
-                            $this->_orig_image->meta_data
-                        );
-                    }
-                    if (!isset($this->_orig_image->meta_data['thumbnail'])) {
-                        $storage = $this->get_storage();
-                        $storage->generate_thumbnail($this->_orig_image);
-                    }
-                    $w = $this->_orig_image->meta_data['thumbnail']['width'];
-                    $h = $this->_orig_image->meta_data['thumbnail']['height'];
-                }
+				if (is_string($this->_orig_image->meta_data)) {
+					$this->_orig_image = C_Image_Mapper::get_instance()->unserialize(
+						$this->_orig_image->meta_data
+					);
+				}
+				if (!isset($this->_orig_image->meta_data['thumbnail'])) {
+					$storage = $this->get_storage();
+					$storage->generate_thumbnail($this->_orig_image);
+				}
+				$w = $this->_orig_image->meta_data['thumbnail']['width'];
+				$h = $this->_orig_image->meta_data['thumbnail']['height'];
 
                 return "width='{$w}' height='{$h}'";
 
@@ -314,9 +301,9 @@ class C_Image_Wrapper
 
             case 'thumbHTML':
                 $tmp = '<a href="' . $this->__get('imageURL') . '" title="'
-                    . htmlspecialchars(stripslashes($this->__get('description')))
-                    . '" ' . $this->get_thumbcode($this->__get('name')) . '>' . '<img alt="' . $this->__get('alttext')
-                    . '" src="' . $this->thumbURL . '"/>' . '</a>';
+                     . htmlspecialchars(stripslashes($this->__get('description')))
+                     . '" ' . $this->get_thumbcode($this->__get('name')) . '>' . '<img alt="' . $this->__get('alttext')
+                     . '" src="' . $this->thumbURL . '"/>' . '</a>';
                 $this->_cache['href'] = $tmp;
                 $this->_cache['thumbHTML'] = $tmp;
                 return $this->_cache['thumbHTML'];
@@ -328,28 +315,7 @@ class C_Image_Wrapper
 
             case 'thumbnailURL':
                 $storage = $this->get_storage();
-                $thumbnail_size_name = 'thumbnail';
-                if ($this->_displayed_gallery && isset($this->_displayed_gallery->display_settings)) {
-                    $ds = $this->_displayed_gallery->display_settings;
-                    if (isset($ds['override_thumbnail_settings']) && $ds['override_thumbnail_settings']) {
-                        $dynthumbs = C_Component_Registry::get_instance()
-                            ->get_utility('I_Dynamic_Thumbnails_Manager');
-                        $dyn_params = array(
-                            'width'  => $ds['thumbnail_width'],
-                            'height' => $ds['thumbnail_height']
-                        );
-                        if ($ds['thumbnail_quality'])
-                            $dyn_params['quality'] = $ds['thumbnail_quality'];
-                        if ($ds['thumbnail_crop'])
-                            $dyn_params['crop'] = TRUE;
-                        if ($ds['thumbnail_watermark'])
-                            $dyn_params['watermark'] = TRUE;
-                        $thumbnail_size_name = $dynthumbs->get_size_name($dyn_params);
-                    }
-                }
-
-
-                $this->_cache['thumbnailURL'] = $storage->get_image_url($this->_orig_image, $thumbnail_size_name);
+                $this->_cache['thumbnailURL'] = $storage->get_thumb_url($this->_orig_image);
                 return $this->_cache['thumbnailURL'];
 
             case 'thumbcode':
@@ -403,7 +369,7 @@ class C_Image_Wrapper
     {
         if (is_null($this->_storage))
         {
-            $this->_storage = C_Gallery_Storage::get_instance();
+            $this->_storage = C_Component_Registry::get_instance()->get_utility('I_Gallery_Storage');
         }
         return $this->_storage;
     }
@@ -420,7 +386,7 @@ class C_Image_Wrapper
         {
             return $this->container->get_gallery($gallery_id);
         }
-        $gallery_map = C_Gallery_Mapper::get_instance();
+        $gallery_map = C_Component_Registry::get_instance()->get_utility('I_Gallery_Mapper');
         return $gallery_map->find($gallery_id);
     }
 
@@ -432,14 +398,14 @@ class C_Image_Wrapper
      */
     function get_legacy_gallery($gallery_id)
     {
-        return C_Gallery_Mapper::get_instance()->find($gallery_id);
+        return C_Component_Registry::get_instance()->get_utility('I_Gallery_Mapper')->find($gallery_id);
     }
 
     /**
-     * Get the thumbnail code (to add effects on thumbnail click)
-     *
-     * Applies the filter 'ngg_get_thumbcode'
-     */
+    * Get the thumbnail code (to add effects on thumbnail click)
+    *
+    * Applies the filter 'ngg_get_thumbcode'
+    */
     function get_thumbcode($gallery_name = '')
     {
         if (empty($this->_displayed_gallery))
@@ -450,7 +416,7 @@ class C_Image_Wrapper
             $retval = $effect_code;
         }
         else {
-            $controller = C_Display_Type_Controller::get_instance();
+            $controller = C_Component_Registry::get_instance()->get_utility('I_Display_Type_Controller');
             $retval = $controller->get_effect_code($this->_displayed_gallery);
 
             // This setting requires that we disable the effect code
@@ -503,7 +469,7 @@ class C_Image_Wrapper
      */
     function cached_singlepic_file($width = '', $height = '', $mode = '' )
     {
-        $dynthumbs = C_Dynamic_Thumbnails_Manager::get_instance();
+        $dynthumbs = C_Component_Registry::get_instance()->get_utility('I_Dynamic_Thumbnails_Manager');
         $storage = $this->get_storage();
 
         // determine what to do with 'mode'

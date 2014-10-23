@@ -1,10 +1,10 @@
 <?php
 /*
 Plugin Name: Captcha
-Plugin URI: http://bestwebsoft.com/products/
+Plugin URI:  http://bestwebsoft.com/plugin/
 Description: Plugin Captcha intended to prove that the visitor is a human being and not a spam robot. Plugin asks the visitor to answer a math question.
 Author: BestWebSoft
-Version: 4.0.5
+Version: 4.0.1
 Author URI: http://bestwebsoft.com/
 License: GPLv2 or later
 */
@@ -27,15 +27,21 @@ License: GPLv2 or later
 
 if ( ! function_exists( 'cptch_admin_menu' ) ) {
 	function cptch_admin_menu() {
-		global $bstwbsftwppdtplgns_options, $bstwbsftwppdtplgns_added_menu;
+		global $bstwbsftwppdtplgns_options, $wpmu, $bstwbsftwppdtplgns_added_menu;
 		$bws_menu_info = get_plugin_data( plugin_dir_path( __FILE__ ) . "bws_menu/bws_menu.php" );
 		$bws_menu_version = $bws_menu_info["Version"];
 		$base = plugin_basename(__FILE__);
 
 		if ( ! isset( $bstwbsftwppdtplgns_options ) ) {
-			if ( ! get_option( 'bstwbsftwppdtplgns_options' ) )
-				add_option( 'bstwbsftwppdtplgns_options', array(), '', 'yes' );
-			$bstwbsftwppdtplgns_options = get_option( 'bstwbsftwppdtplgns_options' );
+			if ( 1 == $wpmu ) {
+				if ( ! get_site_option( 'bstwbsftwppdtplgns_options' ) )
+					add_site_option( 'bstwbsftwppdtplgns_options', array(), '', 'yes' );
+				$bstwbsftwppdtplgns_options = get_site_option( 'bstwbsftwppdtplgns_options' );
+			} else {
+				if ( ! get_option( 'bstwbsftwppdtplgns_options' ) )
+					add_option( 'bstwbsftwppdtplgns_options', array(), '', 'yes' );
+				$bstwbsftwppdtplgns_options = get_option( 'bstwbsftwppdtplgns_options' );
+			}
 		}
 
 		if ( isset( $bstwbsftwppdtplgns_options['bws_menu_version'] ) ) {
@@ -70,11 +76,8 @@ if ( ! function_exists( 'cptch_admin_menu' ) ) {
 
 if ( ! function_exists ( 'cptch_init' ) ) {
 	function cptch_init() {
-		/* Internationalization */
+		/* Internationalization, first(!) */
 		load_plugin_textdomain( 'captcha', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' ); 
-
-		/* Function check if plugin is compatible with current WP version  */
-		cptch_version_check();
 	}
 }
 
@@ -82,11 +85,13 @@ if ( ! function_exists ( 'cptch_admin_init' ) ) {
 	function cptch_admin_init() {
 		global $bws_plugin_info, $cptch_plugin_info;
 		/* Add variable for bws_menu */
-		if ( ! $cptch_plugin_info )
-			$cptch_plugin_info = get_plugin_data( __FILE__ );
+		$cptch_plugin_info = get_plugin_data( __FILE__ );
 
 		if ( ! isset( $bws_plugin_info ) || empty( $bws_plugin_info ) )
 			$bws_plugin_info = array( 'id' => '75', 'version' => $cptch_plugin_info["Version"] );
+
+		/* Function check if plugin is compatible with current WP version  */
+		cptch_version_check();	
 
 		/* Call register settings function */
 		if ( isset( $_GET['page'] ) && "captcha.php" == $_GET['page'] ) {
@@ -99,7 +104,7 @@ if ( ! function_exists ( 'cptch_admin_init' ) ) {
 /* Register settings function */
 if ( ! function_exists( 'cptch_settings' ) ) {
 	function cptch_settings() {
-		global $cptch_options, $cptch_plugin_info;
+		global $wpmu, $cptch_options, $cptch_plugin_info;
 
 		$cptch_option_defaults = array(
 			'plugin_option_version' 		=> $cptch_plugin_info["Version"],
@@ -120,11 +125,20 @@ if ( ! function_exists( 'cptch_settings' ) ) {
 		);
 
 		/* Install the option defaults */
-		if ( ! get_option( 'cptch_options' ) )
-			add_option( 'cptch_options', $cptch_option_defaults, '', 'yes' );
+		if ( 1 == $wpmu ) {
+			if ( ! get_site_option( 'cptch_options' ) ) {
+				add_site_option( 'cptch_options', $cptch_option_defaults, '', 'yes' );
+			}
+		} else {
+			if ( ! get_option( 'cptch_options' ) )
+				add_option( 'cptch_options', $cptch_option_defaults, '', 'yes' );
+		}
 
 		/* Get options from the database */
-		$cptch_options = get_option( 'cptch_options' );
+		if ( 1 == $wpmu )
+			$cptch_options = get_site_option( 'cptch_options' );
+		else
+			$cptch_options = get_option( 'cptch_options' );
 
 		/* Array merge incase this version has added new options */
 		if ( ! isset( $cptch_options['plugin_option_version'] ) || $cptch_options['plugin_option_version'] != $cptch_plugin_info["Version"] ) {
@@ -139,16 +153,12 @@ if ( ! function_exists( 'cptch_settings' ) ) {
 if ( ! function_exists ( 'cptch_version_check' ) ) {
 	function cptch_version_check() {
 		global $wp_version, $cptch_plugin_info;
-		$require_wp		=	"3.1"; /* Wordpress at least requires version */
+		$require_wp		=	"3.0"; /* Wordpress at least requires version */
 		$plugin			=	plugin_basename( __FILE__ );
 	 	if ( version_compare( $wp_version, $require_wp, "<" ) ) {
-	 		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 			if ( is_plugin_active( $plugin ) ) {
 				deactivate_plugins( $plugin );
-				if ( ! $cptch_plugin_info )
-					$cptch_plugin_info = get_plugin_data( __FILE__ );
-				$admin_url = ( function_exists( 'get_admin_url' ) ) ? get_admin_url( null, 'plugins.php' ) : esc_url( '/wp-admin/plugins.php' );
-				wp_die( "<strong>" . $cptch_plugin_info['Name'] . " </strong> " . __( 'requires', 'captcha' ) . " <strong>WordPress " . $require_wp . "</strong> " . __( 'or higher, that is why it has been deactivated! Please upgrade WordPress and try again.', 'captcha') . "<br /><br />" . __( 'Back to the WordPress', 'captcha') . " <a href='" . $admin_url . "'>" . __( 'Plugins page', 'captcha') . "</a>." );
+				wp_die( "<strong>" . $cptch_plugin_info['Name'] . " </strong> " . __( 'requires', 'captcha' ) . " <strong>WordPress " . $require_wp . "</strong> " . __( 'or higher, that is why it has been deactivated! Please upgrade WordPress and try again.', 'captcha') . "<br /><br />" . __( 'Back to the WordPress', 'captcha') . " <a href='" . get_admin_url( null, 'plugins.php' ) . "'>" . __( 'Plugins page', 'captcha') . "</a>." );
 			}
 		}
 	}
@@ -176,8 +186,12 @@ if ( ! function_exists( 'cptch_generate_key' ) ) {
 
 /* Add global setting for Captcha */
 /* Get the options from the database */
-global $cptch_time;
-$cptch_options = get_option( 'cptch_options' );
+global $wpmu, $cptch_time;
+if ( 1 == $wpmu )
+   $cptch_options = get_site_option( 'cptch_options' ); 
+else
+   $cptch_options = get_option( 'cptch_options' );
+
 $cptch_time = time();
 
 /* Add captcha into login form */
@@ -213,35 +227,29 @@ if ( 1 == $cptch_options['cptch_lost_password_form'] ) {
 if ( ! function_exists( 'cptch_settings_page' ) ) {
 	function cptch_settings_page() {
 		global $cptch_options, $wp_version, $cptch_plugin_info;
-		$error = $message = "";
+		$error = "";
 
 		/* These fields for the 'Enable CAPTCHA on the' block which is located at the admin setting captcha page */
 		$cptch_admin_fields_enable = array (
-			array( 'cptch_login_form', __( 'Login form', 'captcha' ), __( 'Login form', 'captcha' ) ),
-			array( 'cptch_register_form', __( 'Registration form', 'captcha' ), __( 'Register form', 'captcha' ) ),
-			array( 'cptch_lost_password_form', __( 'Reset Password form', 'captcha' ), __( 'Lost password form', 'captcha' ) ),
-			array( 'cptch_comments_form', __( 'Comments form', 'captcha' ), __( 'Comments form', 'captcha') ),
-			array( 'cptch_hide_register', __( 'Hide CAPTCHA in Comments form for registered users', 'captcha' ), __( 'Hide CAPTCHA in Comments form for registered users', 'captcha' ) ),		
+				array( 'cptch_login_form', __( 'Login form', 'captcha' ), __( 'Login form', 'captcha' ) ),
+				array( 'cptch_register_form', __( 'Registration form', 'captcha' ), __( 'Register form', 'captcha' ) ),
+				array( 'cptch_lost_password_form', __( 'Reset Password form', 'captcha' ), __( 'Lost password form', 'captcha' ) ),
+				array( 'cptch_comments_form', __( 'Comments form', 'captcha' ), __( 'Comments form', 'captcha') ),
+				array( 'cptch_hide_register', __( 'Hide CAPTCHA for registered users', 'captcha' ), __( 'Hide CAPTCHA for registered users', 'captcha' ) ),		
 		);
 
 		/* These fields for the 'Arithmetic actions for CAPTCHA' block which is located at the admin setting captcha page */
 		$cptch_admin_fields_actions = array (
-			array( 'cptch_math_action_plus', __( 'Plus (&#43;)', 'captcha' ), __( 'Plus', 'captcha' ) ),
-			array( 'cptch_math_action_minus', __( 'Minus (&minus;)', 'captcha' ), __( 'Minus', 'captcha' ) ),
-			array( 'cptch_math_action_increase', __( 'Multiplication (&times;)', 'captcha' ), __( 'Multiply', 'captcha' ) ),
+				array( 'cptch_math_action_plus', __( 'Plus (&#43;)', 'captcha' ), __( 'Plus', 'captcha' ) ),
+				array( 'cptch_math_action_minus', __( 'Minus (&minus;)', 'captcha' ), __( 'Minus', 'captcha' ) ),
+				array( 'cptch_math_action_increase', __( 'Multiplication (&times;)', 'captcha' ), __( 'Multiply', 'captcha' ) ),
 		);
 
 		/* This fields for the 'Difficulty for CAPTCHA' block which is located at the admin setting captcha page */
 		$cptch_admin_fields_difficulty = array (
-			array( 'cptch_difficulty_number', __( 'Numbers', 'captcha' ), __( 'Numbers', 'captcha' ) ),
-			array( 'cptch_difficulty_word', __( 'Words', 'captcha' ), __( 'Words', 'captcha' ) ),
+				array( 'cptch_difficulty_number', __( 'Numbers', 'captcha' ), __( 'Numbers', 'captcha' ) ),
+				array( 'cptch_difficulty_word', __( 'Words', 'captcha' ), __( 'Words', 'captcha' ) ),
 		);
-
-		if ( ! function_exists( 'get_plugins' ) || ! function_exists( 'is_plugin_active_for_network' ) )
-			require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-
-		$all_plugins = get_plugins();
-		$active_plugins = get_option('active_plugins');
 	
 		/* Save data for settings page */
 		if ( isset( $_REQUEST['cptch_form_submit'] ) && check_admin_referer( plugin_basename(__FILE__), 'cptch_nonce_name' ) ) {
@@ -254,8 +262,8 @@ if ( ! function_exists( 'cptch_settings_page' ) ) {
 			$cptch_request_options['cptch_hide_register'] 			=	isset( $_REQUEST['cptch_hide_register'] ) ? 1 : 0;
 			$cptch_request_options['cptch_contact_form'] 			=	isset( $_REQUEST['cptch_contact_form'] ) ? 1 : 0;
 
-			$cptch_request_options['cptch_label_form'] 				=	isset( $_REQUEST['cptch_label_form'] ) ? stripslashes( esc_html( $_REQUEST['cptch_label_form'] ) ) : '';
-			$cptch_request_options['cptch_required_symbol'] 		=	isset( $_REQUEST['cptch_required_symbol'] ) ? stripslashes( esc_html( $_REQUEST['cptch_required_symbol'] ) ) : '';
+			$cptch_request_options['cptch_label_form'] 				=	isset( $_REQUEST['cptch_label_form'] ) ? $_REQUEST['cptch_label_form'] : '';
+			$cptch_request_options['cptch_required_symbol'] 		=	isset( $_REQUEST['cptch_required_symbol'] ) ? $_REQUEST['cptch_required_symbol'] : '';
 						
 			$cptch_request_options['cptch_math_action_plus']		=	isset( $_REQUEST['cptch_math_action_plus'] ) ? 1 : 0;
 			$cptch_request_options['cptch_math_action_minus'] 		=	isset( $_REQUEST['cptch_math_action_minus'] ) ? 1 : 0;
@@ -283,14 +291,14 @@ if ( ! function_exists( 'cptch_settings_page' ) ) {
 		if ( isset( $_GET['action'] ) && 'go_pro' == $_GET['action'] ) {
 			global $bstwbsftwppdtplgns_options;
 
-			$bws_license_key = ( isset( $_POST['bws_license_key'] ) ) ? trim( esc_html( $_POST['bws_license_key'] ) ) : "";
+			$bws_license_key = ( isset( $_POST['bws_license_key'] ) ) ? trim( $_POST['bws_license_key'] ) : "";
 
 			if ( isset( $_POST['bws_license_submit'] ) && check_admin_referer( plugin_basename( __FILE__ ), 'bws_license_nonce_name' ) ) {
 				if ( '' != $bws_license_key ) { 
 					if ( strlen( $bws_license_key ) != 18 ) {
 						$error = __( "Wrong license key", 'captcha' );
 					} else {
-						$bws_license_plugin = stripslashes( esc_html( $_POST['bws_license_plugin'] ) );	
+						$bws_license_plugin = trim( $_POST['bws_license_plugin'] );	
 						if ( isset( $bstwbsftwppdtplgns_options['go_pro'][ $bws_license_plugin ]['count'] ) && $bstwbsftwppdtplgns_options['go_pro'][ $bws_license_plugin ]['time'] < ( time() + (24 * 60 * 60) ) ) {
 							$bstwbsftwppdtplgns_options['go_pro'][ $bws_license_plugin ]['count'] = $bstwbsftwppdtplgns_options['go_pro'][ $bws_license_plugin ]['count'] + 1;
 						} else {
@@ -299,6 +307,11 @@ if ( ! function_exists( 'cptch_settings_page' ) ) {
 						}	
 
 						/* download Pro */
+						if ( ! function_exists( 'get_plugins' ) || ! function_exists( 'is_plugin_active_for_network' ) )
+							require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+
+						$all_plugins = get_plugins();
+						$active_plugins = get_option( 'active_plugins' );
 						
 						if ( ! array_key_exists( $bws_license_plugin, $all_plugins ) ) {
 							$current = get_site_transient( 'update_plugins' );
@@ -389,7 +402,7 @@ if ( ! function_exists( 'cptch_settings_page' ) ) {
 			<h2><?php _e( 'Captcha Settings', 'captcha' ); ?></h2>
 			<h2 class="nav-tab-wrapper">
 				<a class="nav-tab<?php if ( ! isset( $_GET['action'] ) ) echo ' nav-tab-active'; ?>"  href="admin.php?page=captcha.php"><?php _e( 'Settings', 'captcha' ); ?></a>
-				<a class="nav-tab" href="http://bestwebsoft.com/products/captcha/faq/" target="_blank"><?php _e( 'FAQ', 'captcha' ); ?></a>
+				<a class="nav-tab" href="http://bestwebsoft.com/plugin/captcha-plugin/#faq" target="_blank"><?php _e( 'FAQ', 'captcha' ); ?></a>
 				<a class="nav-tab bws_go_pro_tab<?php if ( isset( $_GET['action'] ) && 'go_pro' == $_GET['action'] ) echo ' nav-tab-active'; ?>" href="admin.php?page=captcha.php&amp;action=go_pro"><?php _e( 'Go PRO', 'captcha' ); ?></a>
 			</h2>
 			<div id="cptch_settings_notice" class="updated fade" style="display:none"><p><strong><?php _e( "Notice:", 'captcha' ); ?></strong> <?php _e( "The plugin's settings have been changed. In order to save them please don't forget to click the 'Save Changes' button.", 'captcha' ); ?></p></div>
@@ -401,21 +414,24 @@ if ( ! function_exists( 'cptch_settings_page' ) ) {
 						<tr valign="top">
 							<th scope="row"><?php _e( 'Enable CAPTCHA for:', 'captcha' ); ?> </th>
 							<td>
-								<?php foreach ( $cptch_admin_fields_enable as $fields ) { ?>
-									<label><input type="checkbox" name="<?php echo $fields[0]; ?>" value="<?php echo $fields[0]; ?>" <?php if ( 1 == $cptch_options[ $fields[0] ] ) echo "checked=\"checked\""; ?> /> <?php echo __( $fields[1], 'captcha' ); ?></label><br />
-								<?php }						
-								if ( array_key_exists('contact-form-plugin/contact_form.php', $all_plugins ) || array_key_exists('contact-form-pro/contact_form_pro.php', $all_plugins ) ) {
-									if ( 0 < count( preg_grep( '/contact-form-plugin\/contact_form.php/', $active_plugins ) ) || 0 < count( preg_grep( '/contact-form-pro\/contact_form_pro.php/', $active_plugins ) ) ||
-									is_plugin_active_for_network( 'contact-form-plugin/contact_form.php' ) || is_plugin_active_for_network( 'contact-form-pro/contact_form_pro.php' ) ) { ?>
-										<label><input type="checkbox" name="cptch_contact_form" value="1" <?php if( 1 == $cptch_options['cptch_contact_form'] ) echo "checked=\"checked\""; ?> /> <?php _e( 'Contact form', 'captcha' ); ?></label> <span style="color: #888888;font-size: 10px;">(<?php _e( 'powered by', 'captcha' ); ?> <a href="http://bestwebsoft.com/products/">bestwebsoft.com</a>)</span><br />
-									<?php } else { ?>
-										<label><input disabled='disabled' type="checkbox" name="cptch_contact_form" value="1" <?php if ( 1 == $cptch_options['cptch_contact_form'] ) echo "checked=\"checked\""; ?> /> <?php _e( 'Contact form', 'captcha' ); ?></label> <span style="color: #888888;font-size: 10px;">(<?php _e( 'powered by', 'captcha' ); ?> <a href="http://bestwebsoft.com/products/">bestwebsoft.com</a>) <a href="<?php echo bloginfo("url"); ?>/wp-admin/plugins.php"><?php _e( 'Activate contact form', 'captcha' ); ?></a></span><br />
-									<?php }
-								} else { ?>
-									<label><input disabled='disabled' type="checkbox" name="cptch_contact_form" value="1" <?php if ( 1 == $cptch_options['cptch_contact_form'] ) echo "checked=\"checked\""; ?> /> <?php _e( 'Contact form', 'captcha' ); ?></label> <span style="color: #888888;font-size: 10px;">(<?php _e( 'powered by', 'captcha' ); ?> <a href="http://bestwebsoft.com/products/">bestwebsoft.com</a>) <a href="http://bestwebsoft.com/products/contact-form/?k=d70b58e1739ab4857d675fed2213cedc&pn=75&v=<?php echo $cptch_plugin_info["Version"]; ?>&wp_v=<?php echo $wp_version; ?>"><?php _e( 'Download contact form', 'captcha' ); ?></a></span><br />
-								<?php } ?>
-								<?php echo apply_filters( 'cptch_forms_list', '' ); ?>
-								<span style="color: #888888;font-size: 10px;"><?php _e( 'If you would like to add Captcha to a custom form, please see', 'captcha' ); ?> <a href="http://bestwebsoft.com/products/captcha/faq" target="_blank">FAQ</a></span>
+							<?php foreach ( $cptch_admin_fields_enable as $fields ) { ?>
+								<label><input type="checkbox" name="<?php echo $fields[0]; ?>" value="<?php echo $fields[0]; ?>" <?php if ( 1 == $cptch_options[ $fields[0] ] ) echo "checked=\"checked\""; ?> /> <?php echo __( $fields[1], 'captcha' ); ?></label><br />
+							<?php }
+						if ( ! function_exists( 'is_plugin_active_for_network' ) )
+							require_once( ABSPATH . 'wp-admin/includes/plugin.php' );						
+						$all_plugins = get_plugins();
+						$active_plugins = get_option('active_plugins');
+						if ( array_key_exists('contact-form-plugin/contact_form.php', $all_plugins ) || array_key_exists('contact-form-pro/contact_form_pro.php', $all_plugins ) ) {
+							if ( 0 < count( preg_grep( '/contact-form-plugin\/contact_form.php/', $active_plugins ) ) || 0 < count( preg_grep( '/contact-form-pro\/contact_form_pro.php/', $active_plugins ) ) ||
+								is_plugin_active_for_network( 'contact-form-plugin/contact_form.php' ) || is_plugin_active_for_network( 'contact-form-pro/contact_form_pro.php' ) ) { ?>
+								<label><input type="checkbox" name="cptch_contact_form" value="1" <?php if( 1 == $cptch_options['cptch_contact_form'] ) echo "checked=\"checked\""; ?> /> <?php _e( 'Contact form', 'captcha' ); ?></label> <span style="color: #888888;font-size: 10px;">(<?php _e( 'powered by', 'captcha' ); ?> <a href="http://bestwebsoft.com/plugin/">bestwebsoft.com</a>)</span><br />
+						<?php } else { ?>
+								<label><input disabled='disabled' type="checkbox" name="cptch_contact_form" value="1" <?php if ( 1 == $cptch_options['cptch_contact_form'] ) echo "checked=\"checked\""; ?> /> <?php _e( 'Contact form', 'captcha' ); ?></label> <span style="color: #888888;font-size: 10px;">(<?php _e( 'powered by', 'captcha' ); ?> <a href="http://bestwebsoft.com/plugin/">bestwebsoft.com</a>) <a href="<?php echo bloginfo("url"); ?>/wp-admin/plugins.php"><?php _e( 'Activate contact form', 'captcha' ); ?></a></span><br />
+							<?php }
+						} else { ?>
+								<label><input disabled='disabled' type="checkbox" name="cptch_contact_form" value="1" <?php if ( 1 == $cptch_options['cptch_contact_form'] ) echo "checked=\"checked\""; ?> /> <?php _e( 'Contact form', 'captcha' ); ?></label> <span style="color: #888888;font-size: 10px;">(<?php _e( 'powered by', 'captcha' ); ?> <a href="http://bestwebsoft.com/plugin/">bestwebsoft.com</a>) <a href="http://bestwebsoft.com/plugin/contact-form-pro/?k=d70b58e1739ab4857d675fed2213cedc&pn=75&v=<?php echo $cptch_plugin_info["Version"]; ?>&wp_v=<?php echo $wp_version; ?>"><?php _e( 'Download contact form', 'captcha' ); ?></a></span><br />
+						<?php } ?>
+								<span style="color: #888888;font-size: 10px;"><?php _e( 'If you would like to customize this plugin for a custom form, please see', 'captcha' ); ?> <a href="http://bestwebsoft.com/plugin/captcha-plugin/#faq" target="_blank">FAQ</a></span>
 							</td>
 						</tr>
 					</table>
@@ -424,14 +440,6 @@ if ( ! function_exists( 'cptch_settings_page' ) ) {
 							<div class="bws_table_bg"></div>											
 							<table class="form-table bws_pro_version">
 								<tr valign="top">
-									<th scope="row">
-										<?php _e( 'Enable CAPTCHA for:', 'captcha' ); ?>
-									</th>
-									<td>
-										<label><input disabled='disabled' type="checkbox" name="cptchpr_subscriber" value="1" /> <?php _e( 'Subscriber', 'captcha' ); ?></label> <span style="color: #888888;font-size: 10px;">(<?php _e( 'powered by', 'captcha' ); ?> <a href="http://bestwebsoft.com/products/">bestwebsoft.com</a>)</span>
-									</td>
-								</tr>	
-								<tr valign="top">						
 									<th scope="row">
 										<strong>Buddypress</strong><br/>
 										<?php _e( 'Enable CAPTCHA for:', 'captcha' ); ?>
@@ -461,9 +469,9 @@ if ( ! function_exists( 'cptch_settings_page' ) ) {
 						<div class="bws_pro_version_tooltip">
 							<div class="bws_info">
 								<?php _e( 'Unlock premium options by upgrading to a PRO version.', 'captcha' ); ?> 
-								<a href="http://bestwebsoft.com/products/captcha/?k=9701bbd97e61e52baa79c58c3caacf6d&pn=75&v=<?php echo $cptch_plugin_info["Version"]; ?>&wp_v=<?php echo $wp_version; ?>" target="_blank" title="Captcha Pro"><?php _e( 'Learn More', 'captcha' ); ?></a>				
+								<a href="http://bestwebsoft.com/plugin/captcha-pro/?k=9701bbd97e61e52baa79c58c3caacf6d&pn=75&v=<?php echo $cptch_plugin_info["Version"]; ?>&wp_v=<?php echo $wp_version; ?>" target="_blank" title="Captcha Pro"><?php _e( 'Learn More', 'captcha' ); ?></a>				
 							</div>
-							<a class="bws_button" href="http://bestwebsoft.com/products/captcha/buy/?k=9701bbd97e61e52baa79c58c3caacf6d&pn=75&v=<?php echo $cptch_plugin_info["Version"]; ?>&wp_v=<?php echo $wp_version; ?>" target="_blank" title="Captcha Pro">
+							<a class="bws_button" href="http://bestwebsoft.com/plugin/captcha-pro/?k=9701bbd97e61e52baa79c58c3caacf6d&pn=75&v=<?php echo $cptch_plugin_info["Version"]; ?>&wp_v=<?php echo $wp_version; ?>#purchase" target="_blank" title="Captcha Pro">
 								<?php _e( 'Go', 'captcha' ); ?> <strong>PRO</strong>
 							</a>	
 							<div class="clear"></div>					
@@ -472,7 +480,7 @@ if ( ! function_exists( 'cptch_settings_page' ) ) {
 					<table class="form-table">
 						<tr valign="top">
 							<th scope="row"><?php _e( 'Title for CAPTCHA in the form', 'captcha' ); ?></th>
-							<td><input type="text" name="cptch_label_form" value="<?php echo $cptch_options['cptch_label_form']; ?>" <?php if ( 1 == $cptch_options['cptch_label_form'] ) echo "checked=\"checked\""; ?> /></td>
+							<td><input type="text" name="cptch_label_form" value="<?php echo stripslashes( $cptch_options['cptch_label_form'] ); ?>" <?php if ( 1 == $cptch_options['cptch_label_form'] ) echo "checked=\"checked\""; ?> /></td>
 						</tr>
 						<tr valign="top">
 							<th scope="row" style="width:200px;"><?php _e( "Required symbol", 'captcha' ); ?></th>
@@ -541,7 +549,7 @@ if ( ! function_exists( 'cptch_settings_page' ) ) {
 					<form method="post" action="admin.php?page=captcha.php&amp;action=go_pro">
 						<p>
 							<?php _e( 'You can download and activate', 'captcha' ); ?> 
-							<a href="http://bestwebsoft.com/products/captcha/?k=9701bbd97e61e52baa79c58c3caacf6d&pn=75&v=<?php echo $cptch_plugin_info["Version"]; ?>&wp_v=<?php echo $wp_version; ?>" target="_blank" title="Captcha Pro">PRO</a> 
+							<a href="http://bestwebsoft.com/plugin/captcha-pro/?k=9701bbd97e61e52baa79c58c3caacf6d&pn=75&v=<?php echo $cptch_plugin_info["Version"]; ?>&wp_v=<?php echo $wp_version; ?>" target="_blank" title="Captcha Pro">PRO</a> 
 							<?php _e( 'version of this plugin by entering Your license key.', 'captcha' ); ?><br />
 							<span style="color: #888888;font-size: 10px;">
 								<?php _e( 'You can find your license key on your personal page Client area, by clicking on the link', 'captcha' ); ?> 
@@ -586,7 +594,7 @@ if ( ! function_exists( 'cptch_login_form' ) ) {
 		/* captcha html - login form */
 		echo '<p class="cptch_block">';
 		if ( "" != $cptch_options['cptch_label_form'] )	
-			echo '<label>' . $cptch_options['cptch_label_form'] . '</label><br />';
+			echo '<label>' . stripslashes( $cptch_options['cptch_label_form'] ) . '</label><br />';
 		if ( isset( $_SESSION['cptch_error'] ) ) {
 			echo "<br /><span style='color:red'>" . $_SESSION['cptch_error'] . "</span><br />";
 			unset( $_SESSION['cptch_error'] );
@@ -668,7 +676,7 @@ if ( ! function_exists( 'cptch_comment_form' ) ) {
 		/* captcha html - comment form */
 		echo '<p class="cptch_block">';
 		if ( "" != $cptch_options['cptch_label_form'] )	
-			echo '<label>' . $cptch_options['cptch_label_form'] . '<span class="required"> ' . $cptch_options['cptch_required_symbol'] . '</span></label>';
+			echo '<label>' . stripslashes( $cptch_options['cptch_label_form'] ) . '<span class="required"> ' . $cptch_options['cptch_required_symbol'] . '</span></label>';
 		echo '<br />';
 		cptch_display_captcha();
 		echo '</p>';
@@ -710,7 +718,7 @@ if ( ! function_exists( 'cptch_comment_form_wp3' ) ) {
 		/* captcha html - comment form */
 		echo '<p class="cptch_block">';
 		if ( "" != $cptch_options['cptch_label_form'] )	
-			echo '<label>' . $cptch_options['cptch_label_form'] . '<span class="required"> ' . $cptch_options['cptch_required_symbol'] . '</span></label>';
+			echo '<label>' . stripslashes( $cptch_options['cptch_label_form'] ) . '<span class="required"> ' . $cptch_options['cptch_required_symbol'] . '</span></label>';
 		echo '<br />';
 		cptch_display_captcha();
 		echo '</p>';
@@ -776,7 +784,7 @@ if ( ! function_exists( 'cptch_register_form' ) ) {
 		/* the captcha html - register form */
 		echo '<p class="cptch_block" style="text-align:left;">';
 		if ( "" != $cptch_options['cptch_label_form'] )	
-			echo '<label>'. $cptch_options['cptch_label_form'] .'</label><br />';
+			echo '<label>'. stripslashes( $cptch_options['cptch_label_form'] ) .'</label><br />';
 		echo '<br />';
 		cptch_display_captcha();
 		echo '</p>
@@ -1120,7 +1128,7 @@ if ( ! function_exists( 'cptch_custom_form' ) ) {
 		/* captcha html - login form */
 		$content .= '<p class="cptch_block" style="text-align:left;">';
 		if ( "" != $cptch_options['cptch_label_form'] )	
-			$content .= '<label>' . $cptch_options['cptch_label_form'] .'<span class="required"> ' . $cptch_options['cptch_required_symbol'] . '</span></label><br />';
+			$content .= '<label>' . stripslashes( $cptch_options['cptch_label_form'] ) .'<span class="required"> ' . $cptch_options['cptch_required_symbol'] . '</span></label><br />';
 		else
 			$content .= '<br />';
 		if ( isset( $error_message['error_captcha'] ) ) {
@@ -1429,7 +1437,6 @@ if ( ! function_exists ( 'cptch_plugin_banner' ) ) {
 		if ( 'plugins.php' == $hook_suffix ) {   
 			global $cptch_plugin_info, $bstwbsftwppdtplgns_cookie_add;
 			$banner_array = array(
-				array( 'lmtttmpts_hide_banner_on_plugin_page', 'limit-attempts/limit-attempts.php', '1.0.2' ),
 				array( 'sndr_hide_banner_on_plugin_page', 'sender/sender.php', '0.5' ),
 				array( 'srrl_hide_banner_on_plugin_page', 'user-role/user-role.php', '1.4' ),
 				array( 'pdtr_hide_banner_on_plugin_page', 'updater/updater.php', '1.12' ),
@@ -1481,7 +1488,7 @@ if ( ! function_exists ( 'cptch_plugin_banner' ) ) {
 						<div class="cptch_message bws_banner_on_plugin_page" style="display: none;">
 							<img class="cptch_close_icon close_icon" title="" src="<?php echo plugins_url( 'images/close_banner.png', __FILE__ ); ?>" alt=""/>
 							<div class="button_div">
-								<a class="button" target="_blank" href="http://bestwebsoft.com/products/captcha/?k=345f1af66a47b233cd05bc55b2382ff0&pn=75&v=<?php echo $cptch_plugin_info["Version"]; ?>&wp_v=<?php echo $wp_version; ?>"><?php _e( 'Learn More', 'captcha' ); ?></a>				
+								<a class="button" target="_blank" href="http://bestwebsoft.com/plugin/captcha-pro/?k=345f1af66a47b233cd05bc55b2382ff0&pn=75&v=<?php echo $cptch_plugin_info["Version"]; ?>&wp_v=<?php echo $wp_version; ?>"><?php _e( 'Learn More', 'captcha' ); ?></a>				
 							</div>
 							<div class="text">
 								<?php _e( "It's time to upgrade your <strong>Captcha plugin</strong> to <strong>PRO</strong> version", 'captcha' ); ?>!<br />
@@ -1502,32 +1509,13 @@ if ( ! function_exists ( 'cptch_plugin_banner' ) ) {
 	}
 }
 
-/* Function for interaction with Limit Attempts plugin */
-if ( ! function_exists( 'cptch_lmtttmpts_interaction' ) ) {
-	function cptch_lmtttmpts_interaction() {
-		global $cptch_options;
-		$str_key = $cptch_options['cptch_str_key']['key'];
-		if ( 1 == $cptch_options['cptch_login_form'] ) { /* check for captcha existing in login form */
-			if ( isset( $_REQUEST['cptch_result'] ) && isset( $_REQUEST['cptch_number'] ) && isset( $_REQUEST['cptch_time'] ) ) { /* check for existing request by captcha */
-				if ( 0 != strcasecmp( trim( cptch_decode( $_REQUEST['cptch_result'], $str_key, $_REQUEST['cptch_time'] ) ), $_REQUEST['cptch_number'] ) ) { /* is captcha wrong */
-					if ( isset( $_SESSION["cptch_login"] ) && false === $_SESSION["cptch_login"] ) {
-						return false; /* wrong captcha */
-					}
-				}
-			}
-		}
-		return true; /* no captcha in login form or its right */
-	}
-}
-
 /* Function for delete delete options */
 if ( ! function_exists ( 'cptch_delete_options' ) ) {
 	function cptch_delete_options() {
 		delete_option( 'cptch_options' );
+		delete_site_option( 'cptch_options' );
 	}
 }
-
-register_activation_hook( __FILE__, 'cptch_settings' );
 
 add_action( 'admin_menu', 'cptch_admin_menu' );
 

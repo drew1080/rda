@@ -131,7 +131,7 @@ if (!class_exists('C_Photocrati_Installer'))
                 }
 
 				// The cache should be flushed
-				C_Photocrati_Cache::flush('all');
+				C_Photocrati_Cache::flush();
 
 				// Remove all NGG created cron jobs
 				self::refresh_cron();

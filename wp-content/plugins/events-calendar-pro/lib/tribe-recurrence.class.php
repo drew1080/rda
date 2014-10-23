@@ -1,6 +1,7 @@
 <?php
 /**
  * Given a start date, series end (end date or number of occurrences), and rules engine; find me all the dates in a recurrence
+ * @author John Gadbois
  */
 class TribeRecurrence {
 	const NO_END = -1;

@@ -26,7 +26,6 @@ class Advanced_Excerpt {
 
 	public $options_basic_tags; // Basic HTML tags (determines which tags are in the checklist by default)
 	public $options_all_tags; // Almost all HTML tags (extra options)
-	public $filter_type; // Determines wether we're filtering the_content or the_excerpt at any given time
 
 	function __construct( $plugin_file_path ) {
 		$this->load_options();
@@ -80,8 +79,8 @@ class Advanced_Excerpt {
 		 * The filter, when implemented, takes precedence over the options page selection.
 		 *
 		 * WordPress default themes (and others) do not use the_excerpt() or get_the_excerpt()
-		 * and instead use the_content(). As such, we also need to hook into the_content().
-		 * To ensure we're not changing the content of single posts / pages we automatically exclude 'singular' page types.
+		 * instead they use the_content(). As such, we also need to hook into the_content().
+		 * To ensure we're not changing the content of posts / pages we first check if is_singular().
 		 */
 		$page_types = $this->get_current_page_types();
 		$skip_page_types = array_unique( array_merge( array( 'singular' ), $this->options['exclude_pages'] ) );
@@ -89,14 +88,13 @@ class Advanced_Excerpt {
 		$page_type_matches = array_intersect( $page_types, $skip_page_types );
 		if ( !empty( $page_types ) && !empty( $page_type_matches ) ) return;
 
-		if ( 1 == $this->options['the_excerpt'] ) {
+		if( 1 == $this->options['the_excerpt'] ) {
 			remove_all_filters( 'get_the_excerpt' );
-			remove_all_filters( 'the_excerpt' );
-			add_filter( 'get_the_excerpt', array( $this, 'filter_excerpt' ) );
+			add_filter( 'get_the_excerpt', array( $this, 'filter' ) );
 		}
 
-		if ( 1 == $this->options['the_content'] ) {
-			add_filter( 'the_content', array( $this, 'filter_content' ) );
+		if( 1 == $this->options['the_content'] ) {
+			add_filter( 'the_content', array( $this, 'filter' ) );
 		}
 	}
 
@@ -205,59 +203,46 @@ class Advanced_Excerpt {
 		return $links;
 	}
 
-	function filter_content( $content ) {
-		$this->filter_type = 'content';
-		return $this->filter( $content );
-	}
-
-	function filter_excerpt( $content ) {
-		$this->filter_type = 'excerpt';
-		return $this->filter( $content );
-	}
-
-	function filter( $content ) {
-		extract( wp_parse_args( $this->options, $this->default_options ), EXTR_SKIP );
-
-		if ( true === apply_filters( 'advanced_excerpt_skip_excerpt_filtering', false ) ) {
-			return $content;
-		}
-
+	function filter( $text ) {
 		global $post;
-		if ( $the_content_no_break && false !== strpos( $post->post_content, '<!--more-->' ) && 'content' == $this->filter_type ) {
-			return $content;
-		}
+		extract( wp_parse_args( $this->options, $this->default_options ), EXTR_SKIP );
+		$original_excerpt = $text;
 
 		// Avoid custom excerpts
-		if ( !empty( $content ) && !$no_custom ) {
-			return $content;
+		if ( !empty( $text ) && !$no_custom ) {
+			return $text;
 		}
 
-		// prevent recursion on 'the_content' hook
-		$content_has_filter = false;
-		if ( has_filter( 'the_content', array( $this, 'filter_content' ) ) ) { 
-			remove_filter( 'the_content', array( $this, 'filter_content' ) ); 
-			$content_has_filter = true;
+		// Get the full content and filter it
+		$text = $post->post_content;
+		if ( 1 == $no_shortcode ) {
+			$text = strip_shortcodes( $text );
 		}
-
-		$text = get_the_content( '' );
+		if( 1 == $this->options['the_content'] ) {
+			remove_filter( 'the_content', array( $this, 'filter' ) ); // prevent recursion
+		}
 		$text = apply_filters( 'the_content', $text );
+		if( 1 == $this->options['the_content'] ) {
+			add_filter( 'the_content', array( $this, 'filter' ) ); // add our filter back in
+		}
 
-		// add our filter back in
-		if ( $content_has_filter ) { 
-			add_filter( 'the_content', array( $this, 'filter_content' ) );
+		if ( $the_content_no_break && false !== strpos( $text, '<!--more-->' ) ) {
+			return $original_excerpt;
 		}
 
 		// From the default wp_trim_excerpt():
 		// Some kind of precaution against malformed CDATA in RSS feeds I suppose
 		$text = str_replace( ']]>', ']]&gt;', $text );
 
+		$original_post_content = $text;
+
+		// Determine allowed tags
 		if ( empty( $allowed_tags ) ) {
-			$allowed_tags = array();
+			$allowed_tags = $this->options_all_tags;
 		}
 
-		// the $exclude_tags args takes precedence over the $allowed_tags args (only if they're both defined)
 		if ( ! empty( $exclude_tags ) ) {
-			$allowed_tags = array_diff( $this->options_all_tags, $exclude_tags );
+			$allowed_tags = array_diff( $allowed_tags, $exclude_tags );
 		}
 
 		// Strip HTML if $allowed_tags_option is set to 'remove_all_tags_except'
@@ -267,17 +252,14 @@ class Advanced_Excerpt {
 			} else {
 				$tag_string = '';
 			}
-
 			$text = strip_tags( $text, $tag_string );
 		}
-
-		$text_before_trimming = $text;
 
 		// Create the excerpt
 		$text = $this->text_excerpt( $text, $length, $length_type, $finish );
 
 		// Add the ellipsis or link
-		if ( !apply_filters( 'advanced_excerpt_disable_add_more', false, $text_before_trimming, $this->options ) ) {
+		if ( !apply_filters( 'advanced_excerpt_disable_add_more', false, $original_post_content, $this->options ) ) {
 			$text = $this->text_add_more( $text, $ellipsis, ( $add_link ) ? $read_more : false );
 		}
 

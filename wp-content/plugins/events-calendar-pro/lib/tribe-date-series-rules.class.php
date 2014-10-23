@@ -3,6 +3,7 @@
  * This file contains all of the classes that define recurrence rules
  * Corresponding unit tests live in the /test directory.  Tests should be run when changing anything in here
  * as the rules are quite complex in many cases.
+ * @author John Gadbois
  */
 
 /**

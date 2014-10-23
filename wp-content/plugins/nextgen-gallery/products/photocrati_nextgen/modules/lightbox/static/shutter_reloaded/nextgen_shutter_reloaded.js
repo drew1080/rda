@@ -2,10 +2,8 @@ jQuery(function($){
 	var callback = function(){
 		var selector = nextgen_lightbox_filter_selector($, $([]));
 		selector.addClass('shutterset');
-        if (typeof ngg_lightbox_i18n != 'undefined') {
-            shutterReloaded.L10n = ngg_lightbox_i18n;
-        }
-        shutterReloaded.Init();
+		
+		var shutterLinks = {}, shutterSets = {}; shutterReloaded.Init();
 	};
 	$(this).bind('refreshed', callback);
 

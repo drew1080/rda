@@ -64,12 +64,11 @@ if (!class_exists('C_Photocrati_Settings_Manager_Base')) {
 		{
 			$retval = $default;
 
-            if (($handler = $this->_get_option_handler($key, 'get'))) {
-                $retval = $handler->get($key, $default);
-            }
-            else if (isset($this->_options[$key])) {
-                $retval =  $this->_options[$key];
-            }
+			if (isset($this->_options[$key]))
+				$retval =  $this->_options[$key];
+			elseif (($handler = $this->_get_option_handler($key, 'get'))) {
+				$retval = $handler->get($key, $default);
+			}
 
 			// In case a stdObject has been passed in as a value, we
 			// want to only return scalar values or arrays
@@ -225,14 +224,14 @@ if (!class_exists('C_Photocrati_Settings_Manager_Base')) {
 if (!class_exists('C_Photocrati_Global_Settings_Manager')) {
 	class C_Photocrati_Global_Settings_Manager extends C_Photocrati_Settings_Manager_Base
 	{
-        static $_instance = NULL;
 		public static function get_instance()
 		{
-            if (is_null(self::$_instance)) {
-                $klass = get_class();
-                self::$_instance = new $klass();
-            }
-            return self::$_instance;
+			static $_instance = NULL;
+			if (is_null($_instance)) {
+				$klass = get_class();
+				$_instance = new $klass();
+			}
+			return $_instance;
 		}
 
 		function save()
@@ -258,15 +257,15 @@ if (!class_exists('C_Photocrati_Global_Settings_Manager')) {
 if (!class_exists('C_Photocrati_Settings_Manager')) {
 	class C_Photocrati_Settings_Manager extends C_Photocrati_Settings_Manager_Base
 	{
-        static $_instance = NULL;
-        public static function get_instance()
-        {
-            if (is_null(self::$_instance)) {
-                $klass = get_class();
-                self::$_instance = new $klass();
-            }
-            return self::$_instance;
-        }
+		public static function get_instance()
+		{
+			static $_instance = NULL;
+			if (is_null($_instance)) {
+				$klass = get_class();
+				$_instance = new $klass();
+			}
+			return $_instance;
+		}
 
 		function get($key, $default=NULL)
 		{

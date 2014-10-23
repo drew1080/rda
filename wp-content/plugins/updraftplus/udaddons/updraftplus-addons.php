@@ -16,7 +16,7 @@ This directory should not be added to the wordpress.org SVN
 */
 
 define('UDADDONS2_DIR', dirname(realpath(__FILE__)));
-define('UDADDONS2_URL', UPDRAFTPLUS_URL.'/udaddons');
+define('UDADDONS2_URL', plugins_url('updraftplus').'/udaddons');
 define('UDADDONS2_SLUG', 'updraftplus-addons');
 define('UDADDONS2_PAGESLUG', 'updraftplus-addons2');
 
@@ -43,17 +43,12 @@ class UpdraftPlusAddons2 {
 
 	private $admin_notices = array();
 
-	private $saved_site_id;
-
 	public function __construct($slug, $url) {
 		$this->slug = $slug;
 		$this->url = $url;
 
 		# This needs to exact match PluginUpdateChecker's view
 		$this->plugin_file = plugin_basename($this->slug.'/'.$this->slug.'.php');
-
-		add_action('updraftplus_restore_db_pre', array($this, 'updraftplus_restore_db_pre'));
-		add_action('updraftplus_restored_db_is_migration', array($this, 'updraftplus_restored_db_is_migration'));
 
 		add_action(is_multisite() ? 'network_admin_menu' : 'admin_menu', array($this, 'admin_menu'));
 
@@ -81,21 +76,6 @@ class UpdraftPlusAddons2 {
 				if ($this->debug) $plug_updatechecker->debugMode = true;
 				$this->plug_updatechecker = $plug_updatechecker;
 			}
-		}
-	}
-
-	public function updraftplus_restore_db_pre() {
-		$this->saved_site_id = $this->siteid();
-	}
-
-	public function updraftplus_restored_db_is_migration() {
-		global $wpdb;
-		$option = UDADDONS2_SLUG.'_siteid';
-		if (!empty($this->saved_site_id)) {
-			global $updraftplus;
-			$updraftplus->log("Restored pre-migration site ID for this installation");
-			delete_site_option($option);
-			add_site_option($option, $this->saved_site_id);
 		}
 	}
 
@@ -136,7 +116,7 @@ class UpdraftPlusAddons2 {
 			}
 		}
 
-		$oval = is_object($this->plug_updatechecker) ? get_site_option($this->plug_updatechecker->optionName, null) : null;
+		$oval = get_site_option($this->plug_updatechecker->optionName, null);
 		$updateskey = 'x-spm-expiry';
 		$supportkey = 'x-spm-support-expiry';
 
@@ -310,7 +290,7 @@ class UpdraftPlusAddons2 {
 
 	}
 
-	public function siteid() {
+	function siteid() {
 		$sid = get_site_option(UDADDONS2_SLUG.'_siteid');
 		if (!is_string($sid)) {
 			$sid = md5(rand().time().home_url());
@@ -319,7 +299,7 @@ class UpdraftPlusAddons2 {
 		return $sid;
 	}
 
-	public function updater_queryargs_plugin($args) {
+	function updater_queryargs_plugin($args) {
 		if (!is_array($args)) return $args;
 
 		$options = $this->get_option(UDADDONS2_SLUG.'_options');
@@ -338,13 +318,13 @@ class UpdraftPlusAddons2 {
 
 		// Some information on the server calling. This can be used - e.g. if they have an old version of PHP/WordPress, then this may affect what update version they should be offered
 		include(ABSPATH.WPINC.'/version.php');
-		global $wp_version, $updraftplus;
+		global $wp_version;
 		$sinfo = array(
 			'wp' => $wp_version,
 			'php' => phpversion(),
 			'multi' => (is_multisite() ? 1 : 0),
 			'mem' => ini_get('memory_limit'),
-			'lang' => (string)$updraftplus->get_wplang()
+			'lang' => defined('WPLANG') ? WPLANG : ''
 		);
 
 		global $updraftplus;
@@ -533,7 +513,7 @@ class UpdraftPlusAddons2 {
 		$options = $this->get_option(UDADDONS2_SLUG.'_options');
 
 		// Username and password set up?
-		if (empty($options['email']) || empty($options['password'])) return new WP_Error('blank_details', __('You need to supply both an email address and a password', 'updraftplus'));
+		if (empty($options['email']) || empty($options['password'])) return new WP_Error('blank_details', 'You need to supply both an email address and a password');
 
 		// Hash will change if the account changes (password change is handled by the options filter)
 		$ehash = substr(md5($options['email']), 0, 24);
@@ -591,7 +571,7 @@ class UpdraftPlusAddons2 {
 
 		$response = maybe_unserialize($result['body']);
 
-		if (!is_array($response) || !isset($response['updraftpluscom']) || !isset($response['loggedin'])) return new WP_Error('unknown_response', sprintf(__('UpdraftPlus.Com returned a response which we could not understand (data: %s)', 'updraftplus'), htmlspecialchars(serialize($response))));
+		if (!is_array($response) || !isset($response['updraftpluscom']) || !isset($response['loggedin'])) return new WP_Error('unknown_response', sprintf(__('UpdraftPlus.Com returned a response which we could not understand (data: %s)', 'updraftplus'), serialize($response)));
 
 		switch ($response['loggedin']) {
 			case 'connected':
@@ -614,16 +594,9 @@ class UpdraftPlusAddons2 {
 
 				break;
 			case 'authfailed':
-				$ehash = substr(md5($options['email']), 0, 24);
-				delete_site_transient('udaddons_connect_'.$ehash);
-				if (!empty($response['authproblem'])) {
-					if ('invalidpassword' == $response['authproblem']) {
-						return new WP_Error('authfailed', __('Your email address was valid, but your password was not recognised by UpdraftPlus.Com.', 'updraftplus').' <a href="https://updraftplus.com/my-account/lost-password/">'.__('Go here to reset your password.', 'updraftplus').'</a>');
-					} elseif ('invaliduser' == $response['authproblem']) {
-						return new WP_Error('authfailed', __('You entered an email address that was not recognised by UpdraftPlus.Com', 'updraftplus'));
-					}
-				}
 				return new WP_Error('authfailed', __('Your email address and password were not recognised by UpdraftPlus.Com', 'updraftplus'));
+				$ehash = substr(md5($options['email']),0,24);
+				delete_site_transient('udaddons_connect_'.$ehash);
 				break;
 			default:
 				return new WP_Error('unknown_response', __('UpdraftPlus.Com returned a response, but we could not understand it', 'updraftplus'));

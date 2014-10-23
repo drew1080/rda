@@ -70,21 +70,6 @@
                     var $gallery_selection = $('#gallery_selection').detach();
                     window.uploaded_image_ids = [];
 
-                    plupload.addFileFilter('xss_protection', function(enabled, file, cb){
-                        var retval = true;
-                        if (enabled) {
-                           if (file.name.match(/\<|\>/)) {
-                               retval = false;
-                               this.trigger("Error", {
-                                  code: plupload.SECURITY_ERROR,
-                                  message: plupload.translate('XSS attempt detected'),
-                                  file: file
-                               });
-                           }
-                        }
-                        cb(retval);
-                    });
-
                     // Override some final plupload options
                     plupload_options.url = photocrati_ajax.url;
                     plupload_options.preinit = {

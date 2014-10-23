@@ -3,8 +3,8 @@ Contributors: bradt, aprea
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5VPMGLLK94XJC
 Tags: excerpt, post, content, formatting
 Requires at least: 3.2
-Tested up to: 4.0
-Stable tag: 4.2.3
+Tested up to: 3.9
+Stable tag: 4.2.1
 License: GPLv3
 
 Control the appearance of WordPress post excerpts
@@ -96,22 +96,12 @@ However, you can [start The Loop manually](http://codex.wordpress.org/The_Loop#M
 
 == Changelog ==
 
-= 4.2.3 =
-* Fix: The "Remove all tags except the following" wasn't excluding tags as expected
-* Fix: Call `remove_all_filter()` on the `the_excerpt` hook to improve excerpt rendering
-* Fix: Only honor the "Only filter `the_content()` when there's no break (&lt;!--more--&gt;) tag in the post content" setting when hooking into `the_content` filter
-* Improvement: Improve backwards compatibility by reverting back to using `get_the_content()` for the base excerpt text
-* Improvement: Added the `advanced_excerpt_skip_excerpt_filtering` filter allowing users to skip excerpt filtering on a per excerpt basis
-
-= 4.2.2 =
-* Fix: The `the_advanced_excerpt()` function was not working on singular page types (pages / posts)
-
 = 4.2.1 =
 * Fix: Undefined index errors when using the `the_advanced_excerpt()` function
 * Fix: Not excluding tags when using the `exclude_tags` argument in the `the_advanced_excerpt()` function 
 
 = 4.2 =
-* Feature: Toggle excerpt filtering when there's no break (&lt;!--more--&gt;) tag in the post content
+* Feature: Toggle excerpt filtering when there's no break (<!--more-->) tag in the post content
 * Feature: Toggle excerpt filtering for the `the_excerpt()` and `the_content()` functions
 * Feature: Toggle excerpt filtering on certain page types
 * Improvement: Added HTML5 tags to the allowed tags list

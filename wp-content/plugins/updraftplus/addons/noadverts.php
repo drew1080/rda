@@ -4,8 +4,10 @@ UpdraftPlus Addon: noadverts:No Adverts
 Description: Removes all advertising from the UpdraftPlus settings and emails
 Version: 1.1
 Shop: /shop/no-adverts/
-Latest Change: 1.9.19
+Latest Change: 1.7.42
 */
 
 if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
-define('UPDRAFTPLUS_NOADS_B', true);
+define('UPDRAFTPLUS_NOADS_A', true);
+
+?>

@@ -1,13 +1,7 @@
 <?php
-/* ------------------------------------------------------------------------------------
-*  COPYRIGHT AND TRADEMARK NOTICE
-*  Copyright 2008-2014 AJdG Solutions (Arnan de Gans). All Rights Reserved.
-*  ADROTATE is a trademark (pending registration) of Arnan de Gans.
-
-*  COPYRIGHT NOTICES AND ALL THE COMMENTS SHOULD REMAIN INTACT.
-*  By using this code you agree to indemnify Arnan de Gans from any
-*  liability that might arise from it's use.
------------------------------------------------------------------------------------- */
+/*  
+Copyright 2010-2014 Arnan de Gans - AJdG Solutions (email : info@ajdg.net)
+*/
 
 /*-------------------------------------------------------------
  Name:      adrotate_draw_graph
@@ -216,14 +210,15 @@ function adrotate_stats_nav($type, $id, $month, $year) {
 	}
 	$months = array(__('January', 'adrotate'), __('February', 'adrotate'), __('March', 'adrotate'), __('April', 'adrotate'), __('May', 'adrotate'), __('June', 'adrotate'), __('July', 'adrotate'), __('August', 'adrotate'), __('September', 'adrotate'), __('October', 'adrotate'), __('November', 'adrotate'), __('December', 'adrotate'));
 	
-	if($type == 'ads') $page = 'adrotate-ads&view=report&ad='.$id;
-	if($type == 'groups') $page = 'adrotate-groups&view=report&group='.$id;
+	if($type == 'ads') $page = '&view=report&ad='.$id;
+	if($type == 'groups') $page = '&view=report&group='.$id;
+	if($type == 'global-report' OR $type == 'advertiser-report') $page = '';
 	
-	$nav = '<a href="admin.php?page='.$page.'&month='.$lastmonth.'&year='.$lastyear.'">&lt;&lt; '.__('Previous', 'adrotate').'</a> - ';
+	$nav = '<a href="admin.php?page=adrotate-'.$type.$page.'&month='.$lastmonth.'&year='.$lastyear.'">&lt;&lt; '.__('Previous', 'adrotate').'</a> - ';
 	$nav .= '<strong>'.$months[$month-1].' '.$year.'</strong> - ';
-	$nav .= '(<a href="admin.php?page='.$page.'">'.__('This month', 'adrotate').'</a>) - ';
-	$nav .= '<a href="admin.php?page='.$page.'&month='.$nextmonth.'&year='.$nextyear.'">'. __('Next', 'adrotate').' &gt;&gt;</a>';
-
+	$nav .= '(<a href="admin.php?page=adrotate-'.$type.$page.'">'.__('This month', 'adrotate').'</a>) - ';
+	$nav .= '<a href="admin.php?page=adrotate-'.$type.$page.'&month='.$nextmonth.'&year='.$nextyear.'">'. __('Next', 'adrotate').' &gt;&gt;</a>';
+	
 	return $nav;
 }
 
@@ -305,6 +300,34 @@ function adrotate_ctr($clicks = 0, $impressions = 0, $round = 2) {
 	
 	return $ctr;
 } 
+
+/*-------------------------------------------------------------
+ Name:      adrotate_prepare_global_report
+
+ Purpose:   Generate live stats for admins
+ Receive:   -None-
+ Return:    -None-
+ Since:		3.5
+-------------------------------------------------------------*/
+function adrotate_prepare_global_report() {
+	global $wpdb;
+	
+	$today = adrotate_date_start('day');
+
+	$stats['lastclicks']			= adrotate_array_unique($wpdb->get_results("SELECT `timer`, `bannerid`, `useragent` FROM `".$wpdb->prefix."adrotate_tracker` WHERE `stat` = 'c' AND `ipaddress` != 0 ORDER BY `timer` DESC LIMIT 50;", ARRAY_A));
+	$stats['banners'] 				= $wpdb->get_var("SELECT COUNT(*) FROM `".$wpdb->prefix."adrotate` WHERE `type` = 'active';");
+	$stats['tracker']				= $wpdb->get_var("SELECT COUNT(*) FROM `".$wpdb->prefix."adrotate` WHERE `tracker` = 'Y' AND `type` = 'active';");
+	$stats['clicks']				= $wpdb->get_var("SELECT SUM(`clicks`) as `clicks` FROM `".$wpdb->prefix."adrotate_stats`;");
+	$stats['impressions']			= $wpdb->get_var("SELECT SUM(`impressions`) as `impressions` FROM `".$wpdb->prefix."adrotate_stats`;");
+	
+	if(!$stats['lastclicks']) $stats['lastclicks'] = array();
+	if(!$stats['banners']) $stats['banners'] = 0;
+	if(!$stats['tracker']) $stats['tracker'] = 0;
+	if(!$stats['clicks']) $stats['clicks'] = 0;
+	if(!$stats['impressions']) $stats['impressions'] = 0;
+
+	return $stats;
+}
 
 /*-------------------------------------------------------------
  Name:      adrotate_date_start

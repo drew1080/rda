@@ -3,23 +3,32 @@
 class Red_Apache_File extends Red_FileIO {
 	var $htaccess;
 
-	function export( array $items ) {
+	function collect( $module ) {
 		include_once dirname( dirname( __FILE__ ) ).'/models/htaccess.php';
 
-		$htaccess = new Red_Htaccess();
+		$this->htaccess = new Red_Htaccess( $module );
+		$this->name      = $module->name;
+		$this->id        = $module->id;
 
-		$filename = 'redirection-'.date_i18n( get_option( 'date_format' ) ).'.htaccess';
+		// Get the items
+		$items = Red_Item::get_by_module( $module->id );
+
+		foreach ( $items AS $item ) {
+			$this->htaccess->add ($item);
+		}
+
+		return true;
+	}
+
+	function feed () {
+		$filename = sprintf( 'module_%d.htaccess', $this->id );
 
 		header( 'Content-Type: application/octet-stream' );
 		header( 'Cache-Control: no-cache, must-revalidate' );
 		header( 'Expires: Mon, 26 Jul 1997 05:00:00 GMT' );
 		header( 'Content-Disposition: attachment; filename="'.$filename.'"' );
 
-		foreach ( $items AS $item ) {
-			$htaccess->add ($item);
-		}
-
-		echo $htaccess->generate();
+		echo $this->htaccess->generate ($this->name);
 	}
 
 	function load( $group, $data, $filename = '' ) {

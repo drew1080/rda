@@ -15,20 +15,15 @@ class M_Frame_Communication extends C_Base_Module
 			'photocrati-frame_communication',
 			'Frame/iFrame Inter-Communication',
 			'Provides a means for HTML frames to share server-side events with each other',
-			'0.4',
+			'0.3',
 			'http://www.nextgen-gallery.com',
 			'Photocrati Media',
 			'http://www.photocrati.com',
 			$context
 		);
 
-        include_once('class.frame_communication_option_handler.php');
-        C_NextGen_Settings::get_instance()->add_option_handler('C_Frame_Communication_Option_Handler', array(
-           'frame_event_cookie_name',
-        ));
-        C_NextGen_Global_Settings::get_instance()->add_option_handler('C_Frame_Communication_Option_Handler', array(
-            'frame_event_cookie_name',
-        ));
+		include_once('class.frame_communication_installer.php');
+		C_Photocrati_Installer::add_handler($this->module_id, 'C_Frame_Communication_Installer');
 	}
 
 	function _register_utilities()
@@ -61,9 +56,9 @@ class M_Frame_Communication extends C_Base_Module
     function get_type_list()
     {
         return array(
-            'C_Frame_Communication_Option_Handler'	=> 'class.frame_communication_option_handler.php',
-            'C_Frame_Event_Publisher' 			    => 'class.frame_event_publisher.php',
-            'I_Frame_Event_Publisher' 			    => 'interface.frame_event_publisher.php'
+            'C_Frame_Communication_Installer'	=> 'class.frame_communication_installer.php',
+            'C_Frame_Event_Publisher' 			=> 'class.frame_event_publisher.php',
+            'I_Frame_Event_Publisher' 			=> 'interface.frame_event_publisher.php'
         );
     }
 }

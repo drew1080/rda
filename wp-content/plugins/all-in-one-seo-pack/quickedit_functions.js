@@ -1,4 +1,4 @@
-function aioseop_ajax_edit_meta_form( post_id, meta, nonce ) {
+function aioseop_ajax_edit_meta_form( post_id, meta ) {
 	var uform = jQuery('#aioseop_'+meta+'_' + post_id);
 	var post_title = jQuery('#aioseop_label_' + meta + '_' + post_id).text();
 	var element = uform.html(); var input;
@@ -15,11 +15,11 @@ function aioseop_ajax_edit_meta_form( post_id, meta, nonce ) {
 	});
 	jQuery('#aioseop_'+meta+'_save_' + post_id).click(function() {
 		var new_meta = jQuery( '#aioseop_new_'+meta+'_' + post_id ).val();
-		handle_post_meta( post_id, new_meta, meta, nonce );
+		handle_post_meta( post_id, new_meta, meta );
 	});
 }
 
-function handle_post_meta( p, t, m, n ) {
+function handle_post_meta( p, t, m ) {
 	jQuery("div#aioseop_"+m+"_"+p).fadeOut('fast', function() {
 		var loading = '<label class="aioseop_'+m+'_loading">';
 		loading += '<img style="width:20px;margin-right:5px;float:left" align="absmiddle" ';
@@ -34,7 +34,6 @@ function handle_post_meta( p, t, m, n ) {
 			aioseop_sack.setVar( "new_meta", t );
 			aioseop_sack.setVar( "target_meta", m );
 			aioseop_sack.setVar( "_inline_edit", jQuery('input#_inline_edit').val() );
-			aioseop_sack.setVar( "_nonce", n );
 			aioseop_sack.onError = function() {alert('Ajax error on saving title'); };
 			aioseop_sack.runAJAX();
 		})

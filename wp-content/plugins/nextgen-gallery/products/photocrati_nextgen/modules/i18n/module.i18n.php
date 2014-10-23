@@ -34,16 +34,10 @@ class M_I18N extends C_Base_Module
 
     function _register_hooks()
     {
-        add_action('init', array(&$this, 'register_translation_hooks'), 2);
-    }
-
-    function register_translation_hooks()
-    {
-        $fs = C_Fs::get_instance();
         $dir = str_replace(
-            $fs->get_document_root('plugins'),
+            WP_PLUGIN_DIR,
             '',
-            $fs->get_abspath('lang', 'photocrati-i18n')
+            C_Fs::get_instance()->get_abspath('lang', 'photocrati-i18n')
         );
 
         // Load text domain

@@ -36,12 +36,12 @@ class ECP_APM_Filters {
 	public function ecp_filters() {
 		$filter_args = array(
 			'ecp_venue_filter_key'=>array(
-				'name' => tribe_get_venue_label_singular(),
+				'name' => __('Venue', 'tribe-events-calendar-pro'),
 				'custom_type' => 'ecp_venue_filter',
 				'sortable' => 'true'
 			),
 			'ecp_organizer_filter_key'=>array(
-				'name' => tribe_get_organizer_label_singular(),
+				'name' => __('Organizer', 'tribe-events-calendar-pro'),
 				'custom_type' => 'ecp_organizer_filter',
 				'sortable' => 'true'
 			),
@@ -113,15 +113,12 @@ class TribeDateFilter {
 	protected $active = array();
 	protected $type   = 'custom_date';
 
-	private $query_search_options = array();
+	private $query_search_options = array( 'is'  => 'Is',
+	                                       'not' => 'Is Not',
+	                                       'gte'  => 'On and After',
+	                                       'lte'  => 'On and Before' );
 
 	public function __construct() {
-		$this->query_search_options = array(
-			'is'  => __( 'Is', 'tribe-events-calendar-pro' ),
-			'not' => __( 'Is Not', 'tribe-events-calendar-pro' ),
-			'gte' => __( 'On and After', 'tribe-events-calendar-pro' ),
-			'lte' => __( 'On and Before', 'tribe-events-calendar-pro' )
-		);
 		$type = $this->type;
 		add_filter( 'tribe_custom_row' . $type, array( $this, 'form_row' ), 10, 4 );
 		add_filter( 'tribe_maybe_active' . $type, array( $this, 'maybe_set_active' ), 10, 3 );
@@ -170,7 +167,7 @@ class TribeDateFilter {
 			$field = '';
 
 			if ( $key === 'ecp_start_date' )
-				$field = "eventStart.meta_value";
+				$field = "$wpdb->postmeta.meta_value";
 			if ( $key === 'ecp_end_date' )
 				$field = "eventEnd.meta_value";
 
@@ -210,16 +207,13 @@ class Tribe_Recur_Filter {
 	protected $type = 'recur';
 	protected $meta = '_EventRecurrence';
 
-	protected $opts;
+	protected $opts = array(
+		'is' => 'Yes',
+		'not' => 'No'
+	);
 	protected $not_recur = 's:4:"type";s:4:"None";';
 	
 	public function __construct() {
-
-		$this->opts = array(
-			'is'  => __( 'Yes', 'tribe-events-calendar-pro' ),
-			'not' => __( 'No', 'tribe-events-calendar-pro' )
-		);
-
 		$type = $this->type;
 		add_filter( 'tribe_custom_row'.$type, array($this, 'form_row'), 10, 4 );
 		add_filter( 'tribe_maybe_active'.$type, array($this, 'maybe_set_active'), 10, 3 );
@@ -325,18 +319,17 @@ class Tribe_Title_Filter {
 	protected $type = 'title';
 	protected $is_key = 'is_ecp_title';
 	
-	private $query_search_options = array();
+	private $query_search_options = array(
+		'like' => 'Search',
+		'is' => 'Is',
+		'not' => 'Is Not',
+		'gt' => '>',
+		'lt' => '<',
+		'gte' => '>=',
+		'lte' => '<='
+	);
 
 	public function __construct() {
-		$this->query_search_options = array(
-			'like' => __( 'Search', 'tribe-events-calendar-pro' ),
-			'is'   => __( 'Is', 'tribe-events-calendar-pro' ),
-			'not'  => __( 'Is Not', 'tribe-events-calendar-pro' ),
-			'gt'   => '>',
-			'lt'   => '<',
-			'gte'  => '>=',
-			'lte'  => '<='
-		);
 		$type = $this->type;
 		add_filter( 'tribe_custom_row'.$type, array($this, 'form_row'), 10, 4 );
 		add_filter( 'tribe_maybe_active'.$type, array($this, 'maybe_set_active'), 10, 3 );

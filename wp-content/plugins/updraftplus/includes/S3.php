@@ -53,9 +53,6 @@ class UpdraftPlus_S3
 	public static $endpoint = 's3.amazonaws.com';
 	public static $proxy = null;
 
-	// Added to cope with a particular situation where the user had no pernmission to check the bucket location, which necessitated using DNS-based endpoints.
-	public static $use_dns_bucket_name = false;
-
 	public static $useSSL = false;
 	public static $useSSLValidation = true;
 	public static $useExceptions = false;
@@ -238,7 +235,7 @@ class UpdraftPlus_S3
 	*/
 	public static function listBuckets($detailed = false)
 	{
-		$rest = new UpdraftPlus_S3Request('GET', '', '', self::$endpoint, self::$use_dns_bucket_name);
+		$rest = new UpdraftPlus_S3Request('GET', '', '', self::$endpoint);
 		$rest = $rest->getResponse();
 		if ($rest->error === false && $rest->code !== 200)
 			$rest->error = array('code' => $rest->code, 'message' => 'Unexpected HTTP status');
@@ -268,10 +265,6 @@ class UpdraftPlus_S3
 		return $results;
 	}
 
-	public static function useDNSBucketName($use = true) {
-		self::$use_dns_bucket_name = $use;
-		return true;
-	}
 
 	/*
 	* Get contents for a bucket
@@ -288,7 +281,7 @@ class UpdraftPlus_S3
 	*/
 	public static function getBucket($bucket, $prefix = null, $marker = null, $maxKeys = null, $delimiter = null, $returnCommonPrefixes = false)
 	{
-		$rest = new UpdraftPlus_S3Request('GET', $bucket, '', self::$endpoint, self::$use_dns_bucket_name);
+		$rest = new UpdraftPlus_S3Request('GET', $bucket, '', self::$endpoint);
 		if ($maxKeys == 0) $maxKeys = null;
 		if ($prefix !== null && $prefix !== '') $rest->setParameter('prefix', $prefix);
 		if ($marker !== null && $marker !== '') $rest->setParameter('marker', $marker);
@@ -333,7 +326,7 @@ class UpdraftPlus_S3
 		if ($maxKeys == null && $nextMarker !== null && (string)$response->body->IsTruncated == 'true')
 		do
 		{
-			$rest = new UpdraftPlus_S3Request('GET', $bucket, '', self::$endpoint, self::$use_dns_bucket_name);
+			$rest = new UpdraftPlus_S3Request('GET', $bucket, '', self::$endpoint);
 			if ($prefix !== null && $prefix !== '') $rest->setParameter('prefix', $prefix);
 			$rest->setParameter('marker', $nextMarker);
 			if ($delimiter !== null && $delimiter !== '') $rest->setParameter('delimiter', $delimiter);
@@ -375,7 +368,7 @@ class UpdraftPlus_S3
 	*/
 	public static function putBucket($bucket, $acl = self::ACL_PRIVATE, $location = false)
 	{
-		$rest = new UpdraftPlus_S3Request('PUT', $bucket, '', self::$endpoint, self::$use_dns_bucket_name);
+		$rest = new UpdraftPlus_S3Request('PUT', $bucket, '', self::$endpoint);
 		$rest->setAmzHeader('x-amz-acl', $acl);
 
 		if ($location !== false)
@@ -411,7 +404,7 @@ class UpdraftPlus_S3
 	*/
 	public static function deleteBucket($bucket)
 	{
-		$rest = new UpdraftPlus_S3Request('DELETE', $bucket, '', self::$endpoint, self::$use_dns_bucket_name);
+		$rest = new UpdraftPlus_S3Request('DELETE', $bucket, '', self::$endpoint);
 		$rest = $rest->getResponse();
 		if ($rest->error === false && $rest->code !== 204)
 			$rest->error = array('code' => $rest->code, 'message' => 'Unexpected HTTP status');
@@ -479,7 +472,7 @@ class UpdraftPlus_S3
 	public static function initiateMultipartUpload ($bucket, $uri, $acl = self::ACL_PRIVATE, $metaHeaders = array(), $requestHeaders = array(), $storageClass = self::STORAGE_CLASS_STANDARD)
 	{
 
-		$rest = new UpdraftPlus_S3Request('POST', $bucket, $uri, self::$endpoint, self::$use_dns_bucket_name);
+		$rest = new UpdraftPlus_S3Request('POST', $bucket, $uri, self::$endpoint);
 		$rest->setParameter('uploads','');
 
 		// Custom request headers (Content-Type, Content-Disposition, Content-Encoding)
@@ -536,7 +529,7 @@ class UpdraftPlus_S3
 	public static function uploadPart ($bucket, $uri, $uploadId, $filePath, $partNumber, $partSize = 5242880)
 	{
 
-		$rest = new UpdraftPlus_S3Request('PUT', $bucket, $uri, self::$endpoint, self::$use_dns_bucket_name);
+		$rest = new UpdraftPlus_S3Request('PUT', $bucket, $uri, self::$endpoint);
 		$rest->setParameter('partNumber', $partNumber);
 		$rest->setParameter('uploadId', $uploadId);
 
@@ -591,7 +584,7 @@ class UpdraftPlus_S3
 
 	public static function completeMultipartUpload ($bucket, $uri, $uploadId, $parts)
 	{
-		$rest = new UpdraftPlus_S3Request('POST', $bucket, $uri, self::$endpoint, self::$use_dns_bucket_name);
+		$rest = new UpdraftPlus_S3Request('POST', $bucket, $uri, self::$endpoint);
 		$rest->setParameter('uploadId', $uploadId);
 
 		$xml = "<CompleteMultipartUpload>\n";
@@ -630,7 +623,7 @@ class UpdraftPlus_S3
 
 	public static function abortMultipartUpload ($bucket, $uri, $uploadId)
 	{
-		$rest = new UpdraftPlus_S3Request('DELETE', $bucket, $uri, self::$endpoint, self::$use_dns_bucket_name);
+		$rest = new UpdraftPlus_S3Request('DELETE', $bucket, $uri, self::$endpoint);
 		$rest->setParameter('uploadId', $uploadId);
 		$rest = $rest->getResponse();
 		if ($rest->error === false && $rest->code !== 204)
@@ -659,7 +652,7 @@ class UpdraftPlus_S3
 	public static function putObject($input, $bucket, $uri, $acl = self::ACL_PRIVATE, $metaHeaders = array(), $requestHeaders = array(), $storageClass = self::STORAGE_CLASS_STANDARD)
 	{
 		if ($input === false) return false;
-		$rest = new UpdraftPlus_S3Request('PUT', $bucket, $uri, self::$endpoint, self::$use_dns_bucket_name);
+		$rest = new UpdraftPlus_S3Request('PUT', $bucket, $uri, self::$endpoint);
 
 		if (!is_array($input)) $input = array(
 			'data' => $input, 'size' => strlen($input),
@@ -739,9 +732,9 @@ class UpdraftPlus_S3
 	* @param string $contentType Content type
 	* @return boolean
 	*/
-	public static function putObjectFile($file, $bucket, $uri, $acl = self::ACL_PRIVATE, $metaHeaders = array(), $contentType = null, $storageClass = self::STORAGE_CLASS_STANDARD)
+	public static function putObjectFile($file, $bucket, $uri, $acl = self::ACL_PRIVATE, $metaHeaders = array(), $contentType = null)
 	{
-		return self::putObject(self::inputFile($file), $bucket, $uri, $acl, $metaHeaders, $contentType, $storageClass);
+		return self::putObject(self::inputFile($file), $bucket, $uri, $acl, $metaHeaders, $contentType);
 	}
 
 
@@ -773,7 +766,7 @@ class UpdraftPlus_S3
 	*/
 	public static function getObject($bucket, $uri, $saveTo = false, $resume = false)
 	{
-		$rest = new UpdraftPlus_S3Request('GET', $bucket, $uri, self::$endpoint, self::$use_dns_bucket_name);
+		$rest = new UpdraftPlus_S3Request('GET', $bucket, $uri, self::$endpoint);
 		if ($saveTo !== false)
 		{
 			if (is_resource($saveTo))
@@ -817,7 +810,7 @@ class UpdraftPlus_S3
 	*/
 	public static function getObjectInfo($bucket, $uri, $returnInfo = true)
 	{
-		$rest = new UpdraftPlus_S3Request('HEAD', $bucket, $uri, self::$endpoint, self::$use_dns_bucket_name);
+		$rest = new UpdraftPlus_S3Request('HEAD', $bucket, $uri, self::$endpoint);
 		$rest = $rest->getResponse();
 		if ($rest->error === false && ($rest->code !== 200 && $rest->code !== 404))
 			$rest->error = array('code' => $rest->code, 'message' => 'Unexpected HTTP status');
@@ -846,7 +839,7 @@ class UpdraftPlus_S3
 	*/
 	public static function copyObject($srcBucket, $srcUri, $bucket, $uri, $acl = self::ACL_PRIVATE, $metaHeaders = array(), $requestHeaders = array(), $storageClass = self::STORAGE_CLASS_STANDARD)
 	{
-		$rest = new UpdraftPlus_S3Request('PUT', $bucket, $uri, self::$endpoint, self::$use_dns_bucket_name);
+		$rest = new UpdraftPlus_S3Request('PUT', $bucket, $uri, self::$endpoint);
 		$rest->setHeader('Content-Length', 0);
 		foreach ($requestHeaders as $h => $v) $rest->setHeader($h, $v);
 		foreach ($metaHeaders as $h => $v) $rest->setAmzHeader('x-amz-meta-'.$h, $v);
@@ -918,7 +911,7 @@ class UpdraftPlus_S3
 		}
 		$dom->appendChild($bucketLoggingStatus);
 
-		$rest = new UpdraftPlus_S3Request('PUT', $bucket, '', self::$endpoint, self::$use_dns_bucket_name);
+		$rest = new UpdraftPlus_S3Request('PUT', $bucket, '', self::$endpoint);
 		$rest->setParameter('logging', null);
 		$rest->data = $dom->saveXML();
 		$rest->size = strlen($rest->data);
@@ -947,7 +940,7 @@ class UpdraftPlus_S3
 	*/
 	public static function getBucketLogging($bucket)
 	{
-		$rest = new UpdraftPlus_S3Request('GET', $bucket, '', self::$endpoint, self::$use_dns_bucket_name);
+		$rest = new UpdraftPlus_S3Request('GET', $bucket, '', self::$endpoint);
 		$rest->setParameter('logging', null);
 		$rest = $rest->getResponse();
 		if ($rest->error === false && $rest->code !== 200)
@@ -987,7 +980,7 @@ class UpdraftPlus_S3
 	public static function getBucketLocation($bucket)
 	{
 
-		$rest = new UpdraftPlus_S3Request('GET', $bucket, '', self::$endpoint, self::$use_dns_bucket_name);
+		$rest = new UpdraftPlus_S3Request('GET', $bucket, '', self::$endpoint);
 		$rest->setParameter('location', null);
 		$rest = $rest->getResponse();
 		if ($rest->error === false && $rest->code !== 200)
@@ -1051,7 +1044,7 @@ class UpdraftPlus_S3
 		$accessControlPolicy->appendChild($accessControlList);
 		$dom->appendChild($accessControlPolicy);
 
-		$rest = new UpdraftPlus_S3Request('PUT', $bucket, $uri, self::$endpoint, self::$use_dns_bucket_name);
+		$rest = new UpdraftPlus_S3Request('PUT', $bucket, $uri, self::$endpoint);
 		$rest->setParameter('acl', null);
 		$rest->data = $dom->saveXML();
 		$rest->size = strlen($rest->data);
@@ -1078,7 +1071,7 @@ class UpdraftPlus_S3
 	*/
 	public static function getAccessControlPolicy($bucket, $uri = '')
 	{
-		$rest = new UpdraftPlus_S3Request('GET', $bucket, $uri, self::$endpoint, self::$use_dns_bucket_name);
+		$rest = new UpdraftPlus_S3Request('GET', $bucket, $uri, self::$endpoint);
 		$rest->setParameter('acl', null);
 		$rest = $rest->getResponse();
 		if ($rest->error === false && $rest->code !== 200)
@@ -1139,7 +1132,7 @@ class UpdraftPlus_S3
 	*/
 	public static function deleteObject($bucket, $uri)
 	{
-		$rest = new UpdraftPlus_S3Request('DELETE', $bucket, $uri, self::$endpoint, self::$use_dns_bucket_name);
+		$rest = new UpdraftPlus_S3Request('DELETE', $bucket, $uri, self::$endpoint);
 		$rest = $rest->getResponse();
 		if ($rest->error === false && $rest->code !== 204)
 			$rest->error = array('code' => $rest->code, 'message' => 'Unexpected HTTP status');
@@ -1895,7 +1888,7 @@ final class UpdraftPlus_S3Request
 	* @param string $uri Object URI
 	* @return mixed
 	*/
-	function __construct($verb, $bucket = '', $uri = '', $endpoint = 's3.amazonaws.com', $use_dns_bucket_name = false)
+	function __construct($verb, $bucket = '', $uri = '', $endpoint = 's3.amazonaws.com')
 	{
 		$this->endpoint = $endpoint;
 		$this->verb = $verb;
@@ -1909,7 +1902,7 @@ final class UpdraftPlus_S3Request
 
 		if ($this->bucket !== '')
 		{
-			if ($this->__dnsBucketName($this->bucket) || $use_dns_bucket_name)
+			if ($this->__dnsBucketName($this->bucket))
 			{
 				$this->headers['Host'] = $this->bucket.'.'.$this->endpoint;
 				$this->resource = '/'.$this->bucket.$this->uri;
@@ -1933,7 +1926,6 @@ final class UpdraftPlus_S3Request
 		$this->headers['Date'] = gmdate('D, d M Y H:i:s T');
 		$this->response = new STDClass;
 		$this->response->error = false;
-		$this->response->body = null;
 	}
 
 
@@ -2169,11 +2161,11 @@ final class UpdraftPlus_S3Request
 	/**
 	* CURL write callback
 	*
-	* @param resource $curl CURL resource
-	* @param string $data Data
+	* @param resource &$curl CURL resource
+	* @param string &$data Data
 	* @return integer
 	*/
-	private function __responseWriteCallback($curl, $data)
+	private function __responseWriteCallback(&$curl, &$data)
 	{
 		if (in_array($this->response->code, array(200, 206)) && $this->fp !== false)
 			return fwrite($this->fp, $data);
@@ -2191,29 +2183,23 @@ final class UpdraftPlus_S3Request
 	*/
 	private function __dnsBucketName($bucket)
 	{
-		# A DNS bucket name cannot have len>63
-		# A DNS bucket name must have a character in other than a-z, 0-9, . -
-		# The purpose of this second check is not clear - is it that there's some limitation somewhere on bucket names that match that pattern that means that the bucket must be accessed by hostname?
 		if (strlen($bucket) > 63 || !preg_match("/[^a-z0-9\.-]/", $bucket)) return false;
-		# A DNS bucket name cannot contain -.
 		if (strstr($bucket, '-.') !== false) return false;
-		# A DNS bucket name cannot contain ..
 		if (strstr($bucket, '..') !== false) return false;
-		# A DNS bucket name must begin with 0-9a-z
 		if (!preg_match("/^[0-9a-z]/", $bucket)) return false;
-		# A DNS bucket name must end with 0-9 a-z
 		if (!preg_match("/[0-9a-z]$/", $bucket)) return false;
 		return true;
 	}
 
+
 	/**
 	* CURL header callback
 	*
-	* @param resource $curl CURL resource
-	* @param string $data Data
+	* @param resource &$curl CURL resource
+	* @param string &$data Data
 	* @return integer
 	*/
-	private function __responseHeaderCallback($curl, $data)
+	private function __responseHeaderCallback(&$curl, &$data)
 	{
 		if (($strlen = strlen($data)) <= 2) return $strlen;
 		if (substr($data, 0, 4) == 'HTTP')

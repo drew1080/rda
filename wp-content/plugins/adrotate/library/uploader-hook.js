@@ -2,17 +2,6 @@
  * A Small Javascript function to use the Media Uploader from WordPress
  * Arnan de Gans from AJdG Solutions (http://meandmymac.net, http://www.ajdg.net)
  **********************************************************************/
-
-/* ------------------------------------------------------------------------------------
-*  COPYRIGHT AND TRADEMARK NOTICE
-*  Copyright 2008-2014 AJdG Solutions (Arnan de Gans). All Rights Reserved.
-*  ADROTATE is a trademark (pending registration) of Arnan de Gans.
-
-*  COPYRIGHT NOTICES AND ALL THE COMMENTS SHOULD REMAIN INTACT.
-*  By using this code you agree to indemnify Arnan de Gans from any
-*  liability that might arise from it's use.
------------------------------------------------------------------------------------- */
-
 jQuery(document).ready(function(){
 	var custom_uploader;
 	jQuery('#adrotate_image_button').click(function(e) {

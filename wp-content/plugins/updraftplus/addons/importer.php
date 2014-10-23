@@ -2,9 +2,9 @@
 /*
 UpdraftPlus Addon: importer:Import a WordPress backup made by another backup plugin
 Description: Import a backup made by other supported WordPress backup plugins (see shop page for a list of supported plugins)
-Version: 2.4
+Version: 2.2
 Shop: /shop/importer/
-Latest Change: 1.9.26
+Latest Change: 1.9.16
 */
 
 if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
@@ -27,12 +27,8 @@ class UpdraftPlus_Addons_Importer {
 
 		$plugins = $this->accept_archivename(array());
 		$supported = '';
-		$already_added = array();
 		foreach ($plugins as $plug) {
-			if (!empty($plug['desc']) && !in_array($plug['desc'], $already_added)) {
-				$supported .= ($supported) ? ', '.$plug['desc'] : $plug['desc'];
-				$already_added[] = $plug['desc'];
-			}
+			if (!empty($plug['desc'])) $supported .= ($supported) ? ', '.$plug['desc'] : $plug['desc'];
 		}
 
 		return '<p><a href="http://updraftplus.com/support/using-third-party-backups/">'.__('Was this a backup created by a different backup plugin? If so, then you might first need to rename it so that it can be recognised - please follow this link.', 'updraftplus').'</a></p><p>'.sprintf(__('Supported backup plugins: %s', 'updraftplus'), $supported).'</p>';
@@ -45,7 +41,6 @@ class UpdraftPlus_Addons_Importer {
 		# mktime(): H, M, S, M, D, Y
 		switch ($accepted_foreign) {
 			case 'backupwordpress':
-			case 'backupwordpress2':
 			# e.g. example-com-default-1-complete-2014-03-10-11-44-57.zip
 			if (preg_match('/(([0-9]{4})-([0-9]{2})-([0-9]{2})-([0-9]{2})-([0-9]{2})-([0-9]{2}))\.zip$/i', $entry, $tmatch)) {
 				return mktime($tmatch[5], $tmatch[6], $tmatch[7], $tmatch[3], $tmatch[4], $tmatch[2]);
@@ -117,7 +112,7 @@ class UpdraftPlus_Addons_Importer {
 		} elseif ('wpb2d' == $fsource) {
 			$db_basename = 'wp-content/backups/wordpress-db-backup.sql';
 		} else {
-			$db_basename = $backupinfo['wpcore'];
+			$db_basename = $this->ud_backup_info['wpcore'];
 			if (is_array($db_basename)) $db_basename = array_shift($db_basename);
 			$db_basename = basename($db_basename, '.zip').'.sql';
 		}
@@ -149,12 +144,6 @@ class UpdraftPlus_Addons_Importer {
 			'desc' => 'BackUpWordPress',
 			'pattern' => 'complete-[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}\\.zip$',
 			'separatedb' => false
-		);
-
-		$x['backupwordpress2'] = array(
-			'desc' => 'BackUpWordPress',
-			'pattern' => 'database-[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}\\.zip$',
-			'separatedb' => true
 		);
 
 		$x['simple_backup'] = array(

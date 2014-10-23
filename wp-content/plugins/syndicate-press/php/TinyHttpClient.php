@@ -1,13 +1,13 @@
 <?php 
 /*
 File: TinyHttpClient.php
-Date: 7/6/2014
-Version 1.3.4
+Date: 1/6/2013
+Version 1.3.3
 Author: HenryRanch LLC
 
 LICENSE:
 ============
-Copyright (c) 2009-2014, Henry Ranch LLC. All rights reserved. http://www.henryranch.net
+Copyright (c) 2009-2013, Henry Ranch LLC. All rights reserved. http://www.henryranch.net
 
 
 TinyHttpClient is governed by the following license and is not licensed for use outside of 
@@ -50,7 +50,6 @@ INTELLECTUAL PROPERTY RIGHTS OR TRADEMARK OF ANY ENTITY.
 class TinyHttpClient 
 {
     var $debug = false;
-    var $userAgent = "TinyHttpClient/1.3.4";
 
    /*
         Create a GET request header for the given host and filename.  If authorization is required, then it must be the standard HTTP 1.0 Basic Authentication compliant string.
@@ -59,14 +58,13 @@ class TinyHttpClient
         @param $authorization - the HTTP 1.0 compliant Basic Authentication digest string
         @returns The GET request header
         */
-    function generateGetRequest($host, $filename, $authorization, $userAgent="User-Agent: TinyHttpClient/1.3.4\r\n")
+    function generateGetRequest($host, $filename, $authorization)
     {
         $request = "GET $filename HTTP/1.0\r\n" .
         "Host: $host\r\n" .
         $authorization . 
         //"User-Agent: TinyHttpClient/1.1\r\n" .
-        //"User-Agent: Mozilla/5.001 (windows; U; NT4.0; en-US; rv:1.0) Gecko/25250101\r\n" .
-	"User-Agent: " . $userAgent . "\r\n" .
+        "User-Agent: Mozilla/5.001 (windows; U; NT4.0; en-US; rv:1.0) Gecko/25250101\r\n" .
         "Connection: close\r\n" .
         "\r\n";
         return $request;
@@ -81,7 +79,7 @@ class TinyHttpClient
         @param $data - the POST data (key value pairs)
         @returns The POST request header
         */
-    function generatePostRequest($host, $filename, $authorization, $from, $data, $userAgent="User-Agent: TinyHttpClient/1.3.4\r\n")
+    function generatePostRequest($host, $filename, $authorization, $from, $data)
     {
         $request = "POST $filename HTTP/1.0\r\n" .
         "Host: $host\r\n" .
@@ -89,8 +87,7 @@ class TinyHttpClient
         "Connection: close\r\n" .
         "From: $from\r\n" .
         //"User-Agent: TinyHttpClient/1.1\r\n" .
-        //"User-Agent: Mozilla/5.001 (windows; U; NT4.0; en-US; rv:1.0) Gecko/25250101\r\n" .
-	"User-Agent: " . $userAgent . "\r\n" .
+        "User-Agent: Mozilla/5.001 (windows; U; NT4.0; en-US; rv:1.0) Gecko/25250101\r\n" .
         "Content-Type: application/x-www-form-urlencoded\r\n" .
         "Content-Length: " . strlen($data) . "\r\n" .
         "\r\n" .
@@ -137,11 +134,11 @@ class TinyHttpClient
 
         if($mode == "get")
         {
-            $request = $this->generateGetRequest($host, $remoteFilename, $authorization, $this->userAgent);
+            $request = $this->generateGetRequest($host, $remoteFilename, $authorization);
         }
         else if($mode == "post")
         {
-            $request = $this->generatePostRequest($host, $remoteFilename, $authorization, $fromEmail, $postData, $this->userAgent);
+            $request = $this->generatePostRequest($host, $remoteFilename, $authorization, $fromEmail, $postData);
         }
         if($this->debug)
             print "Sending request string:<br>$request<br><br>";

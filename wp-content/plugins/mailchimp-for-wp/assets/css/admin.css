@@ -15,11 +15,18 @@
 	box-sizing: border-box;
 }
 
+.mc4wp-info {
+	padding: 5px 15px;
+	color: #3a87ad;
+	background-color: #d9edf7;
+	border-color: #bce8f1;
+}
+
 .valigntop{ 
 	vertical-align: top !important; 
 }
 
-#mc4wp .mc4wp-box{
+.mc4wp-box{ 
 	margin-bottom:20px; 
 }
 
@@ -67,7 +74,7 @@
 	color:#aaa;
 }
 
-#mc4wp span.status{
+.mc4wp-settings span.status{ 
 	display:inline-block; 
 	padding:3px 6px; 
 	color:white; 
@@ -75,41 +82,40 @@
 	font-weight:bold;
 }
 
-#mc4wp span.positive{
+.mc4wp-settings span.positive{ 
 	background-color:green; 
 }
 
-#mc4wp span.negative{
+.mc4wp-settings span.negative{ 
 	background-color:lightGrey; 
 }
 
-#mc4wp table th{
+.mc4wp-settings table th{ 
 	text-align:left; 
 }
 
-#mc4wp table.form-table tr td:first-child,
-#mc4wp table.form-table tr th:first-child{
+.mc4wp-settings table.form-table tr td:first-child,
+.mc4wp-settings table.form-table tr th:first-child{ 
 	padding-left:0; 
 }
 
-#mc4wptd.nowrap{
+.mc4wp-settings td.nowrap{ 
 	white-space: nowrap
 }
 
-#mc4wp td.desc{
+.mc4wp-settings td.desc{ 
 	font-style:italic; 
 	font-size:11px;
 }
 
 .mc4wp-notice{
-	padding: 6px 8px;
+	padding:5px;
 	color: #31708f;
-	background: #d9edf7;
-	border: 1px solid #bce8f1;
-	margin: 1em 0 !important;
+	background-color: #d9edf7;
+	border:1px solid #bce8f1;
 }
 
-#mc4wp .mc4wp-col {
+.mc4wp-col { 
 	float:left;
 	-webkit-box-sizing: border-box; 
 	-moz-box-sizing:border-box;
@@ -118,11 +124,11 @@
 	padding:0 5px;
 }
 
-#mc4wp .mc4wp-first{
+.mc4wp-first{ 
 	padding-left:0; 
 }
 
-#mc4wp .mc4wp-last{
+.mc4wp-last{ 
 	padding-right:0; 
 }
 
@@ -138,6 +144,7 @@
 	padding:0 0 6px 0; 
 	border-bottom:1px solid #ddd;
 }
+
 
 table.mc4wp-help,
 table.mc4wp-help th, 
@@ -158,10 +165,6 @@ table.mc4wp-help tr:hover {
 	background-color: #ddd; 
 }
 
-#mc4wp .wp-list-table code {
-	float:right;
-}
-
 @media(max-width: 1279px) {
 
 	#mc4wp-sidebar, 
@@ -177,9 +180,6 @@ table.mc4wp-help tr:hover {
 		border-top: 1px solid #ccc; 
 		margin-top:25px; 
 		padding-top: 25px; 
-	}
-	#mc4wp .wp-list-table code {
-		float: none;
 	}
 	
 }

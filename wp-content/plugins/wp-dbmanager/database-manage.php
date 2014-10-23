@@ -14,6 +14,7 @@ $backup['date'] = current_time('timestamp');
 $backup['mysqldumppath'] = $backup_options['mysqldumppath'];
 $backup['mysqlpath'] = $backup_options['mysqlpath'];
 $backup['path'] = $backup_options['path'];
+$backup['password'] = str_replace('$', '\$', DB_PASSWORD);
 $backup['charset'] = ' --default-character-set="utf8"';
 
 
@@ -37,30 +38,24 @@ if( !empty( $_POST['do'] ) ) {
 					$db_host = explode(':', DB_HOST);
 					$backup['host'] = $db_host[0];
 					if(intval($db_host[1]) != 0) {
-						$backup['port'] = ' --port=' . escapeshellarg( intval( $db_host[1] ) );
+						$backup['port'] = ' --port="'.intval($db_host[1]).'"';
 					} else {
-						$backup['sock'] = ' --socket=' . escapeshellarg( $db_host[1] );
+						$backup['sock'] = ' --socket="'.$db_host[1].'"';
 					}
 				}
 				if(stristr($database_file, '.gz')) {
-					$backup['command'] = 'gunzip < ' . escapeshellcmd( $brace . $backup['path'] . '/' . $database_file . $brace ) .' | '. escapeshellcmd( $brace . $backup['mysqlpath'] . $brace ) . ' --host=' . escapeshellarg( $backup['host'] ) . ' --user=' . escapeshellarg( DB_USER ) . ' --password=' . escapeshellarg( DB_PASSWORD ) . $backup['port'] . $backup['sock'] . $backup['charset'] . ' ' . DB_NAME;
+					$backup['command'] = 'gunzip < '.$brace.$backup['path'].'/'.$database_file.$brace.' | '.$brace.$backup['mysqlpath'].$brace.' --host="'.$backup['host'].'" --user="'.DB_USER.'" --password="'.$backup['password'].'"'.$backup['port'].$backup['sock'].$backup['charset'].' '.DB_NAME;
 				} else {
-					$backup['command'] = escapeshellcmd( $brace . $backup['mysqlpath'] . $brace ) . ' --host=' . escapeshellarg( $backup['host'] ) . ' --user=' . escapeshellarg( DB_USER ) . ' --password=' . escapeshellarg( DB_PASSWORD ) . $backup['port'] . $backup['sock'] . $backup['charset'] . ' ' . DB_NAME . ' < '.escapeshellcmd( $brace . $backup['path'] . '/' . $database_file . $brace );
+					$backup['command'] = $brace.$backup['mysqlpath'].$brace.' --host="'.$backup['host'].'" --user="'.DB_USER.'" --password="'.$backup['password'].'"'.$backup['port'].$backup['sock'].$backup['charset'].' '.DB_NAME.' < '.$brace.$backup['path'].'/'.$database_file.$brace;
 				}
-				if( realpath( $backup['path'] ) === false ) {
-					$text = '<p style="color: red;">' . sprintf(__('%s is not a valid backup path', 'wp-dbmanager'), stripslashes( $backup['path'] ) ) . '</p>';
-				} else if( dbmanager_is_valid_path( $backup['mysqlpath'] ) === 0 ) {
-					$text = '<p style="color: red;">' . sprintf(__('%s is not a valid mysql path', 'wp-dbmanager'), stripslashes( $backup['mysqlpath'] ) ) . '</p>';
-				} else {
-					passthru( $backup['command'], $error );
-				}
+				passthru($backup['command'], $error);
 				if($error) {
-					$text = '<p style="color: red;">'.sprintf(__('Database On \'%s\' Failed To Restore', 'wp-dbmanager'), $nice_file_date).'</p>';
+					$text = '<font color="red">'.sprintf(__('Database On \'%s\' Failed To Restore', 'wp-dbmanager'), $nice_file_date).'</font>';
 				} else {
-					$text = '<p style="color: green;">'.sprintf(__('Database On \'%s\' Restored Successfully', 'wp-dbmanager'), $nice_file_date).'</p>';
+					$text = '<font color="green">'.sprintf(__('Database On \'%s\' Restored Successfully', 'wp-dbmanager'), $nice_file_date).'</font>';
 				}
 			} else {
-				$text = '<p style="color: red;">'.__('No Backup Database File Selected', 'wp-dbmanager').'</p>';
+				$text = '<font color="red">'.__('No Backup Database File Selected', 'wp-dbmanager').'</font>';
 			}
 			break;
 		case __('E-Mail', 'wp-dbmanager'):
@@ -68,38 +63,38 @@ if( !empty( $_POST['do'] ) ) {
 				$to = ( !empty( $_POST['email_to'] ) ? sanitize_email( $_POST['email_to'] ) : get_option( 'admin_email' ) );
 
 				if( dbmanager_email_backup( $to, $backup['path'].'/'.$database_file ) ) {
-					$text .= '<p style="color: green;">'.sprintf(__('Database Backup File For \'%s\' Successfully E-Mailed To \'%s\'', 'wp-dbmanager'), $nice_file_date, $to).'</p>';
+					$text .= '<font color="green">'.sprintf(__('Database Backup File For \'%s\' Successfully E-Mailed To \'%s\'', 'wp-dbmanager'), $nice_file_date, $to).'</font><br />';
 				} else {
-					$text = '<p style="color: red;">'.sprintf(__('Unable To E-Mail Database Backup File For \'%s\' To \'%s\'', 'wp-dbmanager'), $nice_file_date, $to).'</p>';
+					$text = '<font color="red">'.sprintf(__('Unable To E-Mail Database Backup File For \'%s\' To \'%s\'', 'wp-dbmanager'), $nice_file_date, $to).'</font>';
 				}
 			} else {
-				$text = '<p style="color: red;">'.__('No Backup Database File Selected', 'wp-dbmanager').'</p>';
+				$text = '<font color="red">'.__('No Backup Database File Selected', 'wp-dbmanager').'</font>';
 			}
 			break;
 		case __('Download', 'wp-dbmanager'):
 			if(empty($database_file)) {
-				$text = '<p style="color: red;">'.__('No Backup Database File Selected', 'wp-dbmanager').'</p>';
+				$text = '<font color="red">'.__('No Backup Database File Selected', 'wp-dbmanager').'</font>';
 			}
 			break;
 		case __('Delete', 'wp-dbmanager'):
 			if(!empty($database_file)) {
 				if(is_file($backup['path'].'/'.$database_file)) {
 					if(!unlink($backup['path'].'/'.$database_file)) {
-						$text .= '<p style="color: red;">'.sprintf(__('Unable To Delete Database Backup File On \'%s\'', 'wp-dbmanager'), $nice_file_date).'</p>';
+						$text .= '<font color="red">'.sprintf(__('Unable To Delete Database Backup File On \'%s\'', 'wp-dbmanager'), $nice_file_date).'</font><br />';
 					} else {
-						$text .= '<p style="color: green;">'.sprintf(__('Database Backup File On \'%s\' Deleted Successfully', 'wp-dbmanager'), $nice_file_date).'</p>';
+						$text .= '<font color="green">'.sprintf(__('Database Backup File On \'%s\' Deleted Successfully', 'wp-dbmanager'), $nice_file_date).'</font><br />';
 					}
 				} else {
-					$text = '<p style="color: red;">'.sprintf(__('Invalid Database Backup File On \'%s\'', 'wp-dbmanager'), $nice_file_date).'</p>';
+					$text = '<font color="red">'.sprintf(__('Invalid Database Backup File On \'%s\'', 'wp-dbmanager'), $nice_file_date).'</font>';
 				}
 			} else {
-				$text = '<p style="color: red;">'.__('No Backup Database File Selected', 'wp-dbmanager').'</p>';
+				$text = '<font color="red">'.__('No Backup Database File Selected', 'wp-dbmanager').'</font>';
 			}
 			break;
 	}
 }
 ?>
-<?php if(!empty($text)) { echo '<!-- Last Action --><div id="message" class="updated">'.$text.'</div>'; } ?>
+<?php if(!empty($text)) { echo '<!-- Last Action --><div id="message" class="updated fade"><p>'.$text.'</p></div>'; } ?>
 <!-- Manage Backup Database -->
 <form method="post" action="<?php echo admin_url('admin.php?page='.plugin_basename(__FILE__)); ?>">
 	<?php wp_nonce_field('wp-dbmanager_manage'); ?>

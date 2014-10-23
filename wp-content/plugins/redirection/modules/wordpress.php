@@ -29,7 +29,7 @@ class WordPress_Module extends Red_Module {
 
 			$redirects = Red_Item::get_for_url( $url, 'wp' );
 
-			foreach ( (array)$redirects AS $item ) {
+			foreach ( (array)$redirects AS $key => $item ) {
 				if ( $item->matches( $url ) ) {
 					$redirection->setMatched( true );
 					$this->matched = $item;
@@ -69,14 +69,17 @@ class WordPress_Module extends Red_Module {
 		return 'HTTP/1.1 410 Gone';
 	}
 
-	function wp_redirect( $url, $status ) {
+	function wp_redirect( $url, $status )
+	{
 		global $wp_version, $is_IIS;
-
-    	if ( $is_IIS ) {
+    if ( $wp_version < '2.1' ) {
+    	status_header( $status );
+			return $url;
+    } elseif ( $is_IIS ) {
 			header( "Refresh: 0;url=$url" );
 			return $url;
-		}
-		elseif ( $status == 301 && php_sapi_name() == 'cgi-fcgi' ) {
+		} else {
+        if ( $status == 301 && php_sapi_name() == 'cgi-fcgi' ) {
             $servers_to_check = array( 'lighttpd', 'nginx' );
             foreach ( $servers_to_check as $name ) {
                 if ( stripos( $_SERVER['SERVER_SOFTWARE'], $name ) !== false ) {
@@ -88,7 +91,8 @@ class WordPress_Module extends Red_Module {
         }
 
         status_header( $status );
-		return $url;
+				return $url;
+    }
 	}
 
 	function save( $data ) {

@@ -132,15 +132,6 @@ class Mixin_NextGen_Table_Extras extends Mixin
 		return $this->call_parent('destroy', $entity);
 	}
 
-    function _regex_replace($in)
-    {
-        global $wpdb;
-        $from = 'FROM `' . $this->object->get_table_name() . '`';
-        $out = str_replace('FROM', ", GROUP_CONCAT(CONCAT_WS('@@', meta_key, meta_value)) AS 'extras' FROM", $in);
-        $out = str_replace($from, "{$from} LEFT OUTER JOIN `{$wpdb->postmeta}` ON `{$wpdb->postmeta}`.`post_id` = `extras_post_id` ", $out);
-        return $out;
-    }
-
 	/**
 	 * Gets the generated query
 	 */
@@ -149,6 +140,7 @@ class Mixin_NextGen_Table_Extras extends Mixin
 		// Add extras column
         if ($this->object->is_select_statement() && stripos($this->object->_select_clause, 'count(') === FALSE)
         {
+			global $wpdb;
 			$table_name = $this->object->get_table_name();
 			$primary_key = "{$table_name}.{$this->object->get_primary_key_column()}";
 			if (stripos($this->object->_select_clause, 'DISTINCT') === FALSE) {
@@ -156,21 +148,9 @@ class Mixin_NextGen_Table_Extras extends Mixin
 			}
 			$this->object->group_by($primary_key);
 			$sql = $this->call_parent('get_generated_query');
-
-            // Sections may be omitted by wrapping them in mysql/C style comments
-            if (stripos($sql, '/*NGG_NO_EXTRAS_TABLE*/') !== FALSE)
-            {
-                $parts = explode('/*NGG_NO_EXTRAS_TABLE*/', $sql);
-                foreach ($parts as $ndx => $row) {
-                    if ($ndx % 2 != 0)
-                        continue;
-                    $parts[$ndx] = $this->_regex_replace($row);
-                }
-                $sql = implode('', $parts);
-            }
-            else {
-                $sql = $this->_regex_replace($sql);
-            }
+			$from = 'FROM `'.$this->object->get_table_name().'`';
+			$sql = str_replace('FROM', ", GROUP_CONCAT(CONCAT_WS('@@', meta_key, meta_value)) AS 'extras' FROM", $sql);
+			$sql = str_replace($from, "{$from} LEFT OUTER JOIN `{$wpdb->postmeta}` ON `{$wpdb->postmeta}`.`post_id` = `extras_post_id` ", $sql);
 		}
 		else $sql = $this->call_parent('get_generated_query');
 

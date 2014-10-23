@@ -178,12 +178,7 @@ class A_NextGen_Basic_Slideshow_Form extends Mixin_Display_Type_Form
             $display_type,
             'flash_stretch_image',
             __('Stretch image', 'nggallery'),
-			array(
-                'true'  => __('true',  'nggallery'),
-                'false' => __('false', 'nggallery'),
-                'fit'   => __('fit',   'nggallery'),
-                'none'  => __('none',  'nggallery')
-            ),
+			array('true' => 'true', 'false' => 'false', 'fit' => 'fit', 'none' => 'none'),
             $display_type->settings['flash_stretch_image'],
             '',
             empty($display_type->settings['flash_enabled']) ? TRUE : FALSE
@@ -197,16 +192,16 @@ class A_NextGen_Basic_Slideshow_Form extends Mixin_Display_Type_Form
             'flash_transition_effect',
             'Transition / fade effect',
             array(
-                'fade'     => __('fade',     'nggallery'),
-                'bgfade'   => __('bgfade',   'nggallery'),
-                'slowfade' => __('slowfade', 'nggallery'),
-                'circles'  => __('circles',  'nggallery'),
-                'bubbles'  => __('bubbles',  'nggallery'),
-                'blocks'   => __('blocks',   'nggallery'),
-                'fluids'   => __('fluids',   'nggallery'),
-                'flash'    => __('flash',    'nggallery'),
-                'lines'    => __('lines',    'nggallery'),
-                'random'   => __('random',   'nggallery')
+                'fade' => 'fade',
+                'bgfade' => 'bgfade',
+                'slowfade' => 'slowfade',
+                'circles' => 'circles',
+                'bubbles' => 'bubbles',
+                'blocks' => 'blocks',
+                'fluids' => 'fluids',
+                'flash' => 'flash',
+                'lines' => 'lines',
+                'random' => 'random'
             ),
             $display_type->settings['flash_transition_effect'],
             '',

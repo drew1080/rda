@@ -2,9 +2,9 @@
 /*
 UpdraftPlus Addon: reporting:Sophisticated reporting options
 Description: Provides various new reporting capabilities
-Version: 1.6
+Version: 1.5
 Shop: /shop/reporting/
-Latest Change: 1.9.27
+Latest Change: 1.9.16
 */
 
 # Future possibility: more reporting options; e.g. HTTP ping; tweet, etc.
@@ -21,8 +21,6 @@ class UpdraftPlus_Addon_Reporting {
 	private $syslog;
 
 	public function __construct() {
-		add_filter('updraftplus_showbackup_date', array($this, 'showbackup_date'), 10, 2);
-		add_filter('updraft_backupnow_options', array($this, 'backupnow_options'));
 		add_filter('updraftplus_report_form', array($this, 'updraftplus_report_form'));
 		add_filter('updraftplus_saveemails', array($this, 'saveemails'), 10, 2);
 		add_filter('updraft_report_sendto', array($this, 'updraft_report_sendto'), 10, 5);
@@ -31,7 +29,6 @@ class UpdraftPlus_Addon_Reporting {
 		add_filter('updraft_report_subject', array($this, 'updraft_report_subject'), 10, 3);
 		add_filter('updraft_report_body', array($this, 'updraft_report_body'), 10, 6);
 		add_filter('updraft_report_attachments', array($this, 'updraft_report_attachments'));
-		add_action('updraft_backupnow_modal_afteroptions', array($this, 'backupnow_modal_afteroptions'));
 		add_action('updraft_final_backup_history', array($this, 'final_backup_history'));
 		add_action('updraft_report_finished', array($this, 'report_finished'));
 		add_action('init', array($this, 'init'));
@@ -42,26 +39,6 @@ class UpdraftPlus_Addon_Reporting {
 	public function init() {
 		if (!UpdraftPlus_Options::get_updraft_option('updraft_log_syslog', false) || !function_exists('openlog') || !function_exists('syslog')) return;
 		if (false !== ($this->syslog = openlog($this->log_ident, LOG_ODELAY|LOG_PID, $this->log_facility))) add_filter('updraftplus_logline', array($this, 'logline'), 10, 3);
-	}
-
-	public function showbackup_date($date, $backup) {
-		if (!is_array($backup) || empty($backup['label'])) return $date;
-		return $date.'<br>'.htmlspecialchars($backup['label']);
-	}
-
-	public function backupnow_modal_afteroptions() {
-		?>
-		<p>
-		<label for="backupnow_label"><?php _e('Your label for this backup (optional)', 'updraftplus');?>:</label> <input type="text" id="backupnow_label" name="label" size="40" maxlength="40">
-		</p>
-		<?php
-	}
-
-
-	public function backupnow_options($options) {
-		if (!is_array($options)) return $options;
-		if (!empty($_REQUEST['backupnow_label']) && is_string($_REQUEST['backupnow_label'])) $options['label'] = substr($_REQUEST['backupnow_label'], 0, 40);
-		return $options;
 	}
 
 	public function logline($line, $nonce, $level) {
@@ -122,7 +99,7 @@ class UpdraftPlus_Addon_Reporting {
 		ob_start();
 		?>
 <style type="text/css">.rowlabel { font-weight: bold; width: 200px; float: left; clear: left;} .rowvalue { float: left; } h1, h2, h3, p, pre, ul { float: left; clear: left;} h1, h3, ul { margin-top: 2px; margin-bottom: 0; }</style>
-<h1><?php echo get_bloginfo('name').': '.__('Backup Report', 'updraftplus');?></h1>
+<h1><?php echo get_bloginfo('name').': '.__('Backup Report', 'updraftplus	');?></h1>
 <p style="float: left; clear: left; margin: 0 0 8px;"><em>Backup made by <a href="http://updraftplus.com">UpdraftPlus <?php echo $updraftplus->version; ?></em></a></p>
 <?php
 	$ws_advert = $updraftplus->wordshell_random_advert(1);

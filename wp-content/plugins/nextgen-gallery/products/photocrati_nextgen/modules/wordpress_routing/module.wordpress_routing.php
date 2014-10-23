@@ -8,10 +8,7 @@
  ***/
 class M_WordPress_Routing extends C_Base_Module
 {
-    static $_use_canonical_redirect = TRUE;
-    static $_use_old_slugs          = TRUE;
-
-    function define()
+	function define()
 	{
 		parent::define(
 			'photocrati-wordpress_routing',
@@ -30,21 +27,12 @@ class M_WordPress_Routing extends C_Base_Module
         $this->get_registry()->add_adapter('I_Routing_App', 'A_WordPress_Routing_App');
 	}
 
-    function _register_hooks()
-    {
-        add_action('template_redirect', array(&$this, 'restore_request_uri'), 1);
-
-        // These two things cause conflicts in NGG. So we temporarily
-        // disable them and then reactivate them, if they were used,
-        // in the restore_request_uri() method
-        if (has_action('template_redirect', 'wp_old_slug_redirect')) {
-            remove_action( 'template_redirect', 'wp_old_slug_redirect');
-        }
-        if (has_action('template_redirect', 'redirect_canonical')) {
-            remove_action( 'template_redirect', 'redirect_canonical');
-        }
-    }
-
+	function _register_hooks()
+	{
+        remove_action( 'template_redirect', 'wp_old_slug_redirect');
+        remove_action( 'template_redirect', 'redirect_canonical');
+		add_action('template_redirect', array(&$this, 'restore_request_uri'), 1);
+	}
 
     /**
      * When WordPress sees a url like http://foobar.com/nggallery/page/2/, it thinks that it is an
@@ -57,10 +45,9 @@ class M_WordPress_Routing extends C_Base_Module
             $request_uri    = $_SERVER['ORIG_REQUEST_URI'];
             $_SERVER['UNENCODED_URL'] = $_SERVER['HTTP_X_ORIGINAL_URL'] = $_SERVER['REQUEST_URI'] = $request_uri;
 		}
-        // this is the proper behavior but it causes problems with WPML
         else {
-            if (self::$_use_old_slugs) wp_old_slug_redirect();
-            if (self::$_use_canonical_redirect) redirect_canonical();
+            wp_old_slug_redirect();
+            redirect_canonical();
         }
 	}
 

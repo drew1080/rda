@@ -3,10 +3,6 @@
 	var api = wp.customize;
 
 	/**
-	 * @constructor
-	 * @augments wp.customize.Value
-	 * @augments wp.customize.Class
-	 *
 	 * @param options
 	 * - previewer - The Previewer instance to sync with.
 	 * - transport - The transport to use for previewing. Supports 'refresh' and 'postMessage'.
@@ -30,10 +26,6 @@
 		}
 	});
 
-	/**
-	 * @constructor
-	 * @augments wp.customize.Class
-	 */
 	api.Control = api.Class.extend({
 		initialize: function( id, options ) {
 			var control = this,
@@ -45,7 +37,6 @@
 			this.id = id;
 			this.selector = '#customize-control-' + id.replace( /\]/g, '' ).replace( /\[/g, '-' );
 			this.container = $( this.selector );
-			this.active = new api.Value( this.params.active );
 
 			settings = $.map( this.params.settings, function( value ) {
 				return value;
@@ -88,32 +79,9 @@
 					element.set( setting() );
 				});
 			});
-
-			control.active.bind( function ( active ) {
-				control.toggle( active );
-			} );
-			control.toggle( control.active() );
 		},
 
-		/**
-		 * @abstract
-		 */
 		ready: function() {},
-
-		/**
-		 * Callback for change to the control's active state.
-		 *
-		 * Override function for custom behavior for the control being active/inactive.
-		 *
-		 * @param {Boolean} active
-		 */
-		toggle: function ( active ) {
-			if ( active ) {
-				this.container.slideDown();
-			} else {
-				this.container.slideUp();
-			}
-		},
 
 		dropdownInit: function() {
 			var control      = this,
@@ -152,11 +120,6 @@
 		}
 	});
 
-	/**
-	 * @constructor
-	 * @augments wp.customize.Control
-	 * @augments wp.customize.Class
-	 */
 	api.ColorControl = api.Control.extend({
 		ready: function() {
 			var control = this,
@@ -173,11 +136,6 @@
 		}
 	});
 
-	/**
-	 * @constructor
-	 * @augments wp.customize.Control
-	 * @augments wp.customize.Class
-	 */
 	api.UploadControl = api.Control.extend({
 		ready: function() {
 			var control = this;
@@ -231,12 +189,6 @@
 		}
 	});
 
-	/**
-	 * @constructor
-	 * @augments wp.customize.UploadControl
-	 * @augments wp.customize.Control
-	 * @augments wp.customize.Class
-	 */
 	api.ImageControl = api.UploadControl.extend({
 		ready: function() {
 			var control = this,
@@ -355,11 +307,6 @@
 		}
 	});
 
-	/**
-	 * @constructor
-	 * @augments wp.customize.Control
-	 * @augments wp.customize.Class
-	 */
 	api.HeaderControl = api.Control.extend({
 		ready: function() {
 			this.btnRemove        = $('#customize-control-header_image .actions .remove');
@@ -576,12 +523,6 @@
 	// Create the collection of Control objects.
 	api.control = new api.Values({ defaultConstructor: api.Control });
 
-	/**
-	 * @constructor
-	 * @augments wp.customize.Messenger
-	 * @augments wp.customize.Class
-	 * @mixes wp.customize.Events
-	 */
 	api.PreviewFrame = api.Messenger.extend({
 		sensitivity: 2000,
 
@@ -621,19 +562,6 @@
 			};
 
 			this.bind( 'ready', this._ready );
-
-			this.bind( 'ready', function ( data ) {
-				if ( ! data || ! data.activeControls ) {
-					return;
-				}
-
-				$.each( data.activeControls, function ( id, active ) {
-					var control = api.control( id );
-					if ( control ) {
-						control.active( active );
-					}
-				} );
-			} );
 
 			this.request = $.ajax( this.previewUrl(), {
 				type: 'POST',
@@ -752,22 +680,11 @@
 
 	(function(){
 		var uuid = 0;
-		/**
-		 * Create a universally unique identifier.
-		 *
-		 * @return {int}
-		 */
 		api.PreviewFrame.uuid = function() {
 			return 'preview-' + uuid++;
 		};
 	}());
 
-	/**
-	 * @constructor
-	 * @augments wp.customize.Messenger
-	 * @augments wp.customize.Class
-	 * @mixes wp.customize.Events
-	 */
 	api.Previewer = api.Messenger.extend({
 		refreshBuffer: 250,
 
@@ -973,6 +890,10 @@
 		}
 	});
 
+	/* =====================================================================
+	 * Ready.
+	 * ===================================================================== */
+
 	api.controlConstructor = {
 		color:  api.ColorControl,
 		upload: api.UploadControl,
@@ -992,12 +913,9 @@
 		if ( ! $.support.postMessage || ( ! $.support.cors && api.settings.isCrossDomain ) )
 			return window.location = api.settings.url.fallback;
 
-		var parent, topFocus,
+		var previewer, parent, topFocus,
 			body = $( document.body ),
-			overlay = body.children( '.wp-full-overlay' ),
-			title = $( '#customize-info .theme-name.site-title' ),
-			closeBtn = $( '.customize-controls-close' ),
-			saveBtn = $( '#save' );
+			overlay = body.children('.wp-full-overlay');
 
 		// Prevent the form from saving when enter is pressed on an input or select element.
 		$('#customize-controls').on( 'keydown', function( e ) {
@@ -1010,7 +928,7 @@
 		});
 
 		// Initialize Previewer
-		api.previewer = new api.Previewer({
+		previewer = new api.Previewer({
 			container:   '#customize-preview',
 			form:        '#customize-controls',
 			previewUrl:  api.settings.url.preview,
@@ -1087,14 +1005,14 @@
 		});
 
 		// Refresh the nonces if the preview sends updated nonces over.
-		api.previewer.bind( 'nonce', function( nonce ) {
+		previewer.bind( 'nonce', function( nonce ) {
 			$.extend( this.nonce, nonce );
 		});
 
 		$.each( api.settings.settings, function( id, data ) {
 			api.create( id, id, data.value, {
 				transport: data.transport,
-				previewer: api.previewer
+				previewer: previewer
 			} );
 		});
 
@@ -1104,16 +1022,15 @@
 
 			control = api.control.add( id, new constructor( id, {
 				params: data,
-				previewer: api.previewer
+				previewer: previewer
 			} ) );
 		});
 
 		// Check if preview url is valid and load the preview frame.
-		if ( api.previewer.previewUrl() ) {
-			api.previewer.refresh();
-		} else {
-			api.previewer.previewUrl( api.settings.url.home );
-		}
+		if ( previewer.previewUrl() )
+			previewer.refresh();
+		else
+			previewer.previewUrl( api.settings.url.home );
 
 		// Save and activated states
 		(function() {
@@ -1123,17 +1040,20 @@
 				processing = state.create( 'processing' );
 
 			state.bind( 'change', function() {
+				var save = $('#save'),
+					back = $('.back');
+
 				if ( ! activated() ) {
-					saveBtn.val( api.l10n.activate ).prop( 'disabled', false );
-					closeBtn.find( '.screen-reader-text' ).text( api.l10n.cancel );
+					save.val( api.l10n.activate ).prop( 'disabled', false );
+					back.text( api.l10n.cancel );
 
 				} else if ( saved() ) {
-					saveBtn.val( api.l10n.saved ).prop( 'disabled', true );
-					closeBtn.find( '.screen-reader-text' ).text( api.l10n.close );
+					save.val( api.l10n.saved ).prop( 'disabled', true );
+					back.text( api.l10n.close );
 
 				} else {
-					saveBtn.val( api.l10n.save ).prop( 'disabled', false );
-					closeBtn.find( '.screen-reader-text' ).text( api.l10n.cancel );
+					save.val( api.l10n.save ).prop( 'disabled', false );
+					back.text( api.l10n.cancel );
 				}
 			});
 
@@ -1161,18 +1081,18 @@
 		}());
 
 		// Button bindings.
-		saveBtn.click( function( event ) {
-			api.previewer.save();
+		$('#save').click( function( event ) {
+			previewer.save();
 			event.preventDefault();
 		}).keydown( function( event ) {
 			if ( 9 === event.which ) // tab
 				return;
 			if ( 13 === event.which ) // enter
-				api.previewer.save();
+				previewer.save();
 			event.preventDefault();
 		});
 
-		closeBtn.keydown( function( event ) {
+		$('.back').keydown( function( event ) {
 			if ( 9 === event.which ) // tab
 				return;
 			if ( 13 === event.which ) // enter
@@ -1193,13 +1113,6 @@
 			event.preventDefault();
 		});
 
-		// Bind site title display to the corresponding field.
-		if ( title.length ) {
-			$( '#customize-control-blogname input' ).on( 'input', function() {
-				title.text(  this.value );
-			} );
-		}
-
 		// Create a potential postMessage connection with the parent frame.
 		parent = new api.Messenger({
 			url: api.settings.url.parent,
@@ -1209,25 +1122,16 @@
 		// If we receive a 'back' event, we're inside an iframe.
 		// Send any clicks to the 'Return' link to the parent page.
 		parent.bind( 'back', function() {
-			closeBtn.on( 'click.customize-controls-close', function( event ) {
+			$('.back').on( 'click.back', function( event ) {
 				event.preventDefault();
 				parent.send( 'close' );
 			});
 		});
 
-		// Prompt user with AYS dialog if leaving the Customizer with unsaved changes
-		$( window ).on( 'beforeunload', function () {
-			if ( ! api.state( 'saved' )() ) {
-				return api.l10n.saveAlert;
-			}
-		} );
-
 		// Pass events through to the parent.
-		$.each( [ 'saved', 'change' ], function ( i, event ) {
-			api.bind( event, function() {
-				parent.send( event );
-			});
-		} );
+		api.bind( 'saved', function() {
+			parent.send( 'saved' );
+		});
 
 		// When activated, let the loader handle redirecting the page.
 		// If no loader exists, redirect the page ourselves (if a url exists).
@@ -1294,7 +1198,7 @@
 		api.trigger( 'ready' );
 
 		// Make sure left column gets focus
-		topFocus = closeBtn;
+		topFocus = $('.back');
 		topFocus.focus();
 		setTimeout(function () {
 			topFocus.focus();

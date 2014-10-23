@@ -1,10 +1,12 @@
 @import "form-reset";
 @import "form-theme-base";
 
+
+
 .mc4wp-form input[type="submit"],
 .mc4wp-form button {
   color: #ffffff !important;
-  background-color: #d9534f !important;
+  background-color: #d9534f;
   border-color: #d43f3a;
 }
 
@@ -14,8 +16,8 @@
 .mc4wp-form button:active,
 .mc4wp-form input[type="submit"]:focus,
 .mc4wp-form button:focus {
-  color: #ffffff !important;
-  background-color: #d2322d !important;
+  color: #ffffff;
+  background-color: #d2322d;
   border-color: #ac2925;
 }
 

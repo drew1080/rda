@@ -125,7 +125,7 @@ jQuery( function ( $ ) {
 	});
 	$('.checkforspam:not(.button-disabled)').click( function(e) {
 		$('.checkforspam:not(.button-disabled)').addClass('button-disabled');
-		$('.checkforspam-spinner').addClass( 'spinner' );
+		$('.checkforspam-spinner').show();
 		akismet_check_for_spam(0, 100);
 		e.preventDefault();
 	});

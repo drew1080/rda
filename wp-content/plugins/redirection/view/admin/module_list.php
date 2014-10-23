@@ -1,6 +1,7 @@
 <?php if ( !defined( 'ABSPATH' ) ) die( 'No direct access allowed' ); ?>
 <div class="wrap">
 	<?php screen_icon(); ?>
+	<?php $this->render_admin('annoy' )?>
 
 	<h2><?php _e( 'Modules', 'redirection' ); ?></h2>
 
@@ -13,6 +14,7 @@
 				<th class="left"><?php _e( 'Details', 'redirection' ); ?></th>
 				<th><?php _e( 'Groups', 'redirection' ); ?></th>
 				<th><?php _e( 'Items', 'redirection' ); ?></th>
+				<th><?php _e( 'Hits', 'redirection' ); ?></th>
 				<th><?php _e( 'Operations', 'redirection' ); ?></th>
 			</tr>
 
