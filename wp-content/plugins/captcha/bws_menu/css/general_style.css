@@ -7,7 +7,7 @@
 #adminmenu #toplevel_page_bws_plugins.wp-not-current-submenu div.wp-menu-image {
 	opacity: 0.7;
 }
-#toplevel_page_bws_plugins .wp-submenu .wp-first-item {
+.sticky-menu #toplevel_page_bws_plugins .wp-submenu .wp-first-item {
 	display: none;
 }
 /*
@@ -116,6 +116,13 @@ table.bws_pro_version td {
 .bws_pro_version_tooltip .bws_info {
     float: left;
     padding-top: 10px;
+}
+.bws_pro_version_tooltip .bws_pro_links {
+    float: right;
+}
+.bws_pro_version_tooltip .bws_trial_info {
+    padding-top: 10px;
+    display: inline-block;
 }
 div.bws_pro_version {
     padding: 5px 10px;

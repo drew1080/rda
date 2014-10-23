@@ -1,7 +1,13 @@
 <?php
-/*  
-Copyright 2010-2014 Arnan de Gans - AJdG Solutions (email : info@ajdg.net)
-*/
+/* ------------------------------------------------------------------------------------
+*  COPYRIGHT AND TRADEMARK NOTICE
+*  Copyright 2008-2014 AJdG Solutions (Arnan de Gans). All Rights Reserved.
+*  ADROTATE is a trademark (pending registration) of Arnan de Gans.
+
+*  COPYRIGHT NOTICES AND ALL THE COMMENTS SHOULD REMAIN INTACT.
+*  By using this code you agree to indemnify Arnan de Gans from any
+*  liability that might arise from it's use.
+------------------------------------------------------------------------------------ */
 ?>
 <h3><?php _e('Manage Groups', 'adrotate'); ?></h3>
 
@@ -31,7 +37,6 @@ Copyright 2010-2014 Arnan de Gans - AJdG Solutions (email : info@ajdg.net)
 			<th width="5%"><center><?php _e('Clicks', 'adrotate'); ?></center></th>
 			<th width="5%"><center><?php _e('Today', 'adrotate'); ?></center></th>
 			<th width="15%"><center><?php _e('Code', 'adrotate'); ?></center></th>
-			<th width="8%"><center><?php _e('Fallback', 'adrotate'); ?></center></th>
 		</tr>
 			</thead>
 		<tbody>
@@ -49,9 +54,11 @@ Copyright 2010-2014 Arnan de Gans - AJdG Solutions (email : info@ajdg.net)
 				if(empty($stats['clicks']))	$stats['clicks'] = 0;
 				if(empty($stats_today['impressions'])) $stats_today['impressions'] = 0;
 				if(empty($stats_today['clicks'])) $stats_today['clicks'] = 0;
+				if($group->adspeed > 0) $adspeed = $group->adspeed / 1000;
 		        if($group->modus == 0) $modus[] = __('Default', 'adrotate');
-		        if($group->modus == 1) $modus[] = __('Dynamic', 'adrotate');
-		        if($group->modus == 2) $modus[] = __('Block', 'adrotate');
+		        if($group->modus == 1) $modus[] = __('Dynamic', 'adrotate').' ('.$adspeed.' '. __('second rotation', 'adrotate').')';
+		        if($group->modus == 2) $modus[] = __('Block', 'adrotate').' ('.$group->gridrows.' x '.$group->gridcolumns.' '. __('grid', 'adrotate').')';
+		        if($group->cat_loc > 0 OR $group->page_loc > 0) $modus[] = __('Post Injection', 'adrotate');
 		        if($group->geo == 1) $modus[] = __('Geolocation', 'adrotate');
 
 				$ads_in_group = $wpdb->get_var("SELECT COUNT(*) FROM `".$wpdb->prefix."adrotate_linkmeta` WHERE `group` = ".$group->id." AND `block` = 0;");
@@ -59,16 +66,15 @@ Copyright 2010-2014 Arnan de Gans - AJdG Solutions (email : info@ajdg.net)
 			    <tr class='<?php echo $class; ?>'>
 					<th class="check-column"><input type="checkbox" name="groupcheck[]" value="<?php echo $group->id; ?>" /></th>
 					<td><center><?php echo $group->id;?></center></td>
-					<td><strong><a class="row-title" href="<?php echo admin_url('/admin.php?page=adrotate-groups&view=edit&group='.$group->id);?>" title="<?php _e('Edit', 'adrotate'); ?>"><?php echo $group->name;?></a></strong> - <a href="<?php echo admin_url('/admin.php?page=adrotate-groups&view=report&group='.$group->id);?>" title="<?php _e('Stats', 'adrotate'); ?>"><?php _e('Stats', 'adrotate'); ?></a><span style="color:#999;"><?php echo '<br /><span style="font-weight:bold;">Mode:</span> '.implode(', ', $modus); ?></span></td>
+					<td><strong><a class="row-title" href="<?php echo admin_url('/admin.php?page=adrotate-groups&view=edit&group='.$group->id);?>" title="<?php _e('Edit', 'adrotate'); ?>"><?php echo $group->name;?></a></strong> - <a href="<?php echo admin_url('/admin.php?page=adrotate-groups&view=report&group='.$group->id);?>" title="<?php _e('Report', 'adrotate'); ?>"><?php _e('Report', 'adrotate'); ?></a><span style="color:#999;"><?php echo '<br /><span style="font-weight:bold;">'.__('Mode', 'adrotate').':</span> '.implode(', ', $modus); ?></span></td>
 					<td><center><?php echo $ads_in_group; ?></center></td>
 					<td><center><?php echo $stats['impressions']; ?></center></td>
 					<td><center><?php echo $stats_today['impressions']; ?></center></td>
 					<td><center><?php echo $stats['clicks']; ?></center></td>
 					<td><center><?php echo $stats_today['clicks']; ?></center></td>
 					<td><center>[adrotate group="<?php echo $group->id; ?>"]</center></td>
-					<td><center>Pro Only</center></td>
 				</tr>
-				<?php unset($stats, $modus);?>
+				<?php unset($stats, $stats_today, $adspeed, $modus);?>
  			<?php } ?>
 		<?php } else { ?>
 		<tr>
@@ -78,4 +84,5 @@ Copyright 2010-2014 Arnan de Gans - AJdG Solutions (email : info@ajdg.net)
 		<?php } ?>
 			</tbody>
 	</table>
+	<center><?php _e('Get more features with AdRotate Pro.', 'adrotate'); ?> <a href="admin.php?page=adrotate-pro"><?php _e('More information', 'adrotate'); ?></a>.</center>
 </form>

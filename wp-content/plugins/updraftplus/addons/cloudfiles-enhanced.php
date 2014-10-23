@@ -2,10 +2,10 @@
 /*
 UpdraftPlus Addon: cloudfiles-enhanced:Rackspace Cloud Files, enhanced
 Description: Adds enhanced capabilities for Rackspace Cloud Files users
-Version: 1.0
+Version: 1.1
 RequiresPHP: 5.3.3
 Shop: /shop/cloudfiles-enhanced/
-Latest Change: 1.7.44
+Latest Change: 1.9.17
 */
 
 # Future possibility: sub-folders

@@ -11,6 +11,7 @@ function updraft_delete(key, nonce, showremote) {
 
 function updraft_openrestorepanel(toggly) {
 	//jQuery('.download-backups').slideDown(); updraft_historytimertoggle(1); jQuery('html,body').animate({scrollTop: jQuery('#updraft_lastlogcontainer').offset().top},'slow');
+	updraft_console_focussed_tab = 2;
 	updraft_historytimertoggle(toggly);
 	jQuery('#updraft-navtab-status-content').hide();
 	jQuery('#updraft-navtab-expert-content').hide();
@@ -63,6 +64,26 @@ var lastlog_lastdata = "";
 var lastlog_jobs = "";
 var lastlog_sdata = { action: 'updraft_ajax', subaction: 'lastlog' };
 var updraft_activejobs_nextupdate = (new Date).getTime() + 1000;
+// Bits: main tab displayed (1); restore dialog open (uses downloader) (2); tab not visible (4)
+// TODO: Detect downloaders directly instead of using this bit
+var updraft_page_is_visible = 1;
+var updraft_console_focussed_tab = 1;
+
+function updraft_check_page_visibility(firstload) {
+	if ('hidden' == document["visibilityState"]) {
+		updraft_page_is_visible = 0;
+	} else {
+		updraft_page_is_visible = 1;
+		if (1 !== firstload) { updraft_activejobs_update(true); }
+	};
+}
+
+// See http://caniuse.com/#feat=pagevisibility for compatibility (we don't bother with prefixes)
+if (typeof document.hidden !== "undefined") {
+	document.addEventListener('visibilitychange', function() {updraft_check_page_visibility(0);}, false);
+}
+
+updraft_check_page_visibility(1);
 
 function updraft_activejobs_update(force) {
 	var timenow = (new Date).getTime();
@@ -80,11 +101,16 @@ function updraft_activejobs_update(force) {
  		try {
 			resp = jQuery.parseJSON(response);
 			timenow = (new Date).getTime();
-			if (lastlog_lastdata == response) {
-				updraft_activejobs_nextupdate = timenow + 4500;
-			} else {
-				updraft_activejobs_nextupdate = timenow + 1200;
+			updraft_activejobs_nextupdate = timenow + 180000;
+			// More rapid updates needed if a) we are on the main console, or b) a downloader is open (which can only happen on the restore console)
+			if (updraft_page_is_visible == 1 && (1 == updraft_console_focussed_tab || (2 == updraft_console_focussed_tab && downloaders != ''))) {
+				if (lastlog_lastdata == response) {
+					updraft_activejobs_nextupdate = timenow + 4500;
+				} else {
+					updraft_activejobs_nextupdate = timenow + 1250;
+				}
 			}
+
 			//if (repeat) { setTimeout(function(){updraft_activejobs_update(true);}, nexttimer);}
 			lastlog_lastdata = response;
 			if (resp.l != null) { jQuery('#updraft_lastlogcontainer').html(resp.l); }
@@ -114,6 +140,41 @@ function updraft_activejobs_update(force) {
 			console.log(err);
 		}
 	});
+}
+
+//function to display pop-up window containing the log
+function updraft_popuplog(backup_nonce){ 
+		
+		popuplog_sdata = {
+			action: 'updraft_ajax',
+			subaction: 'poplog',
+			nonce: updraft_credentialtest_nonce,
+			backup_nonce: backup_nonce
+		};
+
+		jQuery.get(ajaxurl, popuplog_sdata, function(response){
+
+			var resp = jQuery.parseJSON(response);
+			
+			var download_url = '?page=updraftplus&action=downloadlog&force_download=1&updraftplus_backup_nonce='+resp.nonce;
+			
+			jQuery('#updraft-poplog-content').html('<pre style="white-space: pre-wrap;">'+resp.html+'</pre>'); //content of the log file
+			
+			var log_popup_buttons = {};
+			log_popup_buttons[updraftlion.download] = function() { window.location.href = download_url; };
+			log_popup_buttons[updraftlion.close] = function() { jQuery(this).dialog("close"); };
+			
+			//Set the dialog buttons: Download log, Close log
+			jQuery('#updraft-poplog').dialog("option", "buttons", log_popup_buttons);
+			//[
+				//{ text: "Download", click: function() { window.location.href = download_url } },
+				//{ text: "Close", click: function(){ jQuery( this ).dialog("close");} }
+			//] 
+			
+			jQuery('#updraft-poplog').dialog("option", "title", 'log.'+resp.nonce+'.txt'); //Set dialog title
+			jQuery('#updraft-poplog').dialog("open");
+			
+		});
 }
 
 function updraft_showlastlog(repeat){
@@ -306,6 +367,7 @@ function updraft_downloader(base, nonce, what, whicharea, set_contents, prettyda
 			//(function(base, nonce, what, i) {
 			//	setTimeout(function(){updraft_downloader_status(base, nonce, what, i);}, 300);
 			//})(base, nonce, what, set_contents[i]);
+			setTimeout(function() {updraft_activejobs_update(true);}, 1500);
 		}
 		// Now send the actual request to kick it all off
 		jQuery.ajax({
@@ -463,7 +525,7 @@ jQuery(document).ready(function($){
 	if (bigbutton_width > 180) jQuery('.updraft-bigbutton').width(bigbutton_width);
 
 	//setTimeout(function(){updraft_showlastlog(true);}, 1200);
-	setInterval(function() {updraft_activejobs_update(false);}, 1200);
+	setInterval(function() {updraft_activejobs_update(false);}, 1250);
 
 	jQuery('.updraftplusmethod').hide();
 	
@@ -602,7 +664,15 @@ jQuery(document).ready(function($){
 		}, 1700);
 		setTimeout(function() {updraft_activejobs_update(true);}, 1000);
 		setTimeout(function() {jQuery('#updraft_backup_started').fadeOut('slow');}, 75000);
-		jQuery.post(ajaxurl, { action: 'updraft_ajax', subaction: 'backupnow', nonce: updraft_credentialtest_nonce, backupnow_nodb: backupnow_nodb, backupnow_nofiles: backupnow_nofiles, backupnow_nocloud: backupnow_nocloud }, function(response) {
+		jQuery.post(ajaxurl, {
+			action: 'updraft_ajax',
+			subaction: 'backupnow',
+			nonce: updraft_credentialtest_nonce,
+			backupnow_nodb: backupnow_nodb,
+			backupnow_nofiles: backupnow_nofiles,
+			backupnow_nocloud: backupnow_nocloud,
+			backupnow_label: jQuery('#backupnow_label').val()
+		}, function(response) {
 			jQuery('#updraft_backup_started').html(response);
 			// Kick off some activity to get WP to get the scheduled task moving as soon as possible
 // 			setTimeout(function() {jQuery.get(updraft_siteurl);}, 5100);
@@ -612,7 +682,7 @@ jQuery(document).ready(function($){
 	backupnow_modal_buttons[updraftlion.cancel] = function() { jQuery(this).dialog("close"); };
 	
 	jQuery("#updraft-backupnow-modal" ).dialog({
-		autoOpen: false, height: 335, width: 480, modal: true,
+		autoOpen: false, height: 355, width: 480, modal: true,
 		buttons: backupnow_modal_buttons
 	});
 
@@ -622,7 +692,11 @@ jQuery(document).ready(function($){
 		autoOpen: false, height: 295, width: 420, modal: true,
 		buttons: migrate_modal_buttons
 	});
-
+	
+	jQuery( "#updraft-poplog" ).dialog({
+		autoOpen: false, height: 600, width: '75%', modal: true,
+	});
+	
 	jQuery('#enableexpertmode').click(function() {
 		jQuery('.expertmode').fadeIn();
 		jQuery('#enableexpertmode').off('click'); 
@@ -671,6 +745,10 @@ jQuery(document).ready(function($){
 		jQuery('#updraft-navtab-expert').removeClass('nav-tab-active');
 		jQuery('#updraft-navtab-backups').removeClass('nav-tab-active');
 		jQuery('#updraft-navtab-settings').removeClass('nav-tab-active');
+		updraft_page_is_visible = 1;
+		updraft_console_focussed_tab = 1;
+		// Refresh the console, as its next update might be far away
+		updraft_activejobs_update(true);
 	});
 	jQuery('#updraft-navtab-expert').click(function(e) {
 		e.preventDefault();
@@ -682,6 +760,8 @@ jQuery(document).ready(function($){
 		jQuery('#updraft-navtab-status').removeClass('nav-tab-active');
 		jQuery('#updraft-navtab-backups').removeClass('nav-tab-active');
 		jQuery('#updraft-navtab-settings').removeClass('nav-tab-active');
+		updraft_page_is_visible = 1;
+		updraft_console_focussed_tab = 4;
 	});
 	jQuery('#updraft-navtab-settings, #updraft-navtab-settings2').click(function(e) {
 		e.preventDefault();
@@ -693,6 +773,8 @@ jQuery(document).ready(function($){
 		jQuery('#updraft-navtab-expert').removeClass('nav-tab-active');
 		jQuery('#updraft-navtab-backups').removeClass('nav-tab-active');
 		jQuery('#updraft-navtab-status').removeClass('nav-tab-active');
+		updraft_page_is_visible = 1;
+		updraft_console_focussed_tab = 3;
 	});
 	jQuery('#updraft-navtab-backups').click(function(e) {
 		e.preventDefault();
@@ -855,14 +937,16 @@ jQuery(document).ready(function($){
 				resp = jQuery.parseJSON(response);
 				if (resp.e) {
 					alert(resp.e);
-				} else if (resp.r) {
-					$('#updraftplus_httpget_results').html(resp.r);
+				}
+				if (resp.r) {
+					$('#updraftplus_httpget_results').html('<pre>'+resp.r+'</pre>');
 				} else {
 					console.log(response);
-					alert(updraftlion.jsonnotunderstood);
+					//alert(updraftlion.jsonnotunderstood);
 				}
 				
 			} catch(err) {
+				console.log(err);
 				console.log(response);
 				alert(updraftlion.jsonnotunderstood);
 			}

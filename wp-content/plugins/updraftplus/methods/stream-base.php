@@ -314,7 +314,7 @@ class UpdraftPlus_AddonStorage_viastream {
 			die;
 		}
 
-		@mkdir($url);
+		$x = @mkdir($url);
 
 		$testfile = $url.'/'.md5(time().rand());
 		if (file_put_contents($testfile, 'test')) {

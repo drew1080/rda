@@ -1,22 +1,28 @@
 <?php
 /*
 Plugin Name: AdRotate
-Plugin URI: http://www.adrotateplugin.com
+Plugin URI: https://www.adrotateplugin.com
 Description: The very best and most convenient way to publish your ads.
 Author: Arnan de Gans of AJdG Solutions
-Version: 3.9.13
-Author URI: http://www.ajdg.net
+Version: 3.10.10
+Author URI: http://ajdg.solutions/
 License: GPLv3
 */
 
-/*  
-Copyright 2010-2014 Arnan de Gans - AJdG Solutions (email : info@ajdg.net)
-*/
+/* ------------------------------------------------------------------------------------
+*  COPYRIGHT AND TRADEMARK NOTICE
+*  Copyright 2008-2014 AJdG Solutions (Arnan de Gans). All Rights Reserved.
+*  ADROTATE is a trademark (pending registration) of Arnan de Gans.
+
+*  COPYRIGHT NOTICES AND ALL THE COMMENTS SHOULD REMAIN INTACT.
+*  By using this code you agree to indemnify Arnan de Gans from any
+*  liability that might arise from it's use.
+------------------------------------------------------------------------------------ */
 
 /*--- AdRotate values ---------------------------------------*/
-define("ADROTATE_DISPLAY", '3.9.13');
-define("ADROTATE_VERSION", 371);
-define("ADROTATE_DB_VERSION", 41);
+define("ADROTATE_DISPLAY", '3.10.10');
+define("ADROTATE_VERSION", 374);
+define("ADROTATE_DB_VERSION", 44);
 define("ADROTATE_FOLDER", 'adrotate');
 /*-----------------------------------------------------------*/
 
@@ -25,20 +31,20 @@ include_once(WP_CONTENT_DIR.'/plugins/'.ADROTATE_FOLDER.'/adrotate-setup.php');
 include_once(WP_CONTENT_DIR.'/plugins/'.ADROTATE_FOLDER.'/adrotate-manage-publisher.php');
 include_once(WP_CONTENT_DIR.'/plugins/'.ADROTATE_FOLDER.'/adrotate-functions.php');
 include_once(WP_CONTENT_DIR.'/plugins/'.ADROTATE_FOLDER.'/adrotate-statistics.php');
+include_once(WP_CONTENT_DIR.'/plugins/'.ADROTATE_FOLDER.'/adrotate-export.php');
 include_once(WP_CONTENT_DIR.'/plugins/'.ADROTATE_FOLDER.'/adrotate-output.php');
 include_once(WP_CONTENT_DIR.'/plugins/'.ADROTATE_FOLDER.'/adrotate-widget.php');
 /*-----------------------------------------------------------*/
 
 /*--- Check and Load config ---------------------------------*/
 load_plugin_textdomain('adrotate', false, basename(dirname(__FILE__)) . '/language');
-adrotate_check_config();
-$adrotate_config 				= get_option('adrotate_config');
-$adrotate_crawlers 				= get_option('adrotate_crawlers');
-$adrotate_roles 				= get_option('adrotate_roles');
-$adrotate_version				= get_option("adrotate_version");
-$adrotate_db_version			= get_option("adrotate_db_version");
-$adrotate_debug					= get_option("adrotate_debug");
-$adrotate_advert_status			= get_option("adrotate_advert_status");
+$adrotate_config = get_option('adrotate_config');
+$adrotate_crawlers = get_option('adrotate_crawlers');
+$adrotate_roles = get_option('adrotate_roles');
+$adrotate_version = get_option("adrotate_version");
+$adrotate_db_version = get_option("adrotate_db_version");
+$adrotate_debug	= get_option("adrotate_debug");
+$adrotate_advert_status = get_option("adrotate_advert_status");
 /*-----------------------------------------------------------*/
 
 /*--- Core --------------------------------------------------*/
@@ -54,33 +60,33 @@ add_action('widgets_init', create_function('', 'return register_widget("adrotate
 if(!is_admin()) {
 	add_shortcode('adrotate', 'adrotate_shortcode');
 	add_action("wp_enqueue_scripts", 'adrotate_custom_scripts');
-	add_action('wp_head', 'adrotate_custom_head');
+	add_action('wp_head', 'adrotate_custom_css');
+	add_filter('the_content', 'adrotate_inject_pages');
 	add_filter('the_content', 'adrotate_inject_posts');
 }
 /*-----------------------------------------------------------*/
 
 /*--- Back End ----------------------------------------------*/
 if(is_admin()) {
+	adrotate_check_config();
 	add_action('admin_init', 'adrotate_check_upgrade');
 	add_action('admin_menu', 'adrotate_dashboard');
 	add_action("admin_enqueue_scripts", 'adrotate_dashboard_scripts');
 	add_action("admin_print_styles", 'adrotate_dashboard_styles');
 	add_action('admin_notices','adrotate_notifications_dashboard');
+	/*--- Internal redirects ------------------------------------*/
+	if(isset($_POST['adrotate_ad_submit'])) add_action('init', 'adrotate_insert_input');
+	if(isset($_POST['adrotate_group_submit'])) add_action('init', 'adrotate_insert_group');
+	if(isset($_POST['adrotate_action_submit'])) add_action('init', 'adrotate_request_action');
+	if(isset($_POST['adrotate_disabled_action_submit'])) add_action('init', 'adrotate_request_action');
+	if(isset($_POST['adrotate_error_action_submit'])) add_action('init', 'adrotate_request_action');
+	if(isset($_POST['adrotate_options_submit'])) add_action('init', 'adrotate_options_submit');
+	if(isset($_POST['adrotate_request_submit'])) add_action('init', 'adrotate_mail_message');
+	if(isset($_POST['adrotate_db_optimize_submit'])) add_action('init', 'adrotate_optimize_database');
+	if(isset($_POST['adrotate_db_cleanup_submit'])) add_action('init', 'adrotate_cleanup_database');
+	if(isset($_POST['adrotate_evaluate_submit'])) add_action('init', 'adrotate_prepare_evaluate_ads');
 }
-/*-----------------------------------------------------------*/
 
-/*--- Internal redirects ------------------------------------*/
-if(isset($_POST['adrotate_ad_submit'])) 				add_action('init', 'adrotate_insert_input');
-if(isset($_POST['adrotate_group_submit'])) 				add_action('init', 'adrotate_insert_group');
-if(isset($_POST['adrotate_action_submit'])) 			add_action('init', 'adrotate_request_action');
-if(isset($_POST['adrotate_disabled_action_submit']))	add_action('init', 'adrotate_request_action');
-if(isset($_POST['adrotate_error_action_submit']))		add_action('init', 'adrotate_request_action');
-if(isset($_POST['adrotate_options_submit'])) 			add_action('init', 'adrotate_options_submit');
-if(isset($_POST['adrotate_request_submit'])) 			add_action('init', 'adrotate_mail_message');
-if(isset($_POST['adrotate_db_optimize_submit'])) 		add_action('init', 'adrotate_optimize_database');
-if(isset($_POST['adrotate_db_cleanup_submit'])) 		add_action('init', 'adrotate_cleanup_database');
-if(isset($_POST['adrotate_evaluate_submit'])) 			add_action('init', 'adrotate_prepare_evaluate_ads');
-/*-----------------------------------------------------------*/
 
 /*-------------------------------------------------------------
  Name:      adrotate_dashboard
@@ -90,11 +96,20 @@ if(isset($_POST['adrotate_evaluate_submit'])) 			add_action('init', 'adrotate_pr
  Return:    -none-
 -------------------------------------------------------------*/
 function adrotate_dashboard() {
-	add_menu_page('AdRotate', 'AdRotate', 'adrotate_ad_manage', 'adrotate', 'adrotate_info', '', '25.9');
+	global $adrotate_config, $adrotate_server;
+
+	add_menu_page('AdRotate', 'AdRotate', 'adrotate_ad_manage', 'adrotate', 'adrotate_info', plugins_url('/images/icon.png', __FILE__), '25.8');
 	add_submenu_page('adrotate', 'AdRotate > '.__('General Info', 'adrotate'), __('General Info', 'adrotate'), 'adrotate_ad_manage', 'adrotate', 'adrotate_info');
-	add_submenu_page('adrotate', 'AdRotate > '.__('Manage Ads', 'adrotate'), __('Manage Ads', 'adrotate'), 'adrotate_ad_manage', 'adrotate-ads', 'adrotate_manage');
+	add_submenu_page('adrotate', 'AdRotate > '.__('AdRotate Pro', 'adrotate'), __('AdRotate Pro', 'adrotate'), 'adrotate_ad_manage', 'adrotate-pro', 'adrotate_pro');
+	if($adrotate_server['adrotate_server_puppet'] == 0) {
+		add_submenu_page('adrotate', 'AdRotate > '.__('Manage Ads', 'adrotate'), __('Manage Ads', 'adrotate'), 'adrotate_ad_manage', 'adrotate-ads', 'adrotate_manage');
+	}
 	add_submenu_page('adrotate', 'AdRotate > '.__('Manage Groups', 'adrotate'), __('Manage Groups', 'adrotate'), 'adrotate_group_manage', 'adrotate-groups', 'adrotate_manage_group');
-	add_submenu_page('adrotate', 'AdRotate > '.__('Global Reports', 'adrotate'), __('Global Reports', 'adrotate'), 'manage_options', 'adrotate-global-report', 'adrotate_global_report');
+	if($adrotate_server['adrotate_server_puppet'] == 0) {
+		add_submenu_page('adrotate', 'AdRotate Pro > '.__('Manage Schedules', 'adrotate'), __('Manage Schedules', 'adrotate'), 'adrotate_schedule_manage', 'adrotate-schedules', 'adrotate_manage_schedules');
+		add_submenu_page('adrotate', 'AdRotate Pro > '.__('Manage Media', 'adrotate'), __('Manage Media', 'adrotate'), 'adrotate_ad_manage', 'adrotate-media', 'adrotate_manage_media');
+	}
+//	add_submenu_page('adrotate', 'AdRotate > '.__('AdRotate Server', 'adrotate'), __('AdRotate Server', 'adrotate'), 'manage_options', 'adrotate-server', 'adrotate_server');
 	add_submenu_page('adrotate', 'AdRotate > '.__('Settings', 'adrotate'), __('Settings', 'adrotate'), 'manage_options', 'adrotate-settings', 'adrotate_options');
 }
 
@@ -107,15 +122,34 @@ function adrotate_dashboard() {
 -------------------------------------------------------------*/
 function adrotate_info() {
 	global $wpdb, $adrotate_advert_status;
-
 	?>
-
 	<div class="wrap">
 		<h2><?php _e('AdRotate Info', 'adrotate'); ?></h2>
 
 		<br class="clear" />
 
 		<?php include("dashboard/adrotate-info.php"); ?>
+
+		<br class="clear" />
+	</div>
+<?php
+}
+
+/*-------------------------------------------------------------
+ Name:      adrotate_pro
+ 
+ Purpose:   AdRotate Pro Sales
+ Receive:   -none-
+ Return:    -none-
+-------------------------------------------------------------*/
+function adrotate_pro() {
+?>
+	<div class="wrap">
+		<h2><?php _e('AdRotate Professional', 'adrotate'); ?></h2>
+
+		<br class="clear" />
+
+		<?php include("dashboard/adrotate-pro.php"); ?>
 
 		<br class="clear" />
 	</div>
@@ -136,6 +170,7 @@ function adrotate_manage() {
 	if(isset($_GET['message'])) $message = esc_attr($_GET['message']);
 	if(isset($_GET['view'])) $view = esc_attr($_GET['view']);
 	if(isset($_GET['ad'])) $ad_edit_id = esc_attr($_GET['ad']);
+	if(isset($_GET['file'])) $file = esc_attr($_GET['file']);
 	$now 			= adrotate_now();
 	$today 			= adrotate_date_start('day');
 	$in2days 		= $now + 172800;
@@ -156,25 +191,29 @@ function adrotate_manage() {
 		<h2><?php _e('Ad Management', 'adrotate'); ?></h2>
 
 		<?php if ($message == 'new') { ?>
-			<div id="message" class="updated fade"><p><?php _e('Ad created', 'adrotate'); ?></p></div>
+			<div id="message" class="updated"><p><?php _e('Ad created', 'adrotate'); ?></p></div>
 		<?php } else if ($message == 'updated') { ?>
-			<div id="message" class="updated fade"><p><?php _e('Ad updated', 'adrotate'); ?></p></div>
+			<div id="message" class="updated"><p><?php _e('Ad updated', 'adrotate'); ?></p></div>
 		<?php } else if ($message == 'deleted') { ?>
-			<div id="message" class="updated fade"><p><?php _e('Ad(s) deleted', 'adrotate'); ?></p></div>
+			<div id="message" class="updated"><p><?php _e('Ad(s) deleted', 'adrotate'); ?></p></div>
 		<?php } else if ($message == 'reset') { ?>
-			<div id="message" class="updated fade"><p><?php _e('Ad(s) statistics reset', 'adrotate'); ?></p></div>
+			<div id="message" class="updated"><p><?php _e('Ad(s) statistics reset', 'adrotate'); ?></p></div>
 		<?php } else if ($message == 'renew') { ?>
-			<div id="message" class="updated fade"><p><?php _e('Ad(s) renewed', 'adrotate'); ?></p></div>
+			<div id="message" class="updated"><p><?php _e('Ad(s) renewed', 'adrotate'); ?></p></div>
 		<?php } else if ($message == 'deactivate') { ?>
-			<div id="message" class="updated fade"><p><?php _e('Ad(s) deactivated', 'adrotate'); ?></p></div>
+			<div id="message" class="updated"><p><?php _e('Ad(s) deactivated', 'adrotate'); ?></p></div>
 		<?php } else if ($message == 'activate') { ?>
-			<div id="message" class="updated fade"><p><?php _e('Ad(s) activated', 'adrotate'); ?></p></div>
+			<div id="message" class="updated"><p><?php _e('Ad(s) activated', 'adrotate'); ?></p></div>
 		<?php } else if ($message == 'field_error') { ?>
-			<div id="message" class="updated fade"><p><?php _e('The ad was saved but has an issue which might prevent it from working properly. Review the yellow marked ad.', 'adrotate'); ?></p></div>
+			<div id="message" class="updated"><p><?php _e('The ad was saved but has an issue which might prevent it from working properly. Review the yellow marked ad.', 'adrotate'); ?></p></div>
+		<?php } else if ($message == 'exported') { ?>
+			<div id="message" class="updated"><p><?php _e('Export created', 'adrotate'); ?> <a href="<?php echo WP_CONTENT_URL; ?>/reports/<?php echo $file; ?>">Download</a>.</p></div>
+
+
 		<?php } else if ($message == 'no_access') { ?>
-			<div id="message" class="updated fade"><p><?php _e('Action prohibited', 'adrotate'); ?></p></div>
+			<div id="message" class="updated"><p><?php _e('Action prohibited', 'adrotate'); ?></p></div>
 		<?php } else if ($message == 'nodata') { ?>
-			<div id="message" class="updated fade"><p><?php _e('No data found in selected time period', 'adrotate'); ?></p></div>
+			<div id="message" class="updated"><p><?php _e('No data found in selected time period', 'adrotate'); ?></p></div>
 		<?php } ?>
 
 		<?php if($wpdb->get_var("SHOW TABLES LIKE '".$wpdb->prefix."adrotate';") AND $wpdb->get_var("SHOW TABLES LIKE '".$wpdb->prefix."adrotate_groups';") AND $wpdb->get_var("SHOW TABLES LIKE '".$wpdb->prefix."adrotate_schedule';") AND $wpdb->get_var("SHOW TABLES LIKE '".$wpdb->prefix."adrotate_linkmeta';")) { ?>
@@ -233,18 +272,9 @@ function adrotate_manage() {
 			<div class="tablenav">
 				<div class="alignleft actions">
 					<a class="row-title" href="<?php echo admin_url('/admin.php?page=adrotate-ads&view=manage');?>"><?php _e('Manage', 'adrotate'); ?></a> | 
-					<a class="row-title" href="<?php echo admin_url('/admin.php?page=adrotate-ads&view=addnew');?>"><?php _e('Add New', 'adrotate'); ?></a> 
-					<?php if($ad_edit_id) { ?>
-					| <a class="row-title" href="<?php echo admin_url('/admin.php?page=adrotate-ads&view=report&ad='.$ad_edit_id);?>"><?php _e('Report', 'adrotate'); ?></a>
-					<?php } ?>
+					<a class="row-title" href="<?php echo admin_url('/admin.php?page=adrotate-ads&view=addnew');?>"><?php _e('Add New', 'adrotate'); ?></a>
 				</div>
 			</div>
-
-			<br class="clear" />
-
-			<?php adrotate_credits(); ?>
-
-			<br class="clear" />
 
 	    	<?php if ($view == "" OR $view == "manage") { ?>
 	
@@ -281,6 +311,9 @@ function adrotate_manage() {
 			<?php echo adrotate_error('db_error'); ?>
 		<?php }	?>
 		<br class="clear" />
+
+		<?php adrotate_credits(); ?>
+
 	</div>
 <?php
 }
@@ -309,7 +342,12 @@ function adrotate_manage_group() {
 	}
 	$monthstart = mktime(0, 0, 0, $month, 1, $year);
 	$monthend = mktime(0, 0, 0, $month+1, 0, $year);	
+
 	$today = adrotate_date_start('day');
+	$now 			= adrotate_now();
+	$today 			= adrotate_date_start('day');
+	$in2days 		= $now + 172800;
+	$in7days 		= $now + 604800;
 	?>
 	<div class="wrap">
 		<h2><?php _e('Group Management', 'adrotate'); ?></h2>
@@ -331,15 +369,8 @@ function adrotate_manage_group() {
 				<div class="alignleft actions">
 					<a class="row-title" href="<?php echo admin_url('/admin.php?page=adrotate-groups&view=manage');?>"><?php _e('Manage', 'adrotate'); ?></a> | 
 					<a class="row-title" href="<?php echo admin_url('/admin.php?page=adrotate-groups&view=addnew');?>"><?php _e('Add New', 'adrotate'); ?></a>
-					<?php if($group_edit_id) { ?>
-					| <a class="row-title" href="<?php echo admin_url('/admin.php?page=adrotate-groups&view=report&group='.$group_edit_id);?>"><?php _e('Report', 'adrotate'); ?></a>
-					<?php } ?>
 				</div>
 			</div>
-
-			<?php adrotate_credits(); ?>
-
-			<br class="clear" />
 
 	    	<?php if ($view == "" OR $view == "manage") { ?>
 
@@ -364,27 +395,272 @@ function adrotate_manage_group() {
 			<?php echo adrotate_error('db_error'); ?>
 		<?php }	?>
 		<br class="clear" />
+
+		<?php adrotate_credits(); ?>
+
 	</div>
 <?php
 }
 
 /*-------------------------------------------------------------
- Name:      adrotate_global_report
+ Name:      adrotate_manage_schedules
 
- Purpose:   Admin statistics page
+ Purpose:   Manage schedules for ads
  Receive:   -none-
  Return:    -none-
 -------------------------------------------------------------*/
-function adrotate_global_report() {
-?>
+function adrotate_manage_schedules() {
+	global $wpdb, $adrotate_config, $adrotate_debug;
+
+	$now 			= adrotate_now();
+	$today 			= adrotate_date_start('day');
+	$in2days 		= $now + 172800;
+	$in7days 		= $now + 604800;
+	$in84days 		= $now + 7257600;
+	?>
 	<div class="wrap">
+		<h2><?php _e('Schedule Management available in AdRotate Pro', 'adrotate'); ?></h2>
 
-	  	<h2><?php _e('Statistics', 'adrotate'); ?></h2>
+		<div class="tablenav">
+			<div class="alignleft actions">
+				<strong><?php _e('Manage', 'adrotate'); ?></strong> | 
+				<strong><?php _e('Add New', 'adrotate'); ?></strong>
+			</div>
+		</div>
 
-		<p><?php adrotate_pro_notice(); ?></p>
-		<p><?php _e('A summarized overview of all adverts currently active!', 'adrotate'); ?></p>
-		<p><a href="http://www.adrotateplugin.com" title="AdRotate Plugin for WordPress"><img src="<?php echo WP_CONTENT_URL; ?>/plugins/adrotate/images/global-stats.png" align="center" /></a></p>
+		<h3><?php _e('Manage Schedules', 'adrotate'); ?></h3>
+		<p><?php _e('Schedule management and multiple schedules per advert is available in AdRotate Pro.', 'adrotate'); ?> <a href="admin.php?page=adrotate-pro"><?php _e('More information', 'adrotate'); ?></a>.</p>
+		
+		<?php wp_nonce_field('adrotate_bulk_schedules','adrotate_nonce'); ?>
+	
+		<div class="tablenav top">
+			<div class="alignleft actions">
+				<select name="adrotate_action" id="cat" class="postform" disabled>
+			        <option value=""><?php _e('Bulk Actions', 'adrotate'); ?></option>
+				</select> <input type="submit" id="post-action-submit" name="adrotate_action_submit" value="<?php _e('Go', 'adrotate'); ?>" class="button-secondary" disabled />
+			</div>	
+			<br class="clear" />
+		</div>
+		
+		<table class="widefat" style="margin-top: .5em">
+			<thead>
+			<tr>
+				<th scope="col" class="manage-column column-cb check-column"><input type="checkbox" disabled/></th>
+				<th width="4%"><center><?php _e('ID', 'adrotate'); ?></center></th>
+				<th width="17%"><?php _e('Start', 'adrotate'); ?> / <?php _e('End', 'adrotate'); ?></th>
+		        <th width="4%"><center><?php _e('Ads', 'adrotate'); ?></center></th>
+				<th>&nbsp;</th>
+		        <th width="15%"><center><?php _e('Max Clicks', 'adrotate'); ?></center></th>
+		        <th width="15%"><center><?php _e('Max Impressions', 'adrotate'); ?></center></th>
+			</tr>
+			</thead>
+			<tbody>
+		<?php
+		$schedules = $wpdb->get_results("SELECT * FROM `".$wpdb->prefix."adrotate_schedule` WHERE `name` != '' ORDER BY `id` ASC;");
+		if($schedules) {
+			$class = '';
+			foreach($schedules as $schedule) {
+				$schedulesmeta = $wpdb->get_results("SELECT `ad` FROM `".$wpdb->prefix."adrotate_linkmeta` WHERE `group` = 0 AND `block` = 0 AND `user` = 0 AND `schedule` = ".$schedule->id.";");
+				$ads_use_schedule = '';
+				if($schedulesmeta) {
+					foreach($schedulesmeta as $meta) {
+						$ads_use_schedule[] = $meta->ad;
+						unset($meta);
+					}
+				}
+				if($schedule->maxclicks == 0) $schedule->maxclicks = 'unlimited';
+				if($schedule->maximpressions == 0) $schedule->maximpressions = 'unlimited';
+	
+				($class != 'alternate') ? $class = 'alternate' : $class = '';
+				if($schedule->stoptime < $in2days) $class = 'row_urgent';
+				if($schedule->stoptime < $now) $class = 'row_inactive';
+				?>
+			    <tr id='adrotateindex' class='<?php echo $class; ?>'>
+					<th class="check-column"><input type="checkbox" name="schedulecheck[]" value="" disabled /></th>
+					<td><center><?php echo $schedule->id;?></center></td>
+					<td><?php echo date_i18n("F d, Y H:i", $schedule->starttime);?><br /><span style="color: <?php echo adrotate_prepare_color($schedule->stoptime);?>;"><?php echo date_i18n("F d, Y H:i", $schedule->stoptime);?></span></td>
+			        <td><center><?php echo count($schedulesmeta); ?></center></td>
+					<td><?php echo stripslashes(html_entity_decode($schedule->name)); ?></td>
+			        <td><center><?php echo $schedule->maxclicks; ?></center></td>
+			        <td><center><?php echo $schedule->maximpressions; ?></center></td>
+				</tr>
+				<?php } ?>
+			<?php } else { ?>
+			<tr id='no-schedules'>
+				<th class="check-column">&nbsp;</th>
+				<td colspan="7"><em><?php _e('No schedules created yet!', 'adrotate'); ?></em></td>
+			</tr>
+			<?php } ?>
+			</tbody>
+		</table>
+		<p><center>
+			<span style="border: 1px solid #c00; height: 12px; width: 12px; background-color: #ffebe8">&nbsp;&nbsp;&nbsp;&nbsp;</span> <?php _e("Expires soon.", "adrotate"); ?>
+			&nbsp;&nbsp;&nbsp;&nbsp;<span style="border: 1px solid #466f82; height: 12px; width: 12px; background-color: #8dcede">&nbsp;&nbsp;&nbsp;&nbsp;</span> <?php _e("Has expired.", "adrotate"); ?>
+			<br /><?php _e('Easily manage your schedules from here with AdRotate Pro.', 'adrotate'); ?> <a href="admin.php?page=adrotate-pro"><?php _e('Upgrade today!', 'adrotate'); ?></a>
+		</center></p>
+
 		<br class="clear" />
+
+		<?php adrotate_credits(); ?>
+
+		<br class="clear" />
+	</div>
+<?php
+}
+
+/*-------------------------------------------------------------
+ Name:      adrotate_manage_images
+
+ Purpose:   Manage banner images for ads
+ Receive:   -none-
+ Return:    -none-
+-------------------------------------------------------------*/
+function adrotate_manage_media() {
+	global $wpdb, $adrotate_config;
+	?>
+
+	<div class="wrap">
+		<h2><?php _e('Media Management available in AdRotate Pro', 'adrotate'); ?></h2>
+
+		<p><?php _e('Upload images to the AdRotate Pro banners folder from here. This is especially useful if you use responsive adverts with multiple images.', 'adrotate'); ?><br /><?php _e('Media uploading and management is available in AdRotate Pro.', 'adrotate'); ?> <a href="admin.php?page=adrotate-pro"><?php _e('More information', 'adrotate'); ?></a>.</p>
+
+		<h3><?php _e('Upload new banner image', 'adrotate'); ?></h3>
+		<label for="adrotate_image"><input tabindex="1" type="file" name="adrotate_image" disabled /><br /><em><strong><?php _e('Accepted files are:', 'adrotate'); ?></strong> jpg, jpeg, gif, png, swf and flv. <?php _e('Maximum size is 512Kb.', 'adrotate'); ?></em><br /><em><strong><?php _e('Important:', 'adrotate'); ?></strong> <?php _e('Make sure your file has no spaces or special characters in the name. Replace spaces with a - or _.', 'adrotate'); ?></em></label>
+		<?php if(get_option('adrotate_responsive_required') > 0) { ?>
+	        <p><em><?php _e('For responsive adverts make sure the filename is in the following format; "imagename.full.ext". A full set of sized images is strongly recommended.', 'adrotate'); ?></em><br />
+	        <em><?php _e('For smaller size images use ".320", ".480", ".768" or ".1024" in the filename instead of ".full" for the various viewports.', 'adrotate'); ?></em><br />
+	        <em><strong><?php _e('Example:', 'adrotate'); ?></strong> <?php _e('image.full.jpg, image.320.jpg and image.768.jpg will serve the same advert for different viewports.', 'adrotate'); ?></em></p>
+			<?php } ?>
+	
+		<p class="submit">
+			<input tabindex="2" type="submit" name="adrotate_media_submit" class="button-primary" value="<?php _e('Upload image', 'adrotate'); ?>" disabled />
+		</p>
+		
+		<h3><?php _e('Available banner images in', 'adrotate'); ?> '<?php echo $adrotate_config['banner_folder']; ?>'</h3>
+		<table class="widefat" style="margin-top: .5em">
+		
+			<thead>
+			<tr>
+		        <th><?php _e('Name', 'adrotate'); ?></th>
+		        <th width="12%"><center><?php _e('Actions', 'adrotate'); ?></center></th>
+			</tr>
+			</thead>
+		
+			<tbody>
+		    <tr><td>your-awesome-campaign.jpg</td><td><center><?php _e('Delete', 'adrotate'); ?></center></td></tr>
+		    <tr class="alternate"><td>728x90-advert.jpg</td><td><center><?php _e('Delete', 'adrotate'); ?></center></td></tr>
+		    <tr><td>adrotate-468x60.jpg</td><td><center><?php _e('Delete', 'adrotate'); ?></center></td></tr>
+		    <tr class="alternate"><td>adrotate-200x200-blue.jpg</td><td><center><?php _e('Delete', 'adrotate'); ?></center></td></tr>
+		    <tr><td>advertising-campaign.jpg</td><td><center><?php _e('Delete', 'adrotate'); ?></center></td></tr>
+			</tbody>
+		</table>
+		<p><center>
+			<?php _e("Make sure the banner images are not in use by adverts when you delete them!", "adrotate"); ?><br /><?php _e('Manage your banner folder from here with AdRotate Pro.', 'adrotate'); ?> <a href="admin.php?page=adrotate-pro"><?php _e('Upgrade today!', 'adrotate'); ?></a>
+
+		</center></p>
+
+		<br class="clear" />
+
+		<?php adrotate_credits(); ?>
+
+		<br class="clear" />
+	</div>
+<?php
+}
+
+/*-------------------------------------------------------------
+ Name:      adrotate_server
+
+ Purpose:   Connect and manage AdRotate server
+ Receive:   -none-
+ Return:    -none-
+-------------------------------------------------------------*/
+function adrotate_server() {
+	global $wpdb, $current_user, $userdata, $blog_id, $adrotate_config, $adrotate_debug;
+
+	$status = $file = $view = '';
+	if(isset($_GET['status'])) $status = esc_attr($_GET['status']);
+	if(isset($_GET['file'])) $file = esc_attr($_GET['file']);
+	if(isset($_GET['view'])) $view = esc_attr($_GET['view']);
+	$now 			= adrotate_now();
+	$today 			= adrotate_date_start('day');
+	$in2days 		= $now + 172800;
+	$in7days 		= $now + 604800;
+	?>
+	<div class="wrap">
+	  	<h2><?php _e('AdRotate Server', 'adrotate'); ?> (BETA)</h2>
+
+		<?php if($status > 0) adrotate_status($status, array('file' => $file)); ?>
+
+		<?php if($wpdb->get_var("SHOW TABLES LIKE '".$wpdb->prefix."adrotate';") AND $wpdb->get_var("SHOW TABLES LIKE '".$wpdb->prefix."adrotate_groups';") AND $wpdb->get_var("SHOW TABLES LIKE '".$wpdb->prefix."adrotate_schedule';") AND $wpdb->get_var("SHOW TABLES LIKE '".$wpdb->prefix."adrotate_linkmeta';")) { ?>
+			
+			<?php if($status > 0) adrotate_status($status); ?>
+			
+			<p style="color:#f00;">NOTICE: <?php _e('AdRotate server is currently in development and these menus are not functional yet.', 'adrotate'); ?></p>
+
+			<div class="tablenav">
+				<div class="alignleft actions">
+					<a class="row-title" href="<?php echo admin_url('/admin.php?page=adrotate-server&view=overview');?>"><?php _e('Overview', 'adrotate'); ?></a> | 
+					<a class="row-title" href="<?php echo admin_url('/admin.php?page=adrotate-server&view=settings');?>"><?php _e('Settings', 'adrotate'); ?></a> 
+				</div>
+			</div>
+
+			<?php
+	    	if ($view == "" OR $view == "overview") {
+				$allbanners = $wpdb->get_results("SELECT `id`, `title`, `thetime`, `updated`, `type`, `weight`, `cbudget`, `ibudget`, `crate`, `irate` FROM `".$wpdb->prefix."adrotate` WHERE `type` = 's_active' OR `type` = 's_error' OR `type` = 's_expired' OR `type` = 's_2days' OR `type` = 's_7days' ORDER BY `sortorder` ASC, `id` ASC;");
+				
+				$activebanners = $errorbanners = false;
+				foreach($allbanners as $singlebanner) {
+					$starttime = $stoptime = 0;
+					$starttime = $wpdb->get_var("SELECT `starttime` FROM `".$wpdb->prefix."adrotate_schedule`, `".$wpdb->prefix."adrotate_linkmeta` WHERE `ad` = '".$singlebanner->id."' AND `schedule` = `".$wpdb->prefix."adrotate_schedule`.`id` ORDER BY `starttime` ASC LIMIT 1;");
+					$stoptime = $wpdb->get_var("SELECT `stoptime` FROM `".$wpdb->prefix."adrotate_schedule`, `".$wpdb->prefix."adrotate_linkmeta` WHERE `ad` = '".$singlebanner->id."' AND  `schedule` = `".$wpdb->prefix."adrotate_schedule`.`id` ORDER BY `stoptime` DESC LIMIT 1;");
+		
+					$type = $singlebanner->type;
+					if($type == 's_active' AND $stoptime <= $now) $type = 's_expired'; 
+					if($type == 's_active' AND $stoptime <= $in2days) $type = 's_2days';
+					if($type == 's_active' AND $stoptime <= $in7days) $type = 's_7days';
+					if(($singlebanner->crate > 0 AND $singlebanner->cbudget < 1) OR ($singlebanner->irate > 0 AND $singlebanner->ibudget < 1)) $type = 's_expired';
+		
+					if($type == 's_active' OR $type == 's_7days') {
+						$activebanners[$singlebanner->id] = array(
+							'id' => $singlebanner->id,
+							'title' => $singlebanner->title,
+							'type' => $type,
+							'weight' => $singlebanner->weight,
+							'added' => $singlebanner->thetime,
+							'updated' => $singlebanner->updated,
+							'firstactive' => $starttime,
+							'lastactive' => $stoptime
+						);
+					}
+					
+					if($type == 's_error' OR $type == 's_expired' OR $type == 's_2days') {
+						$errorbanners[$singlebanner->id] = array(
+							'id' => $singlebanner->id,
+							'title' => $singlebanner->title,
+							'type' => $type,
+							'weight' => $singlebanner->weight,
+							'updated' => $singlebanner->updated,
+							'firstactive' => $starttime,
+							'lastactive' => $stoptime
+						);
+					}
+				}
+
+				include("dashboard/server/adrotate-active.php");
+				if ($errorbanners) {
+					include("dashboard/server/adrotate-error.php");
+				}
+		   	} else if($view == "settings") { 
+				include("dashboard/server/adrotate-settings.php");
+			}
+		} else {
+			echo adrotate_error('db_error');
+		}
+		?>
+		<br class="clear" />
+
+		<?php adrotate_credits(); ?>
 	</div>
 <?php 
 }
@@ -399,7 +675,6 @@ function adrotate_global_report() {
 function adrotate_options() {
 	global $wpdb, $wp_roles;
 
-	$adrotate_crawlers	= '';
 	$adrotate_config 			= get_option('adrotate_config');
 	$adrotate_crawlers 			= get_option('adrotate_crawlers');
 	$adrotate_roles				= get_option('adrotate_roles');
@@ -408,7 +683,10 @@ function adrotate_options() {
 	$adrotate_db_version		= get_option('adrotate_db_version');
 	$adrotate_advert_status		= get_option("adrotate_advert_status");
 
-	$crawlers = implode(', ', $adrotate_crawlers);
+	$crawlers = '';
+	if(is_array($adrotate_crawlers)) {
+		$crawlers = implode(', ', $adrotate_crawlers);
+	}
 
 	$message = $corrected = $converted = '';
 	if(isset($_GET['message'])) $message = esc_attr($_GET['message']);
@@ -439,38 +717,38 @@ function adrotate_options() {
 			<?php wp_nonce_field('adrotate_settings','adrotate_nonce_settings'); ?>
 
 			<h3><?php _e('Access Rights', 'adrotate'); ?></h3>
-			<span class="description"><?php _e('Who has access to what? All but the "advertiser page" are usually for admins and moderators.', 'adrotate'); ?></span>
+			<span class="description"><?php _e('Who has access to what?', 'adrotate'); ?></span>
 			<table class="form-table">
 				<tr>
 					<th valign="top"><?php _e('Manage/Add/Edit adverts', 'adrotate'); ?></th>
 					<td>
-						<select name="adrotate_ad_manage">
+						<label for="adrotate_ad_manage"><select name="adrotate_ad_manage">
 							<?php wp_dropdown_roles($adrotate_config['ad_manage']); ?>
-						</select> <span class="description"><?php _e('Role to see and add/edit ads.', 'adrotate'); ?></span>
+						</select> <?php _e('Role to see and add/edit ads.', 'adrotate'); ?></label>
 					</td>
 				</tr>
 				<tr>
 					<th valign="top"><?php _e('Delete/Reset adverts', 'adrotate'); ?></th>
 					<td>
-						<select name="adrotate_ad_delete">
+						<label for="adrotate_ad_delete"><select name="adrotate_ad_delete">
 							<?php wp_dropdown_roles($adrotate_config['ad_delete']); ?>
-						</select> <span class="description"><?php _e('Role to delete ads and reset stats.', 'adrotate'); ?></span>
+						</select> <?php _e('Role to delete ads and reset stats.', 'adrotate'); ?></label>
 					</td>
 				</tr>
 				<tr>
 					<th valign="top"><?php _e('Manage/Add/Edit groups', 'adrotate'); ?></th>
 					<td>
-						<select name="adrotate_group_manage">
+						<label for="adrotate_group_manage"><select name="adrotate_group_manage">
 							<?php wp_dropdown_roles($adrotate_config['group_manage']); ?>
-						</select> <span class="description"><?php _e('Role to see and add/edit groups.', 'adrotate'); ?></span>
+						</select> <?php _e('Role to see and add/edit groups.', 'adrotate'); ?></label>
 					</td>
 				</tr>
 				<tr>
 					<th valign="top"><?php _e('Delete groups', 'adrotate'); ?></th>
 					<td>
-						<select name="adrotate_group_delete">
+						<label for="adrotate_group_delete"><select name="adrotate_group_delete">
 							<?php wp_dropdown_roles($adrotate_config['group_delete']); ?>
-						</select> <span class="description"><?php _e('Role to delete groups.', 'adrotate'); ?></span>
+						</select> <?php _e('Role to delete groups.', 'adrotate'); ?></label>
 					</td>
 				</tr>
 
@@ -490,30 +768,9 @@ function adrotate_options() {
 				<?php } ?>
 			</table>
 
-			<h3><?php _e('Advertisers', 'adrotate'); ?></h3>
-			<span class="description"><?php _e('Enable advertisers so they can review and manage their own ads.', 'adrotate'); ?><br /><?php adrotate_pro_notice(); ?></span>
-			<table class="form-table">
-				<tr>
-					<th valign="top"><?php _e('Enable Advertisers', 'adrotate'); ?></th>
-					<td>
-						<input type="checkbox" name="adrotate_enable_advertisers" disabled /> <span class="description"><?php _e('Allow adverts to be coupled to users (Advertisers).', 'adrotate'); ?></span>
-					</td>
-				</tr>
-				<tr>
-					<th valign="top"><?php _e('Edit/update adverts', 'adrotate'); ?></th>
-					<td>
-						<input type="checkbox" name="adrotate_enable_editing" disabled /> <span class="description"><?php _e('Allow advertisers to add new or edit their adverts.', 'adrotate'); ?></span>
-					</td>
-				</tr>
-				<tr>
-					<th valign="top"><?php _e('Advertiser role', 'adrotate'); ?></th>
-					<td>
-						<input type="submit" id="post-role-submit" name="adrotate_role_add_submit" value="<?php _e('Create Role', 'adrotate'); ?>" class="button-secondary" disabled />
-						<br /><span class="description"><?php _e('This role has no capabilities unless you assign them using the above options. Obviously you should use this with care.', 'adrotate'); ?><br />
-						<?php _e('This type of user is NOT required to use AdRotate or any of it\'s features. It merely helps you to seperate advertisers from regular subscribers without giving them too much access to your dashboard.', 'adrotate'); ?></span>
-					</td>
-				</tr>
-			</table>
+		    <p class="submit">
+		      	<input type="submit" name="adrotate_options_submit" class="button-primary" value="<?php _e('Update Options', 'adrotate'); ?>" />
+		    </p>
 
 			<?php
 			if($adrotate_debug['dashboard'] == true) {
@@ -523,105 +780,12 @@ function adrotate_options() {
 			}
 			?>
 
-			<h3><?php _e('Banner Folder', 'adrotate'); ?></h3>
-			<span class="description"><?php _e('Activate your AdRotate License here to receive support via the fast and personal ticket system.', 'adrotate'); ?><br /><?php adrotate_pro_notice(); ?></span>
-			<table class="form-table">
-				<tr>
-					<th valign="top"><?php _e('Where are your banner ads?', 'adrotate'); ?></th>
-					<td>
-						<?php echo get_option('siteurl'); ?><input name="adrotate_banner_folder" type="text" class="search-input" size="50" value="<?php echo $adrotate_config['banner_folder']; ?>" disabled /><br />
-						<span class="description"><?php _e('Set a location where your banner images will be stored. (Default: /wp-content/banners/).', 'adrotate'); ?><br />
-						<?php _e('To try and trick ad blockers you could set the folder to something crazy like:', 'adrotate'); ?> "/wp-content/<?php echo adrotate_rand(12); ?>/".<br />
-						<?php _e("This folder will not be automatically created if it doesn't exist. AdRotate will show errors when the folder is missing.", 'adrotate'); ?></span>
-					</td>
-				</tr>
-			</table>
-
-			<h3><?php _e('Notifications', 'adrotate'); ?></h3>
-			<span class="description"><?php _e('Set up who gets notifications if ads need your attention.', 'adrotate'); ?><br /><?php adrotate_pro_notice(); ?></span>
-			<table class="form-table">
-				<tr>
-					<th valign="top"><?php _e('Delivery method', 'adrotate'); ?></th>
-					<td>
-						<input type="checkbox" name="adrotate_notification_push" disabled /> <?php _e('Push notifications to your smartphone.', 'adrotate'); ?><br />
-						<input type="checkbox" name="adrotate_notification_email" disabled /> <?php _e('Email message.', 'adrotate'); ?><br />
-						<span class="description"><?php _e('Push notifications are delivered through Pushover, a notification service for Android and iOS', 'adrotate'); ?><br /><?php _e('The Pushover App is a one time purchase for either Android and/or iOS. More information can be found on the pushover website;', 'adrotate'); ?> <a href="http://www.pushover.net" target="_blank">pushover.net</a>.</span>
-					</td>
-				</tr>
-				<tr>
-					<th scope="row" valign="top"><?php _e('Test', 'adrotate'); ?></th>
-					<td>
-						<input type="submit" name="adrotate_notification_test_submit" class="button-secondary" value="<?php _e('Test', 'adrotate'); ?>" disabled /> 
-						<span class="description"><?php _e('This sends a test notification. Before you test, save the options first!', 'adrotate'); ?></span>
-					</td>
-				</tr>
-			</table>
-			
-			<h3><?php _e('Push Notifications', 'adrotate'); ?></h3>
-			<span class="description"><?php _e('Receive information about what is happening with your AdRotate setup on your smartphone via Pushover.', 'adrotate'); ?><br /><?php adrotate_pro_notice(); ?></span>
-			<table class="form-table">
-				<tr>
-					<th valign="top"><?php _e('Publishers', 'adrotate'); ?></th>
-					<td>
-						<input type="checkbox" name="adrotate_notification_push_status" disabled /> <?php _e('Daily digest of any advert status other than normal.', 'adrotate'); ?><br /><br />
-						<input type="checkbox" name="adrotate_notification_push_queue" disabled /> <?php _e('Any advertiser saving an advert in your moderation queue.', 'adrotate'); ?><br />
-						<input type="checkbox" name="adrotate_notification_push_approved" disabled /> <?php _e('A moderator approved an advert from the moderation queue.', 'adrotate'); ?><br />
-						<input type="checkbox" name="adrotate_notification_push_rejected" disabled /> <?php _e('A moderator rejected an advert from the moderation queue.', 'adrotate'); ?><br /><span class="description"><?php _e('If you have a lot of activity with many advertisers adding/changing adverts you may get a lot of messages!', 'adrotate'); ?></span>
-
-					</td>
-				</tr>
-				<tr>
-					<th valign="top"><?php _e('User Key', 'adrotate'); ?></th>
-					<td>
-						<input name="adrotate_notification_push_user" type="text" class="search-input" size="50" value="" disabled /> <span class="description">Get your user token <a href="https://pushover.net" target="_blank">here</a>.</span>
-					</td>
-				</tr>
-				<tr>
-					<th valign="top"><?php _e('Api Token', 'adrotate'); ?></th>
-					<td>
-						<input name="adrotate_notification_push_api" type="text" class="search-input" size="50" value="" disabled /> <span class="description">Create your <a href="https://pushover.net/apps/build" target="_blank">App</a> and get your API token <a href="https://pushover.net/apps" target="_blank">here</a>.</span>
-					</td>
-				</tr>
-			</table>
-
-			<h3><?php _e('Email Notifications', 'adrotate'); ?></h3>
-			<span class="description"><?php _e('Set up who gets notification emails.', 'adrotate'); ?><br /><?php adrotate_pro_notice(); ?></span>
-			<table class="form-table">
-				<tr>
-					<th valign="top"><?php _e('Publishers', 'adrotate'); ?></th>
-					<td>
-						<textarea name="adrotate_notification_email_publisher" cols="90" rows="2" disabled>youremail@example.com</textarea><br />
-						<span class="description"><?php _e('A comma separated list of email addresses. Maximum of 5 addresses. Keep this list to a minimum!', 'adrotate'); ?><br />
-						<?php _e('Messages are sent once every 24 hours when needed. If this field is empty no email notifications will be send.', 'adrotate'); ?></span>
-					</td>
-				</tr>
-				<tr>
-					<th valign="top"><?php _e('Advertisers', 'adrotate'); ?></th>
-					<td>
-						<textarea name="adrotate_notification_email_advertiser" cols="90" rows="2" disabled>youremail@example.com</textarea><br />
-						<span class="description"><?php _e('Who gets email from advertisers. Maximum of 2 addresses. Comma seperated. This field may not be empty!', 'adrotate'); ?></span>
-					</td>
-				</tr>
-			</table>
-
 			<h3><?php _e('Statistics', 'adrotate'); ?></h3></td>
 			<table class="form-table">
 				<tr>
 					<th valign="top"><?php _e('Enable stats', 'adrotate'); ?></th>
 					<td>
-						<input type="checkbox" name="adrotate_enable_stats" <?php if($adrotate_config['enable_stats'] == 'Y') { ?>checked="checked" <?php } ?> /> <?php _e('Track clicks and impressions.', 'adrotate'); ?><br /><span class="description"><?php _e('Disabling this also disables click and impression limits on schedules and disables timeframes.', 'adrotate'); ?></span><br />
-					</td>
-				</tr>
-				<tr>
-					<th valign="top"><?php _e('Logged in impressions', 'adrotate'); ?></th>
-					<td>
-						<input type="checkbox" name="adrotate_enable_loggedin_impressions" checked disabled /> <?php _e('Track impressions from logged in users (Recommended).', 'adrotate'); ?><br /><span class="description"><?php _e('Has no effect when click and impression tracking is disabled.', 'adrotate'); ?><br /><?php adrotate_pro_notice(); ?></span><br />
-					</td>
-				</tr>
-				<tr>
-					<th valign="top"><?php _e('Logged in clicks', 'adrotate'); ?></th>
-					<td>
-						<input type="checkbox" name="adrotate_enable_loggedin_clicks" checked disabled /> <?php _e('Track clicks from logged in users.', 'adrotate'); ?></br><span class="description"><?php _e('Has no effect when click and impression tracking is disabled.', 'adrotate'); ?><br /><?php adrotate_pro_notice(); ?></span>
+						<input type="checkbox" name="adrotate_enable_stats" <?php if($adrotate_config['enable_stats'] == 'Y') { ?>checked="checked" <?php } ?> /> <?php _e('Track clicks and impressions.', 'adrotate'); ?><br /><span class="description"><?php _e('Disabling this also disables click and impression limits on schedules.', 'adrotate'); ?></span><br />
 					</td>
 				</tr>
 				<tr>
@@ -654,57 +818,46 @@ function adrotate_options() {
 				</tr>
 			</table>
 
-			
-			<h3><?php _e('Geo Targeting', 'adrotate'); ?></h3>
-			<span class="description"><?php adrotate_pro_notice(); ?></span>
-			<table class="form-table">
-				<tr>
-					<th valign="top"><?php _e('Geographic Tracking', 'adrotate'); ?></th>
-					<td><input disabled type="checkbox" name="adrotate_enable_geo" /> <?php _e('Enable Freegeoip for adverts.', 'adrotate'); ?><br />
-						<span class="description"><?php _e('Consider making a donation to', 'adrotate'); ?> <a href="http://www.freegeoip.net" target="_blank">Freegeoip</a> <?php _e('to keep their services free and awesome!', 'adrotate'); ?><br />Positional data includes GeoLite data created by MaxMind, available from <a href="http://www.maxmind.com" target="_blank">maxmind.com</a>.</span>
-					</td>
-				</tr>
-				<tr>
-					<th valign="top"><?php _e('Advertisers', 'adrotate'); ?></th>
-					<td>
-						<input disabled type="checkbox" name="adrotate_enable_geo_advertisers" /> <?php _e('Allow advertisers to specify where their ads will show.', 'adrotate'); ?>
-					</td>
-				</tr>
-			</table>
-			
+		    <p class="submit">
+		      	<input type="submit" name="adrotate_options_submit" class="button-primary" value="<?php _e('Update Options', 'adrotate'); ?>" />
+		    </p>
+						
 			<h3><?php _e('Miscellaneous', 'adrotate'); ?></h3>
 			<table class="form-table">			
 				<tr>
 					<th valign="top"><?php _e('Widget alignment', 'adrotate'); ?></th>
-					<td><input type="checkbox" name="adrotate_widgetalign" <?php if($adrotate_config['widgetalign'] == 'Y') { ?>checked="checked" <?php } ?> /> <span class="description"><?php _e('Check this box if your widgets do not align in your themes sidebar. (Does not always help!)', 'adrotate'); ?></span></td>
+					<td><label for="adrotate_widgetalign"><input type="checkbox" name="adrotate_widgetalign" <?php if($adrotate_config['widgetalign'] == 'Y') { ?>checked="checked" <?php } ?> /> <?php _e('Check this box if your widgets do not align in your themes sidebar. (Does not always help!)', 'adrotate'); ?></label></td>
 				</tr>
 				<tr>
 					<th valign="top"><?php _e('Widget padding', 'adrotate'); ?></th>
-					<td><input type="checkbox" name="adrotate_widgetpadding" <?php if($adrotate_config['widgetpadding'] == 'Y') { ?>checked="checked" <?php } ?> /> <span class="description"><?php _e('Enable this to remove the padding (blank space) around ads in widgets. (Does not always work!)', 'adrotate'); ?></span></td>
+					<td><label for="adrotate_widgetpadding"><input type="checkbox" name="adrotate_widgetpadding" <?php if($adrotate_config['widgetpadding'] == 'Y') { ?>checked="checked" <?php } ?> /> <?php _e('Enable this to remove the padding (blank space) around ads in widgets. (Does not always work!)', 'adrotate'); ?></label></td>
 				</tr>
+	 
+				<?php if($adrotate_config['w3caching'] == "Y" AND !defined('W3TC_DYNAMIC_SECURITY')) { ?>
 				<tr>
-					<th valign="top"><?php _e('Admin Bar', 'adrotate'); ?></th>
-					<td><input type="checkbox" name="adrotate_adminbar" disabled /> <span class="description"><?php _e('Enable the AdRotate Quickmenu in the Admin Bar.', 'adrotate'); ?><br /><?php adrotate_pro_notice(); ?></span></td>
+					<th valign="top">NOTICE:</th>
+					<td><span style="color:#f00;"><?php _e('You have enabled W3 Total Caching support but not defined the security hash. You need to add the following line to your wp-config.php near the bottom or below line 52 (which defines another hash.) Using the "late init" function needs to be enabled in W3 Total Cache as well too.', 'adrotate'); ?></span><br /><pre>define('W3TC_DYNAMIC_SECURITY', '<?php echo md5(rand(0,999)); ?>');</pre></td>
 				</tr>
-				<tr>
-					<th valign="top"><?php _e('Dashboard Notifications', 'adrotate'); ?></th>
-					<td><input type="checkbox" name="adrotate_dashboard_notifications" disabled /> <span class="description"><?php _e('Disable Dashboard Notifications about advert statuses.', 'adrotate'); ?><br /><?php adrotate_pro_notice(); ?></span></td>
-				</tr>
-				<tr>
-					<th valign="top"><?php _e('Hide Schedules', 'adrotate'); ?></th>
-					<td><input type="checkbox" name="adrotate_hide_schedules" disabled /> <span class="description"><?php _e('When editing adverts; Hide schedules that are not in use by that advert.', 'adrotate'); ?><br /><?php adrotate_pro_notice(); ?></span></td>
-				</tr>
+				<?php } ?>
 				<tr>
 					<th valign="top"><?php _e('W3 Total Caching', 'adrotate'); ?></th>
-					<td><input type="checkbox" name="adrotate_w3caching" <?php if($adrotate_config['w3caching'] == 'Y') { ?>checked="checked" <?php } ?> /> <span class="description"><?php _e('Check this box if you use W3 Total Caching on your site.', 'adrotate'); ?></span></td>
+					<td><label for="adrotate_w3caching"><input type="checkbox" name="adrotate_w3caching" <?php if($adrotate_config['w3caching'] == 'Y') { ?>checked="checked" <?php } ?> /> <?php _e('Check this box if you use W3 Total Caching on your site.', 'adrotate'); ?></label></td>
 				</tr>
+
+				<?php if($adrotate_config['supercache'] == "Y") { ?>
+				<tr>
+					<th valign="top">NOTICE:</th>
+					<td><span style="color:#f00;"><?php _e('You have enabled WP Super Cache support. If you have version 1.4 or newer, this function will not work. WP Super Cache has discontinued support for dynamic content.', 'adrotate'); ?></span></td>
+				</tr>
+				<?php } ?>
 				<tr>
 					<th valign="top"><?php _e('WP Super Cache', 'adrotate'); ?></th>
-					<td><input type="checkbox" name="adrotate_supercache" <?php if($adrotate_config['supercache'] == 'Y') { ?>checked="checked" <?php } ?> /> <span class="description"><?php _e('Check this box if you use WP Super Cache on your site.', 'adrotate'); ?></span></td>
+					<td><label for="adrotate_supercache"><input type="checkbox" name="adrotate_supercache" <?php if($adrotate_config['supercache'] == 'Y') { ?>checked="checked" <?php } ?> /> <?php _e('Check this box if you use WP Super Cache on your site.', 'adrotate'); ?></label>
+					</td>
 				</tr>
 				<tr>
 					<th valign="top">&nbsp;</th>
-					<td><span class="description"><?php _e('It may take a while for the ad to start rotating. The caching plugin needs to refresh the cache. This can take up to a week if not done manually.', 'adrotate'); ?><br /><?php _e('Caching support only works for [shortcodes] and the AdRotate Widget. If you use a PHP Snippet you need to wrap your PHP in the exclusion code yourself.', 'adrotate'); ?><br /><?php _e('Check the manual of your caching plugin to see how this works.', 'adrotate'); ?></span></td>
+					<td><span class="description"><?php _e('It may take a while for the ad to start rotating. The caching plugin needs to refresh the cache. This can take up to a week if not done manually.', 'adrotate'); ?> <?php _e('Caching support only works for [shortcodes] and the AdRotate Widget. If you use a PHP Snippet you need to wrap your PHP in the exclusion code yourself.', 'adrotate'); ?></span></td>
 				</tr>
 			</table>
 
@@ -712,25 +865,21 @@ function adrotate_options() {
 			<table class="form-table">			
 				<tr>
 					<th valign="top"><?php _e('Load jQuery', 'adrotate'); ?></th>
-					<td><input type="checkbox" name="adrotate_jquery" <?php if($adrotate_config['jquery'] == 'Y') { ?>checked="checked" <?php } ?> /> <span class="description"><?php _e('jQuery is required for all Javascript features below. Enable this if your theme does not load jQuery already.', 'adrotate'); ?></span></td>
-				</tr>
-				<tr>
-					<th valign="top"><?php _e('Load jQuery Dynamic Groups', 'adrotate'); ?></th>
-					<td><input type="checkbox" name="adrotate_jshowoff" <?php if($adrotate_config['jshowoff'] == 'Y') { ?>checked="checked" <?php } ?> /> <span class="description"><?php _e('The jQuery.jshowoff.adrotate library is required for Dynamic Groups. This library depends on jQuery.', 'adrotate'); ?></span></td>
+					<td><label for="adrotate_jquery"><input type="checkbox" name="adrotate_jquery" <?php if($adrotate_config['jquery'] == 'Y') { ?>checked="checked" <?php } ?> /> <?php _e('jQuery is required for all Javascript features below. Enable this if your theme does not load jQuery already.', 'adrotate'); ?></label></td>
 				</tr>
 				<tr>
 					<th valign="top"><?php _e('Load jQuery Clicktracking', 'adrotate'); ?></th>
-					<td><input type="checkbox" name="adrotate_clicktracking" <?php if($adrotate_config['clicktracking'] == 'Y') { ?>checked="checked" <?php } ?> /> <span class="description"><?php _e('The jQuery.clicktracker library is required for Clicktracking. This library depends on jQuery.', 'adrotate'); ?></span></td>
-				</tr>
-				<tr>
-					<th valign="top"><?php _e('Load jQuery Ad Blocker Detection', 'adrotate'); ?></th>
-					<td><input type="checkbox" name="adrotate_adblock" disabled /> <span class="description"><?php _e('The jquery.adblock library detects Ad Blockers and shows your visitors a nag message for a few seconds. This library depends on jQuery.', 'adrotate'); ?> <?php _e('This feature is available in AdRotate Pro.', 'adrotate'); ?></span></td>
+					<td><label for="adrotate_clicktracking"><input type="checkbox" name="adrotate_clicktracking" <?php if($adrotate_config['clicktracking'] == 'Y') { ?>checked="checked" <?php } ?> /><?php _e('Required for jQuery Clicktracking. When disabled AdRotate falls back on Redirect Tracking.', 'adrotate'); ?></label></td>
 				</tr>
 				<tr>
 					<th valign="top"><?php _e('Load in footer?', 'adrotate'); ?></th>
-					<td><input type="checkbox" name="adrotate_jsfooter" <?php if($adrotate_config['jsfooter'] == 'Y') { ?>checked="checked" <?php } ?> /> <span class="description"><?php _e('Enable if you want to load the above libraries in the footer. Your theme needs to call wp_footer() for this to work.', 'adrotate'); ?></span></td>
+					<td><label for="adrotate_jsfooter"><input type="checkbox" name="adrotate_jsfooter" <?php if($adrotate_config['jsfooter'] == 'Y') { ?>checked="checked" <?php } ?> /><?php _e('Enable if you want to load the above libraries in the footer. Your theme needs to call wp_footer() for this to work.', 'adrotate'); ?></label></td>
 				</tr>
 			</table>
+
+		    <p class="submit">
+		      	<input type="submit" name="adrotate_options_submit" class="button-primary" value="<?php _e('Update Options', 'adrotate'); ?>" />
+		    </p>
 
 			<h3><?php _e('Maintenance', 'adrotate'); ?></h3>
 			<span class="description"><?php _e('NOTE: The below functions are intented to be used to OPTIMIZE your database. They only apply to your ads/groups and stats. Not to other settings or other parts of WordPress! Always always make a backup! These functions are to be used when you feel or notice your database is slow, unresponsive and sluggish.', 'adrotate'); ?></span>
@@ -759,7 +908,7 @@ function adrotate_options() {
 					<th valign="top"><?php _e('Clean-up Database', 'adrotate'); ?></th>
 					<td>
 						<input type="submit" id="post-role-submit" name="adrotate_db_cleanup_submit" value="<?php _e('Clean-up Database', 'adrotate'); ?>" class="button-secondary" onclick="return confirm('<?php _e('You are about to clean up your database. This may delete expired schedules and older statistics.', 'adrotate'); ?>\n\n<?php _e('Are you sure you want to continue?', 'adrotate'); ?>\n\n<?php _e('This might take a while and may slow down your site during this action!', 'adrotate'); ?>\n\n<?php _e('OK to continue, CANCEL to stop.', 'adrotate'); ?>')" /><br />
-						<label for="adrotate_db_cleanup_statistics"><input type="checkbox" name="adrotate_db_cleanup_statistics" /> <?php _e('Delete stats older than 356 days (Optional).', 'adrotate'); ?></label><br />
+						<label for="adrotate_db_cleanup_statistics"><input type="checkbox" name="adrotate_db_cleanup_statistics" value="1" /> <?php _e('Delete stats older than 356 days (Optional).', 'adrotate'); ?></label><br />
 						<span class="description"><?php _e('AdRotate creates empty records when you start making ads or groups. In rare occasions these records are faulty.', 'adrotate'); ?><br /><?php _e('If you made an ad or group that does not save when you make it use this button to delete those empty records.', 'adrotate'); ?><br /><?php _e('Additionally you can clean up old statistics. This will improve the speed of your site.', 'adrotate'); ?></span>
 					</td>
 				</tr>
@@ -774,6 +923,10 @@ function adrotate_options() {
 					<td colspan="2"><span class="description"><?php _e('DISCLAIMER: If for any reason your data is lost, damaged or otherwise becomes unusable in any way or by any means in whichever way I will not take responsibility. You should always have a backup of your database. These functions do NOT destroy data. If data is lost, damaged or unusable, your database likely was beyond repair already. Claiming it worked before clicking these buttons is not a valid point in any case.', 'adrotate'); ?></span></td>
 				</tr>
 			</table>
+
+		    <p class="submit">
+		      	<input type="submit" name="adrotate_options_submit" class="button-primary" value="<?php _e('Update Options', 'adrotate'); ?>" />
+		    </p>
 
 			<h3><?php _e('Troubleshooting', 'adrotate'); ?></h3>
 			<table class="form-table">			
@@ -791,7 +944,7 @@ function adrotate_options() {
 				</tr>
 				<tr>
 					<th valign="top"><?php _e('Current status of adverts', 'adrotate'); ?></th>
-					<td><?php _e('Normal'); ?>: <?php echo $adrotate_advert_status['normal']; ?>, <?php _e('Error'); ?>: <?php echo $adrotate_advert_status['error']; ?>, <?php _e('Expired'); ?>: <?php echo $adrotate_advert_status['expired']; ?>, <?php _e('Expires Soon'); ?>: <?php echo $adrotate_advert_status['expiressoon']; ?>, <?php _e('Unknown Status'); ?>: <?php echo $adrotate_advert_status['unknown']; ?>.</td>
+					<td><?php _e('Normal', 'adrotate'); ?>: <?php echo $adrotate_advert_status['normal']; ?>, <?php _e('Error', 'adrotate'); ?>: <?php echo $adrotate_advert_status['error']; ?>, <?php _e('Expired', 'adrotate'); ?>: <?php echo $adrotate_advert_status['expired']; ?>, <?php _e('Expires Soon', 'adrotate'); ?>: <?php echo $adrotate_advert_status['expiressoon']; ?>, <?php _e('Unknown Status', 'adrotate'); ?>: <?php echo $adrotate_advert_status['unknown']; ?>.</td>
 				</tr>
 				<tr>
 					<td colspan="2"><span class="description"><?php _e('NOTE: The below options are not meant for normal use and are only there for developers to review saved settings or how ads are selected. These can be used as a measure of troubleshooting upon request but for normal use they SHOULD BE LEFT UNCHECKED!!', 'adrotate'); ?></span></td>

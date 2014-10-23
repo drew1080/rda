@@ -1,7 +1,13 @@
 <?php
-/*  
-Copyright 2010-2014 Arnan de Gans - AJdG Solutions (email : info@ajdg.net)
-*/
+/* ------------------------------------------------------------------------------------
+*  COPYRIGHT AND TRADEMARK NOTICE
+*  Copyright 2008-2014 AJdG Solutions (Arnan de Gans). All Rights Reserved.
+*  ADROTATE is a trademark (pending registration) of Arnan de Gans.
+
+*  COPYRIGHT NOTICES AND ALL THE COMMENTS SHOULD REMAIN INTACT.
+*  By using this code you agree to indemnify Arnan de Gans from any
+*  liability that might arise from it's use.
+------------------------------------------------------------------------------------ */
 
 $title = $wpdb->get_var("SELECT `name` FROM `".$wpdb->prefix."adrotate_groups` WHERE `id` = '$group_edit_id';");
 $stats = $wpdb->get_row("SELECT SUM(`clicks`) as `clicks`, SUM(`impressions`) as `impressions` FROM `".$wpdb->prefix."adrotate_stats` WHERE `group` = '$group_edit_id';", ARRAY_A);
@@ -55,17 +61,4 @@ if($adrotate_debug['stats'] == true) {
 
 </table>	
 
-
-<h3><?php _e('Export options', 'adrotate'); ?></h3>
-<table class="widefat" style="margin-top: .5em">
-
-    <tbody>
-    <tr>
-		<td colspan="5">
-			<p><?php adrotate_pro_notice(); ?></p>
-			<p><em>Export these statistics as a CSV file. Download or email them.</em></p>
-		</td>
-	</tr>
-	</tbody>
-</table>
 <p><em><strong><?php _e('Note:', 'adrotate'); ?></strong> <em><?php _e('All statistics are indicative. They do not nessesarily reflect results counted by other parties.', 'adrotate'); ?></em></p>

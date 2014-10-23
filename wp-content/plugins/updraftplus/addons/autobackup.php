@@ -2,12 +2,14 @@
 /*
 UpdraftPlus Addon: autobackup:Automatic Backups
 Description: Save time and worry by automatically create backups before updating WordPress components
-Version: 1.4
+Version: 1.5
 Shop: /shop/autobackup/
-Latest Change: 1.9.17
+Latest Change: 1.9.27
 */
 
 if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
+
+if (defined('UPDRAFTPLUS_NOAUTOBACKUPS') && UPDRAFTPLUS_NOAUTOBACKUPS) return;
 
 $updraftplus_addon_autobackup = new UpdraftPlus_Addon_Autobackup;
 
@@ -16,7 +18,7 @@ class UpdraftPlus_Addon_Autobackup {
 	public function __construct() {
 		add_filter('updraftplus_autobackup_blurb', array($this, 'updraftplus_autobackup_blurb'));
 		add_action('admin_action_update-selected',  array($this, 'admin_action_update_selected'));
-		add_action('admin_action_update-selected-themes',  array($this, 'admin_action_update_selected_themes'));
+		add_action('admin_action_update-selected-themes', array($this, 'admin_action_update_selected_themes'));
 		add_action('admin_action_do-plugin-upgrade', array($this, 'admin_action_do_plugin_upgrade'));
 		add_action('admin_action_do-theme-upgrade', array($this, 'admin_action_do_theme_upgrade'));
 		add_action('admin_action_do-theme-upgrade', array($this, 'admin_action_do_theme_upgrade'));
@@ -103,7 +105,8 @@ ENDHERE;
 	}
 
 	private function process_form() {
-		$autobackup = (isset($_POST['updraft_autobackup']) && $_POST['updraft_autobackup'] == 'yes') ? true : false;
+		# We use 0 instead of false, because false is the default for get_option(), and thus setting an unset value to false with update_option() actually sets nothing (since update_option() first checks for the existing value) - which is unhelpful if you want to call get_option() with a different default (as we do)
+		$autobackup = (isset($_POST['updraft_autobackup']) && $_POST['updraft_autobackup'] == 'yes') ? 1 : 0;
 		UpdraftPlus_Options::update_updraft_option('updraft_autobackup_go', $autobackup);
 		if ($autobackup) add_action('admin_footer', array($this, 'admin_footer'));
 		if (!empty($_POST['updraft_autobackup_setdefault']) && 'yes' == $_POST['updraft_autobackup_setdefault']) UpdraftPlus_Options::update_updraft_option('updraft_autobackup_default', $autobackup);
@@ -140,7 +143,8 @@ ENDHERE;
 		if (!current_user_can('update_core')) wp_die( __( 'You do not have sufficient permissions to update this site.' ) );
 
 		check_admin_referer('upgrade-core');
-		$autobackup = (isset($_POST['updraft_autobackup']) && $_POST['updraft_autobackup'] == 'yes') ? true : false;
+		# It is important to not use (bool)false here, as that conflicts with using get_option() with a non-false default value
+		$autobackup = (isset($_POST['updraft_autobackup']) && $_POST['updraft_autobackup'] == 'yes') ? 1 : 0;
 
 		if (!empty($_POST['updraft_autobackup_setdefault']) && 'yes' == $_POST['updraft_autobackup_setdefault']) UpdraftPlus_Options::update_updraft_option('updraft_autobackup_default', $autobackup);
 
@@ -247,7 +251,8 @@ ENDHERE;
 		# Did the user get the opportunity to indicate whether they wanted a backup?
 		if (!isset($_POST['updraft_autobackup_answer'])) $this->auto_backup_form_and_die();
 
-		$autobackup = (isset($_POST['updraft_autobackup']) && $_POST['updraft_autobackup'] == 'yes') ? true : false;
+		# Do not use bools here - conflicts with get_option() with a non-default value
+		$autobackup = (isset($_POST['updraft_autobackup']) && $_POST['updraft_autobackup'] == 'yes') ? 1 : 0;
 
 		if (!empty($_POST['updraft_autobackup_setdefault']) && 'yes' == $_POST['updraft_autobackup_setdefault']) UpdraftPlus_Options::update_updraft_option('updraft_autobackup_default', $autobackup);
 
@@ -287,7 +292,8 @@ ENDHERE;
 		# Did the user get the opportunity to indicate whether they wanted a backup?
 		if (!isset($_POST['updraft_autobackup_answer'])) $this->auto_backup_form_and_die();
 
-		$autobackup = (isset($_POST['updraft_autobackup']) && $_POST['updraft_autobackup'] == 'yes') ? true : false;
+		# Do not use bools here - conflicts with get_option() with a non-default value
+		$autobackup = (isset($_POST['updraft_autobackup']) && $_POST['updraft_autobackup'] == 'yes') ? 1 : 0;
 		if (!empty($_POST['updraft_autobackup_setdefault']) && 'yes' == $_POST['updraft_autobackup_setdefault']) UpdraftPlus_Options::update_updraft_option('updraft_autobackup_default', $autobackup);
 
 		if ($autobackup) {

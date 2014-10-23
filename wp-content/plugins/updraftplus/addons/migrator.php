@@ -2,9 +2,9 @@
 /*
 UpdraftPlus Addon: migrator:Migrate a WordPress site to a different location.
 Description: Import a backup into a different site, including database search-and-replace. Ideal for development and testing and cloning of sites.
-Version: 2.2
+Version: 2.6
 Shop: /shop/migrator/
-Latest Change: 1.9.14
+Latest Change: 1.9.30
 */
 
 if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
@@ -33,6 +33,7 @@ class UpdraftPlus_Addons_Migrator {
 	private $is_migration;
 	private $restored_blogs = false;
 	private $restored_sites = false;
+	private $wpdb_obj = false;
 
 	public function __construct() {
 		add_action('updraftplus_restore_form_db', array($this, 'updraftplus_restore_form_db'));
@@ -92,6 +93,8 @@ class UpdraftPlus_Addons_Migrator {
 		echo '<h2>'.__('Search / replace database','updraftplus').'</h2>';
 		echo '<strong>'.__('Search for', 'updraftplus').':</strong> '.htmlspecialchars($_POST['search'])."<br>";
 		echo '<strong>'.__('Replace with', 'updraftplus').':</strong> '.htmlspecialchars($_POST['replace'])."<br>";
+		$this->page_size = (empty($_POST['pagesize']) || !is_numeric($_POST['pagesize'])) ? 5000 : $_POST['pagesize'];
+		$this->which_tables = (empty($_POST['whichtables'])) ? '' : explode(',', ($_POST['whichtables']));
 		if (empty($_POST['search'])) {
 			echo sprintf(__("Failure: No %s was given.",'updraftplus'), __('search term','updraftplus'))."<br>";
 			echo '<a href="'.UpdraftPlus_Options::admin_page_url().'?page=updraftplus">'.__('Return to UpdraftPlus Configuration','updraftplus').'</a>';
@@ -114,13 +117,17 @@ class UpdraftPlus_Addons_Migrator {
 	?>
 		<h3><?php echo __('Search / replace database','updraftplus'); ?></h3>
 		<p><em><?php echo __('This can easily destroy your site; so, use it with care!', 'updraftplus');?></em></p>
-		<form method="post" onsubmit="return(confirm('<?php echo htmlspecialchars(__('A search/replace cannot be undone - are you sure you want to do this?'));?>'))">
+		<form method="post" onsubmit="return(confirm('<?php echo esc_js(__('A search/replace cannot be undone - are you sure you want to do this?', 'updraftplus'));?>'))">
 		<input type="hidden" name="nonce" value="<?php echo wp_create_nonce('updraftplus-credentialtest-nonce');?>">
 		<input type="hidden" name="action" value="updraftplus_broadcastaction">
 		<input type="hidden" name="subaction" value="updraftplus_adminaction_searchreplace">
 		<table>
-		<?php echo $updraftplus_admin->settings_debugrow(__('Search for', 'updraftplus').':', '<input type="text" name="search" value="" style="width:380px;">'); ?>
-		<?php echo $updraftplus_admin->settings_debugrow(__('Replace with', 'updraftplus').':', '<input type="text" name="replace" value="" style="width:380px;">'); ?>
+		<?php
+			echo $updraftplus_admin->settings_debugrow(__('Search for', 'updraftplus').':', '<input type="text" name="search" value="" style="width:380px;">');
+			echo $updraftplus_admin->settings_debugrow(__('Replace with', 'updraftplus').':', '<input type="text" name="replace" value="" style="width:380px;">');
+			echo $updraftplus_admin->settings_debugrow(__('Rows per batch', 'updraftplus').':', '<input type="number" min="1" step="1" name="pagesize" value="5000" style="width:380px;">');
+			echo $updraftplus_admin->settings_debugrow(__('These tables only', 'updraftplus').':', '<input type="text" name="whichtables" title="'.esc_attr(__('Enter a comma-separated list; otherwise, leave blank for all tables.', 'updraftplus')).'" value="" style="width:380px;">');
+		?>
 		<?php echo $updraftplus_admin->settings_debugrow('', '<input class="button-primary" type="submit" value="'.esc_attr(__('Go', 'updraftplus')).'">'); ?>
 		</table>
 		</form>
@@ -300,11 +307,12 @@ class UpdraftPlus_Addons_Migrator {
 		if (false == $this->use_wpdb) {
 			// We have our own extension which drops lots of the overhead on the query
 			// This class is defined in updraft-restorer.php, which has been included if we get here
-			$wpdb_obj = new UpdraftPlus_WPDB( DB_USER, DB_PASSWORD, DB_NAME, DB_HOST );
+			$wpdb_obj = new UpdraftPlus_WPDB( DB_USER, DB_PASSWORD, DB_NAME, DB_HOST);
 			// Was that successful?
 			if (!$wpdb_obj->is_mysql || !$wpdb_obj->ready) {
 				$this->use_wpdb = true;
 			} else {
+				$this->wpdb_obj = $wpdb_obj;
 				$mysql_dbh = $wpdb_obj->updraftplus_getdbh();
 				$use_mysqli = $wpdb_obj->updraftplus_use_mysqli();
 			}
@@ -363,7 +371,7 @@ class UpdraftPlus_Addons_Migrator {
 
 		# This array is for tables that a) we know don't need URL search/replacing and b) are likely to be sufficiently big that they could significantly delay the progress of the migrate (and increase the risk of timeouts on hosts that enforce them)
 		# The term_relationships table contains 3 columns, all integers. Therefore, we can skip it. It can easily get big, so this is a good time-saver.
-		$skip_tables = array('slim_stats', 'statpress', 'term_relationships', 'icl_languages_translations', 'icl_string_positions', 'icl_string_translations', 'icl_strings', 'redirection_logs', 'Counterize', 'Counterize_UserAgents', 'Counterize_Referers', 'adrotate_stats', 'login_security_solution_fail', 'wfHits', 'wbz404_logs', 'wbz404_redirects', 'wp_wfFileMods', 'tts_trafficstats', 'tts_referrer_stats', 'dmsguestbook', 'relevanssi');
+		$skip_tables = array('slim_stats', 'statpress', 'term_relationships', 'icl_languages_translations', 'icl_string_positions', 'icl_string_translations', 'icl_strings', 'redirection_logs', 'Counterize', 'Counterize_UserAgents', 'Counterize_Referers', 'adrotate_stats', 'login_security_solution_fail', 'wfHits', 'wbz404_logs', 'wbz404_redirects', 'wp_wfFileMods', 'tts_trafficstats', 'tts_referrer_stats', 'dmsguestbook', 'relevanssi', 'wponlinebackup_generations');
 
 		if (in_array($stripped_table, $skip_tables)) {
 			$this->tables_replaced[$table] = true;
@@ -400,7 +408,7 @@ class UpdraftPlus_Addons_Migrator {
 		}
 
 		// The search/replace parameters are allowed to be either strings or arrays
-		$report = $this->_migrator_icit_srdb_replacer($from_array, $to_array, array($table));
+		$report = $this->_migrator_icit_srdb_replacer($from_array, $to_array, array($table => $stripped_table));
 
 		if (!empty($try_site_blog_replace)) {
 			if ($table == $this->base_prefix.'blogs') {
@@ -457,7 +465,15 @@ class UpdraftPlus_Addons_Migrator {
 		// Output any errors encountered during the db work.
 		if ( !empty($report['errors'] ) && is_array( $report['errors'] ) ) {
 			echo '<p><h3>'.__('Error:','updraftplus').'</h3> <ul style="list-style: disc inside;">';
-			foreach( $report['errors'] as $error ) echo "<li>".htmlspecialchars($error)."</li>";
+			$processed_errors = array();
+			foreach( $report['errors'] as $error ) {
+				if (in_array($error, $processed_errors)) continue;
+				$processed_errors[] = $error;
+				$num = count(array_keys($report['errors'], $error));
+				echo "<li>".htmlspecialchars($error);
+				if ($num > 1) echo ' (x'.$num.')';
+				echo "</li>";
+			}
 			echo '</ul></p>';
 		}
 
@@ -487,11 +503,17 @@ class UpdraftPlus_Addons_Migrator {
 			$from_array[] = $old_siteurl;
 			$to_array[] = $this->siteurl;
 		} elseif (!empty($old_home) && strpos($old_siteurl, $old_home) === 0) {
-			# strpos: haystack, needle - i.e. old_home is a substring of old_siteurl
+			# strpos: haystack, needle - i.e. old_home is a (proper, since they were not ==) substring of old_siteurl
 			$from_array[] = $old_siteurl;
 			$to_array[] = $this->siteurl;
 			$from_array[] = $old_home;
 			$to_array[] = $this->home;
+			# If the source home URL is also a proper substring of the destination site URL, then this should be skipped
+			if ($old_home != $this->siteurl && strpos($this->siteurl, $old_home) === 0) {
+				# Not pretty, but the only solution that can cope with content in posts that contains references to both site and home URLs in this case. This extra search URL un-does the adding of an unnecessary duplicate portion to site URLs in the case that is detected here.
+				$from_array[] = $this->home.substr($this->home, strlen($old_home));
+				$to_array[] = $this->home;
+			}
 		} elseif (!empty($old_siteurl) && strpos($old_home, $old_siteurl) === 0) {
 			# old_siteurl is a substring of old_home (weird!)
 			$from_array[] = $old_home;
@@ -591,6 +613,8 @@ class UpdraftPlus_Addons_Migrator {
 
 		$this->is_migration = true;
 
+		do_action('updraftplus_restored_db_is_migration');
+
 		# Detect situation where the database's siteurl in the header differs from that actual row data in the options table. This can occur if the options table was being over-ridden by a constant. In that case, the search/replace will have failed to set the option table's siteurl; and the result will be that that siteurl is hence wrong, leading to site breakage. The solution is to re-set it.
 		# $info['expected_oldsiteurl'] is from the db.gz file header
 		if (isset($info['expected_oldsiteurl']) && $info['expected_oldsiteurl'] != $db_siteurl && $db_siteurl != $this->siteurl) {
@@ -655,6 +679,17 @@ class UpdraftPlus_Addons_Migrator {
 				if (strpos($table[0], $import_table_prefix) === 0) {
 					$tablename = $table[0];
 
+					$stripped_table = substr($table, strlen($import_table_prefix));
+					# Remove multisite site number prefix, if relevant
+					if (is_multisite() && preg_match('/^(\d+)_(.*)$/', $stripped_table, $matches)) $stripped_table = $matches[2];
+
+					if (!empty($this->which_tables) && is_array($this->which_tables)) {
+						if (!in_array($tablename, $this->which_tables)) {
+							echo '<strong>'.sprintf(__('Search and replacing table:', 'updraftplus')).'</strong> '.htmlspecialchars($tablename).': '.__('skipped (not in list)', 'updraftplus').'<br>';
+							continue;
+						}
+					}
+
 					$still_needs_doing = empty($this->tables_replaced[$tablename]);
 
 					# Looking for site tables on multisite
@@ -676,9 +711,9 @@ class UpdraftPlus_Addons_Migrator {
 						}
 					}
 					if ($still_needs_doing) {
-						$tables[] = $tablename;
+						$tables[] = array($tablename => $stripped_table);
 					} else {
-						echo sprintf(__('<strong>Search and replacing table:</strong> %s: already done', 'updraftplus'),htmlspecialchars($tablename)).'<br>';
+						echo '<strong>'.sprintf(__('Search and replacing table:', 'updraftplus')).'</strong> '.htmlspecialchars($tablename).': '.__('already done', 'updraftplus').'<br>';
 						$updraftplus->log('Search and replacing table: '.$tablename.': already done');
 					}
 				}
@@ -694,7 +729,17 @@ class UpdraftPlus_Addons_Migrator {
 			// Output any errors encountered during the db work.
 			if ( ! empty( $report['errors'] ) && is_array( $report['errors'] ) ) {
 				echo '<h3>'.__('Error:','updraftplus').'</h3> <ul style="list-style: disc inside;">';
-				foreach( $report['errors'] as $error ) echo "<li>".htmlspecialchars($error)."</li>";
+
+				$processed_errors = array();
+				foreach( $report['errors'] as $error ) {
+					if (in_array($error, $processed_errors)) continue;
+					$processed_errors[] = $error;
+					$num = count(array_keys($report['errors'], $error));
+					echo "<li>".htmlspecialchars($error);
+					if ($num > 1) echo ' (x'.$num.')';
+					echo "</li>";
+				}
+
 				echo '</ul>';
 			}
 
@@ -757,6 +802,34 @@ class UpdraftPlus_Addons_Migrator {
 		return $last_error;
 	}
 
+	private function fetch_sql_result($table, $on_row, $page_size) {
+
+		$sql_line = sprintf('SELECT * FROM %s LIMIT %d, %d', $table, $on_row, $page_size);
+
+		global $updraftplus;
+		$updraftplus->check_db_connection($this->wpdb_obj, true);
+
+		if ($this->use_wpdb) {
+			global $wpdb;
+			$data = $wpdb->get_results($sql_line, ARRAY_A);
+			if (!$wpdb->last_error) return array($data, $page_size);
+		} else {
+			if ($this->use_mysqli) {
+				$data = mysqli_query($this->mysql_dbh, $sql_line);
+			} else {
+				$data = mysql_query($sql_line, $this->mysql_dbh);
+			}
+			if (false !== $data) return array($data, $page_size);
+		}
+		
+		if (5000 <= $page_size) return $this->fetch_sql_result($table, $on_row, 2000);
+		if (2000 <= $page_size) return $this->fetch_sql_result($table, $on_row, 500);
+
+		# At this point, $page_size should be 500; and that failed
+		return array(false, $page_size);
+
+	}
+
 	// The raw engine
 	private function _migrator_icit_srdb_replacer($search, $replace, $tables) {
 
@@ -774,13 +847,22 @@ class UpdraftPlus_Addons_Migrator {
 			'errors' => array(),
 		);
 
-		foreach ($tables as $table) {
+		$page_size = (empty($this->page_size) || !is_numeric($this->page_size)) ? 5000 : $this->page_size;
+
+		foreach ($tables as $table => $stripped_table) {
 
 			$report['tables']++;
+
+			if ($search === $replace) {
+				$updraftplus->log("No search/replace required: would-be search and replacement are identical");
+				continue;
+			}
 
 			$this->columns = array( );
 
 			echo sprintf(__('<strong>Search and replacing table:</strong> %s', 'updraftplus'), htmlspecialchars($table));
+
+			$updraftplus->check_db_connection($this->wpdb_obj, true);
 
 			// Get a list of columns in this table
 			$fields = $wpdb->get_results('DESCRIBE '.$updraftplus->backquote($table), ARRAY_A);
@@ -798,14 +880,21 @@ class UpdraftPlus_Addons_Migrator {
 
 			# InnoDB does not do count(*) quickly. You can use an index for more speed - see: http://www.cloudspace.com/blog/2009/08/06/fast-mysql-innodb-count-really-fast/
 
+			$where = '';
+			# Opportunity to use internal knowledge on tables which may be huge
+			if ('postmeta' == $stripped_table && ((is_array($search) && strpos($search[0], 'http') === 0) || strpos($search, 'http') === 0)) {
+				$where = " WHERE meta_value LIKE 'http%'";
+			}
+
 			$count_rows_sql = 'SELECT COUNT(*) FROM '.$table;
 			if ($prikey_field) $count_rows_sql .= " USE INDEX (PRIMARY)";
+			$count_rows_sql .= $where;
 
 			$row_countr = $wpdb->get_results($count_rows_sql, ARRAY_N);
 
 			// If that failed, try this
 			if (false !== $prikey_field && $wpdb->last_error) {
-				$row_countr = $wpdb->get_results("SELECT COUNT(*) FROM $table USE INDEX ($prikey_field)", ARRAY_N) ;
+				$row_countr = $wpdb->get_results("SELECT COUNT(*) FROM $table USE INDEX ($prikey_field)".$where, ARRAY_N) ;
 				if ($wpdb->last_error) $row_countr = $wpdb->get_results("SELECT COUNT(*) FROM $table", ARRAY_N) ;
 			}
 
@@ -814,25 +903,21 @@ class UpdraftPlus_Addons_Migrator {
 			$updraftplus->log('Search and replacing table: '.$table.": rows: ".$row_count);
 			if (0 == $row_count) continue;
 
-			$page_size = 5000;
-			$pages = ceil( $row_count / $page_size );
-
-			for ($page = 0; $page < $pages; $page++) {
+			for ($on_row = 0; $on_row <= $row_count; $on_row = $on_row+$page_size) {
 
 				$this->current_row = 0;
-				$start = $page * $page_size;
-				$end = $start + $page_size;
-				// Grab the content of the table
 
-				if ($start>0) $updraftplus->log_e("Searching and replacing reached row: %d", $start);
+				if ($on_row>0) $updraftplus->log_e("Searching and replacing reached row: %d", $on_row);
 
-				// This delivers back a mysql_query object - will need changing in future WordPress versions
-				$sql_line = sprintf('SELECT * FROM %s LIMIT %d, %d', $table, $start, $end );
+				// Grab the contents of the table
+				list($data, $page_size) = $this->fetch_sql_result($table, $on_row, $page_size);
+				# $sql_line is calculated here only for the purpose of logging errors
+				# $where might contain a %, so don't place it inside the main parameter
+				$sql_line = sprintf('SELECT * FROM %s LIMIT %d, %d', $table.$where, $on_row, $on_row+$page_size);
 
 				# Our strategy here is to minimise memory usage if possible; to process one row at a time if we can, rather than reading everything into memory
 				if ($this->use_wpdb) {
 					global $wpdb;
-					$data = $wpdb->get_results($sql_line, ARRAY_A);
 					if ($wpdb->last_error) {
 						$report['errors'][] = $this->_migrator_print_error($sql_line);
 					} else {
@@ -845,30 +930,27 @@ class UpdraftPlus_Addons_Migrator {
 						}
 					}
 				} else {
-					if ($this->use_mysqli) {
-						$res = mysqli_query($this->mysql_dbh, $sql_line);
-					} else {
-						$res = mysql_query($sql_line, $this->mysql_dbh);
-					}
-					if (false === $res) {
+					if (false === $data) {
 						$report['errors'][] = $this->_migrator_print_error($sql_line);
-					} elseif ($res !== true && $res !== null) {
+					} elseif ($data !== true && $data !== null) {
 						if ($this->use_mysqli) {
-							while ($row = mysqli_fetch_array($res)) {
+							while ($row = mysqli_fetch_array($data)) {
 								$rowrep = $this->process_row($table, $row, $search, $replace);
 								$report['rows']++;
 								$report['updates'] += $rowrep['updates'];
 								$report['change'] += $rowrep['change'];
 								foreach ($rowrep['errors'] as $err) $report['errors'][] = $err;
 							}
+							@mysqli_free_result($data);
 						} else {
-							while ($row = mysql_fetch_array($res)) {
+							while ($row = mysql_fetch_array($data)) {
 								$rowrep = $this->process_row($table, $row, $search, $replace);
 								$report['rows']++;
 								$report['updates'] += $rowrep['updates'];
 								$report['change'] += $rowrep['change'];
 								foreach ($rowrep['errors'] as $err) $report['errors'][] = $err;
 							}
+							@mysql_free_result($data);
 						}
 					}
 				}
@@ -993,7 +1075,22 @@ class UpdraftPlus_Addons_Migrator {
 			}
 
 			else {
-				if ( is_string( $data ) ) $data = str_replace( $from, $to, $data );
+				if ( is_string( $data ) ) {
+					$data = str_replace( $from, $to, $data );
+# Below is the wrong approach. In fact, in the problematic case, the resolution is an extra search/replace to undo unnecessary ones
+// 					if (is_string($from)) {
+// 						$data = str_replace( $from, $to, $data );
+// 					} else {
+// 						# Array. We only want a maximum of one replacement to take place. This is only an issue in non-default setups, but in those situations, carrying out all the search/replaces can be wrong. This is also why the most specific URL should be done first.
+// 						foreach ($from as $i => $f) {
+// 							$ndata = str_replace($f, $to[$i], $data);
+// 							if ($ndata != $data) {
+// 								$data = $ndata;
+// 								break;
+// 							}
+// 						}
+// 					}
+				}
 			}
 
 			if ( $serialised )

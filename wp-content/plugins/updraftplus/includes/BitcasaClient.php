@@ -15,6 +15,10 @@ define("BITCASA_BASE_URL", "https://developer.api.bitcasa.com/v1");
 
 class BitcasaClient_WP extends BitcasaClient {
 
+	public function get_base_url() {
+		return $this->base_url;
+	}
+
 	protected function http_delete($url, $args = NULL, $body = NULL)
 	{
 		$full_url = $this->base_url . $url;
@@ -218,6 +222,15 @@ class BitcasaClient_WP extends BitcasaClient {
 			return $response;
 		}
 		else {
+			if (!empty($r['body']) && (null != ($json = json_decode($r['body'])))) {
+				if (is_object($json) && is_object($json->error) && !empty($json->error->message)) {
+					global $updraftplus;
+					$updraftplus->log('Bitcasa Exception: ('.$json->error->code.'): '.$json->error->message);
+					if (401 == $rc) {
+						$updraftplus->log('Bitcasa: '.__('Account is not authorized.', 'updraftplus').' '.$json->error->message, 'error');
+					}
+				}
+			}
 			throw new BitcasaException("Invalid response code", $rc);
 		}
 
@@ -259,12 +272,12 @@ class BitcasaClient_WP extends BitcasaClient {
 		}
 
 		if (version_compare(PHP_VERSION, '5.5.0', '>=') && class_exists('CURLFile')) {
-			$curlfile = new CURLFile(realpath($filepath), 'application/'.(('.zip' == substr($filepath, -4, 4)) ? 'zip' : 'octet-stream'));
+			$curlfile = new CURLFile(realpath($filepath), 'application/'.(('.zip' == substr($filepath, -4, 4)) ? 'zip' : 'octet-stream'), $filename);
 			$postdata = $fields;
 			$postdata['file'] = $curlfile;
 		} else {
 			$postdata = $fields;
-			$postdata['file'] = "@".realpath($filepath).";type=application/".(('.zip' == substr($filepath, -4, 4)) ? 'zip' : 'octet-stream');
+			$postdata['file'] = "@".realpath($filepath).";filename=".esc_attr($filename).";type=application/".(('.zip' == substr($filepath, -4, 4)) ? 'zip' : 'octet-stream');
 		}
 
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
@@ -276,8 +289,8 @@ class BitcasaClient_WP extends BitcasaClient {
 		curl_close ($ch);
 
 		if ($r === false) {
-				throw new BitcasaException($error);
-			} else {
+			throw new BitcasaException($error);
+		} else {
 			// Parse the response if it is a string
 			if (is_string($r)) {
 				$r = $this->parse($r);
@@ -297,6 +310,9 @@ class BitcasaClient_WP extends BitcasaClient {
 				if (is_object($json) && is_object($json->error) && !empty($json->error->message)) {
 					global $updraftplus;
 					$updraftplus->log('Bitcasa Exception: ('.$json->error->code.'): '.$json->error->message);
+					if (401 == $rc) {
+						$updraftplus->log('Bitcasa: '.__('Account is not authorized.', 'updraftplus').' '.$json->error->message, 'error');
+					}
 				}
 			}
 			throw new BitcasaException("Invalid response code", $rc);
@@ -376,12 +392,12 @@ class BitcasaClient
 	 * Once an instance of this class is created, either the authenticate() or
 	 * the setAccessToken() methods must be called.
 	 */
-	public function __construct()
+	public function __construct($base_url = '')
 	{
 		$this->client_id = NULL;
 		$this->secret = NULL;
 		$this->access_token = NULL;
-		$this->base_url = BITCASA_BASE_URL;
+		$this->base_url = ($base_url) ? $base_url : BITCASA_BASE_URL;
 		$this->infinite_drive = NULL;
 		$this->mirrored_folders = NULL;
 	}
@@ -411,9 +427,9 @@ class BitcasaClient
 	}
 
 
-	public static function authorize($client_id, $redirect)
+	public function authorize($client_id, $redirect)
 	{
-		return BITCASA_BASE_URL . "/oauth2/authenticate?client_id="
+		return $this->base_url . "/oauth2/authenticate?client_id="
 			. urlencode($client_id)
 			. "&redirect=". $redirect;
 	}

@@ -1,7 +1,13 @@
 <?php
-/*  
-Copyright 2010-2014 Arnan de Gans - AJdG Solutions (email : info@ajdg.net)
-*/
+/* ------------------------------------------------------------------------------------
+*  COPYRIGHT AND TRADEMARK NOTICE
+*  Copyright 2008-2014 AJdG Solutions (Arnan de Gans). All Rights Reserved.
+*  ADROTATE is a trademark (pending registration) of Arnan de Gans.
+
+*  COPYRIGHT NOTICES AND ALL THE COMMENTS SHOULD REMAIN INTACT.
+*  By using this code you agree to indemnify Arnan de Gans from any
+*  liability that might arise from it's use.
+------------------------------------------------------------------------------------ */
 
 /*-------------------------------------------------------------
  Name:      adrotate_widget
@@ -38,7 +44,7 @@ class adrotate_widgets extends WP_Widget {
 		}
 		
 		if($adrotate_config['widgetalign'] == 'Y') echo '<ul><li>';
-		if($adrotate_config['w3caching'] == 'Y') echo '<!-- mfunc -->';
+		if($adrotate_config['w3caching'] == 'Y') echo '<!-- mfunc '.W3TC_DYNAMIC_SECURITY.' -->';
 		
 		if($instance['type'] == "single") {
 			if($adrotate_config['supercache'] == "Y") echo '<!--mfunc echo adrotate_ad('.$instance['id'].', true, 0, 0, 0) -->';

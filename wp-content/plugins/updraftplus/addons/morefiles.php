@@ -2,9 +2,9 @@
 /*
 UpdraftPlus Addon: morefiles:Back up more files, including WordPress core
 Description: Creates a backup of WordPress core (including everything in that directory WordPress is in), and any other directory you specify too.
-Version: 1.8
+Version: 1.9
 Shop: /shop/more-files/
-Latest Change: 1.9.16
+Latest Change: 1.9.18
 */
 
 if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
@@ -23,8 +23,8 @@ class UpdraftPlus_Addons_MoreFiles {
 		add_filter('updraftplus_backup_makezip_wpcore', array($this, 'backup_makezip_wpcore'), 10, 3);
 		add_filter('updraftplus_backup_makezip_more', array($this, 'backup_makezip_more'), 10, 3);
 
-		add_filter('updraftplus_defaultoption_include_more', array($this, 'return_false'));
-		add_filter('updraftplus_defaultoption_include_wpcore', array($this, 'return_false'));
+		add_filter('updraftplus_defaultoption_include_more', '__return_false');
+		add_filter('updraftplus_defaultoption_include_wpcore', '__return_false');
 
 		add_filter('updraftplus_admin_directories_description', array($this, 'admin_directories_description'));
 
@@ -39,10 +39,6 @@ class UpdraftPlus_Addons_MoreFiles {
 		add_filter('updraftplus_dirlist_wpcore', array($this, 'backup_wpcore_dirlist'));
 		
 		add_filter('updraftplus_include_wpcore_exclude', array($this, 'include_wpcore_exclude'));
-	}
-
-	public function return_false($ret) {
-		return false;
 	}
 
 	public function restore_form_wpcore() {

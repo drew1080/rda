@@ -1,7 +1,13 @@
 <?php
-/*  
-Copyright 2010-2014 Arnan de Gans - AJdG Solutions (email : info@ajdg.net)
-*/
+/* ------------------------------------------------------------------------------------
+*  COPYRIGHT AND TRADEMARK NOTICE
+*  Copyright 2008-2014 AJdG Solutions (Arnan de Gans). All Rights Reserved.
+*  ADROTATE is a trademark (pending registration) of Arnan de Gans.
+
+*  COPYRIGHT NOTICES AND ALL THE COMMENTS SHOULD REMAIN INTACT.
+*  By using this code you agree to indemnify Arnan de Gans from any
+*  liability that might arise from it's use.
+------------------------------------------------------------------------------------ */
 ?>
 <h3><?php _e('Active Ads', 'adrotate'); ?></h3>
 
@@ -15,12 +21,13 @@ Copyright 2010-2014 Arnan de Gans - AJdG Solutions (email : info@ajdg.net)
 		        <option value="deactivate"><?php _e('Deactivate', 'adrotate'); ?></option>
 		        <option value="delete"><?php _e('Delete', 'adrotate'); ?></option>
 		        <option value="reset"><?php _e('Reset stats', 'adrotate'); ?></option>
+		        <option value="export"><?php _e('Export to XML', 'adrotate'); ?></option>
 		        <option value="" disabled><?php _e('-- Renew --', 'adrotate'); ?></option>
 		        <option value="renew-31536000"><?php _e('For 1 year', 'adrotate'); ?></option>
 		        <option value="renew-5184000"><?php _e('For 180 days', 'adrotate'); ?></option>
 		        <option value="renew-2592000"><?php _e('For 30 days', 'adrotate'); ?></option>
 		        <option value="renew-604800"><?php _e('For 7 days', 'adrotate'); ?></option>
-			</select> <input type="submit" id="post-action-submit" name="adrotate_action_submit" value="Go" class="button-secondary" />
+			</select> <input type="submit" id="post-action-submit" name="adrotate_action_submit" value="<?php _e('Go', 'adrotate'); ?>" class="button-secondary" />
 		</div>	
 		<br class="clear" />
 	</div>
@@ -30,8 +37,7 @@ Copyright 2010-2014 Arnan de Gans - AJdG Solutions (email : info@ajdg.net)
 			<tr>
 			<th scope="col" class="manage-column column-cb check-column" style=""><input type="checkbox" /></th>
 			<th width="2%"><center><?php _e('ID', 'adrotate'); ?></center></th>
-			<th width="12%"><?php _e('Show from', 'adrotate'); ?></th>
-			<th width="12%"><?php _e('Show until', 'adrotate'); ?></th>
+			<th width="15%"><?php _e('Start / End', 'adrotate'); ?></th>
 			<th><?php _e('Title', 'adrotate'); ?></th>
 			<th width="5%"><center><?php _e('Weight', 'adrotate'); ?></center></th>
 			<th width="5%"><center><?php _e('Shown', 'adrotate'); ?></center></th>
@@ -75,9 +81,8 @@ Copyright 2010-2014 Arnan de Gans - AJdG Solutions (email : info@ajdg.net)
 		    <tr id='adrotateindex' class='<?php echo $class; ?>'>
 				<th class="check-column"><input type="checkbox" name="bannercheck[]" value="<?php echo $banner['id']; ?>" /></th>
 				<td><center><?php echo $banner['id'];?></center></td>
-				<td><?php echo date_i18n("F d, Y", $banner['firstactive']);?></td>
-				<td><span style="color: <?php echo adrotate_prepare_color($banner['lastactive']);?>;"><?php echo date_i18n("F d, Y", $banner['lastactive']);?></span></td>
-				<td><strong><a class="row-title" href="<?php echo admin_url('/admin.php?page=adrotate-ads&view=edit&ad='.$banner['id']);?>" title="<?php _e('Edit', 'adrotate'); ?>"><?php echo stripslashes(html_entity_decode($banner['title']));?></a></strong> - <a href="<?php echo admin_url('/admin.php?page=adrotate-ads&view=report&ad='.$banner['id']);?>" title="<?php _e('Stats', 'adrotate'); ?>"><?php _e('Stats', 'adrotate'); ?></a><span style="color:#999;"><?php if(strlen($grouplist) > 0) echo '<br /><span style="font-weight:bold;">Groups:</span> '.$grouplist; ?></span></td>
+				<td><?php echo date_i18n("F d, Y", $banner['firstactive']);?><br /><span style="color: <?php echo adrotate_prepare_color($banner['lastactive']);?>;"><?php echo date_i18n("F d, Y", $banner['lastactive']);?></span></td>
+				<td><strong><a class="row-title" href="<?php echo admin_url('/admin.php?page=adrotate-ads&view=edit&ad='.$banner['id']);?>" title="<?php _e('Edit', 'adrotate'); ?>"><?php echo stripslashes(html_entity_decode($banner['title']));?></a></strong> - <a href="<?php echo admin_url('/admin.php?page=adrotate-ads&view=report&ad='.$banner['id']);?>" title="<?php _e('Report', 'adrotate'); ?>"><?php _e('Report', 'adrotate'); ?></a><span style="color:#999;"><?php if(strlen($grouplist) > 0) echo '<br /><span style="font-weight:bold;">'.__('Groups:', 'adrotate').'</span> '.$grouplist; ?></span></td>
 				<td><center><?php echo $banner['weight']; ?></center></td>
 				<td><center><?php echo $stats['impressions']; ?></center></td>
 				<td><center><?php echo $stats_today['impressions']; ?></center></td>
@@ -99,6 +104,7 @@ Copyright 2010-2014 Arnan de Gans - AJdG Solutions (email : info@ajdg.net)
 		</tr>
 	<?php } ?>
 	</tbody>
-</table>
+	</table>
+	<center><?php _e('Get more features with AdRotate Pro.', 'adrotate'); ?> <a href="admin.php?page=adrotate-pro"><?php _e('More information', 'adrotate'); ?></a>.</center>
 
 </form>
