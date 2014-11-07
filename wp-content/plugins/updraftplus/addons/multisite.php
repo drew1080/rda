@@ -76,6 +76,7 @@ if (is_multisite()) {
 					'updraft_dreamobjects' => array(),
 					'updraft_cloudfiles' => array(),
 					'updraft_bitcasa' => array(),
+					'updraft_copycom' => array(),
 					'updraft_openstack' => array(),
 					'updraft_googledrive' => array(),
 					'updraft_dropbox' => array(),
@@ -84,7 +85,7 @@ if (is_multisite()) {
 					'updraft_ssl_nossl' => 0,
 					'updraft_ssl_useservercerts' => 0,
 					'updraft_ssl_disableverify' => 0,
-					'updraft_split_every' => 1024,
+					'updraft_split_every' => 500,
 
 					'updraft_sftp_settings' => array(),
 					'updraft_webdav_settings' => array(),
@@ -180,8 +181,12 @@ if (is_multisite()) {
 					$options[$key] = $updraftplus->dropbox_checkchange($value);
 				} elseif ('updraft_ftp' == $key && is_array($value)) {
 					$options[$key] = $updraftplus->ftp_sanitise($value);
+				} elseif ('updraft_s3' == $key && is_array($value)) {
+					$options[$key] = $updraftplus->s3_sanitise($value);
 				} elseif ('updraft_bitcasa' == $key && is_array($value)) {
 					$options[$key] = $updraftplus->bitcasa_checkchange($value);
+				} elseif ('updraft_copycom' == $key && is_array($value)) {
+					$options[$key] = $updraftplus->copycom_checkchange($value);
 				} elseif ('updraft_split_every' == $key) {
 					$options[$key] = $updraftplus_admin->optionfilter_split_every($value);
 				} elseif ('updraft_retain' == $key || 'updraft_retain_db' == $key) {
@@ -279,5 +284,3 @@ if (is_multisite()) {
 	add_filter('updraft_admin_menu_hook', array('UpdraftPlusAddOn_MultiSite', 'updraft_admin_menu_hook'));
 
 }
-
-?>

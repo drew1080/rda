@@ -9,47 +9,7 @@
 *  liability that might arise from it's use.
 ------------------------------------------------------------------------------------ */
 ?>
-<style type="text/css" media="screen">
-.postbox-adrotate {
-	margin-bottom: 20px;
-	padding: 0;
-	position: relative;
-	min-width: 255px;
-	border: #dfdfdf 1px solid;
-	background-color: #fff;
-	-moz-box-shadow: inset 0 1px 0 #fff;
-	-webkit-box-shadow: inset 0 1px 0 #fff;
-	box-shadow: inset 0 1px 0 #fff;
-	line-height: 1.5;
-}
-
-.postbox-adrotate h3 {
-	margin: 0;
-	padding: 7px 10px 7px 10px;
-	box-shadow: #ddd 0px 1px 0px 0px;
-	-moz-box-shadow: inset 0 1px 0 #ddd;
-	-webkit-box-shadow: #ddd 0px 1px 0px 0px;
-	display: block;
-	line-height: 15px;
-}
-
-.postbox-adrotate .inside {
-	margin: 10px 0px 0px 10px;
-	padding: 0px 10px 10px 0px;
-	min-height: 40px;
-	position: relative;
-	display: block;
-	line-height: 16px;
-}
-
-.inside {
-	padding: 6px 10px 12px;
-	clear: both;
-}
-</style>
-
 <div id="dashboard-widgets-wrap">
-
 	<p><center>Take a peek into professional advertising for WordPress websites and discover how you can benefit from the powerful features <a href="https://www.adrotateplugin.com/adrotate-pro/?utm_source=adrotate_pro&utm_medium=adrotate_free&utm_campaign=upgrade_adrotatefree" target="_blank">AdRotate Professional</a> has to offer.</center></p>
 
 	<div id="dashboard-widgets" class="metabox-holder">

@@ -46,8 +46,8 @@ function adrotate_export_ads($ids) {
 			$node->addChild('ibudget', $single['ibudget']);
 			$node->addChild('crate', $single['crate']);
 			$node->addChild('irate', $single['irate']);
-			$node->addChild('cities', unserialize(implode(',', $single['cities'])));
-			$node->addChild('countries', unserialize(implode(',', $single['countries'])));
+			$node->addChild('cities', implode(',', unserialize($single['cities'])));
+			$node->addChild('countries', implode(',', unserialize($single['countries'])));
 			$node->addChild('start', $starttime);
 			$node->addChild('end', $stoptime);
 		}

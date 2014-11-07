@@ -1,7 +1,13 @@
 <?php
-/*  
-Copyright 2010-2014 Arnan de Gans - AJdG Solutions (email : info@ajdg.net)
-*/
+/* ------------------------------------------------------------------------------------
+*  COPYRIGHT AND TRADEMARK NOTICE
+*  Copyright 2008-2014 AJdG Solutions (Arnan de Gans). All Rights Reserved.
+*  ADROTATE is a trademark (pending registration) of Arnan de Gans.
+
+*  COPYRIGHT NOTICES AND ALL THE COMMENTS SHOULD REMAIN INTACT.
+*  By using this code you agree to indemnify Arnan de Gans from any
+*  liability that might arise from it's use.
+------------------------------------------------------------------------------------ */
 ?>
 <form name="disabled_banners" id="post" method="post" action="admin.php?page=adrotate-ads">
 	<?php wp_nonce_field('adrotate_bulk_ads_disable','adrotate_nonce'); ?>
@@ -16,7 +22,7 @@ Copyright 2010-2014 Arnan de Gans - AJdG Solutions (email : info@ajdg.net)
 		        <option value="delete"><?php _e('Delete', 'adrotate'); ?></option>
 		        <option value="reset"><?php _e('Reset stats', 'adrotate'); ?></option>
 			</select>
-			<input type="submit" id="post-action-submit" name="adrotate_disabled_action_submit" value="Go" class="button-secondary" />
+			<input type="submit" id="post-action-submit" name="adrotate_disabled_action_submit" value="<?php _e('Go', 'adrotate'); ?>" class="button-secondary" />
 		</div>
 	
 		<br class="clear" />
@@ -27,8 +33,7 @@ Copyright 2010-2014 Arnan de Gans - AJdG Solutions (email : info@ajdg.net)
 				<tr>
 				<th scope="col" class="manage-column column-cb check-column" style=""><input type="checkbox" /></th>
 				<th width="2%"><center><?php _e('ID', 'adrotate'); ?></center></th>
-				<th width="12%"><?php _e('Show from', 'adrotate'); ?></th>
-				<th width="12%"><?php _e('Show until', 'adrotate'); ?></th>
+				<th width="15%"><?php _e('Start / End', 'adrotate'); ?></th>
 				<th><?php _e('Title', 'adrotate'); ?></th>
 				<th width="5%"><center><?php _e('Impressions', 'adrotate'); ?></center></th>
 				<th width="5%"><center><?php _e('Clicks', 'adrotate'); ?></center></th>
@@ -65,9 +70,8 @@ Copyright 2010-2014 Arnan de Gans - AJdG Solutions (email : info@ajdg.net)
 		    <tr id='adrotateindex' class='<?php echo $errorclass; ?>'>
 				<th class="check-column"><input type="checkbox" name="disabledbannercheck[]" value="<?php echo $disbanner['id']; ?>" /></th>
 				<td><center><?php echo $disbanner['id'];?></center></td>
-				<td><?php echo date_i18n("F d, Y", $disbanner['firstactive']);?></td>
-				<td><span style="color: <?php echo adrotate_prepare_color($disbanner['lastactive']);?>;"><?php echo date_i18n("F d, Y", $disbanner['lastactive']);?></span></td>
-				<td><strong><a class="row-title" href="<?php echo admin_url('/admin.php?page=adrotate-ads&view=edit&ad='.$disbanner['id']);?>" title="<?php _e('Edit', 'adrotate'); ?>"><?php echo stripslashes(html_entity_decode($disbanner['title']));?></a></strong> - <a href="<?php echo admin_url('/admin.php?page=adrotate-ads&view=report&ad='.$disbanner['id']);?>" title="<?php _e('Stats', 'adrotate'); ?>"><?php _e('Stats', 'adrotate'); ?></a><span style="color:#999;"><?php if(strlen($grouplist) > 0) echo '<br /><span style="font-weight:bold;">Groups:</span> '.$grouplist; ?></td>
+				<td><?php echo date_i18n("F d, Y", $disbanner['firstactive']);?><br /><span style="color: <?php echo adrotate_prepare_color($disbanner['lastactive']);?>;"><?php echo date_i18n("F d, Y", $disbanner['lastactive']);?></span></td>
+				<td><strong><a class="row-title" href="<?php echo admin_url('/admin.php?page=adrotate-ads&view=edit&ad='.$disbanner['id']);?>" title="<?php _e('Edit', 'adrotate'); ?>"><?php echo stripslashes(html_entity_decode($disbanner['title']));?></a></strong> - <a href="<?php echo admin_url('/admin.php?page=adrotate-ads&view=report&ad='.$disbanner['id']);?>" title="<?php _e('Stats', 'adrotate'); ?>"><?php _e('Stats', 'adrotate'); ?></a><span style="color:#999;"><?php if(strlen($grouplist) > 0) echo '<br /><span style="font-weight:bold;">'.__('Groups:', 'adrotate').'</span> '.$grouplist; ?></td>
 				<td><center><?php echo $stats['impressions']; ?></center></td>
 				<?php if($disbanner['tracker'] == "Y") { ?>
 				<td><center><?php echo $stats['clicks']; ?></center></td>

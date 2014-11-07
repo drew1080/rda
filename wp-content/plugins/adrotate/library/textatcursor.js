@@ -2,6 +2,17 @@
  * A Small Javascript function insert text at the position of the cursor in a HTML textarea.
  * Arnan de Gans from AJdG Solutions (http://meandmymac.net, http://www.ajdg.net)
  **********************************************************************/
+
+/* ------------------------------------------------------------------------------------
+*  COPYRIGHT AND TRADEMARK NOTICE
+*  Copyright 2008-2014 AJdG Solutions (Arnan de Gans). All Rights Reserved.
+*  ADROTATE is a trademark (pending registration) of Arnan de Gans.
+
+*  COPYRIGHT NOTICES AND ALL THE COMMENTS SHOULD REMAIN INTACT.
+*  By using this code you agree to indemnify Arnan de Gans from any
+*  liability that might arise from it's use.
+------------------------------------------------------------------------------------ */
+
 function textatcursor(areaId,text) {
 	var txtarea = document.getElementById(areaId);
 	var scrollPos = txtarea.scrollTop;

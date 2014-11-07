@@ -2,12 +2,12 @@
 /*
 UpdraftPlus Addon: bitcasa:Bitcasa Support
 Description: Allows UpdraftPlus to back up to Bitcasa cloud storage
-Version: 1.3
+Version: 1.4
 Shop: /shop/bitcasa/
 Include: includes/PEAR
 IncludePHP: methods/addon-base.php
 RequiresPHP: 5.3.3
-Latest Change: 1.9.16
+Latest Change: 1.9.20
 */
 
 # TODO: Test on PHP 5.2, and remove the RequiresPHP if it works (can't see why it wouldn't)
@@ -44,11 +44,22 @@ class UpdraftPlus_Addons_RemoteStorage_bitcasa extends UpdraftPlus_RemoteStorage
 		global $updraftplus;
 		$message = "Bitcasa user/profile did not return the expected data";
 		
+		$base_url = $this->storage->get_base_url();
+
+		$updraftplus->log(__('Bitcasa have deprecated their developer API, and it will be turned off in November 2015. You must switch to a different cloud storage method in future!', 'updraftplus'), 'warning', 'bitcasa-deprecated');
+
 		try {
-			# BITCASA_BASE_URL is defined in the SDK
-			$profile = wp_remote_get(BITCASA_BASE_URL.'/user/profile?access_token='.$this->options['token'], array('timeout' => 8));
+			$profile = wp_remote_get($base_url.'/user/profile?access_token='.$this->options['token'], array('timeout' => 8));
 			if (!is_array($profile) || empty($profile['response']) || empty($profile['response']['code']) || $profile['response']['code'] >= 300 || $profile['response']['code'] < 200 || empty($profile['body']) || (null === ($prof = json_decode($profile['body'])))) {
 				# Not as expected
+				if (is_array($profile) && !empty($profile['response']) && is_array($profile['response']) && !empty($profile['response']['code']) && 401 == $profile['response']['code']) {
+					if (null !== ($prof = json_decode($profile['body'])) && is_object($prof) && !empty($prof->error) && is_object($prof->error) && !empty($prof->error->message)) {
+						$message .= " (".$prof->error->message.")";
+					} else {
+						$message .= ' (401)';
+					}
+					
+				}
 			} else {
 				$res = $prof->result;
 				if (!empty($res->display_name)) {
@@ -211,7 +222,9 @@ class UpdraftPlus_Addons_RemoteStorage_bitcasa extends UpdraftPlus_RemoteStorage
 
 	public function do_bootstrap($opts, $connect = true) {
 		if (!class_exists('BitcasaClient_WP')) require_once(UPDRAFTPLUS_DIR.'/includes/BitcasaClient.php');
-		$bc = new BitcasaClient_WP;
+		//$base_url = empty($opts['server']) ? '' : 'https://'.$opts['server'].'/v2';
+		$base_url = '';
+		$bc = new BitcasaClient_WP($base_url);
 		if ($connect) {
 			$bc->setAccessToken($opts['token']);
 		}
@@ -267,6 +280,7 @@ class UpdraftPlus_Addons_RemoteStorage_bitcasa extends UpdraftPlus_RemoteStorage
 			// Clear out the existing credentials
 			if ('doit' == $_GET['updraftplus_bitcasaauth']) {
 				unset($this->options['token']);
+				unset($this->options['ownername']);
 				UpdraftPlus_Options::update_updraft_option('updraft_bitcasa', $this->options);
 			}
 			try {
@@ -288,8 +302,10 @@ class UpdraftPlus_Addons_RemoteStorage_bitcasa extends UpdraftPlus_RemoteStorage
 		# We log, because otherwise people get confused by the most recent log message and raise support requests
 		$updraftplus->log(__('Success:', 'updraftplus').' '.sprintf(__('you have authenticated your %s account', 'updraftplus'),'Bitcasa'));
 
+		$base_url = $storage->get_base_url();
+
 		# BITCASA_BASE_URL is defined inside the SDK
-		$profile = wp_remote_get(BITCASA_BASE_URL.'/user/profile?access_token='.$this->token, array('timeout' => 8));
+		$profile = wp_remote_get($base_url.'/user/profile?access_token='.$this->token, array('timeout' => 8));
 
 		if (!is_array($profile) || empty($profile['response']) || empty($profile['response']['code']) || $profile['response']['code'] >= 300 || $profile['response']['code'] < 200 || empty($profile['body']) || (null === ($prof = json_decode($profile['body'])))) {
 			$message .= " (".__('though part of the returned information was not as expected - your mileage may vary','updraftplus').") - ".serialize($profile);
@@ -345,12 +361,14 @@ class UpdraftPlus_Addons_RemoteStorage_bitcasa extends UpdraftPlus_RemoteStorage
 		$folder = (empty($this->options['folder'])) ? '' : $this->options['folder'];
 		$clientid = (empty($this->options['clientid'])) ? '' : $this->options['clientid'];
 		$secret = (empty($this->options['secret'])) ? '' : $this->options['secret'];
+		$server = (empty($this->options['server'])) ? '' : $this->options['server'];
 
 		$updraftplus_admin->storagemethod_row(
 			'bitcasa',
 			'',
 			'<img src="'.UPDRAFTPLUS_URL.'/images/bitcasa.png"><br>'.
-			'<a href="https://developer.bitcasa.com/admin/applications">'.__('To get your credentials, log in at the Bitcasa developer portal.', 'updraftplus').'</a>'.
+			'<strong>'.__('Bitcasa has removed its consumer API. You can no longer create new Bitcasa applications. Settings remain here only for the use of pre-existing users.', 'updraftplus').'</strong><br>'.
+			'<a href="https://consumerapi.bitcasa.com/admin/applications">'.sprintf(__('To get your credentials, log in at the %s developer portal.', 'updraftplus'), 'Bitcasa').'</a>'.
 			' '.__("After logging in, create a sandbox app. You can leave all of the questions for creating an app blank (except for the app's name).", 'updraftplus')
 		);
 
@@ -365,6 +383,13 @@ class UpdraftPlus_Addons_RemoteStorage_bitcasa extends UpdraftPlus_RemoteStorage
 			'Bitcasa '.__('Client Secret', 'updraftplus'),
 			'<input type="text" style="width:442px" name="updraft_bitcasa[secret]" value="'.esc_attr($secret).'">'
 		);
+
+// 		$updraftplus_admin->storagemethod_row(
+// 			'bitcasa',
+// 			'Bitcasa '.__('API Server', 'updraftplus'),
+// 			'<input type="text" title="'.__('Enter only the server hostname - not a full URL', 'updraftplus').'" style="width:442px" name="updraft_bitcasa[server]" value="'.esc_attr($server).'">'.
+// 			'<br><em>'.__('Leave this blank if you are using the old (pre-Cloud FS) Bitcasa consumer API platform', 'updraftplus').'</em>'
+// 		);
 
 		$updraftplus_admin->storagemethod_row(
 			'bitcasa',

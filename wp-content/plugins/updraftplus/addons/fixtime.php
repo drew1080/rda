@@ -130,9 +130,7 @@ class UpdraftPlus_AddOn_FixTime {
 
 	}
 
-	public function ftinfo() {
-		return '';
-	}
+	public function ftinfo() { return ''; }
 }
 
 ?>

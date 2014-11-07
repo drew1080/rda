@@ -3,8 +3,8 @@ Contributors: johnny5
 Donate link: http://urbangiraffe.com/about/
 Tags: post, admin, seo, pages, manage, 301, 404, redirect, permalink
 Requires at least: 3.2
-Tested up to: 3.7
-Stable tag: 2.3.4
+Tested up to: 4.1
+Stable tag: 2.3.8
 
 Redirection is a WordPress plugin to manage 301 redirections and keep track of 404 errors without requiring knowledge of Apache .htaccess files.
 
@@ -17,7 +17,7 @@ New features include:
 * 404 error monitoring - captures a log of 404 errors and allows you to easily map these to 301 redirects
 * Custom 'pass-through' redirections allowing you to pass a URL through to another page, file, or website.
 * Full logs for all redirected URLs
-* All URLs can be redirected, not just ones that don't exist
+* All URLs can be redirected, not just ones that  don't exist
 * Redirection methods - redirect based upon login status, redirect to random pages, redirect based upon the referrer!
 
 Existing features include:
@@ -51,11 +51,13 @@ Redirection is available in:
 * Dutch by Marlon Navas, Pieter Carette, and Bart Kummel
 * Hungarian by daSSad and Szépe Viktor
 * Turkish by Fatih Cevik
-* Romanian translation, thanks to Alina
+* Romanian translation, thanks to InboxTranslations
 * Greek, thanks to Stefanos Kofopoulos
 * Belarusian, thanks to Alexander Ovsov
 * Czech, thanks to Martin Jurica
 * Danish, thanks to Rasmus Himmelstrup
+
+Please submit bugs and patches to https://github.com/johngodley/redirection
 
 == Installation ==
 
@@ -69,6 +71,8 @@ The plugin is simple to install:
 
 You can find full details of installing a plugin on the [plugin installation page](http://urbangiraffe.com/articles/how-to-install-a-wordpress-plugin/).
 
+Full documentation can be found on the [Redirection](http://urbangiraffe.com/plugins/redirection/) page.
+
 == Frequently Asked Questions ==
 
 = Why would I want to use this instead of .htaccess? =
@@ -79,21 +83,37 @@ Ease of use.  Redirections are automatically created when a post URL changes, an
 
 The plugin works in a similar manner to how WordPress handles permalinks and should not result in any noticeable slowdown to your site.
 
-== Screenshots ==
-
-1. Simple interface to add a redirection
-2. A graphical interface to manage all your redirections
-
-== Documentation ==
-
-Full documentation can be found on the [Redirection](http://urbangiraffe.com/plugins/redirection/) page.
-
 == Upgrade Notice ==
 
 = 2.3.3 =
 * Full WordPress 3.5+ compatability! Note that this contains database changes so please backup your data.
 
 == Changelog ==
+
+= 2.3.8 =
+* Fix plugin activation error
+* Fix fatal error in table nav, props to spacedmonkey
+
+= 2.3.7 =
+* New redirect page to match WP style
+* New module page to match WP style
+* Configurable permissions via redirection_role filter, props to RodGer-GR
+* Fix saving 2 month log period
+* Fix importer
+* Fix DB creation to check for existing tables
+
+= 2.3.6 =
+* Updated Italian translation, props to Raffaello Tesi
+* Updated Romanian translation, props to Flo Bejgu
+* Simplify logging options
+* Fix log deletion by search term
+* Export logs and 404s to CSV
+
+= 2.3.5 =
+* Default log settings to 7 days, props to Maura
+* Updated Danish translation thanks to Mikael Rieck
+* Add per-page screen option for log pages
+* Remove all the corners
 
 = 2.3.4 =
 * Fix escaping of URL in admin page

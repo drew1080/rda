@@ -3,7 +3,7 @@
 UpdraftPlus Addon: google-enhanced:Google Drive, enhanced
 Description: Adds enhanced capabilities for Google Drive users
 Version: 1.0
-Shop: /shop/google-enhanced/
+Shop: /shop/google-drive-enhanced/
 Latest Change: 1.9.1
 */
 

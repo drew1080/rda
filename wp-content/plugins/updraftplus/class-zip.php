@@ -30,7 +30,8 @@ class UpdraftPlus_BinZip extends UpdraftPlus_PclZip {
 		$base = $updraftplus->str_lreplace($add_as, '', $file);
 
 		if ($file == $base) {
-			// Shouldn't happen
+			// Shouldn't happen; but see: https://bugs.php.net/bug.php?id=62119
+			$updraftplus->log("File skipped due to unexpected name mismatch (locale: ".setlocale(LC_CTYPE, "0")."): $file", 'notice', false, true);
 		} else {
 			$rdirname = untrailingslashit($base);
 			# Note: $file equals $rdirname/$add_as
@@ -75,7 +76,6 @@ class UpdraftPlus_BinZip extends UpdraftPlus_PclZip {
 			$dir = realpath($updraftplus_backup->make_zipfile_source);
 			$this->addfiles[$dir] = '././.';
 		}
-
 		// Loop over each destination directory name
 		foreach ($this->addfiles as $rdirname => $files) {
 
@@ -233,7 +233,8 @@ class UpdraftPlus_PclZip {
 			return false;
 		}
 
-		$ziparchive_create_match = (defined('ZIPARCHIVE::CREATE')) ? ZIPARCHIVE::CREATE : 1;
+		# Route around PHP bug (exact version with the problem not known)
+		$ziparchive_create_match = (version_compare(PHP_VERSION, '5.2.6', '>') && defined('ZIPARCHIVE::CREATE')) ? ZIPARCHIVE::CREATE : 1;
 
 		if ($flags == $ziparchive_create_match && file_exists($path)) @unlink($path);
 

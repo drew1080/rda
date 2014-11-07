@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdRotate v 3.10.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-25 10:21+0100\n"
-"PO-Revision-Date: 2014-08-25 10:21+0100\n"
-"Last-Translator: Arnan de Gans <info@ajdg.net>\n"
+"POT-Creation-Date: 2014-10-26 19:28+0100\n"
+"PO-Revision-Date: 2014-10-26 19:28+0100\n"
+"Last-Translator: Arnan de Gans <adegans@meandmymac.net>\n"
 "Language-Team: Juanjo Navarro <cmsweb@juanjoresa.es>\n"
 "Language: es_ES\n"
 "MIME-Version: 1.0\n"
@@ -13,23 +13,23 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 1.6.8\n"
+"X-Generator: Poedit 1.6.9\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: adrotate-functions.php:675
+#: adrotate-functions.php:663
 msgid "No files found"
 msgstr "No se han encontrado contenidos"
 
-#: adrotate-functions.php:678
+#: adrotate-functions.php:666
 msgid "Folder not found or not accessible"
 msgstr "La carpeta no se encuentra o no es accesible"
 
-#: adrotate-output.php:839
+#: adrotate-output.php:806
 msgid "Oh no! Something went wrong!"
 msgstr "¡Oh, no! Algo salió mal!"
 
-#: adrotate-output.php:840
+#: adrotate-output.php:807
 msgid ""
 "WordPress was unable to verify the authenticity of the url you have clicked. "
 "Verify if the url used is valid or log in via your browser."
@@ -37,7 +37,7 @@ msgstr ""
 "WordPress no pudo verificar la autenticidad de la url que ha hecho clic. "
 "Verificar si la url utilizada es válida o acceder a través del navegador."
 
-#: adrotate-output.php:841
+#: adrotate-output.php:808
 msgid ""
 "If you have received the url you want to visit via email, you are being "
 "tricked!"
@@ -45,11 +45,11 @@ msgstr ""
 "Si usted ha recibido la url que desea visitar a través del correo "
 "electrónico, es posible que le esten engañando!"
 
-#: adrotate-output.php:842
+#: adrotate-output.php:809
 msgid "Contact support if the issue persists:"
 msgstr "Si el problema persiste, contacte con el soporte:"
 
-#: adrotate-output.php:860
+#: adrotate-output.php:827
 msgid ""
 "Error, Ad is not available at this time due to schedule/geolocation "
 "restrictions or does not exist!"
@@ -57,7 +57,7 @@ msgstr ""
 "ERROR: El anuncio no está disponible en este momento debido a las "
 "restricciones de programa, de geolocalización o no existe!"
 
-#: adrotate-output.php:862
+#: adrotate-output.php:829
 msgid ""
 "Error, Ad is not available at this time due to schedule/geolocation "
 "restrictions!"
@@ -65,7 +65,7 @@ msgstr ""
 "ERROR: El anuncio no está disponible en este momento debido a las "
 "restricciones restricciones de programa o geolocalización!"
 
-#: adrotate-output.php:869 adrotate-output.php:871
+#: adrotate-output.php:836 adrotate-output.php:838
 msgid ""
 "Either there are no banners, they are disabled or none qualified for this "
 "location!"
@@ -73,19 +73,19 @@ msgstr ""
 "O bien no hay banners, estan desactivados o no estan programados para esta "
 "ubicación!"
 
-#: adrotate-output.php:877
+#: adrotate-output.php:844
 msgid "Error, no Ad ID set! Check your syntax!"
 msgstr "ERROR: No se ha asignado el ID del anuncio! Compruebe la sintaxis!"
 
-#: adrotate-output.php:883
+#: adrotate-output.php:850
 msgid "Error, no group ID set! Check your syntax!"
 msgstr "ERROR: No se ha asignado el ID del grupo! Compruebe la sintaxis!"
 
-#: adrotate-output.php:888
+#: adrotate-output.php:855
 msgid "Error, group does not exist! Check your syntax!"
 msgstr "ERROR: el grupo no existe! Compruebe la sintaxis!"
 
-#: adrotate-output.php:894
+#: adrotate-output.php:861
 msgid ""
 "There was an error locating the database tables for AdRotate. Please "
 "deactivate and re-activate AdRotate from the plugin page!!"
@@ -93,87 +93,106 @@ msgstr ""
 "Hubo un error al ubicar las tablas de la base de AdRotate. Por favor, "
 "desactivar y volver a activar el plugin AdRotate de la página!"
 
-#: adrotate-output.php:894
+#: adrotate-output.php:861
 msgid "If this does not solve the issue please seek support at"
 msgstr "Si esto no resuelve el problema por favor busque apoyo en"
 
-#: adrotate-output.php:900
+#: adrotate-output.php:867
 msgid "An unknown error occured."
 msgstr "Ha ocurrido un error desconocido."
 
-#: adrotate-output.php:926
+#: adrotate-output.php:893
 msgid "active ad(s) expired."
 msgstr "anuncio(s) activo(s) caducó."
 
-#: adrotate-output.php:926
+#: adrotate-output.php:893
 msgid "Take action now"
 msgstr "Tomar medidas ahora"
 
-#: adrotate-output.php:928
+#: adrotate-output.php:895
 msgid "active ad(s) are about to expire."
 msgstr "anuncio(s) activo(s) están a punto de caducar."
 
-#: adrotate-output.php:928
+#: adrotate-output.php:895
 msgid "Check it out"
 msgstr "Compruébelo"
 
-#: adrotate-output.php:930
+#: adrotate-output.php:897
 msgid "active ad(s) with configuration errors."
 msgstr "anuncio(s) activo(s) con errores de configuración."
 
-#: adrotate-output.php:930
+#: adrotate-output.php:897
 msgid "Solve this"
 msgstr "Solucione este"
 
-#: adrotate-output.php:932
+#: adrotate-output.php:899
 msgid "ad(s) expired."
 msgstr "anuncio(s) caducado."
 
-#: adrotate-output.php:932
+#: adrotate-output.php:899
 msgid "ad(s) are about to expire."
 msgstr "anuncio(s) están a punto de caducar."
 
-#: adrotate-output.php:932
+#: adrotate-output.php:899
 msgid "ad(s) with configuration errors."
 msgstr "anuncio(s) con errores de configuración."
 
-#: adrotate-output.php:932
+#: adrotate-output.php:899
 msgid "Fix this as soon as possible"
 msgstr "Solucionar esto en cuanto sea posible"
 
-#: adrotate-output.php:984
-msgid "Useful links"
-msgstr "Enlaces de interés"
+#: adrotate-output.php:911
+#, fuzzy
+msgid "Learn More"
+msgstr "Más información sobre"
 
-#: adrotate-output.php:985
+#: adrotate-output.php:913
+msgid ""
+"Do you like <strong>AdRotate</strong>? Why not upgrade to the <strong>PRO</"
+"strong> version"
+msgstr ""
+
+#: adrotate-output.php:914
+msgid "Get more features to even better run your advertising campaigns"
+msgstr ""
+
+#: adrotate-output.php:971
+#, fuzzy
+msgid "Help AdRotate Grow"
+msgstr "Atascado con AdRotate? Yo te ayudaré!"
+
+#: adrotate-output.php:972
 msgid "Brought to you by"
 msgstr "Presentado por"
 
-#: adrotate-output.php:992
-msgid "Check out the"
-msgstr "Descubra los"
+#: adrotate-output.php:979
+msgid ""
+"A lot of users only think to review AdRotate when something goes wrong while "
+"thousands of people use AdRotate satisfactory. Don't let this go unnoticed."
+msgstr ""
 
-#: adrotate-output.php:992
-msgid "manuals"
-msgstr "manuales"
+#: adrotate-output.php:979
+msgid "If you find AdRotate useful please leave your honest"
+msgstr ""
 
-#: adrotate-output.php:992
-msgid "and have the most popular features explained."
-msgstr "donde estan explicadas las funciones más populares."
+#: adrotate-output.php:979
+msgid "rating"
+msgstr ""
 
-#: adrotate-output.php:993
-msgid "Grab the latest news and updates on the"
-msgstr "Enterate de las novedades y actualizaciones en el"
+#: adrotate-output.php:979 dashboard/publisher/adrotate-ads-edit.php:240
+msgid "and"
+msgstr ""
 
-#: adrotate-output.php:993
-msgid "AdRotate Blog"
-msgstr "Blog de AdRotate"
+#: adrotate-output.php:979
+#, fuzzy
+msgid "review"
+msgstr "Revise el anuncio aquí:"
 
-#: adrotate-output.php:994
-msgid "Find my website at"
-msgstr "Encontrará mi sitio web en"
+#: adrotate-output.php:979
+msgid "on WordPress.org to help AdRotate grow in a positive way"
+msgstr ""
 
-#: adrotate-output.php:997
+#: adrotate-output.php:982
 msgid ""
 "Your one stop for Webdevelopment, consultancy and anything WordPress! Find "
 "out more about what I can do for you!"
@@ -181,103 +200,103 @@ msgstr ""
 "Su sitio para Desarrollo web, consultoría y cualquier otra cosa para  "
 "WordPress! Para saber más sobre lo que puedo hacer por usted!"
 
-#: adrotate-output.php:997
+#: adrotate-output.php:982
 msgid "Visit the"
 msgstr "Visite la"
 
-#: adrotate-output.php:997 dashboard/adrotate-info.php:172
+#: adrotate-output.php:982 dashboard/adrotate-info.php:172
 msgid "website"
 msgstr "página web"
 
-#: adrotate-output.php:1028
+#: adrotate-output.php:1012
 msgid "Available in AdRotate Pro"
 msgstr "Disponible en AdRotate Pro"
 
-#: adrotate-output.php:1028
+#: adrotate-output.php:1012
 msgid "More information..."
 msgstr "Más información..."
 
-#: adrotate-output.php:1029
+#: adrotate-output.php:1013
 msgid "This feature is available in AdRotate Pro"
 msgstr "Esta función está disponible en AdRotate Pro"
 
-#: adrotate-output.php:1029
+#: adrotate-output.php:1013
 msgid "Learn more"
 msgstr "Aprender más"
 
-#: adrotate-statistics.php:217 dashboard/publisher/adrotate-ads-edit.php:283
-#: dashboard/publisher/adrotate-ads-edit.php:304
+#: adrotate-statistics.php:217 dashboard/publisher/adrotate-ads-edit.php:346
+#: dashboard/publisher/adrotate-ads-edit.php:367
 msgid "January"
 msgstr "Enero"
 
-#: adrotate-statistics.php:217 dashboard/publisher/adrotate-ads-edit.php:284
-#: dashboard/publisher/adrotate-ads-edit.php:305
+#: adrotate-statistics.php:217 dashboard/publisher/adrotate-ads-edit.php:347
+#: dashboard/publisher/adrotate-ads-edit.php:368
 msgid "February"
 msgstr "Febrero"
 
-#: adrotate-statistics.php:217 dashboard/publisher/adrotate-ads-edit.php:285
-#: dashboard/publisher/adrotate-ads-edit.php:306
+#: adrotate-statistics.php:217 dashboard/publisher/adrotate-ads-edit.php:348
+#: dashboard/publisher/adrotate-ads-edit.php:369
 msgid "March"
 msgstr "Marzo"
 
-#: adrotate-statistics.php:217 dashboard/publisher/adrotate-ads-edit.php:286
-#: dashboard/publisher/adrotate-ads-edit.php:307
+#: adrotate-statistics.php:217 dashboard/publisher/adrotate-ads-edit.php:349
+#: dashboard/publisher/adrotate-ads-edit.php:370
 msgid "April"
 msgstr "Abril"
 
-#: adrotate-statistics.php:217 dashboard/publisher/adrotate-ads-edit.php:287
-#: dashboard/publisher/adrotate-ads-edit.php:308
+#: adrotate-statistics.php:217 dashboard/publisher/adrotate-ads-edit.php:350
+#: dashboard/publisher/adrotate-ads-edit.php:371
 msgid "May"
 msgstr "Mayo"
 
-#: adrotate-statistics.php:217 dashboard/publisher/adrotate-ads-edit.php:288
-#: dashboard/publisher/adrotate-ads-edit.php:309
+#: adrotate-statistics.php:217 dashboard/publisher/adrotate-ads-edit.php:351
+#: dashboard/publisher/adrotate-ads-edit.php:372
 msgid "June"
 msgstr "Junio"
 
-#: adrotate-statistics.php:217 dashboard/publisher/adrotate-ads-edit.php:289
-#: dashboard/publisher/adrotate-ads-edit.php:310
+#: adrotate-statistics.php:217 dashboard/publisher/adrotate-ads-edit.php:352
+#: dashboard/publisher/adrotate-ads-edit.php:373
 msgid "July"
 msgstr "Julio"
 
-#: adrotate-statistics.php:217 dashboard/publisher/adrotate-ads-edit.php:290
-#: dashboard/publisher/adrotate-ads-edit.php:311
+#: adrotate-statistics.php:217 dashboard/publisher/adrotate-ads-edit.php:353
+#: dashboard/publisher/adrotate-ads-edit.php:374
 msgid "August"
 msgstr "Agosto"
 
-#: adrotate-statistics.php:217 dashboard/publisher/adrotate-ads-edit.php:291
-#: dashboard/publisher/adrotate-ads-edit.php:312
+#: adrotate-statistics.php:217 dashboard/publisher/adrotate-ads-edit.php:354
+#: dashboard/publisher/adrotate-ads-edit.php:375
 msgid "September"
 msgstr "Septiembre"
 
-#: adrotate-statistics.php:217 dashboard/publisher/adrotate-ads-edit.php:292
-#: dashboard/publisher/adrotate-ads-edit.php:313
+#: adrotate-statistics.php:217 dashboard/publisher/adrotate-ads-edit.php:355
+#: dashboard/publisher/adrotate-ads-edit.php:376
 msgid "October"
 msgstr "Octubre"
 
-#: adrotate-statistics.php:217 dashboard/publisher/adrotate-ads-edit.php:293
-#: dashboard/publisher/adrotate-ads-edit.php:314
+#: adrotate-statistics.php:217 dashboard/publisher/adrotate-ads-edit.php:356
+#: dashboard/publisher/adrotate-ads-edit.php:377
 msgid "November"
 msgstr "Noviembre"
 
-#: adrotate-statistics.php:217 dashboard/publisher/adrotate-ads-edit.php:294
-#: dashboard/publisher/adrotate-ads-edit.php:315
+#: adrotate-statistics.php:217 dashboard/publisher/adrotate-ads-edit.php:357
+#: dashboard/publisher/adrotate-ads-edit.php:378
 msgid "December"
 msgstr "Diciembre"
 
-#: adrotate-statistics.php:223
+#: adrotate-statistics.php:222
 msgid "Previous"
 msgstr "Anterior"
 
-#: adrotate-statistics.php:225
+#: adrotate-statistics.php:224
 msgid "This month"
 msgstr "Este més"
 
-#: adrotate-statistics.php:226
+#: adrotate-statistics.php:225
 msgid "Next"
 msgstr "Siguiente"
 
-#: adrotate-statistics.php:285 dashboard/adrotate-info.php:123
+#: adrotate-statistics.php:284 dashboard/adrotate-info.php:123
 msgid "No data to show!"
 msgstr "No hay datos para mostrar!"
 
@@ -326,71 +345,78 @@ msgstr "ID:"
 msgid "Fill in the ID of the type you want to display!"
 msgstr "Rellene con el ID del tipo que desea mostrar!"
 
-#: adrotate.php:103
+#: adrotate.php:101
 msgid "General Info"
 msgstr "Información General"
 
-#: adrotate.php:104 dashboard/adrotate-info.php:161
+#: adrotate.php:102 dashboard/adrotate-info.php:161
 msgid "AdRotate Pro"
 msgstr "AdRotate Pro"
 
-#: adrotate.php:106
+#: adrotate.php:104
 msgid "Manage Ads"
 msgstr "Gestionar Anuncios"
 
-#: adrotate.php:108 dashboard/publisher/adrotate-groups-main.php:12
+#: adrotate.php:106 dashboard/publisher/adrotate-groups-main.php:12
 msgid "Manage Groups"
 msgstr "Gestionar Grupos"
 
-#: adrotate.php:109 adrotate.php:417
-msgid "AdRotate Server"
-msgstr "Servidor AdRotate"
+#: adrotate.php:108 adrotate.php:430
+#: dashboard/publisher/adrotate-ads-edit.php:417
+#, fuzzy
+msgid "Manage Schedules"
+msgstr "Gestionar Programas"
 
-#: adrotate.php:110 adrotate.php:430
+#: adrotate.php:109
+#, fuzzy
+msgid "Manage Media"
+msgstr "Gestionar Medios"
+
+#: adrotate.php:112 adrotate.php:597
 msgid "Settings"
 msgstr "Ajustes"
 
-#: adrotate.php:124
+#: adrotate.php:126
 msgid "AdRotate Info"
 msgstr "Información de AdRotate"
 
-#: adrotate.php:145
+#: adrotate.php:147
 msgid "AdRotate Professional"
 msgstr "AdRotate Profesional"
 
-#: adrotate.php:187
+#: adrotate.php:190
 msgid "Ad Management"
 msgstr "Administración de Anuncios"
 
-#: adrotate.php:190
+#: adrotate.php:193
 msgid "Ad created"
 msgstr "Anuncio creado"
 
-#: adrotate.php:192
+#: adrotate.php:195
 msgid "Ad updated"
 msgstr "Anuncio actualizado"
 
-#: adrotate.php:194
+#: adrotate.php:197
 msgid "Ad(s) deleted"
 msgstr "Anuncio(s) eliminado"
 
-#: adrotate.php:196
+#: adrotate.php:199
 msgid "Ad(s) statistics reset"
 msgstr "Estadisticas del Anuncio(s) restablecidas"
 
-#: adrotate.php:198
+#: adrotate.php:201
 msgid "Ad(s) renewed"
 msgstr "Anuncio(s) renovado"
 
-#: adrotate.php:200
+#: adrotate.php:203
 msgid "Ad(s) deactivated"
 msgstr "Anuncio(s) desactivado"
 
-#: adrotate.php:202
+#: adrotate.php:205
 msgid "Ad(s) activated"
 msgstr "Anuncio(s) activado"
 
-#: adrotate.php:204
+#: adrotate.php:207
 msgid ""
 "The ad was saved but has an issue which might prevent it from working "
 "properly. Review the yellow marked ad."
@@ -398,43 +424,268 @@ msgstr ""
 "El anuncio fue guardado, pero tiene un problema que podría impedir que "
 "funcione correctamente. Revise el anuncio marcado de color amarillo."
 
-#: adrotate.php:206
+#: adrotate.php:209
+#, fuzzy
+msgid "Export created"
+msgstr "Exportación Creada"
+
+#: adrotate.php:213
 msgid "Action prohibited"
 msgstr "Acción prohibida"
 
-#: adrotate.php:208 adrotate.php:356
+#: adrotate.php:215 adrotate.php:363
 msgid "No data found in selected time period"
 msgstr "No se han encontrado datos en el período de tiempo seleccionado"
 
-#: adrotate.php:266 adrotate.php:362
+#: adrotate.php:273 adrotate.php:369 adrotate.php:425
 msgid "Manage"
 msgstr "Gestionar"
 
-#: adrotate.php:267 adrotate.php:363
+#: adrotate.php:274 adrotate.php:370 adrotate.php:426
 msgid "Add New"
 msgstr "Añadir Nuevo"
 
-#: adrotate.php:345
+#: adrotate.php:352
 msgid "Group Management"
 msgstr "Administración de Grupos"
 
-#: adrotate.php:348
+#: adrotate.php:355
 msgid "Group created"
 msgstr "Grupo creado"
 
-#: adrotate.php:350
+#: adrotate.php:357
 msgid "Group updated"
 msgstr "Grupo actualizado"
 
-#: adrotate.php:352
+#: adrotate.php:359
 msgid "Group deleted"
 msgstr "Grupo borrado"
 
-#: adrotate.php:354
+#: adrotate.php:361
 msgid "Group including it's Ads deleted"
 msgstr "Grupo incluyendo sus anuncios eliminados"
 
-#: adrotate.php:425
+#: adrotate.php:421
+#, fuzzy
+msgid "Schedule Management available in AdRotate Pro"
+msgstr "Esta función está disponible en AdRotate Pro"
+
+#: adrotate.php:431
+msgid ""
+"Schedule management and multiple schedules per advert is available in "
+"AdRotate Pro."
+msgstr ""
+
+#: adrotate.php:431 adrotate.php:518
+#: dashboard/publisher/adrotate-ads-edit.php:148
+#: dashboard/publisher/adrotate-ads-main.php:108
+#: dashboard/publisher/adrotate-groups-edit.php:76
+#: dashboard/publisher/adrotate-groups-main.php:87
+#, fuzzy
+msgid "More information"
+msgstr ""
+"La App Pushover se adquiere una sola vez, ya sea para Android y/o iOS. Para "
+"tratar de convencerle puede encontrar más información en la pagina web"
+
+#: adrotate.php:438 dashboard/publisher/adrotate-ads-main-disabled.php:20
+#: dashboard/publisher/adrotate-ads-main-error.php:19
+#: dashboard/publisher/adrotate-ads-main.php:20
+#: dashboard/publisher/adrotate-groups-main.php:20
+msgid "Bulk Actions"
+msgstr "Acciones en Lote"
+
+#: adrotate.php:439 dashboard/publisher/adrotate-ads-main-disabled.php:25
+#: dashboard/publisher/adrotate-ads-main-error.php:29
+#: dashboard/publisher/adrotate-ads-main.php:30
+#: dashboard/publisher/adrotate-groups-main.php:24
+msgid "Go"
+msgstr "Aplicar"
+
+#: adrotate.php:448 dashboard/publisher/adrotate-ads-edit.php:423
+#: dashboard/publisher/adrotate-ads-main-disabled.php:35
+#: dashboard/publisher/adrotate-ads-main-error.php:39
+#: dashboard/publisher/adrotate-ads-main.php:39
+#: dashboard/publisher/adrotate-groups-main.php:32
+#: dashboard/server/adrotate-active.php:18
+#: dashboard/server/adrotate-error.php:18
+msgid "ID"
+msgstr "ID"
+
+#: adrotate.php:449
+#, fuzzy
+msgid "Start"
+msgstr "Iniciar"
+
+#: adrotate.php:449
+#, fuzzy
+msgid "End"
+msgstr "Finalizar"
+
+#: adrotate.php:450 dashboard/publisher/adrotate-ads-edit.php:497
+#: dashboard/publisher/adrotate-groups-main.php:34
+msgid "Ads"
+msgstr "Anuncios"
+
+#: adrotate.php:452
+msgid "Max Clicks"
+msgstr "Número máximo de Clics"
+
+#: adrotate.php:453
+msgid "Max Impressions"
+msgstr "Número máximo de Impresiones"
+
+#: adrotate.php:483
+#, fuzzy
+msgid "No schedules created yet!"
+msgstr "Todavia no se han creado programas!"
+
+#: adrotate.php:488
+#, fuzzy
+msgid "Easily manage your schedules from here with AdRotate Pro."
+msgstr "Obtenga más funciones con AdRotate Pro"
+
+#: adrotate.php:488 adrotate.php:551
+#, fuzzy
+msgid "Upgrade today!"
+msgstr "Hoy"
+
+#: adrotate.php:491 dashboard/publisher/adrotate-ads-edit.php:460
+#: dashboard/publisher/adrotate-ads-main-error.php:74
+#: dashboard/publisher/adrotate-groups-edit.php:373
+msgid "Expires soon."
+msgstr "Caduca pronto."
+
+#: adrotate.php:492 dashboard/publisher/adrotate-ads-main-error.php:75
+#: dashboard/publisher/adrotate-groups-edit.php:374
+msgid "Has expired."
+msgstr "Ha expirado."
+
+#: adrotate.php:516
+#, fuzzy
+msgid "Media Management available in AdRotate Pro"
+msgstr "Esta función está disponible en AdRotate Pro"
+
+#: adrotate.php:518
+#, fuzzy
+msgid ""
+"Upload images to the AdRotate Pro banners folder from here. This is "
+"especially useful if you use responsive adverts with multiple images."
+msgstr ""
+"Cargar las imágenes en la carpeta de banners de AdRotate Pro desde aquí. "
+"Esto es especialmente útil si utiliza publicidad con múltiples imágenes."
+
+#: adrotate.php:518
+#, fuzzy
+msgid "Media uploading and management is available in AdRotate Pro."
+msgstr "Esta función está disponible en AdRotate Pro"
+
+#: adrotate.php:520
+#, fuzzy
+msgid "Upload new banner image"
+msgstr "Cargar una nueva Imagen de Banner"
+
+#: adrotate.php:521
+#, fuzzy
+msgid "Accepted files are:"
+msgstr "Los archivos aceptados son:"
+
+#: adrotate.php:521
+#, fuzzy
+msgid "Maximum size is 512Kb."
+msgstr "El tamaño máximo es 512Kb."
+
+#: adrotate.php:521
+#, fuzzy
+msgid "Important:"
+msgstr "Importante:"
+
+#: adrotate.php:521
+#, fuzzy
+msgid ""
+"Make sure your file has no spaces or special characters in the name. Replace "
+"spaces with a - or _."
+msgstr ""
+"Asegúrese de que en el nombre de su archivo no contiene espacios ni "
+"caracteres especiales. Reemplace los espacios con un - o _."
+
+#: adrotate.php:523
+#, fuzzy
+msgid ""
+"For responsive adverts make sure the filename is in the following format; "
+"\"imagename.full.ext\". A full set of sized images is strongly recommended."
+msgstr ""
+"Para los anuncios sensibles asegúrese de que el nombre del archivo es el "
+"siguiente formato; \"imagename.full.ext\". Se recomienda una serie completa "
+"de imágenes del mismo tamaño."
+
+#: adrotate.php:524 dashboard/publisher/adrotate-ads-edit.php:223
+msgid ""
+"For smaller size images use \".320\", \".480\", \".768\" or \".1024\" in the "
+"filename instead of \".full\" for the various viewports."
+msgstr ""
+"Para las imágenes de menor tamaño utilizar \".320\", \".480\", \".768\" or "
+"\".1024\" en el nombre de archivo en lugar de \".completo\" para los "
+"diferentes visores."
+
+#: adrotate.php:525 dashboard/publisher/adrotate-ads-edit.php:224
+#: dashboard/publisher/adrotate-groups-edit.php:308
+#: dashboard/publisher/adrotate-groups-edit.php:317
+msgid "Example:"
+msgstr "Ejemplo:"
+
+#: adrotate.php:525
+#, fuzzy
+msgid ""
+"image.full.jpg, image.320.jpg and image.768.jpg will serve the same advert "
+"for different viewports."
+msgstr ""
+"image.full.jpg, image.320.jpg e image.768.jpg sirven el mismo anuncio para "
+"distintas ventanas gráficas. Se necesita jQuery."
+
+#: adrotate.php:529
+#, fuzzy
+msgid "Upload image"
+msgstr "Subir imagen"
+
+#: adrotate.php:532
+#, fuzzy
+msgid "Available banner images in"
+msgstr "Los banners estan disponibles en"
+
+#: adrotate.php:537 dashboard/publisher/adrotate-groups-main.php:33
+msgid "Name"
+msgstr "Nombre"
+
+#: adrotate.php:538
+#, fuzzy
+msgid "Actions"
+msgstr "Acciones"
+
+#: adrotate.php:543 adrotate.php:544 adrotate.php:545 adrotate.php:546
+#: adrotate.php:547 dashboard/publisher/adrotate-ads-main-disabled.php:22
+#: dashboard/publisher/adrotate-ads-main-error.php:21
+#: dashboard/publisher/adrotate-ads-main.php:22
+msgid "Delete"
+msgstr "Borrar"
+
+#: adrotate.php:551
+#, fuzzy
+msgid ""
+"Make sure the banner images are not in use by adverts when you delete them!"
+msgstr ""
+"¡Asegúrese de que las imágenes de banner no se están utilizando en los "
+"anuncios cuando las elimine!"
+
+#: adrotate.php:551
+#, fuzzy
+msgid "Manage your banner folder from here with AdRotate Pro."
+msgstr "Obtenga más funciones con AdRotate Pro"
+
+#: adrotate.php:584
+msgid "AdRotate Server"
+msgstr "Servidor AdRotate"
+
+#: adrotate.php:592
 msgid ""
 "AdRotate server is currently in development and these menus are not "
 "functional yet."
@@ -442,142 +693,141 @@ msgstr ""
 "El servidor AdRotate está actualmente en desarrollo y estos menús aún no son "
 "funcionales."
 
-#: adrotate.php:429
+#: adrotate.php:596
 msgid "Overview"
 msgstr "Resumen"
 
-#: adrotate.php:524
+#: adrotate.php:691
 msgid "AdRotate Settings"
 msgstr "Ajustes AdRotate"
 
-#: adrotate.php:527
+#: adrotate.php:694
 msgid "Settings saved"
 msgstr "Ajustes guardados"
 
-#: adrotate.php:529
+#: adrotate.php:696
 msgid "Database optimized"
 msgstr "Base de Datos optimizada"
 
-#: adrotate.php:531
+#: adrotate.php:698
 msgid "Database repaired"
 msgstr "Base de Datos reparada"
 
-#: adrotate.php:533
+#: adrotate.php:700
 msgid "Ads evaluated and statuses have been corrected where required"
 msgstr "Los anuncios evaluados y los estados se corregiran cuando se requiera"
 
-#: adrotate.php:535
+#: adrotate.php:702
 msgid "Empty database records removed"
 msgstr "Se han eliminado los registros vacios de la base de datos"
 
-#: adrotate.php:537
+#: adrotate.php:704
 msgid "Database can only be optimized or cleaned once every hour"
 msgstr "La Base de datos sólo se puede optimizar o limpiar una vez cada hora"
 
-#: adrotate.php:545
+#: adrotate.php:712
 msgid "Access Rights"
 msgstr "Permisos de acceso"
 
-#: adrotate.php:546
+#: adrotate.php:713
 msgid "Who has access to what?"
 msgstr "¿Quién tiene acceso a qué?"
 
-#: adrotate.php:549
+#: adrotate.php:716
 msgid "Manage/Add/Edit adverts"
 msgstr "Gestionar/Añadir/Editar anuncios"
 
-#: adrotate.php:553
+#: adrotate.php:720
 msgid "Role to see and add/edit ads."
 msgstr "Perfil para ver y añadir/editar los anuncios."
 
-#: adrotate.php:557
+#: adrotate.php:724
 msgid "Delete/Reset adverts"
 msgstr "Borrar/Restablecer anuncios"
 
-#: adrotate.php:561
+#: adrotate.php:728
 msgid "Role to delete ads and reset stats."
 msgstr "Perfil para eliminar los anuncios y restablecer las estadísticas."
 
-#: adrotate.php:565
+#: adrotate.php:732
 msgid "Manage/Add/Edit groups"
 msgstr "Gestionar/Añadir/Editar grupos"
 
-#: adrotate.php:569
+#: adrotate.php:736
 msgid "Role to see and add/edit groups."
 msgstr "Perfil para ver y añadir/editar grupos."
 
-#: adrotate.php:573
+#: adrotate.php:740
 msgid "Delete groups"
 msgstr "Eliminar grupos"
 
-#: adrotate.php:577
+#: adrotate.php:744
 msgid "Role to delete groups."
 msgstr "Perfil para eliminar grupos"
 
-#: adrotate.php:598 adrotate.php:648 adrotate.php:711 adrotate.php:758
-#: adrotate.php:798
+#: adrotate.php:765 adrotate.php:815 adrotate.php:874 adrotate.php:921
+#: adrotate.php:961
 msgid "Update Options"
 msgstr "Actualizar Opciones"
 
-#: adrotate.php:609
+#: adrotate.php:776
 msgid "Statistics"
 msgstr "Estadísticas"
 
-#: adrotate.php:612
+#: adrotate.php:779
 msgid "Enable stats"
 msgstr "Habilitar las estadísticas"
 
-#: adrotate.php:614
+#: adrotate.php:781
 msgid "Track clicks and impressions."
 msgstr "Seguimiento de clics e impresiones."
 
-#: adrotate.php:614
-msgid ""
-"Disabling this also disables click and impression limits on schedules and "
-"disables timeframes."
+#: adrotate.php:781
+#, fuzzy
+msgid "Disabling this also disables click and impression limits on schedules."
 msgstr ""
 "Al desactivar esto, también se deshabilitan la limitación de clics e "
 "impresiones en el calendario y desactiva los periodos de tiempo."
 
-#: adrotate.php:618
+#: adrotate.php:785
 msgid "Impressions timer"
 msgstr "Temporizador de Impresiones"
 
-#: adrotate.php:620 adrotate.php:627
+#: adrotate.php:787 adrotate.php:794
 msgid "Seconds."
 msgstr "Segundos."
 
-#: adrotate.php:621
+#: adrotate.php:788
 msgid "Default: 10. Set to 0 to disable this timer."
 msgstr "Predeterminado: 10. Establece en 0 para desactivar el temporizador."
 
-#: adrotate.php:621
+#: adrotate.php:788
 msgid "This number may not be empty, negative or exceed 3600 (1 hour)."
 msgstr ""
 "Este número no puede estar vacío, ser negativo o exceder de 3600 (1 hora)."
 
-#: adrotate.php:625
+#: adrotate.php:792
 msgid "Clicks timer"
 msgstr "Temporizador de Clics"
 
-#: adrotate.php:628
+#: adrotate.php:795
 msgid "Default: 86400. Set to 0 to disable this timer."
 msgstr "Predeterminado: 86400. Establece en 0 para desactivar el temporizador."
 
-#: adrotate.php:628
+#: adrotate.php:795
 msgid "This number may not be empty, negative or exceed 86400 (24 hours)."
 msgstr ""
 "Este número no puede estar vacío, ser negativo o exceder de 86400 (24 horas)."
 
-#: adrotate.php:633
+#: adrotate.php:800
 msgid "Bot filter"
 msgstr "Filtro de Motor de búsqueda"
 
-#: adrotate.php:636
+#: adrotate.php:803
 msgid "User-Agent Filter"
 msgstr "Filtro de User-Agent"
 
-#: adrotate.php:639
+#: adrotate.php:806
 msgid ""
 "A comma separated list of keywords. Filter out bots/crawlers/user-agents. To "
 "prevent impressions and clicks counted on them."
@@ -586,7 +836,7 @@ msgstr ""
 "crawlers / user-agents. Para prevenir contabilizar impresiones y clics "
 "realizados por ellos."
 
-#: adrotate.php:640
+#: adrotate.php:807
 msgid ""
 "Keep in mind that this might give false positives. The word 'google' also "
 "matches 'googlebot', but not vice-versa. So be careful!"
@@ -594,11 +844,11 @@ msgstr ""
 "Tenga en cuenta que esto puede dar falsos positivos. La palabra 'google' "
 "también coincide con 'googlebot', pero no viceversa. Así que ten cuidado!"
 
-#: adrotate.php:640
+#: adrotate.php:807
 msgid "Keep your list up-to-date"
 msgstr "Mantenga su lista al día"
 
-#: adrotate.php:641
+#: adrotate.php:808
 msgid ""
 "Use only words with alphanumeric characters, [ - _ ] are allowed too. All "
 "other characters are stripped out."
@@ -606,7 +856,7 @@ msgstr ""
 "Utilice solamente palabras con caracteres alfanuméricos, [- _] se permite "
 "también. Todos los demás caracteres se eliminaran."
 
-#: adrotate.php:642
+#: adrotate.php:809
 msgid ""
 "Additionally to the list specified here, empty User-Agents are blocked as "
 "well."
@@ -614,23 +864,23 @@ msgstr ""
 "Adicionalmente a la lista especificada aquí, los User-Agents vacíos son "
 "bloqueados."
 
-#: adrotate.php:642 dashboard/adrotate-info.php:172
+#: adrotate.php:809 dashboard/adrotate-info.php:172
 msgid "Learn more about"
 msgstr "Más información sobre"
 
-#: adrotate.php:642
+#: adrotate.php:809
 msgid "user-agents"
 msgstr "user-agents"
 
-#: adrotate.php:651
+#: adrotate.php:818
 msgid "Miscellaneous"
 msgstr "Varios"
 
-#: adrotate.php:654
+#: adrotate.php:821
 msgid "Widget alignment"
 msgstr "Alineación de Widget"
 
-#: adrotate.php:655
+#: adrotate.php:822
 msgid ""
 "Check this box if your widgets do not align in your themes sidebar. (Does "
 "not always help!)"
@@ -638,11 +888,11 @@ msgstr ""
 "Marque esta casilla si tus widgets no se alinean en la barra lateral de las "
 "plantillas (theme). (No siempre ayuda!)"
 
-#: adrotate.php:658
+#: adrotate.php:825
 msgid "Widget padding"
 msgstr "Relleno de Widget"
 
-#: adrotate.php:659
+#: adrotate.php:826
 msgid ""
 "Enable this to remove the padding (blank space) around ads in widgets. (Does "
 "not always work!)"
@@ -650,7 +900,12 @@ msgstr ""
 "Habilitar esta opción para eliminar el relleno (espacio en blanco) alrededor "
 "de los anuncios en los widgets. (No siempre funciona!)"
 
-#: adrotate.php:665
+#: adrotate.php:831 adrotate.php:842
+#, fuzzy
+msgid "NOTICE:"
+msgstr "Aviso"
+
+#: adrotate.php:832
 msgid ""
 "You have enabled W3 Total Caching support but not defined the security hash. "
 "You need to add the following line to your wp-config.php near the bottom or "
@@ -662,15 +917,15 @@ msgstr ""
 "inferior o por debajo de la línea 52 (que define otra hash.) Usando la "
 "función \"late init \" tambien debe estar habilitado en W3 Total Cache."
 
-#: adrotate.php:669
+#: adrotate.php:836
 msgid "W3 Total Caching"
 msgstr "W3 Total Cache"
 
-#: adrotate.php:670
+#: adrotate.php:837
 msgid "Check this box if you use W3 Total Caching on your site."
 msgstr "Marque esta casilla si utiliza W3 Total Cache en su sitio."
 
-#: adrotate.php:676
+#: adrotate.php:843
 msgid ""
 "You have enabled WP Super Cache support. If you have version 1.4 or newer, "
 "this function will not work. WP Super Cache has discontinued support for "
@@ -680,15 +935,15 @@ msgstr ""
 "esta función no funcionará. WP Super Cache ha interrumpido el soporte para "
 "el contenido dinámico."
 
-#: adrotate.php:680
+#: adrotate.php:847
 msgid "WP Super Cache"
 msgstr "WP Super Cache"
 
-#: adrotate.php:681
+#: adrotate.php:848
 msgid "Check this box if you use WP Super Cache on your site."
 msgstr "Marque esta casilla si utiliza WP Super Cache en su sitio."
 
-#: adrotate.php:686
+#: adrotate.php:853
 msgid ""
 "It may take a while for the ad to start rotating. The caching plugin needs "
 "to refresh the cache. This can take up to a week if not done manually."
@@ -697,7 +952,7 @@ msgstr ""
 "caché tiene que actualizar la memoria caché. Esto puede tomar hasta una "
 "semana si no se realiza de forma manual."
 
-#: adrotate.php:686
+#: adrotate.php:853
 msgid ""
 "Caching support only works for [shortcodes] and the AdRotate Widget. If you "
 "use a PHP Snippet you need to wrap your PHP in the exclusion code yourself."
@@ -706,15 +961,15 @@ msgstr ""
 "el Widget AdRotate. Si utiliza un fragmento PHP necesita envolver dentro del "
 "código PHP la exclusión a ti mismo."
 
-#: adrotate.php:690
+#: adrotate.php:857
 msgid "Javascript Libraries"
 msgstr "Librerias Javascript"
 
-#: adrotate.php:693
+#: adrotate.php:860
 msgid "Load jQuery"
 msgstr "Cargar jQuery"
 
-#: adrotate.php:694
+#: adrotate.php:861
 msgid ""
 "jQuery is required for all Javascript features below. Enable this if your "
 "theme does not load jQuery already."
@@ -722,19 +977,11 @@ msgstr ""
 "jQuery es necesaria para todas las características Javascript siguientes. "
 "Habilite esta opción si su tema no carga jQuery por defecto."
 
-#: adrotate.php:697
-msgid "Load Dynamic Groups"
-msgstr "Cargar Grupos Dinámicos"
-
-#: adrotate.php:698
-msgid "Required for Dynamic Groups to rotate ads."
-msgstr "Se requiere para rotar los anuncios en Grupos Dinámicos."
-
-#: adrotate.php:701
+#: adrotate.php:864
 msgid "Load jQuery Clicktracking"
 msgstr "Cargar jQuery Clicktracking"
 
-#: adrotate.php:702
+#: adrotate.php:865
 msgid ""
 "Required for jQuery Clicktracking. When disabled AdRotate falls back on "
 "Redirect Tracking."
@@ -742,11 +989,11 @@ msgstr ""
 "Se requiere para jQuery Clicktracking. When disabled AdRotate falls back on "
 "Redirect Tracking."
 
-#: adrotate.php:705
+#: adrotate.php:868
 msgid "Load in footer?"
 msgstr "¿Cargar en el pie de página?"
 
-#: adrotate.php:706
+#: adrotate.php:869
 msgid ""
 "Enable if you want to load the above libraries in the footer. Your theme "
 "needs to call wp_footer() for this to work."
@@ -754,11 +1001,11 @@ msgstr ""
 "Activar si desea cargar las bibliotecas anteriores en el pie de página. El "
 "tema tiene que llamar a la función wp_footer() para que esto funcione."
 
-#: adrotate.php:714
+#: adrotate.php:877
 msgid "Maintenance"
 msgstr "Mantenimiento"
 
-#: adrotate.php:715
+#: adrotate.php:878
 msgid ""
 "NOTE: The below functions are intented to be used to OPTIMIZE your database. "
 "They only apply to your ads/groups and stats. Not to other settings or other "
@@ -772,19 +1019,19 @@ msgstr ""
 "Haga siempre una copia de seguridad! Estas funciones deben ser utilizadas "
 "cuando se siente o nota que su base de datos va lenta o no responde."
 
-#: adrotate.php:730 adrotate.php:732
+#: adrotate.php:893 adrotate.php:895
 msgid "Optimize Database"
 msgstr "Optimizar la Base de Datos"
 
-#: adrotate.php:732
+#: adrotate.php:895
 msgid "You are about to optimize the AdRotate database."
 msgstr "Vas a optimizar la base de datos AdRotate."
 
-#: adrotate.php:732
+#: adrotate.php:895
 msgid "Did you make a backup of your database?"
 msgstr "¿Hiciste una copia de seguridad de la base de datos?"
 
-#: adrotate.php:732
+#: adrotate.php:895
 msgid ""
 "This may take a moment and may cause your website to respond slow "
 "temporarily!"
@@ -792,16 +1039,16 @@ msgstr ""
 "Esto puede tardar un momento y puede hacer que su sitio web responda "
 "lentamente temporalmente!"
 
-#: adrotate.php:732 adrotate.php:740 adrotate.php:748
+#: adrotate.php:895 adrotate.php:903 adrotate.php:911
 #: dashboard/publisher/adrotate-groups-main.php:24
 msgid "OK to continue, CANCEL to stop."
 msgstr "OK para continuar, CANCELAR para detenerlo."
 
-#: adrotate.php:733
+#: adrotate.php:896
 msgid "Cleans up overhead data in the AdRotate tables."
 msgstr "Limpiar los datos generales de las tablas AdRotate."
 
-#: adrotate.php:734
+#: adrotate.php:897
 msgid ""
 "Overhead data is accumulated garbage resulting from many changes you've "
 "made. This can vary from nothing to hundreds of KiB of data."
@@ -810,11 +1057,11 @@ msgstr ""
 "cambios que haya realizado. Esto puede variar de cero a cientos de Kb de "
 "datos."
 
-#: adrotate.php:738 adrotate.php:740
+#: adrotate.php:901 adrotate.php:903
 msgid "Clean-up Database"
 msgstr "Limpieza de la Base de Datos"
 
-#: adrotate.php:740
+#: adrotate.php:903
 msgid ""
 "You are about to clean up your database. This may delete expired schedules "
 "and older statistics."
@@ -822,20 +1069,20 @@ msgstr ""
 "Vas a limpiar tu base de datos. Esto puede eliminar programas vencidos y las "
 "estadísticas más antigüas."
 
-#: adrotate.php:740
+#: adrotate.php:903
 msgid "Are you sure you want to continue?"
 msgstr "¿Está seguro que desea continuar?"
 
-#: adrotate.php:740 adrotate.php:748
+#: adrotate.php:903 adrotate.php:911
 msgid "This might take a while and may slow down your site during this action!"
 msgstr ""
 "Esto podría tardar un rato y puede ralentizar el sitio durante esta acción!"
 
-#: adrotate.php:741
+#: adrotate.php:904
 msgid "Delete stats older than 356 days (Optional)."
 msgstr "Borrar las estadísticas de más de 356 días (Opcional)."
 
-#: adrotate.php:742
+#: adrotate.php:905
 msgid ""
 "AdRotate creates empty records when you start making ads or groups. In rare "
 "occasions these records are faulty."
@@ -843,7 +1090,7 @@ msgstr ""
 "AdRotate crea registros vacíos cuando usted comienza a realizar anuncios o "
 "grupos. En raras ocasiones, estos registros son defectuosos."
 
-#: adrotate.php:742
+#: adrotate.php:905
 msgid ""
 "If you made an ad or group that does not save when you make it use this "
 "button to delete those empty records."
@@ -851,7 +1098,7 @@ msgstr ""
 "Si comienza a crear un anuncio o grupo pero no lo guarda cuando lo hace, "
 "utilize este botón para borrar esos registros vacíos."
 
-#: adrotate.php:742
+#: adrotate.php:905
 msgid ""
 "Additionally you can clean up old statistics. This will improve the speed of "
 "your site."
@@ -859,19 +1106,19 @@ msgstr ""
 "Adicionalmente puede limpiar las estadísticas antiguas. Esto mejorará la "
 "velocidad de su sitio."
 
-#: adrotate.php:746
+#: adrotate.php:909
 msgid "Re-evaluate Ads"
 msgstr "Reevaluar Anuncios"
 
-#: adrotate.php:748
+#: adrotate.php:911
 msgid "Re-evaluate all ads"
 msgstr "Reevaluar todos los Anuncios"
 
-#: adrotate.php:748
+#: adrotate.php:911
 msgid "You are about to check all ads for errors."
 msgstr "Vas a comprobar todos los anuncios para localizar errores."
 
-#: adrotate.php:749
+#: adrotate.php:912
 msgid ""
 "This will apply all evaluation rules to all ads to see if any error slipped "
 "in. Normally you should not need this feature."
@@ -879,7 +1126,7 @@ msgstr ""
 "Esto aplicará las reglas de evaluación a todos los anuncios para ver si hay "
 "algún error. Normalmente no debería necesitar esta función."
 
-#: adrotate.php:753
+#: adrotate.php:916
 msgid ""
 "DISCLAIMER: If for any reason your data is lost, damaged or otherwise "
 "becomes unusable in any way or by any means in whichever way I will not take "
@@ -897,59 +1144,59 @@ msgstr ""
 "alegar que funcionaba antes de hacer clic en estos botones no es razón "
 "suficiente."
 
-#: adrotate.php:761
+#: adrotate.php:924
 msgid "Troubleshooting"
 msgstr "Solución de problemas"
 
-#: adrotate.php:764
+#: adrotate.php:927
 msgid "Current version:"
 msgstr "Versión actual:"
 
-#: adrotate.php:765
+#: adrotate.php:928
 msgid "Previous version:"
 msgstr "Versión anterior:"
 
-#: adrotate.php:768
+#: adrotate.php:931
 msgid "Current database version:"
 msgstr "Versión actual de la base de datos:"
 
-#: adrotate.php:769
+#: adrotate.php:932
 msgid "Previous database version:"
 msgstr "Versión anterior de la base de datos:"
 
-#: adrotate.php:772
+#: adrotate.php:935
 msgid "Clean Trackerdata next run:"
 msgstr "Ultima ejecución de la limpieza de la base de datos:"
 
-#: adrotate.php:773
+#: adrotate.php:936
 msgid "Not scheduled!"
 msgstr "No Programada!"
 
-#: adrotate.php:776
+#: adrotate.php:939
 msgid "Current status of adverts"
 msgstr "Estado actual de los anuncios"
 
-#: adrotate.php:777
+#: adrotate.php:940
 msgid "Normal"
 msgstr "Normal"
 
-#: adrotate.php:777
+#: adrotate.php:940
 msgid "Error"
 msgstr "Error"
 
-#: adrotate.php:777
+#: adrotate.php:940
 msgid "Expired"
 msgstr "Caducado"
 
-#: adrotate.php:777
+#: adrotate.php:940
 msgid "Expires Soon"
 msgstr "Caduca Pronto"
 
-#: adrotate.php:777
+#: adrotate.php:940
 msgid "Unknown Status"
 msgstr "Estado Desconocido"
 
-#: adrotate.php:780
+#: adrotate.php:943
 msgid ""
 "NOTE: The below options are not meant for normal use and are only there for "
 "developers to review saved settings or how ads are selected. These can be "
@@ -962,37 +1209,37 @@ msgstr ""
 "para la resolución de problemas a petición, pero NO ESTA COMPROBADO PARA SU "
 "USO CON NORMALIDAD!"
 
-#: adrotate.php:784
+#: adrotate.php:947
 msgid "Developer Debug"
 msgstr "Depurar (Test) del Desarrollador"
 
-#: adrotate.php:786
+#: adrotate.php:949
 msgid "Troubleshoot ads and how (if) they are selected, has front-end output."
 msgstr ""
 "Solucionar problemas de los anuncios y de que forma se seleccionan si los "
 "hay, tiene salida en las aplicaciones para usuario."
 
-#: adrotate.php:787
+#: adrotate.php:950
 msgid "Show all settings, dashboard routines and related values."
 msgstr ""
 "Mostrar todas las configuraciones, las rutinas del panel y los valores "
 "relacionados."
 
-#: adrotate.php:788
+#: adrotate.php:951
 msgid "Show array of all userroles and capabilities."
 msgstr "Mostrar matriz de todas las funciones de usuario y capacidades."
 
-#: adrotate.php:789
+#: adrotate.php:952
 msgid "Review saved advertisers! Visible to advertisers."
 msgstr "Opinión de los anunciantes guardada! Visible para los anunciantes."
 
-#: adrotate.php:790
+#: adrotate.php:953
 msgid "Review global stats, per ad/group stats. Visible only to publishers."
 msgstr ""
 "Revisar las estadísticas globales, las estadísticas por anuncio/grupo. "
 "Visible sólo a los editores."
 
-#: adrotate.php:791
+#: adrotate.php:954
 msgid ""
 "Disable timers for clicks and impressions and enable a alert window for "
 "clicktracking."
@@ -1000,7 +1247,7 @@ msgstr ""
 "Deshabilitar contadores de tiempo de clics e impresiones y activar una "
 "ventana de alerta para el seguimiento de clics."
 
-#: adrotate.php:792
+#: adrotate.php:955
 msgid "Temporarily disable encryption on the redirect url."
 msgstr "Desactivar temporalmente el cifrado en la redireccion de la url."
 
@@ -1108,11 +1355,11 @@ msgstr "Apoye a AdRotate"
 msgid "Your gift will ensure the continued development of AdRotate!"
 msgstr "Su donación asegurará el continuo desarrollo de AdRotate!"
 
-#: dashboard/adrotate-info.php:184 dashboard/adrotate-pro.php:87
+#: dashboard/adrotate-info.php:184 dashboard/adrotate-pro.php:43
 msgid "AdRotate is brought to you by"
 msgstr "AdRotate es ofrecido por"
 
-#: dashboard/adrotate-info.php:188 dashboard/adrotate-pro.php:91
+#: dashboard/adrotate-info.php:188 dashboard/adrotate-pro.php:47
 msgid ""
 "Your one stop for Webdevelopment, consultancy and anything WordPress! If you "
 "need a custom plugin. Theme customizations or have your site moved/migrated "
@@ -1123,7 +1370,7 @@ msgstr ""
 "(Theme) o si necesita trasladar/migrar su sitio completamente. Visite mi "
 "página web para más detalles!"
 
-#: dashboard/adrotate-info.php:188 dashboard/adrotate-pro.php:91
+#: dashboard/adrotate-info.php:188 dashboard/adrotate-pro.php:47
 msgid "Find out more"
 msgstr "Para saber más"
 
@@ -1131,11 +1378,11 @@ msgstr "Para saber más"
 msgid "Follow"
 msgstr "Continuar"
 
-#: dashboard/adrotate-pro.php:64
+#: dashboard/adrotate-pro.php:20
 msgid "Satisfy your advertisers"
 msgstr "Satisfacer a sus anunciantes"
 
-#: dashboard/adrotate-pro.php:67
+#: dashboard/adrotate-pro.php:23
 msgid ""
 "Set up advertisers and let them log in to their statistics or even create "
 "their own adverts. Created adverts go into a moderation queue for your staff "
@@ -1147,11 +1394,11 @@ msgstr ""
 "moderación para que puedan ser revisados. Los anunciantes tienen acceso a su "
 "propio panel donde pueden ver el rendimiento de sus anuncios."
 
-#: dashboard/adrotate-pro.php:72
+#: dashboard/adrotate-pro.php:28
 msgid "Localize your ad campaigns with Geo Targeting"
 msgstr "Localizar sus campañas publicitarias con Geo Targeting"
 
-#: dashboard/adrotate-pro.php:75
+#: dashboard/adrotate-pro.php:31
 msgid ""
 "Go nationwide or global with localized adverts for your various audiences. "
 "Set up adverts for countries and cities and sell impressions per general "
@@ -1162,11 +1409,11 @@ msgstr ""
 "impresiones por areas generales. Esta información la proporciona Geo "
 "FreegeoIP (MaxMind) y GeoSelect."
 
-#: dashboard/adrotate-pro.php:80
+#: dashboard/adrotate-pro.php:36
 msgid "Get Premium Support almost all year round"
 msgstr "Obtenga Soporte Premium completo durante todo el año"
 
-#: dashboard/adrotate-pro.php:83
+#: dashboard/adrotate-pro.php:39
 msgid ""
 "When you activate your AdRotate Pro license you are entitled to ticket "
 "support. AdRotate premium support which takes priority over the Forums and "
@@ -1177,11 +1424,11 @@ msgstr ""
 "foros e incluso al de correo electrónico. Obtenga una solución (por lo "
 "general) en un día."
 
-#: dashboard/adrotate-pro.php:104
+#: dashboard/adrotate-pro.php:60
 msgid "Schedule all campaigns with ease"
 msgstr "Programe todas las campañas con facilidad"
 
-#: dashboard/adrotate-pro.php:107
+#: dashboard/adrotate-pro.php:63
 msgid ""
 "Schedule your adverts and set up advertising campaigns based on date without "
 "hassle. Seasonal adverts, weekly adverts. You name it. AdRotate schedules it."
@@ -1190,11 +1437,11 @@ msgstr ""
 "sin problemas. Anuncios de temporada, anuncios semanales, lo que sea. "
 "Calendario AdRotate."
 
-#: dashboard/adrotate-pro.php:112
+#: dashboard/adrotate-pro.php:68
 msgid "Stay up-to-date with the notification system"
 msgstr "Manténgase al día con el sistema de notificaciones"
 
-#: dashboard/adrotate-pro.php:115
+#: dashboard/adrotate-pro.php:71
 msgid ""
 "Stay in touch with Email and/or push notifications. Get notified when "
 "adverts expire, have errors or when advertisers create new adverts. Never "
@@ -1205,65 +1452,65 @@ msgstr ""
 "los anunciantes crean nuevos anuncios. Que no se te pase más ninguna fecha "
 "de expiración de tus anuncios."
 
-#: dashboard/adrotate-pro.php:120
+#: dashboard/adrotate-pro.php:76
 msgid "Buy AdRotate Professional"
 msgstr "Comprar AdRotate Profesional"
 
-#: dashboard/adrotate-pro.php:123
+#: dashboard/adrotate-pro.php:80
 msgid "Singe License"
 msgstr "Singe Licencia"
 
-#: dashboard/adrotate-pro.php:123
+#: dashboard/adrotate-pro.php:80
 msgid "For one WordPress installation."
 msgstr "Para una instalación de WordPress."
 
-#: dashboard/adrotate-pro.php:123 dashboard/adrotate-pro.php:124
-#: dashboard/adrotate-pro.php:125 dashboard/adrotate-pro.php:126
-#: dashboard/adrotate-pro.php:127
+#: dashboard/adrotate-pro.php:80 dashboard/adrotate-pro.php:81
+#: dashboard/adrotate-pro.php:82 dashboard/adrotate-pro.php:83
+#: dashboard/adrotate-pro.php:84
 msgid "Buy"
 msgstr "Comprar"
 
-#: dashboard/adrotate-pro.php:124
+#: dashboard/adrotate-pro.php:81
 msgid "Duo License"
 msgstr "Duo Licencia"
 
-#: dashboard/adrotate-pro.php:124
+#: dashboard/adrotate-pro.php:81
 msgid "For two WordPress installations."
 msgstr "Para dos instalaciónes de WordPress."
 
-#: dashboard/adrotate-pro.php:125
+#: dashboard/adrotate-pro.php:82
 msgid "Multi License"
 msgstr "Multi Licencia"
 
-#: dashboard/adrotate-pro.php:125
+#: dashboard/adrotate-pro.php:82
 msgid " For up to five WordPress installations."
 msgstr "Para un máximo de cinco instalaciones de WordPress."
 
-#: dashboard/adrotate-pro.php:126
+#: dashboard/adrotate-pro.php:83
 msgid "Network License"
 msgstr "Network Licencia"
 
-#: dashboard/adrotate-pro.php:126
+#: dashboard/adrotate-pro.php:83
 msgid "Set up your own advertising network on a WordPress Multisite."
 msgstr "Configure su propia red de publicidad en un WordPress Multisite."
 
-#: dashboard/adrotate-pro.php:127
+#: dashboard/adrotate-pro.php:84
 msgid "Developer License"
 msgstr "Developer Licencia"
 
-#: dashboard/adrotate-pro.php:127
+#: dashboard/adrotate-pro.php:84
 msgid "Activate AdRotate on unlimited WordPress installations and/or networks."
 msgstr "Activar AdRotate en ilimitadas instalaciones de WordPress  y/o redes."
 
-#: dashboard/adrotate-pro.php:128
+#: dashboard/adrotate-pro.php:85
 msgid "Compare licenses"
 msgstr "Comparar licencias"
 
-#: dashboard/adrotate-pro.php:128
+#: dashboard/adrotate-pro.php:85
 msgid "Not sure which license is for you? Compare them..."
 msgstr "No está seguro de que licencia es para usted? Comparelas..."
 
-#: dashboard/adrotate-pro.php:128
+#: dashboard/adrotate-pro.php:85
 msgid "All Licenses"
 msgstr "Todas las licencias"
 
@@ -1348,7 +1595,7 @@ msgid "AdCode:"
 msgstr "AdCode:"
 
 #: dashboard/publisher/adrotate-ads-edit.php:124
-#: dashboard/publisher/adrotate-groups-edit.php:307
+#: dashboard/publisher/adrotate-groups-edit.php:309
 msgid "Options:"
 msgstr "Opciones:"
 
@@ -1376,30 +1623,38 @@ msgstr "Sí, se utilizará este anuncio"
 msgid "No, do not show this ad anywhere"
 msgstr "No, no mostrar este anuncio en cualquier lugar"
 
-#: dashboard/publisher/adrotate-ads-edit.php:150
-#: dashboard/publisher/adrotate-ads-edit.php:187
-#: dashboard/publisher/adrotate-ads-edit.php:269
-#: dashboard/publisher/adrotate-ads-edit.php:353
-#: dashboard/publisher/adrotate-ads-edit.php:396
-msgid "Save Advert"
-msgstr "Guardar Anuncio"
+#: dashboard/publisher/adrotate-ads-edit.php:148
+#: dashboard/publisher/adrotate-ads-main.php:108
+#: dashboard/publisher/adrotate-groups-edit.php:76
+#: dashboard/publisher/adrotate-groups-main.php:87
+#, fuzzy
+msgid "Get more features with AdRotate Pro."
+msgstr "Obtenga más funciones con AdRotate Pro"
 
 #: dashboard/publisher/adrotate-ads-edit.php:151
 #: dashboard/publisher/adrotate-ads-edit.php:188
-#: dashboard/publisher/adrotate-ads-edit.php:270
-#: dashboard/publisher/adrotate-ads-edit.php:354
-#: dashboard/publisher/adrotate-ads-edit.php:397
-#: dashboard/publisher/adrotate-groups-edit.php:169
-#: dashboard/publisher/adrotate-groups-edit.php:295
-#: dashboard/publisher/adrotate-groups-edit.php:377
+#: dashboard/publisher/adrotate-ads-edit.php:332
+#: dashboard/publisher/adrotate-ads-edit.php:464
+#: dashboard/publisher/adrotate-ads-edit.php:507
+msgid "Save Advert"
+msgstr "Guardar Anuncio"
+
+#: dashboard/publisher/adrotate-ads-edit.php:152
+#: dashboard/publisher/adrotate-ads-edit.php:189
+#: dashboard/publisher/adrotate-ads-edit.php:333
+#: dashboard/publisher/adrotate-ads-edit.php:465
+#: dashboard/publisher/adrotate-ads-edit.php:508
+#: dashboard/publisher/adrotate-groups-edit.php:170
+#: dashboard/publisher/adrotate-groups-edit.php:297
+#: dashboard/publisher/adrotate-groups-edit.php:379
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: dashboard/publisher/adrotate-ads-edit.php:155
+#: dashboard/publisher/adrotate-ads-edit.php:156
 msgid "Preview"
 msgstr "Vista previa"
 
-#: dashboard/publisher/adrotate-ads-edit.php:161
+#: dashboard/publisher/adrotate-ads-edit.php:162
 msgid ""
 "Note: While this preview is an accurate one, it might look different then it "
 "does on the website."
@@ -1407,24 +1662,24 @@ msgstr ""
 "Nota: Mientras que la previsualización de la imagen aqui mostrada es "
 "precisa, en su pagina web puede tener un aspecto diferente."
 
-#: dashboard/publisher/adrotate-ads-edit.php:162
+#: dashboard/publisher/adrotate-ads-edit.php:163
 msgid ""
 "This is because of CSS differences. Your themes CSS file is not active here!"
 msgstr ""
 "Esto es debido a las diferencias de CSS. En la zona administrativa no está "
 "activo el archivo CSS de las plantillas (themes)!"
 
-#: dashboard/publisher/adrotate-ads-edit.php:169
-#: dashboard/publisher/adrotate-ads-edit.php:251
-#: dashboard/publisher/adrotate-groups-edit.php:154
-#: dashboard/publisher/adrotate-groups-edit.php:280
+#: dashboard/publisher/adrotate-ads-edit.php:170
+#: dashboard/publisher/adrotate-ads-edit.php:314
+#: dashboard/publisher/adrotate-groups-edit.php:155
+#: dashboard/publisher/adrotate-groups-edit.php:282
 msgid "Usage"
 msgstr "Utilización"
 
-#: dashboard/publisher/adrotate-ads-edit.php:170
-#: dashboard/publisher/adrotate-ads-edit.php:252
-#: dashboard/publisher/adrotate-groups-edit.php:155
-#: dashboard/publisher/adrotate-groups-edit.php:281
+#: dashboard/publisher/adrotate-ads-edit.php:171
+#: dashboard/publisher/adrotate-ads-edit.php:315
+#: dashboard/publisher/adrotate-groups-edit.php:156
+#: dashboard/publisher/adrotate-groups-edit.php:283
 msgid ""
 "Copy the shortcode in a post or page. The PHP code goes in a theme file "
 "where you want the advert to show up."
@@ -1432,43 +1687,43 @@ msgstr ""
 "Copie el shortcode en un post o página. El código PHP va en el archivo del "
 "tema en el que desea mostrar el anuncio."
 
-#: dashboard/publisher/adrotate-ads-edit.php:174
-#: dashboard/publisher/adrotate-ads-edit.php:256
-#: dashboard/publisher/adrotate-groups-edit.php:159
-#: dashboard/publisher/adrotate-groups-edit.php:285
+#: dashboard/publisher/adrotate-ads-edit.php:175
+#: dashboard/publisher/adrotate-ads-edit.php:319
+#: dashboard/publisher/adrotate-groups-edit.php:160
+#: dashboard/publisher/adrotate-groups-edit.php:287
 msgid "In a post or page:"
 msgstr "En un post o página:"
 
-#: dashboard/publisher/adrotate-ads-edit.php:176
-#: dashboard/publisher/adrotate-ads-edit.php:258
-#: dashboard/publisher/adrotate-groups-edit.php:161
-#: dashboard/publisher/adrotate-groups-edit.php:287
+#: dashboard/publisher/adrotate-ads-edit.php:177
+#: dashboard/publisher/adrotate-ads-edit.php:321
+#: dashboard/publisher/adrotate-groups-edit.php:162
+#: dashboard/publisher/adrotate-groups-edit.php:289
 msgid "Directly in a theme:"
 msgstr "Directamente en la plantilla (theme):"
 
-#: dashboard/publisher/adrotate-ads-edit.php:180
-#: dashboard/publisher/adrotate-ads-edit.php:262
+#: dashboard/publisher/adrotate-ads-edit.php:181
+#: dashboard/publisher/adrotate-ads-edit.php:325
 msgid "Email or Remote page:"
 msgstr "Correo electrónico o una página remota:"
 
-#: dashboard/publisher/adrotate-ads-edit.php:191
-#: dashboard/publisher/adrotate-groups-edit.php:172
+#: dashboard/publisher/adrotate-ads-edit.php:192
+#: dashboard/publisher/adrotate-groups-edit.php:173
 msgid "Advanced"
 msgstr "Avanzado"
 
-#: dashboard/publisher/adrotate-ads-edit.php:192
+#: dashboard/publisher/adrotate-ads-edit.php:193
 msgid "Everything below is optional."
 msgstr "Todo lo siguiente es opcional."
 
-#: dashboard/publisher/adrotate-ads-edit.php:197
+#: dashboard/publisher/adrotate-ads-edit.php:198
 msgid "Clicktracking:"
 msgstr "Seguimiento de Clics:"
 
-#: dashboard/publisher/adrotate-ads-edit.php:199
+#: dashboard/publisher/adrotate-ads-edit.php:200
 msgid "Enable click tracking for this advert."
 msgstr "Activar el seguimiento de clics para este anuncio."
 
-#: dashboard/publisher/adrotate-ads-edit.php:200
+#: dashboard/publisher/adrotate-ads-edit.php:201
 msgid ""
 "Note: Clicktracking does generally not work for Javascript adverts such as "
 "those provided by Google AdSense."
@@ -1476,13 +1731,13 @@ msgstr ""
 "Nota: El seguimiento de clics no funciona generalmente para los anuncios "
 "Javascript tales como los proporcionados por Google AdSense."
 
-#: dashboard/publisher/adrotate-ads-edit.php:202
+#: dashboard/publisher/adrotate-ads-edit.php:203
 msgid "Place the target URL in your adcode and enable clicktracking."
 msgstr ""
 "Colocar la dirección URL de destino en su adcode y activar el seguimiento de "
 "clics."
 
-#: dashboard/publisher/adrotate-ads-edit.php:204
+#: dashboard/publisher/adrotate-ads-edit.php:205
 msgid ""
 "Place the target URL in the field below, use %link% in the adcode instead of "
 "the target URL and enable clicktracking."
@@ -1491,23 +1746,23 @@ msgstr ""
 "etiqueta %link% en el adcode en lugar de la dirección URL de destino y "
 "activar el seguimiento de clics."
 
-#: dashboard/publisher/adrotate-ads-edit.php:210
+#: dashboard/publisher/adrotate-ads-edit.php:211
 msgid "Target URL:"
 msgstr "URL de destino:"
 
-#: dashboard/publisher/adrotate-ads-edit.php:213
+#: dashboard/publisher/adrotate-ads-edit.php:214
 msgid "Enter the target URL for your advert here."
 msgstr "Escriba la dirección URL de destino para su anuncio aquí."
 
-#: dashboard/publisher/adrotate-ads-edit.php:218
+#: dashboard/publisher/adrotate-ads-edit.php:219
 msgid "Responsive:"
 msgstr "Adaptable:"
 
-#: dashboard/publisher/adrotate-ads-edit.php:220
+#: dashboard/publisher/adrotate-ads-edit.php:221
 msgid "Enable responsive support for this advert."
 msgstr "Habilitar soporte sensible para este anuncio."
 
-#: dashboard/publisher/adrotate-ads-edit.php:221
+#: dashboard/publisher/adrotate-ads-edit.php:222
 msgid ""
 "Upload your images to the banner folder and make sure the filename is in the "
 "following format; \"imagename.full.ext\". A full set of sized images is "
@@ -1517,22 +1772,7 @@ msgstr ""
 "archivo es el siguiente formato; \"nombreimagen.full.ext\". Se recomienda un "
 "conjunto de imágenes del mismo tamaño."
 
-#: dashboard/publisher/adrotate-ads-edit.php:222
-msgid ""
-"For smaller size images use \".320\", \".480\", \".768\" or \".1024\" in the "
-"filename instead of \".full\" for the various viewports."
-msgstr ""
-"Para las imágenes de menor tamaño utilizar \".320\", \".480\", \".768\" or "
-"\".1024\" en el nombre de archivo en lugar de \".completo\" para los "
-"diferentes visores."
-
-#: dashboard/publisher/adrotate-ads-edit.php:223
-#: dashboard/publisher/adrotate-groups-edit.php:306
-#: dashboard/publisher/adrotate-groups-edit.php:315
-msgid "Example:"
-msgstr "Ejemplo:"
-
-#: dashboard/publisher/adrotate-ads-edit.php:223
+#: dashboard/publisher/adrotate-ads-edit.php:224
 msgid ""
 "image.full.jpg, image.320.jpg and image.768.jpg will serve the same advert "
 "for different viewports. Requires jQuery."
@@ -1540,36 +1780,36 @@ msgstr ""
 "image.full.jpg, image.320.jpg e image.768.jpg sirven el mismo anuncio para "
 "distintas ventanas gráficas. Se necesita jQuery."
 
-#: dashboard/publisher/adrotate-ads-edit.php:227
+#: dashboard/publisher/adrotate-ads-edit.php:228
 msgid "Banner image:"
 msgstr "Imagen Banner:"
 
-#: dashboard/publisher/adrotate-ads-edit.php:230
+#: dashboard/publisher/adrotate-ads-edit.php:231
 msgid "Media:"
 msgstr "Media:"
 
-#: dashboard/publisher/adrotate-ads-edit.php:230
+#: dashboard/publisher/adrotate-ads-edit.php:231
 msgid "Select Banner"
 msgstr "Seleccionar Banner"
 
-#: dashboard/publisher/adrotate-ads-edit.php:232
+#: dashboard/publisher/adrotate-ads-edit.php:233
 msgid "- OR -"
 msgstr "- O -"
 
-#: dashboard/publisher/adrotate-ads-edit.php:234
+#: dashboard/publisher/adrotate-ads-edit.php:235
 msgid "Banner folder:"
 msgstr "Carpeta Banner:"
 
-#: dashboard/publisher/adrotate-ads-edit.php:235
+#: dashboard/publisher/adrotate-ads-edit.php:236
 msgid "No image selected"
 msgstr "Ninguna imagen seleccionada"
 
-#: dashboard/publisher/adrotate-ads-edit.php:239
+#: dashboard/publisher/adrotate-ads-edit.php:240
 msgid "Use %image% in the code. Accepted files are:"
 msgstr ""
 "Utilice %image% en el código. Estos son los tipos de archivos aceptados:"
 
-#: dashboard/publisher/adrotate-ads-edit.php:239
+#: dashboard/publisher/adrotate-ads-edit.php:240
 msgid ""
 "Use either the text field or the dropdown. If the textfield has content that "
 "field has priority."
@@ -1577,58 +1817,155 @@ msgstr ""
 "Use el campo de texto o en el menú desplegable. Si el campo de texto tiene "
 "un contenido, ese campo tiene prioridad."
 
-#: dashboard/publisher/adrotate-ads-edit.php:243
-#: dashboard/publisher/adrotate-groups-edit.php:185
+#: dashboard/publisher/adrotate-ads-edit.php:244
+msgid "Weight:"
+msgstr "Prioridad:"
+
+#: dashboard/publisher/adrotate-ads-edit.php:244
+#, fuzzy
+msgid "AdRotate Pro only"
+msgstr "AdRotate Pro"
+
+#: dashboard/publisher/adrotate-ads-edit.php:247
+msgid "Barely visible"
+msgstr "Apenas visible"
+
+#: dashboard/publisher/adrotate-ads-edit.php:248
+msgid "Less than average"
+msgstr "Menos de la media"
+
+#: dashboard/publisher/adrotate-ads-edit.php:249
+msgid "Normal coverage"
+msgstr "Cobertura normal"
+
+#: dashboard/publisher/adrotate-ads-edit.php:250
+msgid "More than average"
+msgstr "Más de la media"
+
+#: dashboard/publisher/adrotate-ads-edit.php:251
+msgid "Best visibility"
+msgstr "La mejor visibilidad"
+
+#: dashboard/publisher/adrotate-ads-edit.php:256
+#: dashboard/publisher/adrotate-groups-edit.php:186
 msgid "Sortorder:"
 msgstr "Clasificación normal:"
 
-#: dashboard/publisher/adrotate-ads-edit.php:245
-#: dashboard/publisher/adrotate-groups-edit.php:187
+#: dashboard/publisher/adrotate-ads-edit.php:258
+#: dashboard/publisher/adrotate-groups-edit.php:188
 msgid "For administrative purposes set a sortorder."
 msgstr "A efectos administrativos, establecer una Clasificación normal."
 
-#: dashboard/publisher/adrotate-ads-edit.php:245
+#: dashboard/publisher/adrotate-ads-edit.php:258
 msgid "Leave empty or 0 to skip this. Will default to ad id."
 msgstr "Dejar en blanco o 0 para omitir. Se usará el ID del anuncio."
 
+#: dashboard/publisher/adrotate-ads-edit.php:263
+msgid ""
+"With AdRotate Pro you can also set a weight to give adverts more or less "
+"attention."
+msgstr ""
+
+#: dashboard/publisher/adrotate-ads-edit.php:263
+#: dashboard/publisher/adrotate-ads-edit.php:312
+#: dashboard/publisher/adrotate-ads-edit.php:414
+#: dashboard/publisher/adrotate-groups-edit.php:192
+#, fuzzy
+msgid "Upgrade today"
+msgstr "Hoy"
+
+#: dashboard/publisher/adrotate-ads-edit.php:265
+#, fuzzy
+msgid "Geo Location in AdRotate Pro"
+msgstr "Geo Localización"
+
+#: dashboard/publisher/adrotate-ads-edit.php:266
+msgid ""
+"This works if you assign the advert to a group and enable that group to use "
+"Geo Targeting."
+msgstr ""
+"Esto funciona si asigna el anuncio a un grupo y habilita utilizar Geo "
+"Targeting en ese grupo."
+
+#: dashboard/publisher/adrotate-ads-edit.php:270
+msgid "Cities:"
+msgstr "Ciudades:"
+
 #: dashboard/publisher/adrotate-ads-edit.php:273
+#: dashboard/publisher/adrotate-ads-edit.php:306
+msgid "Usage:"
+msgstr "Utilización:"
+
+#: dashboard/publisher/adrotate-ads-edit.php:274
+#, fuzzy
+msgid "A comma separated list of cities"
+msgstr "Lista de ciudades separada por comas."
+
+#: dashboard/publisher/adrotate-ads-edit.php:274
+#, fuzzy
+msgid ""
+"AdRotate does not check the validity of names so make sure you spell them "
+"correctly!"
+msgstr ""
+"AdRotate no comprueba la validez de los nombres, así que asegúrate de "
+"escribirlos correctamente!"
+
+#: dashboard/publisher/adrotate-ads-edit.php:278
+#, fuzzy
+msgid "Countries:"
+msgstr "Países"
+
+#: dashboard/publisher/adrotate-ads-edit.php:307
+msgid "Select the countries you want the adverts to show in."
+msgstr "Seleccione los países en los que desea que los anuncios se muestren."
+
+#: dashboard/publisher/adrotate-ads-edit.php:307
+msgid "Cities take priority and will be filtered first."
+msgstr "Las ciudades tendrán prioridad y serán filtradas primero."
+
+#: dashboard/publisher/adrotate-ads-edit.php:312
+#, fuzzy
+msgid "Target your audience with Geo Location in AdRotate Pro"
+msgstr "Obtenga más funciones con AdRotate Pro"
+
+#: dashboard/publisher/adrotate-ads-edit.php:336
 msgid "Schedule"
 msgstr "Calendario"
 
-#: dashboard/publisher/adrotate-ads-edit.php:274
+#: dashboard/publisher/adrotate-ads-edit.php:337
 msgid "From when to when is the advert visible?"
 msgstr "De cuando a cuando es visible el anuncio?"
 
-#: dashboard/publisher/adrotate-ads-edit.php:278
+#: dashboard/publisher/adrotate-ads-edit.php:341
 msgid "Start date (day/month/year):"
 msgstr "Fecha de inicio (día/mes/año)"
 
-#: dashboard/publisher/adrotate-ads-edit.php:299
+#: dashboard/publisher/adrotate-ads-edit.php:362
 msgid "End date (day/month/year):"
 msgstr "Fecha de finalización (día/mes/año)"
 
-#: dashboard/publisher/adrotate-ads-edit.php:322
+#: dashboard/publisher/adrotate-ads-edit.php:385
 msgid "Start time (hh:mm):"
 msgstr "Hora de inicio (hh:mm)"
 
-#: dashboard/publisher/adrotate-ads-edit.php:329
+#: dashboard/publisher/adrotate-ads-edit.php:392
 msgid "End time (hh:mm):"
 msgstr "Hora de finalización (hh:mm)"
 
-#: dashboard/publisher/adrotate-ads-edit.php:339
+#: dashboard/publisher/adrotate-ads-edit.php:402
 msgid "Maximum Clicks:"
 msgstr "Clics Máximos:"
 
-#: dashboard/publisher/adrotate-ads-edit.php:340
-#: dashboard/publisher/adrotate-ads-edit.php:342
+#: dashboard/publisher/adrotate-ads-edit.php:403
+#: dashboard/publisher/adrotate-ads-edit.php:405
 msgid "Leave empty or 0 to skip this."
 msgstr "Dejar en blanco o 0 para omitir."
 
-#: dashboard/publisher/adrotate-ads-edit.php:341
+#: dashboard/publisher/adrotate-ads-edit.php:404
 msgid "Maximum Impressions:"
 msgstr "Impresiones Maximas:"
 
-#: dashboard/publisher/adrotate-ads-edit.php:347
+#: dashboard/publisher/adrotate-ads-edit.php:410
 msgid ""
 "Time uses a 24 hour clock. When you're used to the AM/PM system keep this in "
 "mind: If the start or end time is after lunch, add 12 hours. 2PM is 14:00 "
@@ -1639,7 +1976,7 @@ msgstr ""
 "después del mediodia debe añadir añadir 12 horas. Por ejemplo, las 2PM son "
 "las 14:00. Las 6AM son las 06:00 horas."
 
-#: dashboard/publisher/adrotate-ads-edit.php:347
+#: dashboard/publisher/adrotate-ads-edit.php:410
 msgid ""
 "The maximum clicks and impressions are measured over the set schedule only. "
 "Every schedule can have it's own limit!"
@@ -1647,134 +1984,34 @@ msgstr ""
 "Los clics y las impresiones máximas solo se valorarán en el horario "
 "establecido. Cada programación puede tener su propio límite!"
 
-#: dashboard/publisher/adrotate-ads-edit.php:359
-msgid "Select Groups"
-msgstr "Seleccione Grupos"
-
-#: dashboard/publisher/adrotate-ads-edit.php:360
-msgid "Optionally select the group(s) this ad belongs to."
+#: dashboard/publisher/adrotate-ads-edit.php:414
+msgid "Create multiple schedules for each advert with AdRotate Pro."
 msgstr ""
-"Opcionalmente puede seleccionar el grupo o grupos a los que este anuncio "
-"pertenece."
 
-#: dashboard/publisher/adrotate-ads-edit.php:365
-msgid "ID - Name"
-msgstr "ID - Nombre"
+#: dashboard/publisher/adrotate-ads-edit.php:416
+#, fuzzy
+msgid "Choose Multiple Schedules in AdRotate Pro"
+msgstr "Disponible en AdRotate Pro"
 
-#: dashboard/publisher/adrotate-ads-edit.php:366
-msgid "Ads in group"
-msgstr "Anuncios en grupo"
+#: dashboard/publisher/adrotate-ads-edit.php:417
+#, fuzzy
+msgid "You can add, edit or delete schedules from the"
+msgstr "Puede añadir, editar o eliminar programas del"
 
-#: dashboard/publisher/adrotate-ads-edit.php:375
-#: dashboard/publisher/adrotate-groups-main.php:58
-msgid "Default"
-msgstr "Predeterminado"
+#: dashboard/publisher/adrotate-ads-edit.php:417
+#, fuzzy
+msgid "dashboard. Save your advert first!"
+msgstr "escritorio. Guarda tu anuncio primero!"
 
-#: dashboard/publisher/adrotate-ads-edit.php:376
-#: dashboard/publisher/adrotate-groups-main.php:59
-msgid "Dynamic"
-msgstr "Dinámico"
+#: dashboard/publisher/adrotate-ads-edit.php:424
+msgid "From / Until"
+msgstr "Desde / Hasta"
 
-#: dashboard/publisher/adrotate-ads-edit.php:376
-#: dashboard/publisher/adrotate-groups-main.php:59
-msgid "second rotation"
-msgstr "segundos rotación"
-
-#: dashboard/publisher/adrotate-ads-edit.php:377
-#: dashboard/publisher/adrotate-groups-main.php:60
-msgid "Block"
-msgstr "Block"
-
-#: dashboard/publisher/adrotate-ads-edit.php:377
-#: dashboard/publisher/adrotate-groups-main.php:60
-msgid "grid"
-msgstr "cuadrícula"
-
-#: dashboard/publisher/adrotate-ads-edit.php:378
-#: dashboard/publisher/adrotate-groups-edit.php:192
-#: dashboard/publisher/adrotate-groups-main.php:61
-msgid "Post Injection"
-msgstr "Integrarlo después"
-
-#: dashboard/publisher/adrotate-ads-edit.php:379
-#: dashboard/publisher/adrotate-groups-main.php:62
-msgid "Geolocation"
-msgstr "Geolocalización"
-
-#: dashboard/publisher/adrotate-ads-edit.php:385
-#: dashboard/publisher/adrotate-groups-edit.php:62
-#: dashboard/publisher/adrotate-groups-main.php:69
-msgid "Mode"
-msgstr "Modalidad"
-
-#: dashboard/publisher/adrotate-ads-edit.php:386
-#: dashboard/publisher/adrotate-groups-main.php:34
-msgid "Ads"
-msgstr "Anuncios"
-
-#: dashboard/publisher/adrotate-ads-main-disabled.php:15
-msgid "Disabled Ads"
-msgstr "Desactivar Anuncios"
-
-#: dashboard/publisher/adrotate-ads-main-disabled.php:20
-#: dashboard/publisher/adrotate-ads-main-error.php:19
-#: dashboard/publisher/adrotate-ads-main.php:20
-#: dashboard/publisher/adrotate-groups-main.php:20
-msgid "Bulk Actions"
-msgstr "Acciones en Lote"
-
-#: dashboard/publisher/adrotate-ads-main-disabled.php:21
-msgid "Activate"
-msgstr "Activar"
-
-#: dashboard/publisher/adrotate-ads-main-disabled.php:22
-#: dashboard/publisher/adrotate-ads-main-error.php:21
-#: dashboard/publisher/adrotate-ads-main.php:22
-msgid "Delete"
-msgstr "Borrar"
-
-#: dashboard/publisher/adrotate-ads-main-disabled.php:23
-#: dashboard/publisher/adrotate-ads-main-error.php:22
-#: dashboard/publisher/adrotate-ads-main.php:23
-msgid "Reset stats"
-msgstr "Resetear Estadísticas"
-
-#: dashboard/publisher/adrotate-ads-main-disabled.php:35
-#: dashboard/publisher/adrotate-ads-main-error.php:39
-#: dashboard/publisher/adrotate-ads-main.php:38
-#: dashboard/publisher/adrotate-groups-main.php:32
-#: dashboard/server/adrotate-active.php:18
-#: dashboard/server/adrotate-error.php:18
-msgid "ID"
-msgstr "ID"
-
-#: dashboard/publisher/adrotate-ads-main-disabled.php:36
-#: dashboard/publisher/adrotate-ads-main-error.php:40
-#: dashboard/publisher/adrotate-ads-main.php:39
-#: dashboard/server/adrotate-active.php:20
-msgid "Start / End"
-msgstr "Inio / Final"
-
-#: dashboard/publisher/adrotate-ads-main-disabled.php:37
-#: dashboard/publisher/adrotate-ads-main-error.php:41
-#: dashboard/publisher/adrotate-ads-main.php:40
-#: dashboard/server/adrotate-active.php:21
-#: dashboard/server/adrotate-error.php:22
-msgid "Title"
-msgstr "Título"
-
-#: dashboard/publisher/adrotate-ads-main-disabled.php:38
-#: dashboard/publisher/adrotate-ads-report.php:34
-#: dashboard/publisher/adrotate-groups-edit.php:327
-#: dashboard/publisher/adrotate-groups-main.php:35
-#: dashboard/publisher/adrotate-groups-report.php:40
-msgid "Impressions"
-msgstr "Impresiones"
-
+#: dashboard/publisher/adrotate-ads-edit.php:426
 #: dashboard/publisher/adrotate-ads-main-disabled.php:39
-#: dashboard/publisher/adrotate-ads-main.php:44
+#: dashboard/publisher/adrotate-ads-main.php:45
 #: dashboard/publisher/adrotate-ads-report.php:35
-#: dashboard/publisher/adrotate-groups-edit.php:328
+#: dashboard/publisher/adrotate-groups-edit.php:330
 #: dashboard/publisher/adrotate-groups-main.php:37
 #: dashboard/publisher/adrotate-groups-report.php:41
 #: dashboard/server/adrotate-active.php:25
@@ -1782,8 +2019,127 @@ msgstr "Impresiones"
 msgid "Clicks"
 msgstr "Clics"
 
+#: dashboard/publisher/adrotate-ads-edit.php:427
+#: dashboard/publisher/adrotate-ads-edit.php:429
+#, fuzzy
+msgid "Used"
+msgstr "Utilizado"
+
+#: dashboard/publisher/adrotate-ads-edit.php:428
+#: dashboard/publisher/adrotate-ads-main-disabled.php:38
+#: dashboard/publisher/adrotate-ads-report.php:34
+#: dashboard/publisher/adrotate-groups-edit.php:329
+#: dashboard/publisher/adrotate-groups-main.php:35
+#: dashboard/publisher/adrotate-groups-report.php:40
+msgid "Impressions"
+msgstr "Impresiones"
+
+#: dashboard/publisher/adrotate-ads-edit.php:438
+#, fuzzy
+msgid "impressions per hour"
+msgstr "impresiones por hora"
+
+#: dashboard/publisher/adrotate-ads-edit.php:458
+#, fuzzy
+msgid "Schedules not in use by this advert are hidden."
+msgstr "Los horarios no están en uso en este anuncio están ocultos."
+
+#: dashboard/publisher/adrotate-ads-edit.php:459
+#, fuzzy
+msgid "In use by this advert."
+msgstr "Utilizada por este anuncio."
+
+#: dashboard/publisher/adrotate-ads-edit.php:470
+msgid "Select Groups"
+msgstr "Seleccione Grupos"
+
+#: dashboard/publisher/adrotate-ads-edit.php:471
+msgid "Optionally select the group(s) this ad belongs to."
+msgstr ""
+"Opcionalmente puede seleccionar el grupo o grupos a los que este anuncio "
+"pertenece."
+
+#: dashboard/publisher/adrotate-ads-edit.php:476
+msgid "ID - Name"
+msgstr "ID - Nombre"
+
+#: dashboard/publisher/adrotate-ads-edit.php:477
+msgid "Ads in group"
+msgstr "Anuncios en grupo"
+
+#: dashboard/publisher/adrotate-ads-edit.php:486
+#: dashboard/publisher/adrotate-groups-main.php:58
+msgid "Default"
+msgstr "Predeterminado"
+
+#: dashboard/publisher/adrotate-ads-edit.php:487
+#: dashboard/publisher/adrotate-groups-main.php:59
+msgid "Dynamic"
+msgstr "Dinámico"
+
+#: dashboard/publisher/adrotate-ads-edit.php:487
+#: dashboard/publisher/adrotate-groups-main.php:59
+msgid "second rotation"
+msgstr "segundos rotación"
+
+#: dashboard/publisher/adrotate-ads-edit.php:488
+#: dashboard/publisher/adrotate-groups-main.php:60
+msgid "Block"
+msgstr "Block"
+
+#: dashboard/publisher/adrotate-ads-edit.php:488
+#: dashboard/publisher/adrotate-groups-main.php:60
+msgid "grid"
+msgstr "cuadrícula"
+
+#: dashboard/publisher/adrotate-ads-edit.php:489
+#: dashboard/publisher/adrotate-groups-edit.php:194
+#: dashboard/publisher/adrotate-groups-main.php:61
+msgid "Post Injection"
+msgstr "Integrarlo después"
+
+#: dashboard/publisher/adrotate-ads-edit.php:490
+#: dashboard/publisher/adrotate-groups-main.php:62
+msgid "Geolocation"
+msgstr "Geolocalización"
+
+#: dashboard/publisher/adrotate-ads-edit.php:496
+#: dashboard/publisher/adrotate-groups-edit.php:62
+#: dashboard/publisher/adrotate-groups-main.php:69
+msgid "Mode"
+msgstr "Modalidad"
+
+#: dashboard/publisher/adrotate-ads-main-disabled.php:15
+msgid "Disabled Ads"
+msgstr "Desactivar Anuncios"
+
+#: dashboard/publisher/adrotate-ads-main-disabled.php:21
+msgid "Activate"
+msgstr "Activar"
+
+#: dashboard/publisher/adrotate-ads-main-disabled.php:23
+#: dashboard/publisher/adrotate-ads-main-error.php:22
+#: dashboard/publisher/adrotate-ads-main.php:23
+msgid "Reset stats"
+msgstr "Resetear Estadísticas"
+
+#: dashboard/publisher/adrotate-ads-main-disabled.php:36
+#: dashboard/publisher/adrotate-ads-main-error.php:40
+#: dashboard/publisher/adrotate-ads-main.php:40
+#: dashboard/server/adrotate-active.php:20
+msgid "Start / End"
+msgstr "Inio / Final"
+
+#: dashboard/publisher/adrotate-ads-main-disabled.php:37
+#: dashboard/publisher/adrotate-ads-main-error.php:41
+#: dashboard/publisher/adrotate-ads-main.php:41
+#: dashboard/server/adrotate-active.php:21
+#: dashboard/server/adrotate-error.php:22
+msgid "Title"
+msgstr "Título"
+
 #: dashboard/publisher/adrotate-ads-main-disabled.php:40
-#: dashboard/publisher/adrotate-ads-main.php:46
+#: dashboard/publisher/adrotate-ads-main.php:47
 #: dashboard/publisher/adrotate-ads-report.php:38
 #: dashboard/publisher/adrotate-groups-report.php:44
 #: dashboard/server/adrotate-active.php:27
@@ -1793,7 +2149,7 @@ msgstr "CTR"
 
 #: dashboard/publisher/adrotate-ads-main-disabled.php:74
 #: dashboard/publisher/adrotate-ads-main-error.php:64
-#: dashboard/publisher/adrotate-ads-main.php:84
+#: dashboard/publisher/adrotate-ads-main.php:85
 #: dashboard/publisher/adrotate-groups-main.php:69
 msgid "Edit"
 msgstr "Editar"
@@ -1802,6 +2158,13 @@ msgstr "Editar"
 #: dashboard/publisher/adrotate-ads-main-error.php:64
 msgid "Stats"
 msgstr "Estadísticas"
+
+#: dashboard/publisher/adrotate-ads-main-disabled.php:74
+#: dashboard/publisher/adrotate-ads-main-error.php:64
+#: dashboard/publisher/adrotate-ads-main.php:85
+#, fuzzy
+msgid "Groups:"
+msgstr "Grupos"
 
 #: dashboard/publisher/adrotate-ads-main-error.php:12
 msgid "Ads that need immediate attention"
@@ -1813,64 +2176,59 @@ msgid "Deactivate"
 msgstr "Desactivar"
 
 #: dashboard/publisher/adrotate-ads-main-error.php:23
-#: dashboard/publisher/adrotate-ads-main.php:24
+#: dashboard/publisher/adrotate-ads-main.php:25
 msgid "-- Renew --"
 msgstr "-- Renovar --"
 
 #: dashboard/publisher/adrotate-ads-main-error.php:24
-#: dashboard/publisher/adrotate-ads-main.php:25
+#: dashboard/publisher/adrotate-ads-main.php:26
 msgid "For 1 year"
 msgstr "Por 1 año"
 
 #: dashboard/publisher/adrotate-ads-main-error.php:25
-#: dashboard/publisher/adrotate-ads-main.php:26
+#: dashboard/publisher/adrotate-ads-main.php:27
 msgid "For 180 days"
 msgstr "Por 180 días"
 
 #: dashboard/publisher/adrotate-ads-main-error.php:26
-#: dashboard/publisher/adrotate-ads-main.php:27
+#: dashboard/publisher/adrotate-ads-main.php:28
 msgid "For 30 days"
 msgstr "Por 30 días"
 
 #: dashboard/publisher/adrotate-ads-main-error.php:27
-#: dashboard/publisher/adrotate-ads-main.php:28
+#: dashboard/publisher/adrotate-ads-main.php:29
 msgid "For 7 days"
 msgstr "Por 7 días"
 
 #: dashboard/publisher/adrotate-ads-main-error.php:73
-#: dashboard/publisher/adrotate-groups-edit.php:370
+#: dashboard/publisher/adrotate-groups-edit.php:372
 msgid "Configuration errors."
 msgstr "Errores de configuración."
-
-#: dashboard/publisher/adrotate-ads-main-error.php:74
-#: dashboard/publisher/adrotate-groups-edit.php:371
-msgid "Expires soon."
-msgstr "Caduca pronto."
-
-#: dashboard/publisher/adrotate-ads-main-error.php:75
-#: dashboard/publisher/adrotate-groups-edit.php:372
-msgid "Has expired."
-msgstr "Ha expirado."
 
 #: dashboard/publisher/adrotate-ads-main.php:12
 msgid "Active Ads"
 msgstr "Anuncios Activos"
 
-#: dashboard/publisher/adrotate-ads-main.php:41
-#: dashboard/publisher/adrotate-groups-edit.php:329
+#: dashboard/publisher/adrotate-ads-main.php:24
+#, fuzzy
+msgid "Export to XML"
+msgstr "Exportar"
+
+#: dashboard/publisher/adrotate-ads-main.php:42
+#: dashboard/publisher/adrotate-groups-edit.php:331
 #: dashboard/server/adrotate-active.php:22
 #: dashboard/server/adrotate-error.php:23
 msgid "Weight"
 msgstr "Prioridad"
 
-#: dashboard/publisher/adrotate-ads-main.php:42
+#: dashboard/publisher/adrotate-ads-main.php:43
 #: dashboard/server/adrotate-active.php:23
 #: dashboard/server/adrotate-error.php:24
 msgid "Shown"
 msgstr "Mostrado"
 
-#: dashboard/publisher/adrotate-ads-main.php:43
-#: dashboard/publisher/adrotate-ads-main.php:45
+#: dashboard/publisher/adrotate-ads-main.php:44
+#: dashboard/publisher/adrotate-ads-main.php:46
 #: dashboard/publisher/adrotate-groups-main.php:36
 #: dashboard/publisher/adrotate-groups-main.php:38
 #: dashboard/server/adrotate-active.php:24
@@ -1880,12 +2238,12 @@ msgstr "Mostrado"
 msgid "Today"
 msgstr "Hoy"
 
-#: dashboard/publisher/adrotate-ads-main.php:84
+#: dashboard/publisher/adrotate-ads-main.php:85
 #: dashboard/publisher/adrotate-groups-main.php:69
 msgid "Report"
 msgstr "Informe"
 
-#: dashboard/publisher/adrotate-ads-main.php:102
+#: dashboard/publisher/adrotate-ads-main.php:103
 msgid "No ads created yet!"
 msgstr "Todavia no se han creado anuncios!"
 
@@ -1947,40 +2305,39 @@ msgid "Block Mode - Show a block of ads"
 msgstr "Modo Block - Mostrar un bloque de anuncios"
 
 #: dashboard/publisher/adrotate-groups-edit.php:71
-msgid ""
-"'Dynamic' and 'Block' mode require 'jQuery' and 'jQuery Dynamic Groups' to "
-"be loaded. You can enable this in AdRotate Settings."
+#, fuzzy
+msgid "Dynamic mode requires jQuery. You can enable this in AdRotate Settings."
 msgstr ""
 "Los modos 'Dinámico' y 'Block' requieren las librerias 'jQuery' y 'jQuery "
 "Showoff' para ser cargados. Puede activar esto el menú de Ajustes de "
 "AdRotate."
 
-#: dashboard/publisher/adrotate-groups-edit.php:77
-#: dashboard/publisher/adrotate-groups-edit.php:122
+#: dashboard/publisher/adrotate-groups-edit.php:78
+#: dashboard/publisher/adrotate-groups-edit.php:123
 msgid "Dynamic and Block Mode"
 msgstr "Modo Dinámico y en Bloque"
 
-#: dashboard/publisher/adrotate-groups-edit.php:78
+#: dashboard/publisher/adrotate-groups-edit.php:79
 msgid "Only required if your group is in Dynamic or Block mode."
 msgstr "Sólo es necesario si su grupo está en modo de Dinámico o en Bloque."
 
-#: dashboard/publisher/adrotate-groups-edit.php:82
+#: dashboard/publisher/adrotate-groups-edit.php:83
 msgid "Block shape and border"
 msgstr "Forma y borde del Bloque"
 
-#: dashboard/publisher/adrotate-groups-edit.php:97
+#: dashboard/publisher/adrotate-groups-edit.php:98
 msgid "rows"
 msgstr "filas"
 
-#: dashboard/publisher/adrotate-groups-edit.php:110
+#: dashboard/publisher/adrotate-groups-edit.php:111
 msgid "columns"
 msgstr "columnas"
 
-#: dashboard/publisher/adrotate-groups-edit.php:113
+#: dashboard/publisher/adrotate-groups-edit.php:114
 msgid "Block Mode"
 msgstr "Modo Block"
 
-#: dashboard/publisher/adrotate-groups-edit.php:113
+#: dashboard/publisher/adrotate-groups-edit.php:114
 msgid ""
 "Make a grid for your ads. Selecting 3 and 2 makes a grid with 2 columns "
 "showing a maximum of 6 ads. Default: 2x2."
@@ -1988,19 +2345,19 @@ msgstr ""
 "Hacer una rejilla para sus anuncios. Seleccionando 3 y 2 hace una cuadrícula "
 "con 2 columnas que muestra un máximo de 6 anuncios. Predeterminado: 2x2."
 
-#: dashboard/publisher/adrotate-groups-edit.php:117
+#: dashboard/publisher/adrotate-groups-edit.php:118
 msgid "Advert Width and Height"
 msgstr "Anchura y altura del Anuncio"
 
-#: dashboard/publisher/adrotate-groups-edit.php:119
+#: dashboard/publisher/adrotate-groups-edit.php:120
 msgid "pixel(s) wide"
 msgstr "ancho pixel(s)"
 
-#: dashboard/publisher/adrotate-groups-edit.php:119
+#: dashboard/publisher/adrotate-groups-edit.php:120
 msgid "pixel(s) high."
 msgstr "alto pixel(s)"
 
-#: dashboard/publisher/adrotate-groups-edit.php:122
+#: dashboard/publisher/adrotate-groups-edit.php:123
 msgid ""
 "Define the maximum size of the ads in pixels minus margin. Size can be "
 "'auto' (Not recommended). Default: 125/125."
@@ -2008,195 +2365,195 @@ msgstr ""
 "Definir el tamaño máximo de los anuncios en píxeles menos el del margen. El "
 "tamaño puede ser 'auto' (No recomendado). Predeterminado: 125/125."
 
-#: dashboard/publisher/adrotate-groups-edit.php:126
+#: dashboard/publisher/adrotate-groups-edit.php:127
 msgid "Automated refresh"
 msgstr "Actualización automatica"
 
-#: dashboard/publisher/adrotate-groups-edit.php:145
+#: dashboard/publisher/adrotate-groups-edit.php:146
 msgid "seconds."
 msgstr "segundos."
 
-#: dashboard/publisher/adrotate-groups-edit.php:148
+#: dashboard/publisher/adrotate-groups-edit.php:149
 msgid "Dynamic Mode"
 msgstr "Modo Dinámico"
 
-#: dashboard/publisher/adrotate-groups-edit.php:148
+#: dashboard/publisher/adrotate-groups-edit.php:149
 msgid ""
 "Load a new advert in this interval without reloading the page. Default: 6."
 msgstr ""
 "Cargar un nuevo anuncio en este intervalo sin recargar la página. "
 "Predeterminado: 6."
 
-#: dashboard/publisher/adrotate-groups-edit.php:168
-#: dashboard/publisher/adrotate-groups-edit.php:294
-#: dashboard/publisher/adrotate-groups-edit.php:376
+#: dashboard/publisher/adrotate-groups-edit.php:169
+#: dashboard/publisher/adrotate-groups-edit.php:296
+#: dashboard/publisher/adrotate-groups-edit.php:378
 msgid "Save Group"
 msgstr "Guardar Grupo"
 
-#: dashboard/publisher/adrotate-groups-edit.php:176
+#: dashboard/publisher/adrotate-groups-edit.php:177
 msgid "Advert Margin"
 msgstr "Margen del anuncio"
 
-#: dashboard/publisher/adrotate-groups-edit.php:178
+#: dashboard/publisher/adrotate-groups-edit.php:179
 msgid "pixel(s)"
 msgstr "pixel(s)"
 
-#: dashboard/publisher/adrotate-groups-edit.php:181
+#: dashboard/publisher/adrotate-groups-edit.php:182
 msgid "A transparent area outside the advert in pixels. Default: 0."
 msgstr ""
 "Un area transparente alrededor del anuncio en píxeles. Predeterminado: 0."
 
-#: dashboard/publisher/adrotate-groups-edit.php:181
+#: dashboard/publisher/adrotate-groups-edit.php:182
 msgid "Set to 0 to disable."
 msgstr "Establece a 0 para desactivar."
 
-#: dashboard/publisher/adrotate-groups-edit.php:187
+#: dashboard/publisher/adrotate-groups-edit.php:188
 msgid "Leave empty or 0 to skip this. Will default to group id."
 msgstr ""
 "Dejar en blanco o 0 para omitir. Se usará el ID predeterminado de grupo."
 
-#: dashboard/publisher/adrotate-groups-edit.php:193
+#: dashboard/publisher/adrotate-groups-edit.php:192
+msgid "Set up a fallback group and use Geo Location in AdRotate Pro"
+msgstr ""
+
+#: dashboard/publisher/adrotate-groups-edit.php:195
 msgid "Insert ads to the begin or end of a post/page."
 msgstr "Inserte anuncios al comienzo o final de una entrada/página."
 
-#: dashboard/publisher/adrotate-groups-edit.php:196
+#: dashboard/publisher/adrotate-groups-edit.php:198
 msgid "Include ads in categories?"
 msgstr "¿Incluir los anuncios en las categorías?"
 
-#: dashboard/publisher/adrotate-groups-edit.php:200
-#: dashboard/publisher/adrotate-groups-edit.php:241
+#: dashboard/publisher/adrotate-groups-edit.php:202
+#: dashboard/publisher/adrotate-groups-edit.php:243
 msgid "Disabled"
 msgstr "Desactivado"
 
-#: dashboard/publisher/adrotate-groups-edit.php:201
-#: dashboard/publisher/adrotate-groups-edit.php:242
+#: dashboard/publisher/adrotate-groups-edit.php:203
+#: dashboard/publisher/adrotate-groups-edit.php:244
 msgid "Before content"
 msgstr "Antes del contenido"
 
-#: dashboard/publisher/adrotate-groups-edit.php:202
-#: dashboard/publisher/adrotate-groups-edit.php:243
+#: dashboard/publisher/adrotate-groups-edit.php:204
+#: dashboard/publisher/adrotate-groups-edit.php:245
 msgid "After content"
 msgstr "Después del contenido"
 
-#: dashboard/publisher/adrotate-groups-edit.php:203
-#: dashboard/publisher/adrotate-groups-edit.php:244
+#: dashboard/publisher/adrotate-groups-edit.php:205
+#: dashboard/publisher/adrotate-groups-edit.php:246
 msgid "Before and after content"
 msgstr "Antes y después del contenido"
 
-#: dashboard/publisher/adrotate-groups-edit.php:204
-#: dashboard/publisher/adrotate-groups-edit.php:245
+#: dashboard/publisher/adrotate-groups-edit.php:206
+#: dashboard/publisher/adrotate-groups-edit.php:247
 msgid "After..."
 msgstr "Después..."
 
-#: dashboard/publisher/adrotate-groups-edit.php:210
-#: dashboard/publisher/adrotate-groups-edit.php:251
+#: dashboard/publisher/adrotate-groups-edit.php:212
+#: dashboard/publisher/adrotate-groups-edit.php:253
 msgid "the first paragraph"
 msgstr "el primer párrafo"
 
-#: dashboard/publisher/adrotate-groups-edit.php:211
-#: dashboard/publisher/adrotate-groups-edit.php:252
+#: dashboard/publisher/adrotate-groups-edit.php:213
+#: dashboard/publisher/adrotate-groups-edit.php:254
 msgid "the 2nd paragraph"
 msgstr "el segundo párrafo"
 
-#: dashboard/publisher/adrotate-groups-edit.php:212
-#: dashboard/publisher/adrotate-groups-edit.php:253
+#: dashboard/publisher/adrotate-groups-edit.php:214
+#: dashboard/publisher/adrotate-groups-edit.php:255
 msgid "the 3rd paragraph"
 msgstr "el tercer párrafo"
 
-#: dashboard/publisher/adrotate-groups-edit.php:213
-#: dashboard/publisher/adrotate-groups-edit.php:254
+#: dashboard/publisher/adrotate-groups-edit.php:215
+#: dashboard/publisher/adrotate-groups-edit.php:256
 msgid "the 4th paragraph"
 msgstr "el cuarto párrafo"
 
-#: dashboard/publisher/adrotate-groups-edit.php:215
-#: dashboard/publisher/adrotate-groups-edit.php:256
+#: dashboard/publisher/adrotate-groups-edit.php:217
+#: dashboard/publisher/adrotate-groups-edit.php:258
 msgid "every 2nd paragraph"
 msgstr "cada segundo párrafo"
 
-#: dashboard/publisher/adrotate-groups-edit.php:216
-#: dashboard/publisher/adrotate-groups-edit.php:257
+#: dashboard/publisher/adrotate-groups-edit.php:218
+#: dashboard/publisher/adrotate-groups-edit.php:259
 msgid "every 3rd paragraph"
 msgstr "cada tercer párrafo"
 
-#: dashboard/publisher/adrotate-groups-edit.php:217
-#: dashboard/publisher/adrotate-groups-edit.php:258
+#: dashboard/publisher/adrotate-groups-edit.php:219
+#: dashboard/publisher/adrotate-groups-edit.php:260
 msgid "every 4th paragraph"
 msgstr "cada cuarto párrafo"
 
-#: dashboard/publisher/adrotate-groups-edit.php:218
-#: dashboard/publisher/adrotate-groups-edit.php:259
+#: dashboard/publisher/adrotate-groups-edit.php:220
+#: dashboard/publisher/adrotate-groups-edit.php:261
 msgid "every 5th paragraph"
 msgstr "cada quinto párrafo"
 
-#: dashboard/publisher/adrotate-groups-edit.php:219
-#: dashboard/publisher/adrotate-groups-edit.php:260
+#: dashboard/publisher/adrotate-groups-edit.php:221
+#: dashboard/publisher/adrotate-groups-edit.php:262
 msgid "every 6th paragraph"
 msgstr "cada sexto párrafo"
 
-#: dashboard/publisher/adrotate-groups-edit.php:220
-#: dashboard/publisher/adrotate-groups-edit.php:261
+#: dashboard/publisher/adrotate-groups-edit.php:222
+#: dashboard/publisher/adrotate-groups-edit.php:263
 msgid "every 7th paragraph"
 msgstr "cada septimo párrafo"
 
-#: dashboard/publisher/adrotate-groups-edit.php:221
-#: dashboard/publisher/adrotate-groups-edit.php:262
+#: dashboard/publisher/adrotate-groups-edit.php:223
+#: dashboard/publisher/adrotate-groups-edit.php:264
 msgid "every 8th paragraph"
 msgstr "cada octavo párrafo"
 
-#: dashboard/publisher/adrotate-groups-edit.php:227
+#: dashboard/publisher/adrotate-groups-edit.php:229
 msgid "Which categories?"
 msgstr "¿En qué categorías?"
 
-#: dashboard/publisher/adrotate-groups-edit.php:232
+#: dashboard/publisher/adrotate-groups-edit.php:234
 msgid "Click the categories posts you want the adverts to show in."
 msgstr ""
 "Haga clic en las categorías de los mensajes en los que mostrar los anuncios."
 
-#: dashboard/publisher/adrotate-groups-edit.php:237
+#: dashboard/publisher/adrotate-groups-edit.php:239
 msgid "Include ads in pages?"
 msgstr "¿Incluir los anuncios en las páginas?"
 
-#: dashboard/publisher/adrotate-groups-edit.php:268
+#: dashboard/publisher/adrotate-groups-edit.php:270
 msgid "Which pages?"
 msgstr "¿En qué páginas?"
 
-#: dashboard/publisher/adrotate-groups-edit.php:273
+#: dashboard/publisher/adrotate-groups-edit.php:275
 msgid "Click the pages you want the adverts to show in."
 msgstr "Haga clic en las páginas en las que mostrar los anuncios."
 
-#: dashboard/publisher/adrotate-groups-edit.php:298
+#: dashboard/publisher/adrotate-groups-edit.php:300
 msgid "Wrapper code"
 msgstr "Código"
 
-#: dashboard/publisher/adrotate-groups-edit.php:299
+#: dashboard/publisher/adrotate-groups-edit.php:301
 msgid "Wraps around each ad."
 msgstr "Se envuelve alrededor de cada anuncio."
 
-#: dashboard/publisher/adrotate-groups-edit.php:303
+#: dashboard/publisher/adrotate-groups-edit.php:305
 msgid "Before ad"
 msgstr "Antés del anuncio"
 
-#: dashboard/publisher/adrotate-groups-edit.php:308
+#: dashboard/publisher/adrotate-groups-edit.php:310
 msgid "HTML/JavaScript allowed, use with care!"
 msgstr "Esta permitido HTML/JavaScript, utilicelo con cuidado!"
 
-#: dashboard/publisher/adrotate-groups-edit.php:312
+#: dashboard/publisher/adrotate-groups-edit.php:314
 msgid "After ad"
 msgstr "Después del anuncio"
 
-#: dashboard/publisher/adrotate-groups-edit.php:321
+#: dashboard/publisher/adrotate-groups-edit.php:323
 msgid "Select Ads"
 msgstr "Seleccione Anuncios"
 
-#: dashboard/publisher/adrotate-groups-edit.php:326
-msgid "Choose the ads to use in this group"
-msgstr "Elija los anuncios para utilizar en este grupo"
-
-#: dashboard/publisher/adrotate-groups-edit.php:330
+#: dashboard/publisher/adrotate-groups-edit.php:332
 msgid "Visible until"
 msgstr "Visible hasta"
 
-#: dashboard/publisher/adrotate-groups-edit.php:363
+#: dashboard/publisher/adrotate-groups-edit.php:365
 msgid "No ads created!"
 msgstr "No hay anuncios creados!"
 
@@ -2215,14 +2572,6 @@ msgstr "Está a punto de eliminar un grupo"
 #: dashboard/publisher/adrotate-groups-main.php:24
 msgid "This action can not be undone!"
 msgstr "Esta acción no se puede deshacerse!"
-
-#: dashboard/publisher/adrotate-groups-main.php:24
-msgid "Go"
-msgstr "Aplicar"
-
-#: dashboard/publisher/adrotate-groups-main.php:33
-msgid "Name"
-msgstr "Nombre"
 
 #: dashboard/publisher/adrotate-groups-main.php:39
 msgid "Code"
@@ -2358,6 +2707,36 @@ msgstr "Enlazar al servidor"
 #: dashboard/server/adrotate-settings.php:62
 msgid "Unlink from server"
 msgstr "Desvincular del servidor"
+
+#~ msgid "Useful links"
+#~ msgstr "Enlaces de interés"
+
+#~ msgid "Check out the"
+#~ msgstr "Descubra los"
+
+#~ msgid "manuals"
+#~ msgstr "manuales"
+
+#~ msgid "and have the most popular features explained."
+#~ msgstr "donde estan explicadas las funciones más populares."
+
+#~ msgid "Grab the latest news and updates on the"
+#~ msgstr "Enterate de las novedades y actualizaciones en el"
+
+#~ msgid "AdRotate Blog"
+#~ msgstr "Blog de AdRotate"
+
+#~ msgid "Find my website at"
+#~ msgstr "Encontrará mi sitio web en"
+
+#~ msgid "Load Dynamic Groups"
+#~ msgstr "Cargar Grupos Dinámicos"
+
+#~ msgid "Required for Dynamic Groups to rotate ads."
+#~ msgstr "Se requiere para rotar los anuncios en Grupos Dinámicos."
+
+#~ msgid "Choose the ads to use in this group"
+#~ msgstr "Elija los anuncios para utilizar en este grupo"
 
 #~ msgid "Advertisers"
 #~ msgstr "Anunciantes"
@@ -2570,9 +2949,6 @@ msgstr "Desvincular del servidor"
 #~ msgstr ""
 #~ "Desactivar las Notificaciones de Escritorio acerca del estado del anuncio."
 
-#~ msgid "Hide Schedules"
-#~ msgstr "Ocultar Planificación"
-
 #~ msgid ""
 #~ "When editing adverts; Hide schedules that are not in use by that advert."
 #~ msgstr ""
@@ -2587,52 +2963,8 @@ msgstr "Desvincular del servidor"
 #~ "Intenta detectar los bloqueadores de Anuncios mostrando a los visitantes "
 #~ "un mensaje."
 
-#~ msgid "Weight:"
-#~ msgstr "Prioridad:"
-
-#~ msgid "Barely visible"
-#~ msgstr "Apenas visible"
-
-#~ msgid "Less than average"
-#~ msgstr "Menos de la media"
-
-#~ msgid "Normal coverage"
-#~ msgstr "Cobertura normal"
-
-#~ msgid "More than average"
-#~ msgstr "Más de la media"
-
-#~ msgid "Best visibility"
-#~ msgstr "La mejor visibilidad"
-
 #~ msgid "Geo Location"
 #~ msgstr "Geo Localización"
-
-#~ msgid ""
-#~ "This works if you assign the advert to a group and enable that group to "
-#~ "use Geo Targeting."
-#~ msgstr ""
-#~ "Esto funciona si asigna el anuncio a un grupo y habilita utilizar Geo "
-#~ "Targeting en ese grupo."
-
-#~ msgid "Cities:"
-#~ msgstr "Ciudades:"
-
-#~ msgid "Countries"
-#~ msgstr "Paises"
-
-#~ msgid "Usage:"
-#~ msgstr "Utilización:"
-
-#~ msgid "Select the countries you want the adverts to show in."
-#~ msgstr ""
-#~ "Seleccione los países en los que desea que los anuncios se muestren."
-
-#~ msgid "Cities take priority and will be filtered first."
-#~ msgstr "Las ciudades tendrán prioridad y serán filtradas primero."
-
-#~ msgid "Export options"
-#~ msgstr "Exportar opciones"
 
 #~ msgid "Enable GeoTargeting for this group."
 #~ msgstr "Activar GeoTargeting para este grupo."
@@ -2678,17 +3010,8 @@ msgstr "Desvincular del servidor"
 #~ msgid "Current Schedules"
 #~ msgstr "Calendario actual"
 
-#~ msgid "From / Until"
-#~ msgstr "Desde / Hasta"
-
-#~ msgid "Max Clicks"
-#~ msgstr "Número máximo de Clics"
-
 #~ msgid "This ad used"
 #~ msgstr "Este anuncio se utiliza"
-
-#~ msgid "Max Impressions"
-#~ msgstr "Número máximo de Impresiones"
 
 #~ msgid "Fallback"
 #~ msgstr "Retroceder"

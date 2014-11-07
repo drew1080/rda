@@ -68,8 +68,13 @@ class UpdraftPlusAddOns_Options2 {
 		$this->show_admin_warning('<a id="updraftaddons_updatewarning" href="'.$this->plugin_update_url.'">'.__('An update is available for UpdraftPlus - please follow this link to get it.', 'updraftplus').'</a>');
 	}
 
-	function show_admin_warning_notconnected() {
-		$this->show_admin_warning(__('You have not yet connected with your UpdraftPlus.Com account, to enable you to list your purchased add-ons.', 'updraftplus').' '.__('You also need to connect to receive future updates to UpdraftPlus.', 'updraftplus').' <a href="'.$this->options->addons_admin_url().'">'.__('Go here to connect.','updraftplus').'</a>');
+	public function show_admin_warning_notconnected() {
+		global $updraftplus;
+		if (0 == $updraftplus->have_addons) {
+			$this->show_admin_warning(__('You have not yet connected with your UpdraftPlus.Com account, to enable you to list your purchased add-ons.', 'updraftplus').' '.__('You need to connect to receive future updates to UpdraftPlus.', 'updraftplus').' <a href="'.$this->options->addons_admin_url().'">'.__('Go here to connect.','updraftplus').'</a>');
+		} else {
+			$this->show_admin_warning(__('You have not yet connected with your UpdraftPlus.Com account.', 'updraftplus').' '.__('You need to connect to receive future updates to UpdraftPlus.', 'updraftplus').' <a href="'.$this->options->addons_admin_url().'">'.__('Go here to connect.','updraftplus').'</a>');
+		}
 	}
 
 	function show_admin_warning_noupdraftplus() {
@@ -253,7 +258,7 @@ ENDHERE;
 		if (isset($connection_errors)) {
 			echo '<div class="error"><p><strong>'.__('Errors occurred when trying to connect to UpdraftPlus.Com:','updraftplus').'</strong></p><ul>';
 			foreach ($connection_errors as $err) {
-				echo '<li style="list-style:disc inside;">'.htmlspecialchars($err).'</li>';
+				echo '<li style="list-style:disc inside;">'.$err.'</li>';
 			}
 			echo '</ul></div>';
 		}

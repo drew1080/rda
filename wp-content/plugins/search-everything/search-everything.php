@@ -3,12 +3,12 @@
 Plugin Name: Search Everything
 Plugin URI: http://wordpress.org/plugins/search-everything/
 Description: Adds search functionality without modifying any template pages: Activate, Configure and Search. Options Include: search highlight, search pages, excerpts, attachments, drafts, comments, tags and custom fields (metadata). Also offers the ability to exclude specific pages and posts. Does not search password-protected content.
-Version: 8.1.1
+Version: 8.1.2
 Author: Zemanta
 Author URI: http://www.zemanta.com
 */
 
-define('SE_VERSION', '8.1.1');
+define('SE_VERSION', '8.1.2');
 
 if (!defined('SE_PLUGIN_FILE'))
 	define('SE_PLUGIN_FILE', plugin_basename(__FILE__));
@@ -828,13 +828,13 @@ class SearchEverything {
 
 				if ( $highlight_color != '' )
 					$postcontent = preg_replace(
-						'"(?<!\<)(?<!\w)(\pL*'.$term.'\pL*)(?!\w|[^<>]*>)"i'
+						'"(?<!\<)(?<!\w)(\pL*'.$term.'\pL*)(?!\w|[^<>]*>)"iu'
 						, '<span class="search-everything-highlight-color" style="background-color:'.$highlight_color.'">$1</span>'
 						, $postcontent
 					);
 				else
 					$postcontent = preg_replace(
-						'"(?<!\<)(?<!\w)(\pL*'.$term.'\pL*)(?!\w|[^<>]*>)"i'
+						'"(?<!\<)(?<!\w)(\pL*'.$term.'\pL*)(?!\w|[^<>]*>)"iu'
 						, '<span class="search-everything-highlight" style="'.$highlight_style.'">$1</span>'
 						, $postcontent
 					);
