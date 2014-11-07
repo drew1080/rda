@@ -34,7 +34,7 @@
 		}
 		body_class(trim($additional_body_classes)); 
 	  ?>>
-	<div id="page" class="hfeed site">
+	<div id="page" class="hfeed site ram">
 		<div class="head-container">		
 			<div class="container">			
 				<div class="sixteen columns">				

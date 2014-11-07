@@ -49,7 +49,7 @@
 
             
 
-        <div class="featuredphoto test2"> 
+        <div class="featuredphoto ram test1"> 
         <?php if ( has_post_thumbnail() ) { // check if the post has a Post Thumbnail assigned to it.
          the_post_thumbnail('large');
          //echo get_the_post_thumbnail( $post->ID, 'large' );

@@ -90,3 +90,9 @@ function the_post_thumbnail_caption() {
   }
   return $post_caption;
 }
+
+function stupid_ms_files_rewriting() {
+        $url = '/wp-content/uploads/sites/' . get_current_blog_id();
+        define( 'BLOGUPLOADDIR', $url );
+}
+add_action('init','stupid_ms_files_rewriting');
